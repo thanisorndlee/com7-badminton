@@ -1,7 +1,7 @@
 'use client';
 
 export default function StreamPage() {
-  const youtubeVideoId = '06dm2HAebC0';
+  const youtubeVideoId = 'SEANzrzUKLU';
 const hasLiveLink = youtubeVideoId.trim() !== '';
 
   return (
