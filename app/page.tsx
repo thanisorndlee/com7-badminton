@@ -138,15 +138,25 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก - แก้ไขให้ขยายเต็มความสูงบนมือถือ ไร้ขอบสีดำกวนใจ */}
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก - แยกเวอร์ชันคอมพิวเตอร์และมือถือขาดจากกัน */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
+        
+        {/* 💻 รูปสลับสำหรับหน้าจอคอมพิวเตอร์ (ขนาดปานกลางขึ้นไป md) */}
         <img
           src="/badminton-main.png"
-          alt="COM7 Badminton Tournament 2026 Official"
-          className="w-full h-full object-cover object-center md:object-top block"
+          alt="COM7 Badminton Tournament 2026 PC Official"
+          className="hidden md:block w-full h-full object-cover object-top"
         />
-        {/* ม่านไล่เฉดสีดำจากล่างขึ้นบน เพื่อทำให้กล่องสปอนเซอร์และปุ่มกดดูเด่นอ่านง่าย */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
+
+        {/* 📱 รูปสลับสำหรับหน้าจอมือถือโดยเฉพาะ (ซ่อนบนจอคอม) */}
+        <img
+          src="/badminton-main-mobile.png"
+          alt="COM7 Badminton Tournament 2026 Mobile Official"
+          className="block md:hidden w-full h-full object-cover object-center"
+        />
+        
+        {/* ม่านไล่เฉดสีดำเพื่อให้กล่องสปอนเซอร์อ่านง่าย */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10 pointer-events-none" />
       </div>
 
       {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงามพอดีฉากหน้าจอ */}
