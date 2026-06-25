@@ -150,7 +150,7 @@ export default function HomePage() {
 
         {/* 📱 รูปสำหรับหน้าจอมือถือ - ปรับมุมกล้องเอียงขวา 75% เพื่อหลบพื้นที่ตัวหนังสือฝั่งซ้าย */}
         <img
-          src="/badminton-main-mobile.png"
+          src="/badminton-main-mobile-v2.png"
           alt="COM7 Badminton Tournament 2026 Mobile Official"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
