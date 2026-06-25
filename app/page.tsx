@@ -27,7 +27,7 @@ export default function HomePage() {
   }, [sponsors.length]);
 
   return (
-    <div className="w-full min-h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
+    <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
         @keyframes borderRotate {
@@ -67,7 +67,7 @@ export default function HomePage() {
         .single-sponsor-content {
           position: relative;
           z-index: 2;
-          background: rgba(0, 0, 0, 0.7);
+          background: rgba(0, 0, 0, 0.75);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           width: calc(100% - 2px);
@@ -138,18 +138,18 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก - ขยายเต็มจอแต่จัดวางตำแหน่งกึ่งกลางพอดีสำหรับทุกอุปกรณ์ */}
-      <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center bg-black">
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก - แก้ไขให้ขยายเต็มความสูงบนมือถือ ไร้ขอบสีดำกวนใจ */}
+      <div className="absolute inset-0 w-full h-full z-0 bg-black">
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 Official"
-          className="w-full h-full object-cover object-center block"
+          className="w-full h-full object-cover object-center md:object-top block"
         />
-        {/* เพิ่มม่านโปร่งแสงด้านล่างเพื่อให้กล่องสปอนเซอร์เด่นอ่านง่ายขึ้น */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+        {/* ม่านไล่เฉดสีดำจากล่างขึ้นบน เพื่อทำให้กล่องสปอนเซอร์และปุ่มกดดูเด่นอ่านง่าย */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส - ดันระยะห่างให้พอดีขอบจอด้านล่าง */}
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงามพอดีฉากหน้าจอ */}
       <div className="absolute bottom-6 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
