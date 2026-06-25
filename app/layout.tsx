@@ -56,8 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
               </div>
 
-              {/* ฝั่งขวา: รายการลิงก์เมนูและปุ่มสมัคร */}
-              <div className="flex flex-row items-center justify-end gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 flex-shrink-0">
+              {/* ฝั่งขวา: รายการลิงก์เมนูและปุ่มสมัคร (ปรับปรุงให้สไลด์ซ้าย-ขวาได้บนมือถือ) */}
+              <div className="flex flex-row items-center justify-end gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 flex-shrink-0 max-w-full overflow-x-auto no-scrollbar scroll-smooth pb-1 md:pb-0">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
