@@ -27,7 +27,7 @@ export default function HomePage() {
   }, [sponsors.length]);
 
   return (
-    <div className="w-full min-h-[calc(100vh-68px)] md:h-[calc(100vh-68px)] relative flex flex-col md:flex-row items-center justify-center overflow-hidden bg-black select-none">
+    <div className="w-full min-h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
         @keyframes borderRotate {
@@ -40,7 +40,7 @@ export default function HomePage() {
           overflow: hidden;
           width: 100%;
           max-width: 850px;
-          height: 120px;
+          height: 110px;
         }
         @media (min-width: 768px) {
           .single-sponsor-wrapper { height: 160px; }
@@ -67,7 +67,7 @@ export default function HomePage() {
         .single-sponsor-content {
           position: relative;
           z-index: 2;
-          background: rgba(0, 0, 0, 0.65);
+          background: rgba(0, 0, 0, 0.7);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           width: calc(100% - 2px);
@@ -103,7 +103,7 @@ export default function HomePage() {
           );
           clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
           filter: blur(8px);
-          opacity: 0.4;
+          opacity: 0.35;
           pointer-events: none;
           z-index: 1;
           animation: beamSwing var(--duration) ease-in-out infinite;
@@ -138,18 +138,20 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก - ปรับให้ Responsive หดตามหน้าจอมือถือได้ครบถ้วน */}
-      <div className="absolute inset-0 w-full h-full z-0 flex items-start md:items-center justify-center bg-black">
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก - ขยายเต็มจอแต่จัดวางตำแหน่งกึ่งกลางพอดีสำหรับทุกอุปกรณ์ */}
+      <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center bg-black">
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 Official"
-          className="w-full h-auto max-h-full md:h-full md:w-full object-contain md:object-cover md:object-top block mt-4 md:mt-0"
+          className="w-full h-full object-cover object-center block"
         />
+        {/* เพิ่มม่านโปร่งแสงด้านล่างเพื่อให้กล่องสปอนเซอร์เด่นอ่านง่ายขึ้น */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส - ปรับขนาดและความสูงให้สมมาตรตามอุปกรณ์ */}
-      <div className="absolute bottom-4 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
-        <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] transition-all duration-300 hover:scale-[1.01]">
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส - ดันระยะห่างให้พอดีขอบจอด้านล่าง */}
+      <div className="absolute bottom-6 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
+        <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
           {[...Array(15)].map((_, i) => (
             <div key={i} className={`concert-light light-${i}`} />
@@ -173,7 +175,7 @@ export default function HomePage() {
 
             <div className="w-5/6 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1 md:my-1.5 relative z-20" />
 
-            <div className="relative w-full h-12 md:h-18 overflow-hidden flex items-center justify-center z-20">
+            <div className="relative w-full h-11 md:h-18 overflow-hidden flex items-center justify-center z-20">
               {sponsors.map((sponsor, index) => (
                 <div
                   key={sponsor.id}
@@ -187,9 +189,8 @@ export default function HomePage() {
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
-                    className="h-7 md:h-10 object-contain brightness-110 max-w-[220px] md:max-w-[320px]"
+                    className="h-6 md:h-10 object-contain brightness-110 max-w-[200px] md:max-w-[320px]"
                     onError={(e) => {
-                      // ดักทางถ้าหาไฟล์รูปโลโก้ไม่เจอ ให้ซ่อนชื่อกันกล่องพังเป็นเครื่องหมายคำถาม
                       e.currentTarget.style.opacity = '0.4';
                     }}
                   />
