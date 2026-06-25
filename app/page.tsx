@@ -150,7 +150,7 @@ export default function HomePage() {
 
         {/* 📱 รูปสำหรับหน้าจอมือถือ เวอร์ชัน v3 (แก้ปัญหา Cache บังคับอัปเดตทันที) */}
         <img
-          src="/badminton-main-mobile-v3.png"
+          src="/badminton-main-mobile-v3.PNG"
           alt="COM7 Badminton Tournament 2026 Mobile v3"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
