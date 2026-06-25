@@ -148,10 +148,10 @@ export default function HomePage() {
           className="hidden md:block w-full h-full object-cover object-top"
         />
 
-        {/* 📱 รูปสำหรับหน้าจอมือถือ - ปรับมุมกล้องเอียงขวา 75% เพื่อหลบพื้นที่ตัวหนังสือฝั่งซ้าย */}
+        {/* 📱 รูปสำหรับหน้าจอมือถือ เวอร์ชัน v3 (แก้ปัญหา Cache บังคับอัปเดตทันที) */}
         <img
-          src="/badminton-main-mobile-v2.png"
-          alt="COM7 Badminton Tournament 2026 Mobile Official"
+          src="/badminton-mobile-v3.png"
+          alt="COM7 Badminton Tournament 2026 Mobile v3"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
         
@@ -159,7 +159,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงาม - ปรับ bottom-20 หนีแถบ URL ด้านล่างบนมือถือ */}
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงาม (ขยับหลบปุ่มล่างแถบ URL) */}
       <div className="absolute bottom-20 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
