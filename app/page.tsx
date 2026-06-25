@@ -13,7 +13,7 @@ export default function HomePage() {
   ];
 
   useEffect(() => {
-    const generatedParticles = [...Array(40)].map(() => ({
+    const generatedParticles = [...Array(30)].map(() => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
       delay: `${Math.random() * 3}s`,
@@ -27,7 +27,7 @@ export default function HomePage() {
   }, [sponsors.length]);
 
   return (
-    <div className="w-full h-[calc(100vh-68px)] relative flex items-center justify-center overflow-hidden bg-black select-none">
+    <div className="w-full min-h-[calc(100vh-68px)] md:h-[calc(100vh-68px)] relative flex flex-col md:flex-row items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
         @keyframes borderRotate {
@@ -40,7 +40,10 @@ export default function HomePage() {
           overflow: hidden;
           width: 100%;
           max-width: 850px;
-          height: 160px;
+          height: 120px;
+        }
+        @media (min-width: 768px) {
+          .single-sponsor-wrapper { height: 160px; }
         }
         
         .single-sponsor-wrapper::before {
@@ -64,7 +67,7 @@ export default function HomePage() {
         .single-sponsor-content {
           position: relative;
           z-index: 2;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0, 0, 0, 0.65);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           width: calc(100% - 2px);
@@ -100,7 +103,7 @@ export default function HomePage() {
           );
           clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
           filter: blur(8px);
-          opacity: 0.5;
+          opacity: 0.4;
           pointer-events: none;
           z-index: 1;
           animation: beamSwing var(--duration) ease-in-out infinite;
@@ -135,18 +138,18 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
-      <div className="absolute inset-0 w-full h-full z-0">
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก - ปรับให้ Responsive หดตามหน้าจอมือถือได้ครบถ้วน */}
+      <div className="absolute inset-0 w-full h-full z-0 flex items-start md:items-center justify-center bg-black">
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 Official"
-          className="w-full h-full object-cover object-top block"
+          className="w-full h-auto max-h-full md:h-full md:w-full object-contain md:object-cover md:object-top block mt-4 md:mt-0"
         />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส ลอยสวยงามพอดีฉากหน้าจอ */}
-      <div className="absolute bottom-8 inset-x-0 z-20 px-6 flex justify-center w-full">
-        <div className="single-sponsor-wrapper rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] transition-all duration-300 hover:scale-[1.01]">
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส - ปรับขนาดและความสูงให้สมมาตรตามอุปกรณ์ */}
+      <div className="absolute bottom-4 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
+        <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] transition-all duration-300 hover:scale-[1.01]">
           
           {[...Array(15)].map((_, i) => (
             <div key={i} className={`concert-light light-${i}`} />
@@ -160,17 +163,17 @@ export default function HomePage() {
             />
           ))}
 
-          <div className="single-sponsor-content rounded-3xl p-5 flex flex-col items-center justify-between h-full">
+          <div className="single-sponsor-content rounded-2xl md:rounded-3xl p-3 md:p-5 flex flex-col items-center justify-between h-full">
             
             <div className="text-center w-full mt-0.5">
-              <h3 className="text-xs md:text-sm text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
+              <h3 className="text-[10px] md:text-sm text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
                 SPONSORED BY 
               </h3>
             </div>
 
-            <div className="w-5/6 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1.5 relative z-20" />
+            <div className="w-5/6 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1 md:my-1.5 relative z-20" />
 
-            <div className="relative w-full h-18 overflow-hidden flex items-center justify-center z-20">
+            <div className="relative w-full h-12 md:h-18 overflow-hidden flex items-center justify-center z-20">
               {sponsors.map((sponsor, index) => (
                 <div
                   key={sponsor.id}
@@ -184,9 +187,13 @@ export default function HomePage() {
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
-                    className="h-10 object-contain brightness-110 max-w-[320px]"
+                    className="h-7 md:h-10 object-contain brightness-110 max-w-[220px] md:max-w-[320px]"
+                    onError={(e) => {
+                      // ดักทางถ้าหาไฟล์รูปโลโก้ไม่เจอ ให้ซ่อนชื่อกันกล่องพังเป็นเครื่องหมายคำถาม
+                      e.currentTarget.style.opacity = '0.4';
+                    }}
                   />
-                  <span className="text-[10px] text-slate-300 font-medium mt-1 tracking-wider">
+                  <span className="text-[9px] md:text-[10px] text-slate-300 font-medium mt-0.5 md:mt-1 tracking-wider">
                     {sponsor.name}
                   </span>
                 </div>
