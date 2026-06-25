@@ -7,9 +7,8 @@ import './globals.css';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // ฟังก์ชันควบคุมเอฟเฟกต์สโลว์นุ่มนวลให้กับเมนูลิงก์ (Transition Slow Effect)
+  // ฟังก์ชันควบคุมเอฟเฟกต์สโลว์นุ่มนวลให้กับเมนูลิงก์
   const getMenuClass = (path: string) => {
-    // บังคับ duration-500 และ ease-in-out เพื่อให้ตัวหนังสือและเส้นใต้ขยับสโลว์ช้าๆ ตอนสลับหน้า
     const baseClass = "transition-all duration-500 ease-in-out py-1 whitespace-nowrap cursor-pointer";
     const activeClass = " text-[#39ff14] font-semibold border-b-2 border-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]";
     const inactiveClass = " text-slate-300 hover:text-white border-b-2 border-transparent";
@@ -26,10 +25,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet" />
       </head>
       <body 
-      className="min-h-screen text-white antialiased bg-black relative flex flex-col"
+        className="min-h-screen text-white antialiased bg-black relative flex flex-col"
         style={{ fontFamily: "'Kanit', sans-serif" }}
       >
-        <div className="w-full flex flex-col h-full min-h-screen  relative z-10">
+        <div className="w-full flex flex-col h-full min-h-screen relative z-10">
           
           {/* กรอบด้านนอกสุดของ Navbar */}
           <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black">
@@ -41,11 +40,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
             />
             
-            {/* 🌐 ปรับตรงนี้: เพิ่มความเข้มม่านดำขึ้นเป็น bg-black/65 เพื่อลดความสว่างของภาพพื้นหลังลง ตัวหนังสือจะอ่านง่ายขึ้น */}
+            {/* 🌐 ม่านดำลดความสว่างภาพพื้นหลัง */}
             <div className="absolute inset-0 bg-black/65 z-10 pointer-events-none"></div>
 
-            {/* เอา max-w-7xl ออกและปรับเป็นความกว้าง w-full พร้อม px-4 md:px-8 เพื่อผลักกล่องข้อความขยับชิดไปทางซ้ายสุด-ขวาสุดมากขึ้น */}
-            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20">
+            {/* คุมโครงสร้าง Navbar ไม่ให้โลโก้โดนบีบจนหลุด */}
+            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
               
               {/* 🎯 ฝั่งซ้าย: กลุ่มข้อความโลโก้ */}
               <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase relative z-20 flex-shrink-0">
@@ -56,15 +55,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
               </div>
 
-              {/* ฝั่งขวา: รายการลิงก์เมนูและปุ่มสมัคร (ปรับปรุงให้สไลด์ซ้าย-ขวาได้บนมือถือ) */}
-              <div className="flex flex-row items-center justify-end gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 flex-shrink-0 max-w-full overflow-x-auto no-scrollbar scroll-smooth pb-1 md:pb-0">
+              {/* ฝั่งขวา: รายการลิงก์เมนูและปุ่มสมัคร (เวอร์ชันปลดล็อกให้ใช้นิ้วปัดสไลด์บนมือถือได้ชัวร์ๆ ด้วย Tailwind แท้) */}
+              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-180px)] md:max-w-none">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
                 <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>
                 <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกาการแข่งขัน</Link>
                 
-                {/* 🔘 ปุ่มสมัครสีเทาโปร่งแสงสไตล์กระจกเงา */}
+                {/* 🔘 ปุ่มสมัคร */}
                 <Link 
                   href="/register" 
                   className={`transition-all duration-500 ease-in-out px-5 py-2 rounded-full font-semibold flex-shrink-0 whitespace-nowrap border ${
@@ -91,4 +90,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
-} 
+}
