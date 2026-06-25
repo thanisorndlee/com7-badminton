@@ -1,65 +1,202 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useEffect, useState } from 'react';
+
+export default function HomePage() {
+  const [particles, setParticles] = useState<{ left: string; top: string; delay: string }[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const sponsors = [
+    { id: 1, name: 'POWER SHUTTLE', logo: '/power-shuttle-logo.png' },
+    { id: 2, name: 'SIAM SPORTS ARENA', logo: '/siam-sports-logo.png' },
+    { id: 3, name: 'TECHNIQUE', logo: '/technique-logo.png' },
+  ];
+
+  useEffect(() => {
+    const generatedParticles = [...Array(40)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 3}s`,
+    }));
+    setParticles(generatedParticles);
+
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % sponsors.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [sponsors.length]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="w-full h-[calc(100vh-68px)] relative flex items-center justify-center overflow-hidden bg-black select-none">
+      
+      <style jsx global>{`
+        @keyframes borderRotate {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        .single-sponsor-wrapper {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          max-width: 850px;
+          height: 160px;
+        }
+        
+        .single-sponsor-wrapper::before {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: conic-gradient(
+            transparent, 
+            rgba(57, 255, 20, 0.1), 
+            rgba(57, 255, 20, 0.4), 
+            rgba(57, 255, 20, 0.1), 
+            transparent 60%
+          );
+          animation: borderRotate 6s linear infinite;
+          z-index: 1;
+        }
+
+        .single-sponsor-content {
+          position: relative;
+          z-index: 2;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          width: calc(100% - 2px);
+          height: calc(100% - 2px);
+          margin: 1px;
+          box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.02);
+        }
+
+        @keyframes beamSwing {
+          0% { transform: translateX(-50%) rotate(calc(var(--angle) - 6deg)); }
+          50% { transform: translateX(-50%) rotate(calc(var(--angle) + 6deg)); }
+          100% { transform: translateX(-50%) rotate(calc(var(--angle) - 6deg)); }
+        }
+
+        @keyframes goldSparkle {
+          0%, 100% { transform: scale(0.5); opacity: 0.15; }
+          50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); }
+        }
+
+        .concert-light {
+          position: absolute;
+          top: -20px;
+          left: 50%;
+          width: 90px;
+          height: 500px;
+          transform-origin: top center;
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.75),
+            rgba(57, 255, 20, 0.25),
+            rgba(57, 255, 20, 0.02),
+            transparent
+          );
+          clip-path: polygon(48% 0%, 52% 0%, 100% 100%, 0% 100%);
+          filter: blur(8px);
+          opacity: 0.5;
+          pointer-events: none;
+          z-index: 1;
+          animation: beamSwing var(--duration) ease-in-out infinite;
+        }
+
+        .light-0  { --angle: -70deg; --duration: 1.5s; }
+        .light-1  { --angle: -60deg; --duration: 1.8s; }
+        .light-2  { --angle: -50deg; --duration: 1.3s; }
+        .light-3  { --angle: -40deg; --duration: 1.7s; }
+        .light-4  { --angle: -30deg; --duration: 1.4s; }
+        .light-5  { --angle: -20deg; --duration: 1.9s; }
+        .light-6  { --angle: -10deg; --duration: 1.6s; }
+        .light-7  { --angle: 10deg;  --duration: 1.5s; animation-direction: reverse; }
+        .light-8  { --angle: 20deg;  --duration: 1.8s; animation-direction: reverse; }
+        .light-9  { --angle: 30deg;  --duration: 1.3s; animation-direction: reverse; }
+        .light-10 { --angle: 40deg;  --duration: 1.7s; animation-direction: reverse; }
+        .light-11 { --angle: 50deg;  --duration: 1.4s; animation-direction: reverse; }
+        .light-12 { --angle: 60deg;  --duration: 1.9s; animation-direction: reverse; }
+        .light-13 { --angle: 70deg;  --duration: 1.6s; animation-direction: reverse; }
+        .light-14 { --angle: 0deg;   --duration: 2s; }
+
+        .gold-particle {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background-color: #ffffff;
+          border-radius: 50%;
+          box-shadow: 0 0 6px #39ff14, 0 0 10px #39ff14;
+          pointer-events: none;
+          z-index: 2;
+          animation: goldSparkle 2.5s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <img
+          src="/badminton-main.png"
+          alt="COM7 Badminton Tournament 2026 Official"
+          className="w-full h-full object-cover object-top block"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </div>
+
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวโปร่งใส ลอยสวยงามพอดีฉากหน้าจอ */}
+      <div className="absolute bottom-8 inset-x-0 z-20 px-6 flex justify-center w-full">
+        <div className="single-sponsor-wrapper rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.85)] transition-all duration-300 hover:scale-[1.01]">
+          
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className={`concert-light light-${i}`} />
+          ))}
+
+          {particles.map((p, i) => (
+            <div
+              key={`p-${i}`}
+              className="gold-particle"
+              style={{ left: p.left, top: p.top, animationDelay: p.delay }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          ))}
+
+          <div className="single-sponsor-content rounded-3xl p-5 flex flex-col items-center justify-between h-full">
+            
+            <div className="text-center w-full mt-0.5">
+              <h3 className="text-xs md:text-sm text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
+                SPONSORED BY 
+              </h3>
+            </div>
+
+            <div className="w-5/6 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1.5 relative z-20" />
+
+            <div className="relative w-full h-18 overflow-hidden flex items-center justify-center z-20">
+              {sponsors.map((sponsor, index) => (
+                <div
+                  key={sponsor.id}
+                  className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out"
+                  style={{
+                    opacity: currentSlide === index ? 1 : 0,
+                    transform: currentSlide === index ? 'scale(1) translateY(0)' : 'scale(0.96) translateY(10px)',
+                    pointerEvents: currentSlide === index ? 'auto' : 'none',
+                  }}
+                >
+                  <img
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    className="h-10 object-contain brightness-110 max-w-[320px]"
+                  />
+                  <span className="text-[10px] text-slate-300 font-medium mt-1 tracking-wider">
+                    {sponsor.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
-      </main>
+      </div>
+
     </div>
   );
 }
