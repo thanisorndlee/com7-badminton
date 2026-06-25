@@ -138,29 +138,29 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก - แยกเวอร์ชันคอมพิวเตอร์และมือถือขาดจากกัน */}
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
         
-        {/* 💻 รูปสลับสำหรับหน้าจอคอมพิวเตอร์ (ขนาดปานกลางขึ้นไป md) */}
+        {/* 💻 รูปสำหรับหน้าจอคอมพิวเตอร์ */}
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 PC Official"
           className="hidden md:block w-full h-full object-cover object-top"
         />
 
-        {/* 📱 รูปสลับสำหรับหน้าจอมือถือโดยเฉพาะ (ซ่อนบนจอคอม) */}
+        {/* 📱 รูปสำหรับหน้าจอมือถือ - ปรับมุมกล้องเอียงขวา 75% เพื่อหลบพื้นที่ตัวหนังสือฝั่งซ้าย */}
         <img
           src="/badminton-main-mobile.png"
           alt="COM7 Badminton Tournament 2026 Mobile Official"
-          className="block md:hidden w-full h-full object-cover object-center"
+          className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
         
-        {/* ม่านไล่เฉดสีดำเพื่อให้กล่องสปอนเซอร์อ่านง่าย */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10 pointer-events-none" />
+        {/* ม่านไล่เฉดสีดำ */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงามพอดีฉากหน้าจอ */}
-      <div className="absolute bottom-6 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
+      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงาม - ปรับ bottom-20 หนีแถบ URL ด้านล่างบนมือถือ */}
+      <div className="absolute bottom-20 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
           {[...Array(15)].map((_, i) => (
