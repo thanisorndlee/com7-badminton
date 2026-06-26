@@ -22,7 +22,7 @@ export default function StreamPage() {
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 mb-12 items-stretch">
         
-        {/* กล่องที่ 1: LIVE STREAM MAIN */}
+        {/* Main Box (Left): Live Stream */}
         <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between backdrop-blur-md">
           <div className="w-full">
             <div className="w-full mb-4 flex items-center justify-between border-b border-white/10 pb-4">
@@ -46,21 +46,17 @@ export default function StreamPage() {
             </div>
           </div>
 
-          {/* 🎯 ปรับคำพูดภาษาไทยให้สั้น กระชับ ชิดขอบล่างพอดี ไม่ดันกล่องโย้ลงไปข้างล่าง */}
           <div className="mt-4 w-full text-left pb-1">
             <h2 className="text-base md:text-lg font-black text-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.3)]">
               COM7 BADMINTON TOURNAMENT 2026 | Main Court
             </h2>
-            <p className="text-xs text-slate-300 mt-1">
-              สามารถรับชมถ่ายทอดสดการแข่งขันแบดมินตันจากสนามหลักได้ทันที สัญญาณภาพสดส่งตรงจากขอบสนาม
-            </p>
           </div>
         </div>
 
-        {/* ฝั่งขวา */}
+        {/* Side Boxes (Right) */}
         <div className="lg:col-span-1 flex flex-col gap-6 justify-between">
           
-          {/* กล่องที่ 2: MATCH REPLAY / HIGHLIGHT */}
+          {/* Replay Box */}
           <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-between">
             <div>
               <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
@@ -80,16 +76,12 @@ export default function StreamPage() {
               </div>
             </div>
             
-            {/* 🎯 ปรับคำพูดกล่องวิดีโอย้อนหลังให้สั้นกะทัดรัดเท่ากัน */}
             <div className="mt-3 block text-left">
               <h4 className="text-xs md:text-sm font-bold text-white line-clamp-1">Group Stage Highlights | Men's Doubles</h4>
-              <p className="text-[11px] text-slate-300 mt-1">
-                สามารถรับชมวิดีโอการแข่งขันไฮไลท์ย้อนหลัง และแมตช์พอยต์ช็อตเด็ดคู่สำคัญประจำทัวร์นาเมนต์
-              </p>
             </div>
           </div>
 
-          {/* กล่องที่ 3: CURRENT MATCHES */}
+          {/* Current Matches Box */}
           <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-start">
             <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
               <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
