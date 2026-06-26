@@ -1,13 +1,22 @@
 'use client';
 
+import React, { useState } from 'react';
+
 export default function StreamPage() {
-  const youtubeVideoId = 'SEANzrzUKLU';
-const hasLiveLink = youtubeVideoId.trim() !== '';
+  const youtubeLiveId = 'SEANzrzUKLU';
+  const youtubeReplayId = 'dQw4w9WgXcQ';
+  
+  const hasLiveLink = youtubeLiveId.trim() !== '';
+
+  const [currentMatches] = useState([
+    { id: 1, court: 'Court 1', time: '15:30 - 16:15', teamA: 'Thanaphat / Supakorn', teamB: 'Nattapong / Apisit', status: 'Live' },
+    { id: 2, court: 'Court 2', time: '15:30 - 16:15', teamA: 'Peerapol / Chayut', teamB: 'Worameth / Siwach', status: 'Live' },
+    { id: 3, court: 'Court 1', time: '16:15 - 17:00', teamA: 'Anan / Tossapol', teamB: 'Kittisak / Thanakor', status: 'Upcoming' },
+  ]);
 
   return (
-    <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative overflow-x-hidden flex flex-col items-center">
+    <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-8 pt-24 md:pt-28 select-none relative overflow-x-hidden flex flex-col items-center">
       
-      {/* 🏞️ รูปพื้นหลังหลัก คมชัด 100% */}
       <div className="absolute inset-0 z-0">
         <img
           src="/wall-ตารางการแข่งขัน.png"
@@ -16,46 +25,115 @@ const hasLiveLink = youtubeVideoId.trim() !== '';
         />
       </div>
 
-      {/* 📦 กล่อง Dashboard โครงกระจกเข้ม (bg-slate-950/75) */}
-      <div className="max-w-5xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 mb-12">
         
-        {/* Header แถบควบคุมด้านบน */}
-        <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
-          <div className="flex items-center gap-2.5">
-            <span className={`w-2.5 h-2.5 rounded-full ${hasLiveLink ? 'bg-red-500 animate-ping' : 'bg-slate-500'}`} />
-            <span className={`text-xs md:text-sm font-black tracking-wider uppercase ${hasLiveLink ? 'text-red-500' : 'text-slate-400'}`}>
-              LIVE STREAM
-            </span>
+        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between backdrop-blur-md">
+          <div>
+            <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2.5">
+                <span className={`w-2.5 h-2.5 rounded-full ${hasLiveLink ? 'bg-red-500 animate-ping' : 'bg-slate-500'}`} />
+                <span className={`text-xs md:text-sm font-black tracking-wider uppercase ${hasLiveLink ? 'text-red-500' : 'text-slate-400'}`}>
+                  LIVE STREAM MAIN
+                </span>
+              </div>
+              {hasLiveLink && (
+                <span className="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-black animate-pulse">LIVE</span>
+              )}
+            </div>
+
+            {hasLiveLink ? (
+              <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+                <iframe
+                  className="w-full h-full border-0"
+                  src={`https://www.youtube.com/embed/${youtubeLiveId}?autoplay=1&rel=0`}
+                  title="YouTube live stream player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div className="w-full aspect-video bg-white/[0.02] rounded-xl border border-dashed border-white/10 relative flex flex-col items-center justify-center p-6 text-center">
+                <h3 className="text-sm md:text-base font-black text-white tracking-wide">Waiting for Stream Signal</h3>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-4">
+            <h2 className="text-base md:text-lg font-black text-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.3)]">
+              COM7 BADMINTON TOURNAMENT 2026 | Main Court
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">High-definition live coverage directly from the main arena</p>
           </div>
         </div>
 
-        {/* 📺 ระบบฝังวิดีโอแบบไดนามิก (แก้ Property และเครื่องหมายให้ถูกต้องตาม TypeScript) */}
-        {hasLiveLink ? (
-          <div className="w-full aspect-video bg-black rounded-2xl border border-white/20 overflow-hidden shadow-2xl transition-all duration-300 hover:border-emerald-500/30">
-            <iframe
-              className="w-full h-full border-0"
-              src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&rel=0`}
-              title="YouTube live stream player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-        ) : (
-          /* 🔒 หน้าจอสแตนบายสไตล์กระจกซีทรูใสแจ๋ว */
-          <div className="w-full aspect-video bg-white/[0.02] rounded-2xl border border-dashed border-white/10 relative flex flex-col items-center justify-center p-6 text-center shadow-inner">
-            <div className="w-16 h-16 bg-black/40 rounded-full flex items-center justify-center border border-white/5 mb-4 shadow-xl">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
+        <div className="lg:col-span-1 flex flex-col gap-6">
+          
+          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md">
+            <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
+              <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
+                MATCH REPLAY / HIGHLIGHT
+              </span>
             </div>
-            <h3 className="text-base md:text-lg font-black text-white tracking-wide drop-shadow-md">
-              สแตนบายรอสัญญาณสตรีมมิ่ง
-            </h3>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm drop-shadow-sm">
-              เมื่อระบบเริ่มถ่ายทอดสด หน้าจอการแข่งขันจะปรากฏขึ้นบริเวณนี้โดยอัตโนมัติ
-            </p>
+
+            <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-lg">
+              <iframe
+                className="w-full h-full border-0"
+                src={`https://www.youtube.com/embed/${youtubeReplayId}?rel=0`}
+                title="YouTube replay player"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="mt-3">
+              <h4 className="text-xs md:text-sm font-bold text-white line-clamp-1">Group Stage Highlights | Men's Doubles</h4>
+              <p className="text-[11px] text-slate-400 mt-0.5">Best rallies and intense match points</p>
+            </div>
           </div>
-        )}
+
+          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex-grow flex flex-col">
+            <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
+              <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
+                CURRENT MATCHES
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-3 overflow-y-auto max-h-[260px] pr-1 scrollbar-thin">
+              {currentMatches.map((match) => (
+                <div key={match.id} className="bg-white/[0.03] border border-white/10 rounded-xl p-3 flex flex-col gap-2">
+                  <div className="flex flex-row justify-between items-center text-[11px]">
+                    <span className="text-[#39ff14] font-bold bg-[#39ff14]/10 px-2 py-0.5 rounded border border-[#39ff14]/20">{match.court}</span>
+                    <span className="text-slate-400 font-mono">{match.time}</span>
+                  </div>
+
+                  <div className="flex flex-col gap-1 text-xs font-bold px-1">
+                    <div className="flex justify-between text-slate-200">
+                      <span>{match.teamA}</span>
+                      <span className="text-[10px] text-slate-500 font-normal">Team A</span>
+                    </div>
+                    <div className="text-center text-[10px] text-[#39ff14]/40 font-black my-0.5">VS</div>
+                    <div className="flex justify-between text-slate-200">
+                      <span>{match.teamB}</span>
+                      <span className="text-[10px] text-slate-500 font-normal">Team B</span>
+                    </div>
+                  </div>
+
+                  <div className="w-full border-t border-white/5 my-0.5" />
+
+                  <div className="flex justify-end">
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded ${
+                      match.status === 'Live'
+                        ? 'text-amber-400 bg-amber-400/10 animate-pulse border border-amber-400/20'
+                        : 'text-slate-400 bg-zinc-800'
+                    }`}>
+                      {match.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
 
       </div>
     </div>
