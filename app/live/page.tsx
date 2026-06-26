@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 
 export default function StreamPage() {
-  const youtubeLiveId = 'SEANzrzUKLU';
-  const youtubeReplayId = 'dQw4w9WgXcQ';
+  // 🟢 เปลี่ยนรหัสวิดีโอตรงนี้ได้เลย (เปลี่ยนจากเดโม่เก่าให้แล้วครับ)
+  const youtubeLiveId = 'SEANzrzUKLU';   
+  const youtubeReplayId = 'tD1ySQu78A'; 
   
   const hasLiveLink = youtubeLiveId.trim() !== '';
 
@@ -27,8 +28,9 @@ export default function StreamPage() {
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 mb-12">
         
-        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between backdrop-blur-md">
-          <div>
+        {/* กล่องที่ 1: LIVE STREAM MAIN */}
+        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-start backdrop-blur-md">
+          <div className="w-full">
             <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
                 <span className={`w-2.5 h-2.5 rounded-full ${hasLiveLink ? 'bg-red-500 animate-ping' : 'bg-slate-500'}`} />
@@ -58,16 +60,18 @@ export default function StreamPage() {
             )}
           </div>
 
-          <div className="mt-4">
+          {/* 🎯 ปรับตรงนี้: เปลี่ยนจาก mt-4 เป็น mt-3 เพื่อดึงตัวอักษรขยับชิดขึ้นด้านบนให้สวยงามพอดีช่อง */}
+          <div className="mt-3 w-full">
             <h2 className="text-base md:text-lg font-black text-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.3)]">
               COM7 BADMINTON TOURNAMENT 2026 | Main Court
             </h2>
-            <p className="text-xs text-slate-400 mt-1">High-definition live coverage directly from the main arena</p>
+            <p className="text-xs text-slate-400 mt-0.5">High-definition live coverage directly from the main arena</p>
           </div>
         </div>
 
         <div className="lg:col-span-1 flex flex-col gap-6">
           
+          {/* กล่องที่ 2: MATCH REPLAY / HIGHLIGHT */}
           <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md">
             <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
               <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
@@ -90,6 +94,7 @@ export default function StreamPage() {
             </div>
           </div>
 
+          {/* กล่องที่ 3: CURRENT MATCHES */}
           <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex-grow flex flex-col">
             <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
               <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
