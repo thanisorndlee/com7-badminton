@@ -22,7 +22,7 @@ export default function StreamPage() {
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 mb-12 items-stretch">
         
-        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-start backdrop-blur-md">
+        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-between backdrop-blur-md lg:h-[540px]">
           <div className="w-full">
             <div className="w-full mb-4 flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2.5">
@@ -45,33 +45,35 @@ export default function StreamPage() {
             </div>
           </div>
 
-          <div className="mt-4 w-full text-left">
+          <div className="mt-4 w-full text-left pb-1">
             <h2 className="text-base md:text-lg font-black text-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.3)]">
               COM7 BADMINTON TOURNAMENT 2026 | Main Court
             </h2>
             <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
-              ยินดีต้อนรับเข้าสู่การถ่ายทอดสด ท่านสามารถรับชมการแข่งขันแบดมินตันจากสนามหลักได้ในขณะนี้ สัญญาณคมชัดส่งตรงจากขอบสนาม
+              ยินดีต้อนรับเข้าสู่หน้าต่างการถ่ายทอดสดหลัก ท่านสามารถรับชมการแข่งขันแบดมินตันจากสนามหลัก (Main Court) ได้ในขณะนี้ สัญญาณคมชัดส่งตรงจากขอบสนาม
             </p>
           </div>
         </div>
 
-        <div className="lg:col-span-1 flex flex-col gap-6 justify-between">
+        <div className="lg:col-span-1 flex flex-col gap-6 justify-between lg:h-[540px]">
           
-          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-start">
-            <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
-              <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
-                MATCH REPLAY / HIGHLIGHT
-              </span>
-            </div>
+          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-between lg:h-[258px]">
+            <div>
+              <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
+                <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
+                  MATCH REPLAY / HIGHLIGHT
+                </span>
+              </div>
 
-            <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-lg">
-              <iframe
-                className="w-full h-full border-0"
-                src="https://www.youtube.com/embed/UyneakgPiL8?rel=0"
-                title="YouTube replay player"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScree
-              />
+              <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-lg">
+                <iframe
+                  className="w-full h-full border-0"
+                  src="https://www.youtube.com/embed/SEANzrzUKLU?rel=0"
+                  title="YouTube replay player"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
             </div>
             
             <div className="mt-3 block text-left">
@@ -82,14 +84,14 @@ export default function StreamPage() {
             </div>
           </div>
 
-          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-start">
+          <div className="bg-slate-950/75 border border-white/20 p-5 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col justify-start lg:h-[258px]">
             <div className="mb-3 flex items-center gap-2 border-b border-white/10 pb-3">
               <span className="text-xs md:text-sm font-black tracking-wider text-slate-300 uppercase">
                 CURRENT MATCHES
               </span>
             </div>
 
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-[140px] pr-1 scrollbar-thin">
+            <div className="flex flex-col gap-2.5 overflow-y-auto max-h-[160px] pr-1 scrollbar-thin">
               {currentMatches.map((match) => (
                 <div key={match.id} className="bg-white/[0.03] border border-white/10 rounded-xl p-2.5 flex flex-col gap-1.5">
                   <div className="flex flex-row justify-between items-center text-[10px]">
