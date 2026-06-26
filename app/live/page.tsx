@@ -3,12 +3,6 @@
 import React, { useState } from 'react';
 
 export default function StreamPage() {
-  // 🟢 เปลี่ยนรหัสวิดีโอตรงนี้ได้เลย (เปลี่ยนจากเดโม่เก่าให้แล้วครับ)
-  const youtubeLiveId = 'SEANzrzUKLU';   
-  const youtubeReplayId = 'tD1ySQu78A'; 
-  
-  const hasLiveLink = youtubeLiveId.trim() !== '';
-
   const [currentMatches] = useState([
     { id: 1, court: 'Court 1', time: '15:30 - 16:15', teamA: 'Thanaphat / Supakorn', teamB: 'Nattapong / Apisit', status: 'Live' },
     { id: 2, court: 'Court 2', time: '15:30 - 16:15', teamA: 'Peerapol / Chayut', teamB: 'Worameth / Siwach', status: 'Live' },
@@ -29,43 +23,33 @@ export default function StreamPage() {
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6 relative z-10 mb-12">
         
         {/* กล่องที่ 1: LIVE STREAM MAIN */}
-        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-start backdrop-blur-md">
-          <div className="w-full">
-            <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
-              <div className="flex items-center gap-2.5">
-                <span className={`w-2.5 h-2.5 rounded-full ${hasLiveLink ? 'bg-red-500 animate-ping' : 'bg-slate-500'}`} />
-                <span className={`text-xs md:text-sm font-black tracking-wider uppercase ${hasLiveLink ? 'text-red-500' : 'text-slate-400'}`}>
-                  LIVE STREAM MAIN
-                </span>
-              </div>
-              {hasLiveLink && (
-                <span className="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-black animate-pulse">LIVE</span>
-              )}
+        <div className="lg:col-span-2 bg-slate-950/75 border border-white/20 p-5 md:p-6 rounded-[24px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] flex flex-col justify-start items-start backdrop-blur-md">
+          <div className="w-full mb-4 flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+              <span className="text-xs md:text-sm font-black tracking-wider uppercase text-red-500">
+                LIVE STREAM MAIN
+              </span>
             </div>
-
-            {hasLiveLink ? (
-              <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-2xl">
-                <iframe
-                  className="w-full h-full border-0"
-                  src={`https://www.youtube.com/embed/${youtubeLiveId}?autoplay=1&rel=0`}
-                  title="YouTube live stream player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
-              </div>
-            ) : (
-              <div className="w-full aspect-video bg-white/[0.02] rounded-xl border border-dashed border-white/10 relative flex flex-col items-center justify-center p-6 text-center">
-                <h3 className="text-sm md:text-base font-black text-white tracking-wide">Waiting for Stream Signal</h3>
-              </div>
-            )}
+            <span className="px-2 py-0.5 rounded text-[10px] bg-red-600 text-white font-black animate-pulse">LIVE</span>
           </div>
 
-          {/* 🎯 ปรับตรงนี้: เปลี่ยนจาก mt-4 เป็น mt-3 เพื่อดึงตัวอักษรขยับชิดขึ้นด้านบนให้สวยงามพอดีช่อง */}
-          <div className="mt-3 w-full">
+          {/* อัปเดตฝังลิงก์วิดีโอตัวจริงของน้องเรียบร้อยครับ */}
+          <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-2xl">
+            <iframe
+              className="w-full h-full border-0"
+              src="https://www.youtube.com/embed/UyneakgPiL8?autoplay=1&rel=0"
+              title="YouTube live stream player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+
+          <div className="mt-4 w-full text-left">
             <h2 className="text-base md:text-lg font-black text-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.3)]">
               COM7 BADMINTON TOURNAMENT 2026 | Main Court
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">High-definition live coverage directly from the main arena</p>
+            <p className="text-xs text-slate-400 mt-1">High-definition live coverage directly from the main arena</p>
           </div>
         </div>
 
@@ -82,7 +66,7 @@ export default function StreamPage() {
             <div className="w-full aspect-video bg-black rounded-xl border border-white/10 overflow-hidden shadow-lg">
               <iframe
                 className="w-full h-full border-0"
-                src={`https://www.youtube.com/embed/${youtubeReplayId}?rel=0`}
+                src="https://www.youtube.com/embed/tD1ySQu78A?rel=0"
                 title="YouTube replay player"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
