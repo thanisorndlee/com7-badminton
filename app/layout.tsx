@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
               {/* 📢 เพิ่มส่วนโลโก้สปอนเซอร์ */}
               <div className="hidden xl:flex items-center gap-3 bg-black/30 border border-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
-                <img src="logo.png" className="h-5 object-contain" />
+                <img src="Sponsor.png" className="h-5 object-contain" />
                 <img src="/technique-logo.png" className="h-5 object-contain" />
               </div>
 
