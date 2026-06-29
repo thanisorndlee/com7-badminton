@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 
 export default function HomePage() {
   const [particles, setParticles] = useState<{ left: string; top: string; delay: string }[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const sponsors = [
     { id: 1, name: 'POWER SHUTTLE', logo: '/power-shuttle-logo.png' },
@@ -19,12 +18,7 @@ export default function HomePage() {
       delay: `${Math.random() * 3}s`,
     }));
     setParticles(generatedParticles);
-
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sponsors.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [sponsors.length]);
+  }, []);
 
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
@@ -39,11 +33,8 @@ export default function HomePage() {
           position: relative;
           overflow: hidden;
           width: 100%;
-          max-width: 850px;
-          height: 110px;
-        }
-        @media (min-width: 768px) {
-          .single-sponsor-wrapper { height: 160px; }
+          max-width: 950px;
+          height: auto;
         }
         
         .single-sponsor-wrapper::before {
@@ -71,7 +62,6 @@ export default function HomePage() {
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           width: calc(100% - 2px);
-          height: calc(100% - 2px);
           margin: 1px;
           box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.02);
         }
@@ -138,29 +128,23 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก (ห้ามเปลี่ยนคงเดิมไว้เป๊ะ) */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
-        
-        {/* 💻 รูปสำหรับหน้าจอคอมพิวเตอร์ */}
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 PC Official"
           className="hidden md:block w-full h-full object-cover object-top"
         />
-
-        {/* 📱 รูปสำหรับหน้าจอมือถือ เวอร์ชัน v3 (แก้ปัญหา Cache บังคับอัปเดตทันที) */}
         <img
           src="/badminton-main-mobile-v3.PNG"
           alt="COM7 Badminton Tournament 2026 Mobile v3"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
-        
-        {/* ม่านไล่เฉดสีดำ */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงาม (ขยับหลบปุ่มล่างแถบ URL) */}
-      <div className="absolute bottom-20 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
+      {/* 2. LAYER กรอบสปอนเซอร์แบบเรียงหน้ากระดาน 3 ช่องตามรูปบอร์ดตัวอย่าง */}
+      <div className="absolute bottom-16 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
           {[...Array(15)].map((_, i) => (
@@ -175,36 +159,32 @@ export default function HomePage() {
             />
           ))}
 
-          <div className="single-sponsor-content rounded-2xl md:rounded-3xl p-3 md:p-5 flex flex-col items-center justify-between h-full">
+          <div className="single-sponsor-content rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col items-center justify-between h-full">
             
-            <div className="text-center w-full mt-0.5">
-              <h3 className="text-[10px] md:text-sm text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
+            <div className="text-center w-full">
+              <h3 className="text-[10px] md:text-xs text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
                 SPONSORED BY 
               </h3>
             </div>
 
-            <div className="w-5/6 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-1 md:my-1.5 relative z-20" />
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-2 md:my-3 relative z-20" />
 
-            <div className="relative w-full h-11 md:h-18 overflow-hidden flex items-center justify-center z-20">
-              {sponsors.map((sponsor, index) => (
+            {/* 🎯 ปรับตรงนี้ให้แสดงพร้อมกัน 3 แบรนด์แบ่งสัดส่วนกริตสวยงาม ไม่สลับวนลูปแล้วครับ */}
+            <div className="relative w-full grid grid-cols-3 gap-3 md:gap-6 items-center justify-center z-20 py-1">
+              {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
-                  className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-1000 ease-in-out"
-                  style={{
-                    opacity: currentSlide === index ? 1 : 0,
-                    transform: currentSlide === index ? 'scale(1) translateY(0)' : 'scale(0.96) translateY(10px)',
-                    pointerEvents: currentSlide === index ? 'auto' : 'none',
-                  }}
+                  className="flex flex-col items-center justify-center bg-black/40 border border-white/5 rounded-xl p-2 md:p-3 h-16 md:h-24 transition-all duration-300 hover:border-[#39ff14]/30"
                 >
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
-                    className="h-6 md:h-10 object-contain brightness-110 max-w-[200px] md:max-w-[320px]"
+                    className="h-5 md:h-9 object-contain brightness-110 w-full max-w-[120px] md:max-w-[200px]"
                     onError={(e) => {
                       e.currentTarget.style.opacity = '0.4';
                     }}
                   />
-                  <span className="text-[9px] md:text-[10px] text-slate-300 font-medium mt-0.5 md:mt-1 tracking-wider">
+                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold mt-1.5 md:mt-2 tracking-wider text-center uppercase line-clamp-1">
                     {sponsor.name}
                   </span>
                 </div>
