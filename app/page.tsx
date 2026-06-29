@@ -138,28 +138,20 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
-        
-        {/* 💻 รูปสำหรับหน้าจอคอมพิวเตอร์ */}
         <img
           src="/badminton-main.png"
           alt="COM7 Badminton Tournament 2026 PC Official"
           className="hidden md:block w-full h-full object-cover object-top"
         />
-
-        {/* 📱 รูปสำหรับหน้าจอมือถือ เวอร์ชัน v3 (แก้ปัญหา Cache บังคับอัปเดตทันที) */}
         <img
           src="/badminton-main-mobile-v3.PNG"
           alt="COM7 Badminton Tournament 2026 Mobile v3"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
         />
-        
-        {/* ม่านไล่เฉดสีดำ */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์เดี่ยวลอยสวยงาม (ขยับหลบปุ่มล่างแถบ URL) */}
       <div className="absolute bottom-20 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
@@ -214,7 +206,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
