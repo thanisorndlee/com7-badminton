@@ -23,27 +23,32 @@ export default function HomePage() {
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
-      {/* ส่วน Navbar ด้านบน: รวมสปอนเซอร์ไว้ในกรอบเดียวกันตามรูปเป๊ะ */}
-      <div className="absolute top-0 w-full z-50 p-6 flex items-center justify-start gap-8">
+      {/* ส่วน Navbar ด้านบน: รวมสปอนเซอร์เข้าในกรอบเมนูหลักตามรูปภาพถ่ายหน้าจอ 2569-06-29 เวลา 16.22.16.jpg */}
+      <div className="absolute top-6 inset-x-8 z-50 flex items-center justify-between">
         <div className="flex flex-col text-left">
           <span className="text-[10px] font-bold text-slate-400 tracking-wider">COM7</span>
-          <span className="text-3xl font-black text-[#39ff14] tracking-wider drop-shadow-[0_0_6px_rgba(57,255,20,0.3)]">BADMINTON</span>
-          <span className="text-[12px] font-bold text-slate-300 tracking-[0.5em] uppercase">TOURNAMENT 2026</span>
+          <span className="text-xl font-black text-[#39ff14] tracking-wider">BADMINTON</span>
+          <span className="text-[9px] font-bold text-slate-300 tracking-[0.3em]">TOURNAMENT 2026</span>
         </div>
-        
-        {/* กรอบสปอนเซอร์ที่ย้ายเข้าไปรวมอยู่ในเมนูแล้ว */}
-        <div className="flex items-center gap-6 bg-black/30 border border-white/10 px-8 py-2 rounded-full backdrop-blur-md">
-          {sponsors.map((s) => (
-            <div key={s.id} className="flex items-center gap-2">
-              <img src={s.logo} alt={s.name} className="h-6 w-auto object-contain brightness-150" />
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:block">{s.name}</span>
-            </div>
+
+        {/* กรอบเมนูหลักที่รวมสปอนเซอร์ไว้ข้างใน */}
+        <div className="flex items-center gap-6 bg-black/40 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md">
+           {sponsors.map((s) => (
+            <img key={s.id} src={s.logo} alt={s.name} className="h-6 object-contain brightness-150" />
           ))}
+          <div className="w-px h-6 bg-white/10 mx-2" />
+          <nav className="flex gap-6 text-[10px] font-bold uppercase tracking-wider text-slate-300">
+            <span>หน้าหลัก</span>
+            <span>ตารางการแข่งขัน</span>
+            <span>ผลการแข่งขัน</span>
+            <span>ไลฟ์สตรีม</span>
+            <span>กฎกติกาการแข่งขัน</span>
+          </nav>
+          <button className="bg-white text-black px-4 py-1 rounded-full text-[10px] font-bold uppercase">สมัครเข้าร่วมการแข่งขัน</button>
         </div>
       </div>
 
       <style jsx global>{`
-        /* คงสไตล์เดิมไว้ทั้งหมด */
         @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .single-sponsor-wrapper { position: relative; overflow: hidden; width: 100%; max-width: 950px; height: auto; }
         .single-sponsor-wrapper::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.4), rgba(57, 255, 20, 0.1), transparent 60%); animation: borderRotate 6s linear infinite; z-index: 1; }
@@ -60,28 +65,6 @@ export default function HomePage() {
         <img src="/badminton-main.png" alt="PC" className="hidden md:block w-full h-full object-cover object-top" />
         <img src="/badminton-main-mobile-v3.PNG" alt="Mobile" className="block md:hidden w-full h-full object-cover object-[75%_center]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
-      </div>
-
-      {/* 2. LAYER กรอบสปอนเซอร์หลักด้านล่าง */}
-      <div className="absolute bottom-16 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
-        <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
-          {[...Array(15)].map((_, i) => <div key={i} className={`concert-light light-${i}`} />)}
-          {particles.map((p, i) => <div key={`p-${i}`} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />)}
-          <div className="single-sponsor-content rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col items-center justify-between h-full">
-            <div className="text-center w-full">
-              <h3 className="text-[10px] md:text-xs text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">SPONSORED BY </h3>
-            </div>
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-2 md:my-3 relative z-20" />
-            <div className="relative w-full grid grid-cols-3 gap-3 md:gap-6 items-center justify-center z-20 py-1">
-              {sponsors.map((sponsor) => (
-                <div key={sponsor.id} className="flex flex-col items-center justify-center bg-black/40 border border-white/5 rounded-xl p-2 md:p-3 h-16 md:h-24 transition-all duration-300 hover:border-[#39ff14]/30">
-                  <img src={sponsor.logo} alt={sponsor.name} className="h-5 md:h-9 object-contain brightness-110 w-full max-w-[120px] md:max-w-[200px]" onError={(e) => { e.currentTarget.style.opacity = '0.4'; }} />
-                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold mt-1.5 md:mt-2 tracking-wider text-center uppercase line-clamp-1">{sponsor.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
