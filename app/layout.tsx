@@ -41,20 +41,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
               
-              <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase relative z-20 flex-shrink-0">
-                <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
-                <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
-                  BADMINTON
-                </span>
-                <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
+              {/* กลุ่มโลโก้หลัก + สปอนเซอร์ชิดซ้าย */}
+              <div className="flex items-center gap-6 relative z-20">
+                <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
+                  <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
+                  <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
+                    BADMINTON
+                  </span>
+                  <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
+                </div>
+                
+                {/* สปอนเซอร์ขยายใหญ่ไม่มีกรอบ */}
+                <div className="flex items-center gap-4">
+                  <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                  <img src="/technique-logo.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                </div>
               </div>
 
-              <div className="flex items-center gap-6 bg-black/30 border border-white/10 px-6 py-2 rounded-2xl backdrop-blur-md flex-shrink-0">
-                <img src="/Sponsor.png" className="h-28 object-contain drop-shadow-lg" />
-                <img src="/technique-logo.png" className="h-28 object-contain drop-shadow-lg" />
-              </div>
-
-              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-180px)] md:max-w-none">
+              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
