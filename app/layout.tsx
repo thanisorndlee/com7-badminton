@@ -49,10 +49,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
               </div>
 
-              {/* ปรับเป็น h-10 และเอา hidden ออกแล้วครับ */}
-              <div className="flex items-center gap-4 bg-black/40 border border-white/10 px-4 py-1 rounded-full backdrop-blur-md flex-shrink-0">
-                <img src="/Sponsor.png" className="h-10 object-contain" />
-                <img src="/technique-logo.png" className="h-10 object-contain" />
+              <div className="flex items-center gap-6 bg-black/30 border border-white/10 px-6 py-2 rounded-2xl backdrop-blur-md flex-shrink-0">
+                <img src="/Sponsor.png" className="h-28 object-contain drop-shadow-lg" />
+                <img src="/technique-logo.png" className="h-28 object-contain drop-shadow-lg" />
               </div>
 
               <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-180px)] md:max-w-none">
