@@ -23,6 +23,23 @@ export default function HomePage() {
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
+      {/* ส่วน Navbar ด้านบน: เพิ่มสปอนเซอร์วางข้างโลโก้ตามสั่ง */}
+      <div className="absolute top-0 w-full z-50 p-4 md:px-8 flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <div className="flex flex-col text-left">
+            <span className="text-[10px] font-bold text-slate-400 tracking-wider">COM7</span>
+            <span className="text-base font-black text-[#39ff14] tracking-wider drop-shadow-[0_0_6px_rgba(57,255,20,0.3)]">BADMINTON</span>
+            <span className="text-[9px] font-bold text-slate-300 tracking-widest">TOURNAMENT 2026</span>
+          </div>
+          
+          <div className="hidden md:flex items-center gap-4 bg-black/40 px-4 py-2 rounded-xl border border-white/10">
+            {sponsors.map((s) => (
+              <img key={s.id} src={s.logo} alt={s.name} className="h-6 object-contain opacity-80" />
+            ))}
+          </div>
+        </div>
+      </div>
+
       <style jsx global>{`
         @keyframes borderRotate {
           0% { transform: rotate(0deg); }
@@ -128,7 +145,7 @@ export default function HomePage() {
         }
       `}</style>
 
-      {/* 1. LAYER รูปภาพพื้นหลังหลัก (ห้ามเปลี่ยนคงเดิมไว้เป๊ะ) */}
+      {/* 1. LAYER รูปภาพพื้นหลังหลัก */}
       <div className="absolute inset-0 w-full h-full z-0 bg-black">
         <img
           src="/badminton-main.png"
@@ -143,7 +160,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 pointer-events-none" />
       </div>
 
-      {/* 2. LAYER กรอบสปอนเซอร์แบบเรียงหน้ากระดาน 3 ช่องตามรูปบอร์ดตัวอย่าง */}
+      {/* 2. LAYER กรอบสปอนเซอร์หลักด้านล่าง */}
       <div className="absolute bottom-16 md:bottom-8 inset-x-0 z-20 px-4 md:px-6 flex justify-center w-full">
         <div className="single-sponsor-wrapper rounded-2xl md:rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.95)] transition-all duration-300 hover:scale-[1.01]">
           
@@ -160,37 +177,20 @@ export default function HomePage() {
           ))}
 
           <div className="single-sponsor-content rounded-2xl md:rounded-3xl p-4 md:p-5 flex flex-col items-center justify-between h-full">
-            
             <div className="text-center w-full">
               <h3 className="text-[10px] md:text-xs text-[#39ff14] font-black tracking-[0.35em] uppercase drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
                 SPONSORED BY 
               </h3>
             </div>
-
             <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent my-2 md:my-3 relative z-20" />
-
-            {/* 🎯 ปรับตรงนี้ให้แสดงพร้อมกัน 3 แบรนด์แบ่งสัดส่วนกริตสวยงาม ไม่สลับวนลูปแล้วครับ */}
             <div className="relative w-full grid grid-cols-3 gap-3 md:gap-6 items-center justify-center z-20 py-1">
               {sponsors.map((sponsor) => (
-                <div
-                  key={sponsor.id}
-                  className="flex flex-col items-center justify-center bg-black/40 border border-white/5 rounded-xl p-2 md:p-3 h-16 md:h-24 transition-all duration-300 hover:border-[#39ff14]/30"
-                >
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="h-5 md:h-9 object-contain brightness-110 w-full max-w-[120px] md:max-w-[200px]"
-                    onError={(e) => {
-                      e.currentTarget.style.opacity = '0.4';
-                    }}
-                  />
-                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold mt-1.5 md:mt-2 tracking-wider text-center uppercase line-clamp-1">
-                    {sponsor.name}
-                  </span>
+                <div key={sponsor.id} className="flex flex-col items-center justify-center bg-black/40 border border-white/5 rounded-xl p-2 md:p-3 h-16 md:h-24 transition-all duration-300 hover:border-[#39ff14]/30">
+                  <img src={sponsor.logo} alt={sponsor.name} className="h-5 md:h-9 object-contain brightness-110 w-full max-w-[120px] md:max-w-[200px]" onError={(e) => { e.currentTarget.style.opacity = '0.4'; }} />
+                  <span className="text-[8px] md:text-[10px] text-slate-400 font-bold mt-1.5 md:mt-2 tracking-wider text-center uppercase line-clamp-1">{sponsor.name}</span>
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </div>
