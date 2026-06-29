@@ -23,27 +23,27 @@ export default function HomePage() {
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
-      {/* ส่วน Navbar ด้านบน: ปรับให้วางข้างตัวหนังสือชัดเจน */}
+      {/* ส่วน Navbar ด้านบน: รวมสปอนเซอร์ไว้ในกรอบเดียวกันตามรูปเป๊ะ */}
       <div className="absolute top-0 w-full z-50 p-6 flex items-center justify-start gap-8">
-        {/* ข้อความหลัก */}
         <div className="flex flex-col text-left">
           <span className="text-[10px] font-bold text-slate-400 tracking-wider">COM7</span>
           <span className="text-3xl font-black text-[#39ff14] tracking-wider drop-shadow-[0_0_6px_rgba(57,255,20,0.3)]">BADMINTON</span>
           <span className="text-[12px] font-bold text-slate-300 tracking-[0.5em] uppercase">TOURNAMENT 2026</span>
         </div>
         
-        {/* กรอบสปอนเซอร์ข้างตัวหนังสือ */}
-        <div className="flex items-center gap-3 bg-black/60 border border-white/10 px-4 py-2 rounded-xl backdrop-blur-sm">
+        {/* กรอบสปอนเซอร์ที่ย้ายเข้าไปรวมอยู่ในเมนูแล้ว */}
+        <div className="flex items-center gap-6 bg-black/30 border border-white/10 px-8 py-2 rounded-full backdrop-blur-md">
           {sponsors.map((s) => (
-            <div key={s.id} className="flex flex-col items-center">
-              <img src={s.logo} alt={s.name} className="h-8 w-16 object-contain filter brightness-125" />
+            <div key={s.id} className="flex items-center gap-2">
+              <img src={s.logo} alt={s.name} className="h-6 w-auto object-contain brightness-150" />
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:block">{s.name}</span>
             </div>
           ))}
         </div>
       </div>
 
       <style jsx global>{`
-        /* ... (คงส่วน style เดิมไว้เหมือนเดิมทุกประการ) ... */
+        /* คงสไตล์เดิมไว้ทั้งหมด */
         @keyframes borderRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .single-sponsor-wrapper { position: relative; overflow: hidden; width: 100%; max-width: 950px; height: auto; }
         .single-sponsor-wrapper::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.4), rgba(57, 255, 20, 0.1), transparent 60%); animation: borderRotate 6s linear infinite; z-index: 1; }
