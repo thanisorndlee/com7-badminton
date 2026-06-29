@@ -29,6 +29,30 @@ export default function HomePage() {
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
+      {/* ส่วน Navbar ด้านบน: บังคับให้แสดงโลโก้สปอนเซอร์แถวเดียวกับเมนู */}
+      <div className="absolute top-0 w-full z-50 px-8 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-8">
+            <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold text-slate-400 tracking-wider">COM7</span>
+                <span className="text-xl font-black text-[#39ff14] tracking-wider">BADMINTON</span>
+                <span className="text-[9px] font-bold text-slate-300 tracking-[0.3em]">TOURNAMENT 2026</span>
+            </div>
+            {/* โลโก้สปอนเซอร์ในเมนู */}
+            <div className="flex items-center gap-4 bg-black/40 border border-white/10 px-4 py-2 rounded-full">
+                {sponsors.map((s) => (
+                    <img key={s.id} src={s.logo} alt={s.name} className="h-6 object-contain brightness-150" />
+                ))}
+            </div>
+        </div>
+        <nav className="flex gap-8 text-[11px] font-bold uppercase text-slate-300">
+            <span>หน้าหลัก</span>
+            <span>ตารางการแข่งขัน</span>
+            <span>ผลการแข่งขัน</span>
+            <span>ไลฟ์สตรีม</span>
+            <span>กฎกติกาการแข่งขัน</span>
+        </nav>
+      </div>
+
       <style jsx global>{`
         @keyframes borderRotate {
           0% { transform: rotate(0deg); }
