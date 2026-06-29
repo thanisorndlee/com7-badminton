@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
               
-              {/* กลุ่มโลโก้หลัก + สปอนเซอร์ชิดซ้าย */}
+              {/* กลุ่มโลโก้หลัก + สปอนเซอร์ชิดซ้ายโดยไม่มีกรอบ */}
               <div className="flex items-center gap-6 relative z-20">
                 <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
                   <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
                 </div>
                 
-                {/* สปอนเซอร์ขยายใหญ่ไม่มีกรอบ */}
+                {/* สปอนเซอร์ลอยเด่นไม่มีกรอบ */}
                 <div className="flex items-center gap-4">
                   <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
                   <img src="/technique-logo.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
