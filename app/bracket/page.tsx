@@ -22,7 +22,7 @@ export default function BracketPage() {
 
   return (
     <div className="min-h-screen bg-[#070b14] p-10 pt-24 text-white">
-      <h1 className="text-center text-3xl font-black text-[#39ff14] mb-12">ตารางการแข่งขัน</h1>
+      <h1 className="text-center text-3xl font-black text-[#39ff14] mb-12">ผังการแข่งขัน</h1>
       
       {/* โครงสร้างผังที่มีเส้นเชื่อมกิ่ง */}
       <div className="flex gap-12 justify-center">
