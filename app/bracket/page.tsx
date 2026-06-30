@@ -1,51 +1,47 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function BracketPage() {
-  const renderBracketNode = (matchName: string) => (
-    <div className="flex items-center">
-      <div className="bg-black/60 border border-[#39ff14]/30 rounded px-3 py-1 text-[10px] w-32 shadow-lg">
-        <div className="text-[#39ff14] font-bold">{matchName}</div>
-        <input className="w-full bg-transparent outline-none text-white" placeholder="พิมพ์ชื่อทีม..." />
-      </div>
-      <div className="w-8 h-[1px] bg-white/20"></div>
-    </div>
-  );
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    // ใส่ลิงก์ CSV ของแท็บ Matches ที่ Publish แล้วที่นี่
+    const sheetUrl = 'YOUR_MATCHES_TAB_CSV_URL';
+
+    fetch(sheetUrl)
+      .then(res => res.text())
+      .then(csvText => {
+        const rows = csvText.split('\n');
+        const headers = rows[0].split(',');
+        const parsed = rows.slice(1).map(row => {
+          const values = row.split(',');
+          let obj: any = {};
+          headers.forEach((h, i) => obj[h.trim()] = values[i]?.trim());
+          return obj;
+        });
+        setData(parsed);
+      });
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#070b14] p-8 text-white">
-      <h1 className="text-center text-2xl font-black text-[#39ff14] uppercase mb-10 tracking-widest">ตารางการแข่งขัน</h1>
+    <div className="min-h-screen bg-[#070b14] p-10 pt-24 text-white">
+      <h1 className="text-center text-4xl font-black text-[#39ff14] mb-12 uppercase">ผังการแข่งขัน</h1>
       
-      <div className="flex gap-4 items-center overflow-x-auto pb-10">
-        {/* คอลัมน์ 1: รอบ 24 คู่ */}
+      <div className="flex justify-center gap-10 overflow-x-auto pb-10">
+        {/* รอบ 24 คู่ (กรองข้อมูลจาก Round "24 คู่") */}
         <div className="flex flex-col gap-4">
-          <h2 className="text-[10px] text-center uppercase tracking-widest">รอบ 24 คู่</h2>
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-1">{renderBracketNode(`คู่ ${i+1}`)}</div>
+          <h2 className="text-xs text-center opacity-60 uppercase">รอบ 24 คู่</h2>
+          {data.filter(m => m.Round === '24 คู่').map((m, i) => (
+            <div key={i} className="bg-black/40 border border-white/10 p-3 rounded text-[11px] w-40 hover:border-[#39ff14]/50 transition-colors">
+              <div className="flex justify-between">
+                <span>{m.TeamA} vs {m.TeamB}</span>
+                <span className="text-[#39ff14] font-bold">{m.Winner}</span>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* คอลัมน์ 2: รอบ 16 คู่ */}
-        <div className="flex flex-col gap-8 justify-center">
-          <h2 className="text-[10px] text-center uppercase tracking-widest">รอบ 16 คู่</h2>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-4">{renderBracketNode(`คู่ ${i+1}`)}</div>
-          ))}
-        </div>
-
-        {/* คอลัมน์ 3: รอบ 8 คู่ */}
-        <div className="flex flex-col gap-16 justify-center">
-          <h2 className="text-[10px] text-center uppercase tracking-widest">รอบ 8 คู่</h2>
-          {Array.from({ length: 2 }).map((_, i) => (
-            <div key={i} className="flex flex-col gap-8">{renderBracketNode(`คู่ ${i+1}`)}</div>
-          ))}
-        </div>
-
-        {/* คอลัมน์ 4: รอบชิงชนะเลิศ */}
-        <div className="flex flex-col justify-center">
-          <h2 className="text-[10px] text-center uppercase tracking-widest">ชิงชนะเลิศ</h2>
-          {renderBracketNode("ผู้ชนะเลิศ")}
-        </div>
+        {/* ตรงนี้สามารถเพิ่มรอบ 16 คู่, 8 คู่ ไปเรื่อยๆ ตาม Format นี้ได้เลยครับ */}
       </div>
     </div>
   );
