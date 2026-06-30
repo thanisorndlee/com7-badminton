@@ -23,7 +23,7 @@ export default function GalleryPage() {
       <div className="relative z-10 max-w-6xl mx-auto p-6 md:p-12">
         <div className="mb-10 text-center">
           <h1 className="text-3xl md:text-5xl font-black text-[#39ff14] tracking-widest uppercase mb-4">
-            บรรยากาศในงาน
+            ภาพบรรยากาศภายในงาน
           </h1>
           <div className="w-20 h-1 bg-[#39ff14] mx-auto rounded-full" />
         </div>
