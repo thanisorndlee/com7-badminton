@@ -8,23 +8,21 @@ export default function GalleryPage() {
   ];
 
   return (
-    <div className="min-h-screen w-full relative text-white bg-black">
-      {/* ส่วนภาพพื้นหลัง - ใช้ style ตรงๆ เพื่อความชัวร์ว่าภาพจะขึ้นแน่นอน */}
-      <div 
-        className="fixed inset-0 w-full h-full -z-10"
-        style={{
-          backgroundImage: "url('/badminton-hero.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        {/* Overlay ดำเพื่อตัดแสงให้ตัวหนังสือเด่น */}
-        <div className="absolute inset-0 bg-black/70" />
+    <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-24 select-none relative overflow-x-hidden flex flex-col items-center">
+      
+      {/* 🏞️ Background Image  */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/badminton-bg.jpg"
+          className="w-full h-full object-fill opacity-85"
+          alt="Tournament Background"
+        />
+        {/* เพิ่ม Overlay เพื่อให้ตัวหนังสือในหน้า Gallery อ่านง่ายขึ้น */}
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* เนื้อหาหน้า Gallery */}
-      <div className="relative z-10 max-w-6xl mx-auto p-6 md:p-12">
+      {/* เนื้อหาหน้า Gallery (อยู่บนพื้นหลัง) */}
+      <div className="relative z-10 w-full max-w-6xl">
         <div className="mb-10 text-center">
           <h1 className="text-3xl md:text-5xl font-black text-[#39ff14] tracking-widest uppercase mb-4">
             ภาพบรรยากาศภายในงาน
@@ -42,9 +40,7 @@ export default function GalleryPage() {
                 src={photo} 
                 alt={`Atmosphere ${index + 1}`} 
                 className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                onError={(e) => { 
-                  e.currentTarget.src = 'https://via.placeholder.com/600x400?text=Image+Unavailable';
-                }}
+                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/600x400?text=Image+Unavailable'; }}
               />
             </div>
           ))}
