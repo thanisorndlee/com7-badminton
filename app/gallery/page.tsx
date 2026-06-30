@@ -25,7 +25,7 @@ export default function GalleryPage() {
       <div className="relative z-10 w-full max-w-6xl">
         <div className="mb-10 text-center">
           <h1 className="text-3xl md:text-5xl font-black text-[#39ff14] tracking-widest uppercase mb-4">
-            ภาพบรรยากาศภายในงาน
+            ภาพบรรยากาศกิจกรรม
           </h1>
           <div className="w-20 h-1 bg-[#39ff14] mx-auto rounded-full" />
         </div>
