@@ -87,7 +87,7 @@ export default function SchedulePage() {
               Tournament Schedule
             </span>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">
-              ตารางโปรแกรมการแข่งขัน
+              ตารางการแข่งขัน
             </h1>
           </div>
 
