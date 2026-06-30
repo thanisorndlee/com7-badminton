@@ -8,8 +8,9 @@ export default function GalleryPage() {
   ];
 
   return (
-    <div className="min-h-screen relative bg-black text-white">
-      <div className="fixed inset-0 z-0">
+    <div className="min-h-screen w-full relative bg-black text-white">
+      {/* ส่วนภาพพื้นหลัง - แยกเลเยอร์ออกมาให้ชัดเจนที่สุด */}
+      <div className="fixed inset-0 w-full h-full -z-10">
         <img 
           src="/badminton-hero.jpg" 
           alt="Background" 
@@ -18,7 +19,7 @@ export default function GalleryPage() {
         <div className="absolute inset-0 bg-black/70" />
       </div>
 
-      {/* เนื้อหาหน้า Gallery */}
+      {/* เนื้อหาหน้า Gallery - กำหนด z-index ให้สูงกว่าพื้นหลัง */}
       <div className="relative z-10 max-w-6xl mx-auto p-6 md:p-12">
         <div className="mb-10 text-center">
           <h1 className="text-3xl md:text-5xl font-black text-[#39ff14] tracking-widest uppercase mb-4">
@@ -31,13 +32,16 @@ export default function GalleryPage() {
           {photos.map((photo, index) => (
             <div 
               key={index} 
-              className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-[#39ff14]/50 transition-all duration-500"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-[#39ff14]/50 transition-all duration-500 bg-black/40"
             >
               <img 
                 src={photo} 
                 alt={`Atmosphere ${index + 1}`} 
                 className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                onError={(e) => { e.currentTarget.src = '/badminton-hero.jpg'; }} // ถ้าโหลดรูปไม่ขึ้นให้โชว์รูปนี้แทน
+                // แก้ไขการจัดการ error ให้แสดงภาพ placeholder แทนการเรียกรูปหลัก เพื่อป้องกันปัญหาซ้อนทับ
+                onError={(e) => { 
+                  e.currentTarget.src = 'https://via.placeholder.com/600x400?text=Image+Unavailable';
+                }}
               />
             </div>
           ))}
