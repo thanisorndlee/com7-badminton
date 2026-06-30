@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
                 <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>                
-                <Link href="/live" className={getMenuClass('/gallery')}>บรรยากาศภายในงาน</Link>
+                <Link href="/gallery" className={getMenuClass('/gallery')}>บรรยากาศในงาน</Link>               
                 <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกาการแข่งขัน</Link>
                 
                 <Link 
