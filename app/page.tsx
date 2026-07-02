@@ -26,7 +26,7 @@ export default function HomePage() {
       <style jsx global>{`
         @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
         @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes spotlight { 0%, 100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 0.6; transform: scaleY(1.1); } }
+        @keyframes spotlightAnim { 0%, 100% { opacity: 0.2; transform: scaleY(1); } 50% { opacity: 0.4; transform: scaleY(1.05); } }
         
         .gold-particle {
           position: absolute; width: 4px; height: 4px; background-color: #ffffff; border-radius: 50%;
@@ -36,15 +36,13 @@ export default function HomePage() {
         
         .animate-shine { animation: shine 4s infinite linear; }
         
-        .spotlight-beam {
+        /* สปอร์ตไลท์จำกัดอยู่ในกรอบ */
+        .spotlight-in-box {
           position: absolute; top: 0; width: 100%; height: 100%;
-          background: conic-gradient(from 180deg at 50% -10%, #ffea00 0deg, transparent 20deg, transparent 340deg, #ffea00 360deg);
-          opacity: 0.3; animation: spotlight 4s ease-in-out infinite; pointer-events: none; z-index: 1;
+          background: conic-gradient(from 180deg at 50% -20%, #ffea00 0deg, transparent 20deg, transparent 340deg, #ffea00 360deg);
+          animation: spotlightAnim 4s ease-in-out infinite; pointer-events: none; z-index: 1;
         }
       `}</style>
-
-      {/* ลำแสงสปอร์ตไลท์พุ่งลงมา */}
-      <div className="spotlight-beam"></div>
 
       {/* Background */}
       <div className="absolute inset-0 z-0 bg-black">
@@ -58,24 +56,27 @@ export default function HomePage() {
         <div key={i} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />
       ))}
 
-      {/* กรอบสปอนเซอร์ใหญ่ (เหมือนภาพที่ 2) */}
+      {/* กรอบสปอนเซอร์ที่มีสปอร์ตไลท์อยู่ข้างใน */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ไฟสปอร์ตไลท์วิ่งผ่านกรอบใหญ่ */}
-          <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></div>
+          {/* ลำแสงสปอร์ตไลท์พุ่งลงมา "ภายใน" กรอบนี้เท่านั้น */}
+          <div className="spotlight-in-box"></div>
+          
+          {/* ไฟวิ่งสปอร์ตไลท์แนวขวาง (ของเดิม) */}
+          <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none z-20"></div>
 
-          <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6">
+          <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10 relative z-30">
             {sponsors.map((sponsor, index) => (
               <div key={sponsor.id} className={`flex items-center justify-center gap-3 p-4 ${index !== 2 ? 'border-r border-white/10' : ''}`}>
                 <img src={sponsor.logo} className="h-8 w-auto object-contain" />
-                <div className="flex flex-col">
-                  <span className="text-[8px] text-slate-500 uppercase">SPONSOR {sponsor.label}:</span>
-                  <span className="text-[11px] font-bold text-white uppercase">{sponsor.name}</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-[7px] text-slate-500 uppercase tracking-wider">SPONSOR {sponsor.label}:</span>
+                  <span className="text-[10px] font-bold text-white uppercase">{sponsor.name}</span>
                 </div>
               </div>
             ))}
