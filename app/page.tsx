@@ -26,10 +26,11 @@ export default function HomePage() {
       <style jsx global>{`
         @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
         
-        /* สปอร์ตไลท์กวาดซ้ายขวาที่ปลายด้านล่าง */
-        @keyframes sweepSpotlight {
-          0%, 100% { left: 10%; }
-          50% { left: 90%; }
+        /* แอนิเมชันสปอร์ตไลท์พัดกวาดซ้ายขวา */
+        @keyframes fanSweep {
+          0% { transform: rotate(-15deg); }
+          50% { transform: rotate(15deg); }
+          100% { transform: rotate(-15deg); }
         }
         
         .gold-particle {
@@ -38,11 +39,12 @@ export default function HomePage() {
           animation: goldSparkle 2.5s ease-in-out infinite;
         }
         
-        .spotlight-sweep {
-          position: absolute; bottom: 0; left: 10%; width: 20%; height: 100%;
-          background: linear-gradient(to bottom, transparent 40%, rgba(255, 234, 0, 0.2) 80%, rgba(255, 234, 0, 0.4) 100%);
-          clip-path: polygon(50% 100%, 0% 50%, 100% 50%);
-          animation: sweepSpotlight 6s ease-in-out infinite;
+        /* ลำแสงรูปพัดที่พุ่งจากจุดกึ่งกลางด้านบน */
+        .spotlight-fan {
+          position: absolute; top: -50%; left: 50%; width: 200%; height: 200%;
+          background: conic-gradient(from 180deg at 50% 50%, transparent 40%, rgba(255, 234, 0, 0.2) 48%, rgba(255, 234, 0, 0.4) 50%, rgba(255, 234, 0, 0.2) 52%, transparent 60%);
+          transform-origin: 50% 0%;
+          animation: fanSweep 8s ease-in-out infinite;
           pointer-events: none; z-index: 1;
         }
       `}</style>
@@ -61,8 +63,8 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงสปอร์ตไลท์กวาดไปมาที่ด้านล่าง */}
-          <div className="spotlight-sweep"></div>
+          {/* ลำแสงพัดกวาดซ้ายขวา */}
+          <div className="spotlight-fan"></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
