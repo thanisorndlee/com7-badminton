@@ -50,26 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
                 </div>
                 
-                <div className="flex items-center gap-4 h-full py-1">
+                <div className="flex items-center gap-4 h-12">
+                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                  <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                  <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
                 </div>
-                  <img
-                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
-                    alt="Sandisk"
-                    className="h-full max-h-5 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
-                  />
-
-                  <img
-                    src="/Sponsor.png"
-                    alt="Sponsor"
-                    className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
-                  />
-
-                  <img
-                    src="/Sponsor.png"
-                    alt="Sponsor"
-                    className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
-                  />
-                </div>
+              </div>
 
               <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
