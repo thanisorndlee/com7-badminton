@@ -14,21 +14,19 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes spotlightLeft {
-          0% { transform: translateX(-50%) rotate(-28deg); }
-          50% { transform: translateX(-50%) rotate(8deg); }
-          100% { transform: translateX(-50%) rotate(-28deg); }
+          0%, 100% { transform: rotate(-10deg); }
+          50% { transform: rotate(-35deg); }
         }
 
         @keyframes spotlightRight {
-          0% { transform: translateX(-50%) rotate(28deg); }
-          50% { transform: translateX(-50%) rotate(-8deg); }
-          100% { transform: translateX(-50%) rotate(28deg); }
+          0%, 100% { transform: rotate(10deg); }
+          50% { transform: rotate(35deg); }
         }
 
         .spotlight {
           position: absolute;
           top: -30px;
-          left: 50%;
+          left: 50%; /* ยึดจุดกึ่งกลางไว้ที่ตรงกลางกรอบ */
           width: 230px;
           height: 520px;
           transform-origin: top center;
@@ -42,13 +40,13 @@ export default function HomePage() {
           );
           clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%);
           filter: blur(8px);
-          opacity: .85;
+          opacity: .6;
           pointer-events: none;
           mix-blend-mode: screen;
         }
 
-        .spotlight.left { animation: spotlightLeft 5s ease-in-out infinite; }
-        .spotlight.right { animation: spotlightRight 5s ease-in-out infinite; }
+        .spotlight.left { animation: spotlightLeft 6s ease-in-out infinite; }
+        .spotlight.right { animation: spotlightRight 6s ease-in-out infinite; }
       `}</style>
 
       {/* Background */}
@@ -62,13 +60,11 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงสปอร์ตไลท์ 4 ดวง */}
-          <div className="spotlight left"></div>
-          <div className="spotlight right"></div>
-          <div className="spotlight left" style={{ left: '35%' }}></div>
-          <div className="spotlight right" style={{ left: '65%' }}></div>
-          <div className="spotlight left" style={{ left: '45%', animationDuration: '6s', opacity: .45 }}></div>
-          <div className="spotlight right" style={{ left: '55%', animationDuration: '6s', opacity: .45 }}></div>
+          {/* ลำแสงทุกอันรวมที่จุดเดียวที่ด้านบนและกวาดสลับกัน */}
+          <div className="spotlight left" style={{ transform: 'rotate(-5deg)' }}></div>
+          <div className="spotlight right" style={{ transform: 'rotate(5deg)' }}></div>
+          <div className="spotlight left" style={{ transform: 'rotate(-25deg)', opacity: 0.3 }}></div>
+          <div className="spotlight right" style={{ transform: 'rotate(25deg)', opacity: 0.3 }}></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
