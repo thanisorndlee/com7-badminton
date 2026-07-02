@@ -13,29 +13,28 @@ export default function HomePage() {
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
-        /* ปรับองศาให้กวาดกว้างขึ้นเพื่อครอบคลุมขอบกรอบ */
-        @keyframes sweep1  {0%,100%{transform:rotate(-70deg)}50%{transform:rotate(-20deg)}}
-        @keyframes sweep2  {0%,100%{transform:rotate(-60deg)}50%{transform:rotate(-10deg)}}
-        @keyframes sweep3  {0%,100%{transform:rotate(-50deg)}50%{transform:rotate(0deg)}}
-        @keyframes sweep4  {0%,100%{transform:rotate(-40deg)}50%{transform:rotate(10deg)}}
-        @keyframes sweep5  {0%,100%{transform:rotate(-30deg)}50%{transform:rotate(20deg)}}
-        @keyframes sweep6  {0%,100%{transform:rotate(-10deg)}50%{transform:rotate(30deg)}}
-        @keyframes sweep7  {0%,100%{transform:rotate(10deg)}50%{transform:rotate(-30deg)}}
-        @keyframes sweep8  {0%,100%{transform:rotate(20deg)}50%{transform:rotate(-20deg)}}
-        @keyframes sweep9  {0%,100%{transform:rotate(30deg)}50%{transform:rotate(-10deg)}}
-        @keyframes sweep10 {0%,100%{transform:rotate(40deg)}50%{transform:rotate(0deg)}}
-        @keyframes sweep11 {0%,100%{transform:rotate(50deg)}50%{transform:rotate(10deg)}}
-        @keyframes sweep12 {0%,100%{transform:rotate(70deg)}50%{transform:rotate(20deg)}}
+        @keyframes sweep1  {0%,100%{transform:rotate(-75deg)}50%{transform:rotate(-30deg)}}
+        @keyframes sweep2  {0%,100%{transform:rotate(-60deg)}50%{transform:rotate(-20deg)}}
+        @keyframes sweep3  {0%,100%{transform:rotate(-45deg)}50%{transform:rotate(-10deg)}}
+        @keyframes sweep4  {0%,100%{transform:rotate(-30deg)}50%{transform:rotate(0deg)}}
+        @keyframes sweep5  {0%,100%{transform:rotate(-15deg)}50%{transform:rotate(10deg)}}
+        @keyframes sweep6  {0%,100%{transform:rotate(-5deg)}50%{transform:rotate(20deg)}}
+        @keyframes sweep7  {0%,100%{transform:rotate(5deg)}50%{transform:rotate(-20deg)}}
+        @keyframes sweep8  {0%,100%{transform:rotate(15deg)}50%{transform:rotate(-10deg)}}
+        @keyframes sweep9  {0%,100%{transform:rotate(30deg)}50%{transform:rotate(0deg)}}
+        @keyframes sweep10 {0%,100%{transform:rotate(45deg)}50%{transform:rotate(10deg)}}
+        @keyframes sweep11 {0%,100%{transform:rotate(60deg)}50%{transform:rotate(20deg)}}
+        @keyframes sweep12 {0%,100%{transform:rotate(75deg)}50%{transform:rotate(30deg)}}
 
         .spotlight{
-            position:absolute; top:-35px; left:50%; margin-left:-150px;
-            width:300px; height:700px;
+            position:absolute; top:-35px; left:50%;
+            margin-left:-250px; /* ปรับให้สัมพันธ์กับ width 500px */
+            width:500px; height:700px;
             transform-origin:50% 0%;
-            /* ปรับให้จางลง (rgba ค่าสุดท้ายน้อยลง) */
             background:linear-gradient(to bottom, rgba(255,255,255,.6) 0%, rgba(57,255,20,.3) 10%, rgba(57,255,20,.1) 40%, transparent 100%);
-            /* ขยาย clip-path ให้กว้างขึ้นมาก เพื่อให้แสงบานไปถึงขอบ */
-            clip-path:polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-            mix-blend-mode:screen; filter:blur(10px); opacity:.25; pointer-events:none;
+            /* ปรับให้กว้างขึ้น */
+            clip-path:polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            mix-blend-mode:screen; filter:blur(15px); opacity:.25; pointer-events:none;
         }
 
         .s1{animation:sweep1 5s ease-in-out infinite alternate;}
@@ -52,14 +51,12 @@ export default function HomePage() {
         .s12{animation:sweep12 5.2s ease-in-out infinite alternate;}
       `}</style>
 
-      {/* Background */}
       <div className="absolute inset-0 z-0 bg-black">
         <img src="/badminton-main.png" className="hidden md:block w-full h-full object-cover object-top" />
         <img src="/badminton-main-mobile-v3.PNG" className="block md:hidden w-full h-full object-cover object-[75%_center]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
       </div>
 
-      {/* กรอบสปอนเซอร์ */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
