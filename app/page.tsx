@@ -13,40 +13,37 @@ export default function HomePage() {
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
-        @keyframes spotlightLeft {
-          0%, 100% { transform: rotate(-10deg); }
-          50% { transform: rotate(-35deg); }
-        }
-
-        @keyframes spotlightRight {
-          0%, 100% { transform: rotate(10deg); }
-          50% { transform: rotate(35deg); }
-        }
+        @keyframes sweep1 { 0%,100% { transform: rotate(-42deg); } 50% { transform: rotate(-12deg); } }
+        @keyframes sweep2 { 0%,100% { transform: rotate(-25deg); } 50% { transform: rotate(10deg); } }
+        @keyframes sweep3 { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(25deg); } }
+        @keyframes sweep4 { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-18deg); } }
+        @keyframes sweep5 { 0%,100% { transform: rotate(22deg); } 50% { transform: rotate(-5deg); } }
+        @keyframes sweep6 { 0%,100% { transform: rotate(38deg); } 50% { transform: rotate(12deg); } }
+        @keyframes sweep7 { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
 
         .spotlight {
-          position: absolute;
-          top: -30px;
-          left: 50%; /* ยึดจุดกึ่งกลางไว้ที่ตรงกลางกรอบ */
-          width: 230px;
-          height: 520px;
-          transform-origin: top center;
-          background: linear-gradient(
-            to bottom,
-            rgba(255,255,255,.55) 0%,
-            rgba(180,255,120,.28) 15%,
-            rgba(120,255,80,.18) 40%,
-            rgba(80,255,40,.08) 70%,
-            rgba(80,255,40,0) 100%
-          );
-          clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%);
-          filter: blur(8px);
-          opacity: .6;
-          pointer-events: none;
-          mix-blend-mode: screen;
+            position: absolute; top: -20px; left: 50%;
+            width: 140px; height: 650px; margin-left: -70px;
+            transform-origin: 50% 0%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,.75) 0%,
+                rgba(190,255,120,.45) 12%,
+                rgba(120,255,60,.18) 45%,
+                rgba(120,255,60,.05) 75%,
+                transparent 100%
+            );
+            clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%);
+            mix-blend-mode: screen; filter: blur(6px); opacity: .45; pointer-events:none;
         }
 
-        .spotlight.left { animation: spotlightLeft 6s ease-in-out infinite; }
-        .spotlight.right { animation: spotlightRight 6s ease-in-out infinite; }
+        .s1{animation:sweep1 7s ease-in-out infinite;}
+        .s2{animation:sweep2 6.2s ease-in-out infinite;}
+        .s3{animation:sweep3 8s ease-in-out infinite;}
+        .s4{animation:sweep4 6.8s ease-in-out infinite;}
+        .s5{animation:sweep5 7.5s ease-in-out infinite;}
+        .s6{animation:sweep6 6s ease-in-out infinite;}
+        .s7{animation:sweep7 9s ease-in-out infinite;}
       `}</style>
 
       {/* Background */}
@@ -60,11 +57,21 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงทุกอันรวมที่จุดเดียวที่ด้านบนและกวาดสลับกัน */}
-          <div className="spotlight left" style={{ transform: 'rotate(-5deg)' }}></div>
-          <div className="spotlight right" style={{ transform: 'rotate(5deg)' }}></div>
-          <div className="spotlight left" style={{ transform: 'rotate(-25deg)', opacity: 0.3 }}></div>
-          <div className="spotlight right" style={{ transform: 'rotate(25deg)', opacity: 0.3 }}></div>
+          {/* หัวไฟด้านบน */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 z-20 flex gap-5">
+              {[...Array(7)].map((_, i) => (
+                  <div key={i} className="w-2 h-2 rounded-full bg-white shadow-[0_0_12px_white]"></div>
+              ))}
+          </div>
+
+          {/* ลำแสงสปอร์ตไลท์ */}
+          <div className="spotlight s1"></div>
+          <div className="spotlight s2"></div>
+          <div className="spotlight s3"></div>
+          <div className="spotlight s4"></div>
+          <div className="spotlight s5"></div>
+          <div className="spotlight s6"></div>
+          <div className="spotlight s7"></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
