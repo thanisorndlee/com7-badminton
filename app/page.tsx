@@ -13,37 +13,54 @@ export default function HomePage() {
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
-        @keyframes sweep1 { 0%,100% { transform: rotate(-42deg); } 50% { transform: rotate(-12deg); } }
-        @keyframes sweep2 { 0%,100% { transform: rotate(-25deg); } 50% { transform: rotate(10deg); } }
-        @keyframes sweep3 { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(25deg); } }
-        @keyframes sweep4 { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-18deg); } }
-        @keyframes sweep5 { 0%,100% { transform: rotate(22deg); } 50% { transform: rotate(-5deg); } }
-        @keyframes sweep6 { 0%,100% { transform: rotate(38deg); } 50% { transform: rotate(12deg); } }
-        @keyframes sweep7 { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
+        @keyframes sweep1  {0%,100%{transform:rotate(-55deg)}50%{transform:rotate(-8deg)}}
+        @keyframes sweep2  {0%,100%{transform:rotate(-48deg)}50%{transform:rotate(10deg)}}
+        @keyframes sweep3  {0%,100%{transform:rotate(-38deg)}50%{transform:rotate(18deg)}}
+        @keyframes sweep4  {0%,100%{transform:rotate(-28deg)}50%{transform:rotate(28deg)}}
+        @keyframes sweep5  {0%,100%{transform:rotate(-18deg)}50%{transform:rotate(38deg)}}
+        @keyframes sweep6  {0%,100%{transform:rotate(-8deg)}50%{transform:rotate(48deg)}}
+        @keyframes sweep7  {0%,100%{transform:rotate(8deg)}50%{transform:rotate(-48deg)}}
+        @keyframes sweep8  {0%,100%{transform:rotate(18deg)}50%{transform:rotate(-38deg)}}
+        @keyframes sweep9  {0%,100%{transform:rotate(28deg)}50%{transform:rotate(-28deg)}}
+        @keyframes sweep10 {0%,100%{transform:rotate(38deg)}50%{transform:rotate(-18deg)}}
+        @keyframes sweep11 {0%,100%{transform:rotate(48deg)}50%{transform:rotate(-10deg)}}
+        @keyframes sweep12 {0%,100%{transform:rotate(55deg)}50%{transform:rotate(8deg)}}
 
-        .spotlight {
-            position: absolute; top: -20px; left: 50%;
-            width: 140px; height: 650px; margin-left: -70px;
-            transform-origin: 50% 0%;
-            background: linear-gradient(
+        .spotlight{
+            position:absolute;
+            top:-35px;
+            left:50%;
+            margin-left:-75px;
+            width:150px;
+            height:700px;
+            transform-origin:50% 0%;
+            background:linear-gradient(
                 to bottom,
-                rgba(255,255,255,.75) 0%,
-                rgba(190,255,120,.45) 12%,
-                rgba(120,255,60,.18) 45%,
-                rgba(120,255,60,.05) 75%,
+                rgba(255,255,255,.9) 0%,
+                rgba(220,255,170,.55) 10%,
+                rgba(120,255,80,.22) 40%,
+                rgba(120,255,80,.06) 75%,
                 transparent 100%
             );
-            clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%);
-            mix-blend-mode: screen; filter: blur(6px); opacity: .45; pointer-events:none;
+            clip-path:polygon(49.8% 0%,50.2% 0%,100% 100%,0% 100%);
+            mix-blend-mode:screen;
+            filter:blur(5px);
+            opacity:.38;
+            pointer-events:none;
         }
 
-        .s1{animation:sweep1 7s ease-in-out infinite;}
-        .s2{animation:sweep2 6.2s ease-in-out infinite;}
-        .s3{animation:sweep3 8s ease-in-out infinite;}
-        .s4{animation:sweep4 6.8s ease-in-out infinite;}
-        .s5{animation:sweep5 7.5s ease-in-out infinite;}
-        .s6{animation:sweep6 6s ease-in-out infinite;}
-        .s7{animation:sweep7 9s ease-in-out infinite;}
+        .s1{animation:sweep1 2.8s ease-in-out infinite alternate;}
+        .s2{animation:sweep2 2.5s ease-in-out infinite alternate;}
+        .s3{animation:sweep3 2.9s ease-in-out infinite alternate;}
+        .s4{animation:sweep4 2.4s ease-in-out infinite alternate;}
+        .s5{animation:sweep5 3.0s ease-in-out infinite alternate;}
+        .s6{animation:sweep6 2.6s ease-in-out infinite alternate;}
+        .s7{animation:sweep7 2.7s ease-in-out infinite alternate;}
+        .s8{animation:sweep8 2.4s ease-in-out infinite alternate;}
+        .s9{animation:sweep9 2.8s ease-in-out infinite alternate;}
+        .s10{animation:sweep10 2.5s ease-in-out infinite alternate;}
+        .s11{animation:sweep11 2.9s ease-in-out infinite alternate;}
+        .s12{animation:sweep12 2.6s ease-in-out infinite alternate;}
       `}</style>
 
       {/* Background */}
@@ -57,21 +74,10 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* หัวไฟด้านบน */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 z-20 flex gap-5">
-              {[...Array(7)].map((_, i) => (
-                  <div key={i} className="w-2 h-2 rounded-full bg-white shadow-[0_0_12px_white]"></div>
-              ))}
-          </div>
-
-          {/* ลำแสงสปอร์ตไลท์ */}
-          <div className="spotlight s1"></div>
-          <div className="spotlight s2"></div>
-          <div className="spotlight s3"></div>
-          <div className="spotlight s4"></div>
-          <div className="spotlight s5"></div>
-          <div className="spotlight s6"></div>
-          <div className="spotlight s7"></div>
+          {/* ลำแสงสปอร์ตไลท์ 12 เส้น */}
+          {['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'].map(c=>(
+              <div key={c} className={`spotlight ${c}`}></div>
+          ))}
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
