@@ -1,55 +1,36 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export default function HomePage() {
-  const [particles, setParticles] = useState<{ left: string; top: string; delay: string }[]>([]);
-
   const sponsors = [
     { id: 1, name: 'COM7TECH', logo: '/logo-placeholder.png', label: 'ONE' },
     { id: 2, name: 'SIAM SPORTS ARENA', logo: '/badminton-shuttle.png', label: 'TWO' },
     { id: 3, name: 'GLOBAL BRANDS', logo: '/global-brands-logo.png', label: 'THREE' },
   ];
 
-  useEffect(() => {
-    const generatedParticles = [...Array(30)].map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 3}s`,
-    }));
-    setParticles(generatedParticles);
-  }, []);
-
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
-        @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
-        
         @keyframes fanSweep {
-          0% { transform: rotate(-20deg); }
-          50% { transform: rotate(20deg); }
-          100% { transform: rotate(-20deg); }
+          0%, 100% { transform: rotate(-15deg); }
+          50% { transform: rotate(15deg); }
         }
         
-        .gold-particle {
-          position: absolute; width: 4px; height: 4px; background-color: #ffffff; border-radius: 50%;
-          box-shadow: 0 0 6px #39ff14, 0 0 10px #39ff14; pointer-events: none; z-index: 5;
-          animation: goldSparkle 2.5s ease-in-out infinite;
-        }
-        
-        /* ลำแสงรูปพัดที่กวาดอยู่ในกรอบ */
-        .spotlight-fan {
-          position: absolute; 
-          top: -100%; 
-          left: 0%; 
-          width: 100%; 
-          height: 300%; 
-          background: conic-gradient(from 180deg at 50% 100%, transparent 40%, rgba(255, 234, 0, 0.15) 48%, rgba(255, 234, 0, 0.3) 50%, rgba(255, 234, 0, 0.15) 52%, transparent 60%);
+        .spotlight-beam {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 400px;
+          height: 400px;
+          margin-left: -200px;
+          background: conic-gradient(from 180deg at 50% 100%, transparent 45%, rgba(255, 234, 0, 0.4) 49%, rgba(255, 234, 0, 0.6) 50%, rgba(255, 234, 0, 0.4) 51%, transparent 55%);
           transform-origin: 50% 100%;
-          animation: fanSweep 6s ease-in-out infinite;
-          pointer-events: none; 
+          animation: fanSweep 5s ease-in-out infinite;
+          pointer-events: none;
           z-index: 1;
+          filter: blur(8px);
         }
       `}</style>
 
@@ -60,16 +41,15 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
       </div>
 
-      {particles.map((p, i) => (
-        <div key={i} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />
-      ))}
-
       {/* กรอบสปอนเซอร์ */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงกวาดซ้ายขวาอยู่ในกรอบ */}
-          <div className="spotlight-fan"></div>
+          {/* ลำแสง 4 อันที่พุ่งจากจุดเดียวกันแต่กวาดต่างจังหวะ */}
+          <div className="spotlight-beam" style={{ animationDelay: '0s' }}></div>
+          <div className="spotlight-beam" style={{ animationDelay: '1.2s' }}></div>
+          <div className="spotlight-beam" style={{ animationDelay: '2.4s' }}></div>
+          <div className="spotlight-beam" style={{ animationDelay: '3.6s' }}></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
