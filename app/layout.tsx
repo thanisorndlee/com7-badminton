@@ -54,10 +54,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {/* SPONSOR */}
                 <div className="flex items-center gap-4 h-full py-1">
                   <img
-                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
-                    alt="Sandisk"
-                    className="h-5 w-auto object-contain"
-                  />
+                      src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
+                      alt="Sandisk"
+                      className="h-2 w-auto object-contain border border-red-500"
+                    />
                   <img
                     src="/Sponsor.png"
                     alt="Sponsor"
