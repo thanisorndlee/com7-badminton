@@ -25,30 +25,15 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
+        @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        
         .gold-particle {
           position: absolute; width: 4px; height: 4px; background-color: #ffffff; border-radius: 50%;
           box-shadow: 0 0 6px #39ff14, 0 0 10px #39ff14; pointer-events: none; z-index: 5;
           animation: goldSparkle 2.5s ease-in-out infinite;
         }
-
-        @keyframes sponsorGlow {
-          0%,100%{
-            box-shadow:
-              0 0 8px rgba(57,255,20,.15),
-              inset 0 0 10px rgba(57,255,20,.05);
-          }
-
-          50%{
-            box-shadow:
-              0 0 25px rgba(57,255,20,.45),
-              0 0 60px rgba(57,255,20,.25),
-              inset 0 0 25px rgba(57,255,20,.10);
-          }
-        }
-
-        .sponsor-glow{
-          animation:sponsorGlow 3s ease-in-out infinite;
-        }
+        
+        .animate-shine { animation: shine 3s infinite linear; }
       `}</style>
 
       {/* Background */}
@@ -65,19 +50,22 @@ export default function HomePage() {
 
       {/* สปอนเซอร์กรอบใหญ่ครอบรวม */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
-        <div className="w-full bg-black/60 border border-[#39ff14]/20 rounded-3xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden sponsor-glow">
+        <div className="w-full bg-black/60 border border-[#39ff14]/20 rounded-3xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* หัวข้อ */}
           <h3 className="text-center text-[#39ff14] font-black tracking-[0.35em] uppercase text-xs mb-6 drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]">
             SPONSORED BY
           </h3>
           
-          {/* แถว 3 ช่องย่อย */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {sponsors.map((sponsor) => (
-              <div key={sponsor.id} className="bg-black/40 border border-white/10 p-4 rounded-xl flex items-center justify-start gap-4 hover:border-[#39ff14]/50 transition-all duration-300">
-                <img src={sponsor.logo} className="h-10 w-10 object-contain brightness-110" />
-                <div className="flex flex-col">
+              /* ใส่ relative และ overflow-hidden เพื่อให้ไฟสปอร์ตไลท์วิ่งเฉพาะในกรอบ */
+              <div key={sponsor.id} className="relative bg-black/40 border border-white/10 p-4 rounded-xl flex items-center justify-start gap-4 hover:border-[#39ff14]/50 transition-all duration-300 overflow-hidden">
+                
+                {/* ไฟสปอร์ตไลท์ส่องผ่าน */}
+                <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                
+                <img src={sponsor.logo} className="h-10 w-10 object-contain brightness-110 relative z-10" />
+                <div className="flex flex-col relative z-10">
                   <span className="text-[8px] text-slate-400 uppercase tracking-widest">
                     SPONSOR {sponsor.label}:
                   </span>
