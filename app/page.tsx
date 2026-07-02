@@ -1,109 +1,74 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import './globals.css'; 
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+export default function HomePage() {
+  const [particles, setParticles] = useState<{ left: string; top: string; delay: string }[]>([]);
 
-  const getMenuClass = (path: string) => {
-    const baseClass = "transition-all duration-500 ease-in-out py-1 whitespace-nowrap cursor-pointer";
-    const activeClass = " text-[#39ff14] font-semibold border-b-2 border-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]";
-    const inactiveClass = " text-slate-300 hover:text-white border-b-2 border-transparent";
+  const sponsors = [
+    { id: 1, name: 'POWER SHUTTLE', logo: '/power-shuttle-logo.png', label: 'ONE' },
+    { id: 2, name: 'SIAM SPORTS ARENA', logo: '/siam-sports-logo.png', label: 'TWO' },
+    { id: 3, name: 'TECHNIQUE', logo: '/technique-logo.png', label: 'THREE' },
+  ];
 
-    const isActive = path === '/' ? pathname === '/' : pathname === path;
-    return `${baseClass} ${isActive ? activeClass : inactiveClass}`;
-  };
+  useEffect(() => {
+    const generatedParticles = [...Array(30)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 3}s`,
+    }));
+    setParticles(generatedParticles);
+  }, []);
 
   return (
-    <html lang="th" >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet" />
-        <style>{`
-          @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-          .animate-shine { animation: shine 3s infinite linear; }
-        `}</style>
-      </head>
-      <body 
-        className="min-h-screen text-white antialiased bg-black relative flex flex-col"
-        style={{ fontFamily: "'Kanit', sans-serif" }}
-      >
-        <div className="w-full flex flex-col h-full min-h-screen relative z-10">
+    <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
+      
+      <style jsx global>{`
+        @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
+        .gold-particle {
+          position: absolute; width: 4px; height: 4px; background-color: #ffffff; border-radius: 50%;
+          box-shadow: 0 0 6px #39ff14, 0 0 10px #39ff14; pointer-events: none; z-index: 5;
+          animation: goldSparkle 2.5s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* Background */}
+      <div className="absolute inset-0 z-0 bg-black">
+        <img src="/badminton-main.png" className="hidden md:block w-full h-full object-cover object-top" />
+        <img src="/badminton-main-mobile-v3.PNG" className="block md:hidden w-full h-full object-cover object-[75%_center]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+      </div>
+
+      {/* Particles */}
+      {particles.map((p, i) => (
+        <div key={i} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />
+      ))}
+
+      {/* สปอนเซอร์กรอบใหญ่ครอบรวม */}
+      <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
+        <div className="w-full bg-black/60 border border-[#39ff14]/20 rounded-3xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black">
-            
-            <img 
-              src="/badminton-hero.jpg" 
-              alt="Navbar Background" 
-              className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
-            />
-            
-            <div className="absolute inset-0 bg-black/65 z-10 pointer-events-none"></div>
-
-            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
-              
-              <div className="flex items-center gap-6 relative z-20">
-                <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
-                  <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
-                  <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
-                    BADMINTON
+          {/* หัวข้อ */}
+          <h3 className="text-center text-[#39ff14] font-black tracking-[0.35em] uppercase text-xs mb-6 drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]">
+            SPONSORED BY
+          </h3>
+          
+          {/* แถว 3 ช่องย่อย */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {sponsors.map((sponsor) => (
+              <div key={sponsor.id} className="bg-black/40 border border-white/10 p-4 rounded-xl flex items-center justify-start gap-4 hover:border-[#39ff14]/50 transition-all duration-300">
+                <img src={sponsor.logo} className="h-10 w-10 object-contain brightness-110" />
+                <div className="flex flex-col">
+                  <span className="text-[8px] text-slate-400 uppercase tracking-widest">
+                    SPONSOR {sponsor.label}:
                   </span>
-                  <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
-                </div>
-                
-                {/* เพิ่ม class overflow-hidden และใส่ div ไฟวิ่งให้แต่ละสปอนเซอร์ */}
-                <div className="flex items-center gap-4 h-12">
-                  <div className="relative h-full overflow-hidden">
-                    <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  </div>
-                  <div className="relative h-full overflow-hidden">
-                    <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  </div>
-                  <div className="relative h-full overflow-hidden">
-                    <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                    <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  </div>
+                  <span className="text-xs font-bold text-white tracking-wide">{sponsor.name}</span>
                 </div>
               </div>
-
-              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
-                <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
-                <Link href="/bracket" className={getMenuClass('/bracket')}>ผังการแข่ง</Link>
-                <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
-                <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
-                <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>                
-                <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกาการแข่งขัน</Link>
-                <Link href="/gallery" className={getMenuClass('/gallery')}>บรรยากาศกิจกรรม</Link>               
-
-                <Link 
-                  href="/register" 
-                  className={`transition-all duration-500 ease-in-out px-5 py-2 rounded-full font-semibold flex-shrink-0 whitespace-nowrap border ${
-                    pathname === '/register' 
-                      ? 'bg-[#39ff14] text-black border-[#39ff14] shadow-lg shadow-[#39ff14]/40' 
-                      : 'bg-white/10 text-slate-200 border-white/20 backdrop-blur-sm hover:bg-zinc-700 hover:text-white hover:border-zinc-500 shadow-md'
-                  }`}
-                >
-                  สมัครเข้าร่วมการแข่งขัน
-                </Link>
-              </div>
-
-            </div>
-          </nav>
-
-          <main className="w-full flex-grow relative flex flex-col">
-            <div className="w-full h-full relative ">
-              {children}
-            </div>
-          </main>
-
+            ))}
+          </div>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
