@@ -26,11 +26,10 @@ export default function HomePage() {
       <style jsx global>{`
         @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
         
-        /* แอนิเมชันสปอร์ตไลท์พัดกวาดซ้ายขวา */
         @keyframes fanSweep {
-          0% { transform: rotate(-15deg); }
-          50% { transform: rotate(15deg); }
-          100% { transform: rotate(-15deg); }
+          0% { transform: rotate(-20deg); }
+          50% { transform: rotate(20deg); }
+          100% { transform: rotate(-20deg); }
         }
         
         .gold-particle {
@@ -39,16 +38,22 @@ export default function HomePage() {
           animation: goldSparkle 2.5s ease-in-out infinite;
         }
         
-        /* ลำแสงรูปพัดที่พุ่งจากจุดกึ่งกลางด้านบน */
+        /* ลำแสงรูปพัดที่กวาดอยู่ในกรอบ */
         .spotlight-fan {
-          position: absolute; top: -50%; left: 50%; width: 200%; height: 200%;
-          background: conic-gradient(from 180deg at 50% 50%, transparent 40%, rgba(255, 234, 0, 0.2) 48%, rgba(255, 234, 0, 0.4) 50%, rgba(255, 234, 0, 0.2) 52%, transparent 60%);
-          transform-origin: 50% 0%;
-          animation: fanSweep 8s ease-in-out infinite;
-          pointer-events: none; z-index: 1;
+          position: absolute; 
+          top: -100%; 
+          left: 0%; 
+          width: 100%; 
+          height: 300%; 
+          background: conic-gradient(from 180deg at 50% 100%, transparent 40%, rgba(255, 234, 0, 0.15) 48%, rgba(255, 234, 0, 0.3) 50%, rgba(255, 234, 0, 0.15) 52%, transparent 60%);
+          transform-origin: 50% 100%;
+          animation: fanSweep 6s ease-in-out infinite;
+          pointer-events: none; 
+          z-index: 1;
         }
       `}</style>
 
+      {/* Background */}
       <div className="absolute inset-0 z-0 bg-black">
         <img src="/badminton-main.png" className="hidden md:block w-full h-full object-cover object-top" />
         <img src="/badminton-main-mobile-v3.PNG" className="block md:hidden w-full h-full object-cover object-[75%_center]" />
@@ -63,7 +68,7 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงพัดกวาดซ้ายขวา */}
+          {/* ลำแสงกวาดซ้ายขวาอยู่ในกรอบ */}
           <div className="spotlight-fan"></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
