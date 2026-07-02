@@ -14,25 +14,25 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes fanSweep {
-          0% { transform: rotate(-30deg); }
-          50% { transform: rotate(30deg); }
-          100% { transform: rotate(-30deg); }
+          0% { transform: rotate(-15deg); }
+          50% { transform: rotate(15deg); }
+          100% { transform: rotate(-15deg); }
         }
         
+        /* ลำแสงที่คมชัดขึ้น ไม่ฟุ้ง */
         .spotlight-beam {
           position: absolute;
-          top: 0; /* ย้ายมาไว้ด้านบน */
+          top: 0;
           left: 50%;
           width: 600px;
-          height: 600px;
+          height: 400px;
           margin-left: -300px;
-          /* ปรับการกระจายแสงให้กว้างขึ้น */
-          background: conic-gradient(from 0deg at 50% 0%, transparent 20%, rgba(255, 234, 0, 0.2) 45%, rgba(255, 234, 0, 0.4) 50%, rgba(255, 234, 0, 0.2) 55%, transparent 80%);
-          transform-origin: 50% 0%; /* จุดหมุนอยู่ที่ด้านบน */
+          background: conic-gradient(from 180deg at 50% 0%, transparent 45%, rgba(255, 234, 0, 0.4) 49%, rgba(255, 234, 0, 0.8) 50%, rgba(255, 234, 0, 0.4) 51%, transparent 55%);
+          transform-origin: 50% 0%;
           animation: fanSweep 7s ease-in-out infinite;
           pointer-events: none;
           z-index: 1;
-          filter: blur(25px); /* ให้แสงกระจายฟุ้งทั่วกรอบ */
+          filter: blur(4px);
         }
       `}</style>
 
@@ -47,9 +47,9 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงกระจายตัวจากด้านบน */}
+          {/* ลำแสงสปอร์ตไลท์คมๆ */}
           <div className="spotlight-beam" style={{ animationDelay: '0s' }}></div>
-          <div className="spotlight-beam" style={{ animationDelay: '-2s' }}></div>
+          <div className="spotlight-beam" style={{ animationDelay: '-3.5s' }}></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
