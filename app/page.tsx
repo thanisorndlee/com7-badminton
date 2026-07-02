@@ -14,11 +14,12 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes fanSweep {
-          0% { transform: rotate(-20deg); }
-          50% { transform: rotate(20deg); }
-          100% { transform: rotate(-20deg); }
+          0% { transform: rotate(-25deg); }
+          50% { transform: rotate(25deg); }
+          100% { transform: rotate(-25deg); }
         }
         
+        /* เพิ่ม container เพื่อคุมตำแหน่งแสงไม่ให้หลุดกรอบ */
         .spotlight-container {
           position: absolute;
           top: 0;
@@ -28,17 +29,19 @@ export default function HomePage() {
           pointer-events: none;
           z-index: 1;
         }
-        
+
         .spotlight-beam {
           position: absolute;
           top: 0;
           left: 50%;
-          width: 100%;
-          height: 100%;
-          background: conic-gradient(from 180deg at 50% 0%, transparent 45%, rgba(255, 234, 0, 0.3) 48%, rgba(255, 234, 0, 0.6) 50%, rgba(255, 234, 0, 0.3) 52%, transparent 55%);
+          width: 500px;
+          height: 400px;
+          margin-left: -250px;
+          /* ใช้สีที่เข้มขึ้นและตัดขอบให้คมชัด ไม่ฟุ้งจนหาย */
+          background: conic-gradient(from 180deg at 50% 0%, transparent 42%, rgba(255, 234, 0, 0.3) 48%, rgba(255, 234, 0, 0.7) 50%, rgba(255, 234, 0, 0.3) 52%, transparent 58%);
           transform-origin: 50% 0%;
-          animation: fanSweep 7s ease-in-out infinite;
-          filter: blur(5px);
+          animation: fanSweep 8s ease-in-out infinite;
+          filter: blur(8px); /* ลด blur เหลือ 8px เพื่อให้เห็นเป็นลำแสงคมๆ */
         }
       `}</style>
 
@@ -51,13 +54,14 @@ export default function HomePage() {
 
       {/* กรอบสปอนเซอร์ */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
-        {/* ให้ div นี้เป็น relative เพื่อให้ spotlight-container อ้างอิงขนาดได้ */}
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* แยกตัวคุมแสงออกมาเพื่อให้แน่ใจว่ามันอยู่ในกรอบ */}
+          {/* ลำแสงที่ปรับแก้ให้คมและกระจายตัวชัดขึ้น */}
           <div className="spotlight-container">
-            <div className="spotlight-beam"></div>
-            <div className="spotlight-beam" style={{ animationDelay: '-3.5s' }}></div>
+            <div className="spotlight-beam" style={{ animationDelay: '0s' }}></div>
+            <div className="spotlight-beam" style={{ animationDelay: '-2s' }}></div>
+            <div className="spotlight-beam" style={{ animationDelay: '-4s' }}></div>
+            <div className="spotlight-beam" style={{ animationDelay: '-6s' }}></div>
           </div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
