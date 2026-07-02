@@ -14,23 +14,25 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes fanSweep {
-          0%, 100% { transform: rotate(-15deg); }
-          50% { transform: rotate(15deg); }
+          0% { transform: rotate(-30deg); }
+          50% { transform: rotate(30deg); }
+          100% { transform: rotate(-30deg); }
         }
         
         .spotlight-beam {
           position: absolute;
-          bottom: 0;
+          top: 0; /* ย้ายมาไว้ด้านบน */
           left: 50%;
-          width: 400px;
-          height: 400px;
-          margin-left: -200px;
-          background: conic-gradient(from 180deg at 50% 100%, transparent 45%, rgba(255, 234, 0, 0.4) 49%, rgba(255, 234, 0, 0.6) 50%, rgba(255, 234, 0, 0.4) 51%, transparent 55%);
-          transform-origin: 50% 100%;
-          animation: fanSweep 5s ease-in-out infinite;
+          width: 600px;
+          height: 600px;
+          margin-left: -300px;
+          /* ปรับการกระจายแสงให้กว้างขึ้น */
+          background: conic-gradient(from 0deg at 50% 0%, transparent 20%, rgba(255, 234, 0, 0.2) 45%, rgba(255, 234, 0, 0.4) 50%, rgba(255, 234, 0, 0.2) 55%, transparent 80%);
+          transform-origin: 50% 0%; /* จุดหมุนอยู่ที่ด้านบน */
+          animation: fanSweep 7s ease-in-out infinite;
           pointer-events: none;
           z-index: 1;
-          filter: blur(8px);
+          filter: blur(25px); /* ให้แสงกระจายฟุ้งทั่วกรอบ */
         }
       `}</style>
 
@@ -45,11 +47,9 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสง 4 อันที่พุ่งจากจุดเดียวกันแต่กวาดต่างจังหวะ */}
+          {/* ลำแสงกระจายตัวจากด้านบน */}
           <div className="spotlight-beam" style={{ animationDelay: '0s' }}></div>
-          <div className="spotlight-beam" style={{ animationDelay: '1.2s' }}></div>
-          <div className="spotlight-beam" style={{ animationDelay: '2.4s' }}></div>
-          <div className="spotlight-beam" style={{ animationDelay: '3.6s' }}></div>
+          <div className="spotlight-beam" style={{ animationDelay: '-2s' }}></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
