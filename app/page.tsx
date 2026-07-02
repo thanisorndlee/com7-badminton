@@ -13,6 +13,7 @@ export default function HomePage() {
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
       
       <style jsx global>{`
+        /* ปรับความเร็วให้ช้าลงโดยเพิ่มค่าวินาที */
         @keyframes sweep1  {0%,100%{transform:rotate(-55deg)}50%{transform:rotate(-8deg)}}
         @keyframes sweep2  {0%,100%{transform:rotate(-48deg)}50%{transform:rotate(10deg)}}
         @keyframes sweep3  {0%,100%{transform:rotate(-38deg)}50%{transform:rotate(18deg)}}
@@ -26,41 +27,37 @@ export default function HomePage() {
         @keyframes sweep11 {0%,100%{transform:rotate(48deg)}50%{transform:rotate(-10deg)}}
         @keyframes sweep12 {0%,100%{transform:rotate(55deg)}50%{transform:rotate(8deg)}}
 
-        .spotlight{
-            position:absolute;
-            top:-35px;
-            left:50%;
-            margin-left:-75px;
-            width:150px;
+        .spotlight {
+            position:absolute; top:-35px; left:50%; margin-left:-150px;
+            width:300px; /* เพิ่มความกว้างเพื่อให้แสงบานขึ้น */
             height:700px;
             transform-origin:50% 0%;
+            /* เปลี่ยนโทนสีเป็นเขียวนีออน */
             background:linear-gradient(
                 to bottom,
                 rgba(255,255,255,.9) 0%,
-                rgba(220,255,170,.55) 10%,
-                rgba(120,255,80,.22) 40%,
-                rgba(120,255,80,.06) 75%,
+                rgba(57,255,20,.6) 10%,
+                rgba(57,255,20,.2) 40%,
+                rgba(57,255,20,.05) 75%,
                 transparent 100%
             );
-            clip-path:polygon(49.8% 0%,50.2% 0%,100% 100%,0% 100%);
-            mix-blend-mode:screen;
-            filter:blur(5px);
-            opacity:.38;
-            pointer-events:none;
+            clip-path:polygon(45% 0%,55% 0%,100% 100%,0% 100%);
+            mix-blend-mode:screen; filter:blur(8px); opacity:.4; pointer-events:none;
         }
 
-        .s1{animation:sweep1 2.8s ease-in-out infinite alternate;}
-        .s2{animation:sweep2 2.5s ease-in-out infinite alternate;}
-        .s3{animation:sweep3 2.9s ease-in-out infinite alternate;}
-        .s4{animation:sweep4 2.4s ease-in-out infinite alternate;}
-        .s5{animation:sweep5 3.0s ease-in-out infinite alternate;}
-        .s6{animation:sweep6 2.6s ease-in-out infinite alternate;}
-        .s7{animation:sweep7 2.7s ease-in-out infinite alternate;}
-        .s8{animation:sweep8 2.4s ease-in-out infinite alternate;}
-        .s9{animation:sweep9 2.8s ease-in-out infinite alternate;}
-        .s10{animation:sweep10 2.5s ease-in-out infinite alternate;}
-        .s11{animation:sweep11 2.9s ease-in-out infinite alternate;}
-        .s12{animation:sweep12 2.6s ease-in-out infinite alternate;}
+        /* เพิ่มเวลาให้ช้าลง (จาก 2.x เป็น 4-5 วินาที) */
+        .s1{animation:sweep1 4.8s ease-in-out infinite alternate;}
+        .s2{animation:sweep2 4.5s ease-in-out infinite alternate;}
+        .s3{animation:sweep3 4.9s ease-in-out infinite alternate;}
+        .s4{animation:sweep4 4.4s ease-in-out infinite alternate;}
+        .s5{animation:sweep5 5.0s ease-in-out infinite alternate;}
+        .s6{animation:sweep6 4.6s ease-in-out infinite alternate;}
+        .s7{animation:sweep7 4.7s ease-in-out infinite alternate;}
+        .s8{animation:sweep8 4.4s ease-in-out infinite alternate;}
+        .s9{animation:sweep9 4.8s ease-in-out infinite alternate;}
+        .s10{animation:sweep10 4.5s ease-in-out infinite alternate;}
+        .s11{animation:sweep11 4.9s ease-in-out infinite alternate;}
+        .s12{animation:sweep12 4.6s ease-in-out infinite alternate;}
       `}</style>
 
       {/* Background */}
@@ -74,7 +71,6 @@ export default function HomePage() {
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงสปอร์ตไลท์ 12 เส้น */}
           {['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'].map(c=>(
               <div key={c} className={`spotlight ${c}`}></div>
           ))}
