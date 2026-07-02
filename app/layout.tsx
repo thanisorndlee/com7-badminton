@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 
                 {/* สปอนเซอร์ลอยเด่นไม่มีกรอบ */}
                 <div className="flex items-center gap-4">
-                  <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
                   <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
                   <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
                 </div>
