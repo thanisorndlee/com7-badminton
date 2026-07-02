@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
 
   const getMenuClass = (path: string) => {
-    const baseClass = "transition-all duration-500 ease-in-out py-1 whitespace-nowrap cursor-pointer";
+    const baseClass = "transition-all duration-300 ease-in-out py-1 whitespace-nowrap cursor-pointer";
     const activeClass = " text-[#39ff14] font-semibold border-b-2 border-[#39ff14] drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]";
     const inactiveClass = " text-slate-300 hover:text-white border-b-2 border-transparent";
 
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="th" >
+    <html lang="th">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -30,54 +30,52 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="w-full flex flex-col h-full min-h-screen relative z-10">
           
           <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black">
-            
             <img 
               src="/badminton-hero.jpg" 
               alt="Navbar Background" 
-              className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none opacity-50"
             />
-            
-            <div className="absolute inset-0 bg-black/65 z-10 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-black/80 z-10 pointer-events-none"></div>
 
-            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
+            <div className="relative w-full py-2 px-4 md:px-8 flex flex-row justify-between items-center z-20 gap-4">
               
-              {/* กลุ่มโลโก้หลัก + สปอนเซอร์ชิดซ้ายโดยไม่มีกรอบ */}
-              <div className="flex items-center gap-6 relative z-20">
-                <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
-                  <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
-                  <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
+              {/* Left Section: Logo & Sponsors */}
+              <div className="flex items-center gap-6 flex-shrink-0">
+                <div className="flex flex-col font-black tracking-wider leading-none uppercase">
+                  <span className="text-[10px] text-slate-400 font-bold tracking-[0.25em]">COM7</span>
+                  <span className="text-xl md:text-2xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">
                     BADMINTON
                   </span>
-                  <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
+                  <span className="text-[9px] text-white/90 font-semibold tracking-[0.35em]">TOURNAMENT 2026</span>
                 </div>
                 
-                {/* สปอนเซอร์ลอยเด่นไม่มีกรอบ */}
-                <div className="flex items-center gap-4">
-                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-20 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                {/* Sponsors - ปรับความสูงเหลือ h-10 เพื่อไม่ให้บังเมนู */}
+                <div className="hidden md:flex items-center gap-4">
+                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-10 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]" />
+                  <img src="/Sponsor.png" className="h-10 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]" />
+                  <img src="/Sponsor.png" className="h-10 object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]" />
                 </div>
               </div>
 
-              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
+              {/* Right Section: Menu */}
+              <div className="flex flex-row items-center gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide overflow-x-auto pb-1">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
                 <Link href="/bracket" className={getMenuClass('/bracket')}>ผังการแข่ง</Link>
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
                 <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>                
-                <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกาการแข่งขัน</Link>
-                <Link href="/gallery" className={getMenuClass('/gallery')}>บรรยากาศกิจกรรม</Link>               
+                <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกา</Link>
+                <Link href="/gallery" className={getMenuClass('/gallery')}>บรรยากาศ</Link>               
 
-                
                 <Link 
                   href="/register" 
-                  className={`transition-all duration-500 ease-in-out px-5 py-2 rounded-full font-semibold flex-shrink-0 whitespace-nowrap border ${
+                  className={`transition-all duration-300 px-4 py-1.5 rounded-full font-semibold border ${
                     pathname === '/register' 
-                      ? 'bg-[#39ff14] text-black border-[#39ff14] shadow-lg shadow-[#39ff14]/40' 
-                      : 'bg-white/10 text-slate-200 border-white/20 backdrop-blur-sm hover:bg-zinc-700 hover:text-white hover:border-zinc-500 shadow-md'
+                      ? 'bg-[#39ff14] text-black border-[#39ff14]' 
+                      : 'bg-white/10 text-slate-200 border-white/20 hover:bg-zinc-700'
                   }`}
                 >
-                  สมัครเข้าร่วมการแข่งขัน
+                  สมัครแข่ง
                 </Link>
               </div>
 
@@ -85,9 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
 
           <main className="w-full flex-grow relative flex flex-col">
-            <div className="w-full h-full relative ">
-              {children}
-            </div>
+            {children}
           </main>
 
         </div>
