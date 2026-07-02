@@ -55,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <img
                     src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
                     alt="Sandisk"
-                    className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
+                    className="h-full max-h-5 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]"
                   />
 
                   <img
