@@ -73,7 +73,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
               <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
-                <Link href="/bracket" className={getMenuClass('/bracket')}>ผังการแข่ง</Link>
                 <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
                 <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
                 <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>                
