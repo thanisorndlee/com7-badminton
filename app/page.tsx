@@ -5,10 +5,11 @@ import React, { useEffect, useState } from 'react';
 export default function HomePage() {
   const [particles, setParticles] = useState<{ left: string; top: string; delay: string }[]>([]);
 
+  // ปรับโลโก้และชื่อตามที่คุณต้องการ
   const sponsors = [
-    { id: 1, name: 'POWER SHUTTLE', logo: '/power-shuttle-logo.png', label: 'ONE' },
-    { id: 2, name: 'SIAM SPORTS ARENA', logo: '/siam-sports-logo.png', label: 'TWO' },
-    { id: 3, name: 'TECHNIQUE', logo: '/technique-logo.png', label: 'THREE' },
+    { id: 1, name: 'COM7TECH', logo: '/logo-placeholder.png', label: 'ONE' },
+    { id: 2, name: 'SIAM SPORTS ARENA', logo: '/badminton-shuttle.png', label: 'TWO' },
+    { id: 3, name: 'GLOBAL BRANDS', logo: '/global-brands-logo.png', label: 'THREE' },
   ];
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function HomePage() {
           animation: goldSparkle 2.5s ease-in-out infinite;
         }
         
-        .animate-shine { animation: shine 3s infinite linear; }
+        .animate-shine { animation: shine 4s infinite linear; }
       `}</style>
 
       {/* Background */}
@@ -48,28 +49,24 @@ export default function HomePage() {
         <div key={i} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />
       ))}
 
-      {/* สปอนเซอร์กรอบใหญ่ครอบรวม */}
+      {/* กรอบใหญ่ครอบ 3 ช่องตามภาพ Gemini_Generated_Image_2s6sgq2s6sgq2s6s.png */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
-        <div className="w-full bg-black/60 border border-[#39ff14]/20 rounded-3xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
+        <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          <h3 className="text-center text-[#39ff14] font-black tracking-[0.35em] uppercase text-xs mb-6 drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]">
+          {/* ไฟสปอร์ตไลท์วิ่งผ่านกรอบใหญ่ */}
+          <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none"></div>
+
+          <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6">
             SPONSORED BY
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {sponsors.map((sponsor) => (
-              /* ใส่ relative และ overflow-hidden เพื่อให้ไฟสปอร์ตไลท์วิ่งเฉพาะในกรอบ */
-              <div key={sponsor.id} className="relative bg-black/40 border border-white/10 p-4 rounded-xl flex items-center justify-start gap-4 hover:border-[#39ff14]/50 transition-all duration-300 overflow-hidden">
-                
-                {/* ไฟสปอร์ตไลท์ส่องผ่าน */}
-                <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-                
-                <img src={sponsor.logo} className="h-10 w-10 object-contain brightness-110 relative z-10" />
-                <div className="flex flex-col relative z-10">
-                  <span className="text-[8px] text-slate-400 uppercase tracking-widest">
-                    SPONSOR {sponsor.label}:
-                  </span>
-                  <span className="text-xs font-bold text-white tracking-wide">{sponsor.name}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10">
+            {sponsors.map((sponsor, index) => (
+              <div key={sponsor.id} className={`flex items-center justify-center gap-3 p-4 ${index !== 2 ? 'border-r border-white/10' : ''}`}>
+                <img src={sponsor.logo} className="h-8 w-auto object-contain" />
+                <div className="flex flex-col">
+                  <span className="text-[8px] text-slate-500 uppercase">SPONSOR {sponsor.label}:</span>
+                  <span className="text-[11px] font-bold text-white uppercase">{sponsor.name}</span>
                 </div>
               </div>
             ))}
