@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <div className="w-full flex flex-col h-full min-h-screen relative z-10">
           
-          <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black">
+          <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black h-20">
             
             <img 
               src="/badminton-hero.jpg" 
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             
             <div className="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
 
-            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center z-20 gap-4">
+            <div className="relative w-full py-2 px-4 md:px-8 flex flex-row justify-between items-center z-20 gap-6">
               
               <div className="flex items-center gap-6 relative z-20">
                 <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
@@ -50,10 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-[9px] text-white/90 font-semibold tracking-[0.35em]">TOURNAMENT 2026</span>
                 </div>
                 
-                <div className="hidden md:flex items-center gap-4 h-full py-1">
-                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
+                <div className="hidden md:flex items-center gap-4 h-full py-2">
+                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full max-h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <img src="/Sponsor.png" className="h-full max-h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <img src="/Sponsor.png" className="h-full max-h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                 </div>
               </div>
 
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                 <Link 
                   href="/register" 
-                  className={`transition-all duration-300 px-4 py-1.5 rounded-full font-semibold flex-shrink-0 border ${
+                  className={`transition-all duration-300 px-4 py-2 rounded-full font-semibold flex-shrink-0 border ${
                     pathname === '/register' 
                       ? 'bg-[#39ff14] text-black border-[#39ff14]' 
                       : 'bg-white/10 text-slate-200 border-white/20 hover:bg-zinc-700'
@@ -77,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   สมัครแข่ง
                 </Link>
               </div>
-
             </div>
           </nav>
 
@@ -86,7 +85,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </div>
           </main>
-
         </div>
       </body>
     </html>
