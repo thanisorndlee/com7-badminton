@@ -42,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
               
               <div className="flex items-center gap-6 relative z-20">
+                {/* LOGO */}
                 <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
                   <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
                   <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
@@ -50,10 +51,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
                 </div>
                 
-                <div className="flex items-center gap-4 h-12">
-                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" />
+                {/* SPONSOR */}
+                <div className="flex items-center gap-4 h-full py-1">
+                  <img
+                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
+                    alt="Sandisk"
+                    className="h-5 w-auto object-contain"
+                  />
+                  <img
+                    src="/Sponsor.png"
+                    alt="Sponsor"
+                    className="h-8 w-auto object-contain"
+                  />
+                  <img
+                    src="/Sponsor.png"
+                    alt="Sponsor"
+                    className="h-8 w-auto object-contain"
+                  />
                 </div>
               </div>
 
@@ -77,7 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   สมัครเข้าร่วมการแข่งขัน
                 </Link>
               </div>
-
             </div>
           </nav>
 
