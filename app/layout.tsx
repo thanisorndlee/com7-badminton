@@ -39,9 +39,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             
             <div className="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
 
-            <div className="relative w-full py-3 px-4 md:px-8 flex flex-row justify-between items-center z-20 gap-4">
+            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center z-20 gap-4">
               
-              {/* กลุ่มโลโก้หลัก + สปอนเซอร์ */}
               <div className="flex items-center gap-6 relative z-20">
                 <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
                   <span className="text-[10px] text-slate-400 font-bold tracking-[0.25em]">COM7</span>
@@ -51,15 +50,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-[9px] text-white/90 font-semibold tracking-[0.35em]">TOURNAMENT 2026</span>
                 </div>
                 
-                {/* สปอนเซอร์ - ปรับลดขนาดเหลือ h-8 และ gap-3 เพื่อไม่ให้เกะกะ */}
-                <div className="hidden md:flex items-center gap-3">
-                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
-                  <img src="/Sponsor.png" className="h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
+                <div className="hidden md:flex items-center gap-4 h-full py-1">
+                  <img src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
+                  <img src="/Sponsor.png" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
+                  <img src="/Sponsor.png" className="h-full max-h-8 w-auto object-contain drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
                 </div>
               </div>
 
-              {/* เมนูนำทาง */}
               <div className="flex flex-row items-center justify-start gap-4 md:gap-5 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto pb-1">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
                 <Link href="/bracket" className={getMenuClass('/bracket')}>ผังการแข่ง</Link>
@@ -80,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   สมัครแข่ง
                 </Link>
               </div>
+
             </div>
           </nav>
 
@@ -88,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </div>
           </main>
+
         </div>
       </body>
     </html>
