@@ -14,25 +14,31 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes fanSweep {
-          0% { transform: rotate(-15deg); }
-          50% { transform: rotate(15deg); }
-          100% { transform: rotate(-15deg); }
+          0% { transform: rotate(-20deg); }
+          50% { transform: rotate(20deg); }
+          100% { transform: rotate(-20deg); }
         }
         
-        /* ลำแสงที่คมชัดขึ้น ไม่ฟุ้ง */
+        .spotlight-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 1;
+        }
+        
         .spotlight-beam {
           position: absolute;
           top: 0;
           left: 50%;
-          width: 600px;
-          height: 400px;
-          margin-left: -300px;
-          background: conic-gradient(from 180deg at 50% 0%, transparent 45%, rgba(255, 234, 0, 0.4) 49%, rgba(255, 234, 0, 0.8) 50%, rgba(255, 234, 0, 0.4) 51%, transparent 55%);
+          width: 100%;
+          height: 100%;
+          background: conic-gradient(from 180deg at 50% 0%, transparent 45%, rgba(255, 234, 0, 0.3) 48%, rgba(255, 234, 0, 0.6) 50%, rgba(255, 234, 0, 0.3) 52%, transparent 55%);
           transform-origin: 50% 0%;
           animation: fanSweep 7s ease-in-out infinite;
-          pointer-events: none;
-          z-index: 1;
-          filter: blur(4px);
+          filter: blur(5px);
         }
       `}</style>
 
@@ -45,11 +51,14 @@ export default function HomePage() {
 
       {/* กรอบสปอนเซอร์ */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
+        {/* ให้ div นี้เป็น relative เพื่อให้ spotlight-container อ้างอิงขนาดได้ */}
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงสปอร์ตไลท์คมๆ */}
-          <div className="spotlight-beam" style={{ animationDelay: '0s' }}></div>
-          <div className="spotlight-beam" style={{ animationDelay: '-3.5s' }}></div>
+          {/* แยกตัวคุมแสงออกมาเพื่อให้แน่ใจว่ามันอยู่ในกรอบ */}
+          <div className="spotlight-container">
+            <div className="spotlight-beam"></div>
+            <div className="spotlight-beam" style={{ animationDelay: '-3.5s' }}></div>
+          </div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
