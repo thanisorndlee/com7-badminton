@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <img
                     src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
                     alt="Sandisk"
-                    className="h-5 w-24 object-contain"
+                    className="h-5 w-28 object-contain"
                   />
                   <img
                     src="/Sponsor.png"
