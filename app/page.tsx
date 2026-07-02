@@ -25,8 +25,12 @@ export default function HomePage() {
       
       <style jsx global>{`
         @keyframes goldSparkle { 0%, 100% { transform: scale(0.5); opacity: 0.15; } 50% { transform: scale(1.3); opacity: 0.85; filter: drop-shadow(0 0 5px #ffea00); } }
-        @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes spotlightAnim { 0%, 100% { opacity: 0.2; transform: scaleY(1); } 50% { opacity: 0.4; transform: scaleY(1.05); } }
+        
+        /* สปอร์ตไลท์กวาดซ้ายขวาที่ปลายด้านล่าง */
+        @keyframes sweepSpotlight {
+          0%, 100% { left: 10%; }
+          50% { left: 90%; }
+        }
         
         .gold-particle {
           position: absolute; width: 4px; height: 4px; background-color: #ffffff; border-radius: 50%;
@@ -34,37 +38,31 @@ export default function HomePage() {
           animation: goldSparkle 2.5s ease-in-out infinite;
         }
         
-        .animate-shine { animation: shine 4s infinite linear; }
-        
-        /* สปอร์ตไลท์จำกัดอยู่ในกรอบ */
-        .spotlight-in-box {
-          position: absolute; top: 0; width: 100%; height: 100%;
-          background: conic-gradient(from 180deg at 50% -20%, #ffea00 0deg, transparent 20deg, transparent 340deg, #ffea00 360deg);
-          animation: spotlightAnim 4s ease-in-out infinite; pointer-events: none; z-index: 1;
+        .spotlight-sweep {
+          position: absolute; bottom: 0; left: 10%; width: 20%; height: 100%;
+          background: linear-gradient(to bottom, transparent 40%, rgba(255, 234, 0, 0.2) 80%, rgba(255, 234, 0, 0.4) 100%);
+          clip-path: polygon(50% 100%, 0% 50%, 100% 50%);
+          animation: sweepSpotlight 6s ease-in-out infinite;
+          pointer-events: none; z-index: 1;
         }
       `}</style>
 
-      {/* Background */}
       <div className="absolute inset-0 z-0 bg-black">
         <img src="/badminton-main.png" className="hidden md:block w-full h-full object-cover object-top" />
         <img src="/badminton-main-mobile-v3.PNG" className="block md:hidden w-full h-full object-cover object-[75%_center]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
       </div>
 
-      {/* Particles */}
       {particles.map((p, i) => (
         <div key={i} className="gold-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay }} />
       ))}
 
-      {/* กรอบสปอนเซอร์ที่มีสปอร์ตไลท์อยู่ข้างใน */}
+      {/* กรอบสปอนเซอร์ */}
       <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
         <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
           
-          {/* ลำแสงสปอร์ตไลท์พุ่งลงมา "ภายใน" กรอบนี้เท่านั้น */}
-          <div className="spotlight-in-box"></div>
-          
-          {/* ไฟวิ่งสปอร์ตไลท์แนวขวาง (ของเดิม) */}
-          <div className="absolute inset-0 -translate-x-full animate-shine bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none z-20"></div>
+          {/* ลำแสงสปอร์ตไลท์กวาดไปมาที่ด้านล่าง */}
+          <div className="spotlight-sweep"></div>
 
           <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
             SPONSORED BY
