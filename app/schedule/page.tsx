@@ -115,7 +115,9 @@ console.log(finalRound);
         {/* แผนผังการแข่งขัน */}
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
         
-                <div className="flex justify-center gap-32 overflow-x-auto pb-10 px-12 min-w-[1700px]">            <div className="flex flex-col">
+<div className="overflow-x-auto pb-10">
+  <div className="w-max mx-auto flex gap-32 px-12">
+                  <div className="flex flex-col">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
                 <div className="flex flex-col gap-3">
                     {round16.map((match, i) => (
@@ -161,6 +163,7 @@ console.log(finalRound);
                     <BracketBox key={i} match={match} />
                 ))}
             </div>
+          </div>
         </div>
       </div>
     </div>
