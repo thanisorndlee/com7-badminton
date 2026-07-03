@@ -34,6 +34,31 @@ export default function SchedulePage() {
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
+  // =============================
+// ข้อมูลแต่ละรอบของสายการแข่งขัน
+// =============================
+
+const round16 = useMemo(() => {
+  return matches.filter((m) => String(m[1]) === "รอบ 16 คู่");
+}, [matches]);
+
+const round8 = useMemo(() => {
+  return matches.filter((m) => String(m[1]) === "รอบ 8 คู่");
+}, [matches]);
+
+const round4 = useMemo(() => {
+  return matches.filter((m) => String(m[1]) === "รอบ 4 คู่");
+}, [matches]);
+
+const finalRound = useMemo(() => {
+  return matches.filter((m) => String(m[1]) === "ชิงชนะเลิศ");
+}, [matches]);
+
+console.log(round16);
+console.log(round8);
+console.log(round4);
+console.log(finalRound);
+
   const BracketBox = ({ title }: { title: string }) => {
     return (
       <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
