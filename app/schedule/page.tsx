@@ -10,52 +10,41 @@ export default function SchedulePage() {
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    // ดึงข้อมูลจาก Google Apps Script
     fetch('https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec')
       .then((res) => res.json())
       .then((data) => {
-        // ใช้ข้อมูลจาก 'matches' และข้ามแถวแรก (Header)
         if (data.matches) {
           setMatches(data.matches.slice(1));
         }
         setIsFetched(true);
       })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
+      .catch(() => {
         setIsFetched(true);
       });
   }, []);
 
   const statsAndFilters = useMemo(() => {
     if (!matches.length) return { uniqueTeamsCount: 0, uniqueStages: ['ทั้งหมด'], uniqueGroups: ['ทั้งหมด'] };
-    
-    // คอลัมน์ index 4 คือ TeamA, index 5 คือ TeamB
     const allTeams = matches.flatMap(m => [m[4], m[5]]).filter(Boolean);
     const uniqueTeamsCount = new Set(allTeams).size;
-    
-    // คอลัมน์ index 1 คือ Stage, index 2 คือ Group
     const uniqueStages = ['ทั้งหมด', ...Array.from(new Set(matches.map((m) => m[1]).filter(Boolean)))];
     const uniqueGroups = ['ทั้งหมด', ...Array.from(new Set(matches.map((m) => m[2]).filter(Boolean)))];
-    
     return { uniqueTeamsCount, uniqueStages, uniqueGroups };
   }, [matches]);
 
-  const filteredMatches = useMemo(() => {
+  const tableMatches = useMemo(() => {
     if (!isFetched) return [];
-    
     return matches.filter((match) => {
+      const isGroupStage = String(match[1]) === "รอบแบ่งกลุ่ม";
       const search = searchTerm.toLowerCase();
-      // match[0]=ID, match[1]=Stage, match[4]=TeamA, match[5]=TeamB
       const found =
         String(match[0] || '').toLowerCase().includes(search) || 
         String(match[1] || '').toLowerCase().includes(search) || 
         String(match[4] || '').toLowerCase().includes(search) || 
         String(match[5] || '').toLowerCase().includes(search);
-
       const stagePass = stageFilter === 'ทั้งหมด' || String(match[1]) === stageFilter;
       const groupPass = groupFilter === 'ทั้งหมด' || String(match[2]) === groupFilter;
-
-      return found && stagePass && groupPass;
+      return isGroupStage && found && stagePass && groupPass;
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
@@ -66,7 +55,6 @@ export default function SchedulePage() {
       </div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
-        
         <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
           <div>
             <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
@@ -74,7 +62,6 @@ export default function SchedulePage() {
             </span>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
           </div>
-
           <div className="relative w-full lg:w-80">
             <input
               type="text"
@@ -89,7 +76,7 @@ export default function SchedulePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="bg-black/60 border border-white/10 p-5 rounded-xl shadow-inner">
             <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">จำนวนนัดที่แข่งขัน</p>
-            <h3 className="text-3xl font-black text-emerald-400 mt-1 font-mono">{filteredMatches.length}</h3>
+            <h3 className="text-3xl font-black text-emerald-400 mt-1 font-mono">{tableMatches.length}</h3>
           </div>
           <div className="bg-black/60 border border-white/10 p-5 rounded-xl shadow-inner">
             <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">จำนวนทีมผู้สมัคร</p>
@@ -120,8 +107,8 @@ export default function SchedulePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10 font-semibold">
-              {filteredMatches.length > 0 ? (
-                filteredMatches.map((m, i) => (
+              {tableMatches.length > 0 ? (
+                tableMatches.map((m, i) => (
                   <tr key={i} className="hover:bg-white/5 h-[64px]">
                     <td className="text-center font-mono text-slate-400">#{m[0]}</td>
                     <td className="px-4 text-xs">{m[1]} {m[2] && <span className="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded ml-1 font-bold">{m[2]}</span>}</td>
