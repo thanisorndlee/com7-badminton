@@ -48,11 +48,11 @@ export default function SchedulePage() {
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
-  const BracketBox = ({ matchId, title }: { matchId: string; title: string }) => {
+  const BracketBox = ({ matchId, title, showConnector = true }: { matchId: string; title: string; showConnector?: boolean }) => {
     const match = matches.find(r => String(r[0]) === matchId);
     return (
       <div className="relative w-40 h-16 border border-[#39ff14] rounded-xl bg-black/90 flex flex-col items-center justify-center px-3 text-[10px] font-bold text-white shadow-[0_0_15px_rgba(57,255,20,0.15)] hover:scale-105 transition-all">
-        <div className="absolute -right-8 top-1/2 w-8 h-px bg-[#39ff14] opacity-50"></div>
+        {showConnector && <div className="absolute -right-8 top-1/2 w-8 h-px bg-[#39ff14]/50"></div>}
         <span className="text-[8px] text-emerald-400 opacity-60 font-mono mb-1">MATCH #{matchId}</span>
         <div className="text-center truncate w-full text-[11px]">
           {match && match[4] && match[5] ? `${match[4]} vs ${match[5]}` : title}
@@ -144,18 +144,28 @@ export default function SchedulePage() {
 
         <div className="border-t border-white/10 pt-10">
           <h2 className="text-center text-2xl font-black text-[#39ff14] mb-12 uppercase tracking-wide">ผังการแข่งขันรอบน็อกเอาต์</h2>
-          <div className="flex justify-center gap-6 overflow-x-auto pb-6">
-            <div className="flex flex-col gap-4">
+          <div className="flex justify-center gap-8 overflow-x-auto pb-6 relative">
+            <div className="flex flex-col gap-4 relative">
               <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 16 คู่</h3>
-              {['25', '26', '27', '28', '29', '30', '31', '32'].map((id, index) => <BracketBox key={id} matchId={id} title={`คู่ที่ ${index + 1}`} />)}
+              {['25', '26', '27', '28', '29', '30', '31', '32'].map((id, i) => (
+                <div key={id} className="relative">
+                   <BracketBox matchId={id} title={`คู่ที่ ${i + 1}`} />
+                   {i % 2 === 0 && <div className="absolute -right-8 top-12 w-[2px] h-16 bg-[#39ff14]/50"></div>}
+                </div>
+              ))}
             </div>
-            <div className="flex flex-col gap-[88px] justify-center mt-12">
+            <div className="flex flex-col gap-[88px] justify-center mt-12 relative">
               <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 8 คู่</h3>
-              {['33', '34', '35', '36'].map((id, index) => <BracketBox key={id} matchId={id} title={`คู่ที่ ${index + 1}`} />)}
+              {['33', '34', '35', '36'].map((id, i) => (
+                <div key={id} className="relative">
+                   <BracketBox matchId={id} title={`คู่ที่ ${i + 1}`} />
+                   {i % 2 === 0 && <div className="absolute -right-8 top-12 w-[2px] h-24 bg-[#39ff14]/50"></div>}
+                </div>
+              ))}
             </div>
-            <div className="flex flex-col gap-[236px] justify-center mt-12">
+            <div className="flex flex-col gap-[236px] justify-center mt-28 relative">
               <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 4 คู่</h3>
-              {['37', '38'].map((id, index) => <BracketBox key={id} matchId={id} title={`คู่ที่ ${index + 1}`} />)}
+              {['37', '38'].map((id, i) => <BracketBox key={id} matchId={id} title={`คู่ที่ ${i + 1}`} showConnector={false} />)}
             </div>
           </div>
         </div>
