@@ -48,6 +48,18 @@ export default function SchedulePage() {
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
+  const BracketBox = ({ matchId }: { matchId: string }) => {
+    const match = matches.find(r => String(r[0]) === matchId);
+    return (
+      <div className="relative w-40 h-12 border border-[#39ff14] rounded-xl bg-black/90 flex flex-col items-center justify-center px-3 text-[10px] font-bold text-white shadow-[0_0_15px_rgba(57,255,20,0.15)] hover:scale-105 transition-all">
+        <span className="text-[8px] text-emerald-400 opacity-60 font-mono">MATCH #{matchId}</span>
+        <div className="text-center truncate w-full">
+          {match ? `${match[4] || 'TBD'} vs ${match[5] || 'TBD'}` : "TBD"}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans tracking-tight">
       <div className="absolute inset-0 z-0">
@@ -94,7 +106,7 @@ export default function SchedulePage() {
           </select>
         </div>
 
-        <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20">
+        <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
           <table className="w-full text-sm text-left border-collapse min-w-[700px]">
             <thead>
               <tr className="bg-black/90 text-[12px] text-slate-300 font-black uppercase border-b border-white/10">
@@ -127,6 +139,24 @@ export default function SchedulePage() {
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="border-t border-white/10 pt-10">
+          <h2 className="text-center text-2xl font-black text-[#39ff14] mb-12 uppercase tracking-wide">ผังการแข่งขันรอบน็อกเอาต์</h2>
+          <div className="flex justify-center gap-8 md:gap-14 overflow-x-auto pb-6">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xs font-extrabold text-center opacity-60">รอบ 16 คู่</h3>
+              {['25', '26', '27', '28', '29', '30', '31', '32'].map((id) => <BracketBox key={id} matchId={id} />)}
+            </div>
+            <div className="flex flex-col gap-[88px] justify-center">
+              <h3 className="text-xs font-extrabold text-center opacity-60">รอบ 8 คู่</h3>
+              {['33', '34', '35', '36'].map((id) => <BracketBox key={id} matchId={id} />)}
+            </div>
+            <div className="flex flex-col gap-[236px] justify-center">
+              <h3 className="text-xs font-extrabold text-center opacity-60">รอบ 4 คู่</h3>
+              {['37', '38'].map((id) => <BracketBox key={id} matchId={id} />)}
+            </div>
+          </div>
         </div>
       </div>
     </div>
