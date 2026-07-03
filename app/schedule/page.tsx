@@ -61,22 +61,10 @@ console.log(finalRound);
 
   const BracketBox = ({ match }: { match: any }) => {
   return (
-    <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
+    <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex items-center justify-center">
 
-      <span className="text-[11px] text-emerald-300 font-bold">
+      <span className="text-white font-black text-lg">
         {match[0]}
-      </span>
-
-      <span className="text-white text-xs font-semibold">
-        {match[3] || "-"}
-      </span>
-
-      <span className="text-[10px] text-slate-400">
-        VS
-      </span>
-
-      <span className="text-white text-xs font-semibold">
-        {match[4] || "-"}
       </span>
 
     </div>
