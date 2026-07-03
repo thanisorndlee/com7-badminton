@@ -34,14 +34,17 @@ export default function SchedulePage() {
       const isGroupStage = String(match[1]) === "รอบแบ่งกลุ่ม";
       const search = searchTerm.toLowerCase();
       const found = String(match[0] || '').toLowerCase().includes(search) || String(match[1] || '').toLowerCase().includes(search) || String(match[4] || '').toLowerCase().includes(search) || String(match[5] || '').toLowerCase().includes(search);
-      const stagePass = stageFilter === 'ทั้งหมด' || String(match[1]) === stageFilter;
-      const groupPass = groupFilter === 'ทั้งหมด' || String(match[2]) === groupFilter;
-      return isGroupStage && found && stagePass && groupPass;
+      return isGroupStage && found;
     });
-  }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
+  }, [isFetched, matches, searchTerm]);
 
-  const BracketBox = ({ matchId, title }: { matchId: string; title: string }) => {
-    const match = matches.find((r) => String(r[0]) === matchId);
+  // ฟังก์ชันดึงข้อมูลที่ถูกต้องตาม ID และ Stage
+  const getMatchData = (id: string, stage: string) => {
+    return matches.find((r) => String(r[0]) === id && String(r[1]) === stage);
+  };
+
+  const BracketBox = ({ matchId, stage, title }: { matchId: string; stage: string; title: string }) => {
+    const match = getMatchData(matchId, stage);
     return (
       <div className="w-40 h-16 rounded-2xl border border-[#39ff14]/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,.15)] hover:scale-105 transition-all flex flex-col justify-center px-4 relative z-10">
         <span className="text-[9px] text-[#39ff14]/70 font-mono">MATCH #{matchId}</span>
@@ -58,23 +61,15 @@ export default function SchedulePage() {
         .bracket-line-h { position:absolute; height:2px; background:#39ff14; opacity:.45; }
         .bracket-line-v { position:absolute; width:2px; background:#39ff14; opacity:.45; }
       `}</style>
-
+      
       <div className="absolute inset-0 z-0">
         <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
-        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
-          <div>
-            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">Tournament Schedule</span>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
-          </div>
-          <div className="relative w-full lg:w-80">
-            <input type="text" placeholder="ค้นหา แมตช์, ชื่อทีม, นักกีฬา..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-black/80 border border-white/20 px-4 py-2.5 pl-11 rounded-xl text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-slate-500 font-medium" />
-          </div>
-        </div>
+        <h1 className="text-2xl md:text-3xl font-black text-white mb-8 border-b border-white/10 pb-6">ตารางการแข่งขัน</h1>
 
-        {/* ตารางแสดงผล */}
+        {/* ตารางเฉพาะรอบแบ่งกลุ่ม */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
           <table className="w-full text-sm text-left border-collapse min-w-[700px]">
             <thead>
@@ -91,7 +86,7 @@ export default function SchedulePage() {
               {tableMatches.length > 0 ? tableMatches.map((m, i) => (
                 <tr key={i} className="hover:bg-white/5 h-[64px]">
                   <td className="text-center font-mono text-slate-400">#{m[0]}</td>
-                  <td className="px-4 text-xs">{m[1]} {m[2] && <span className="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded ml-1 font-bold">{m[2]}</span>}</td>
+                  <td className="px-4 text-xs">{m[1]}</td>
                   <td className="text-right text-lg font-black">{m[4] || '-'}</td>
                   <td className="text-center text-xs italic text-slate-500">VS</td>
                   <td className="text-left text-lg font-black">{m[5] || '-'}</td>
@@ -102,17 +97,25 @@ export default function SchedulePage() {
           </table>
         </div>
 
-        {/* ผังการแข่งขัน */}
+        {/* ผังการแข่งขัน น็อกเอาต์ */}
         <div className="overflow-x-auto pb-8 relative">
           <div className="flex justify-center gap-16 min-w-[1200px]">
-            {['รอบ 16 คู่', 'รอบ 8 คู่', 'รอบ 4 คู่', 'รอบ 2 คู่'].map((round, idx) => (
-              <div key={round} className="w-44 flex flex-col items-center">
-                <h3 className="text-center text-lg font-black text-[#39ff14] mb-8">{round}</h3>
+            {[
+              { label: 'รอบ 16 คู่', stage: 'รอบ 16 คู่', count: 16 },
+              { label: 'รอบ 8 คู่', stage: 'รอบ 8 คู่', count: 8 },
+              { label: 'รอบ 4 คู่', stage: 'รอบ 4 คู่', count: 4 },
+              { label: 'ชิงชนะเลิศ', stage: 'ชิงชนะเลิศ', count: 1 }
+            ].map((round, idx) => (
+              <div key={round.stage} className="w-44 flex flex-col items-center">
+                <h3 className="text-center text-lg font-black text-[#39ff14] mb-8">{round.label}</h3>
                 <div className={`h-[900px] flex flex-col ${idx === 0 ? 'justify-between' : idx === 1 ? 'justify-evenly' : idx === 2 ? 'justify-around' : 'items-center justify-center'}`}>
-                  {idx === 0 && ['25','26','27','28','29','30','31','32'].map((id, i) => <div key={id} className="relative"><BracketBox matchId={id} title={`คู่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'80px'}}/> </>}</div>)}
-                  {idx === 1 && ['33','34','35','36'].map((id, i) => <div key={id} className="relative"><BracketBox matchId={id} title={`คู่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'160px'}}/> </>}</div>)}
-                  {idx === 2 && ['37','38'].map((id, i) => <div key={id} className="relative"><BracketBox matchId={id} title={`คู่ ${i+1}`} />{i===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'320px'}}/> </>}</div>)}
-                  {idx === 3 && <BracketBox matchId="39" title="ชิงชนะเลิศ" />}
+                  {Array.from({ length: round.count }).map((_, i) => (
+                    <div key={i} className="relative">
+                      <BracketBox matchId={String(i + 1)} stage={round.stage} title={`คู่ ${i + 1}`} />
+                      {idx < 3 && i % 2 === 0 && <div className="bracket-line-h" style={{ top: '50%', left: '160px', width: '32px' }} />}
+                      {idx < 3 && i % 2 === 0 && <div className="bracket-line-v" style={{ top: '50%', left: '192px', height: idx === 0 ? '80px' : idx === 1 ? '160px' : '320px' }} />}
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
