@@ -48,71 +48,124 @@ export default function SchedulePage() {
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
-  const BracketBox = ({ matchId, title }: { matchId: string; title: string }) => {
-    const match = matches.find((r) => String(r[0]) === matchId);
+  const BracketBox = ({ matchId, title, showConnector = true }: { matchId: string; title: string; showConnector?: boolean }) => {
+    const match = matches.find(r => String(r[0]) === matchId);
     return (
-      <div className="w-52 h-20 rounded-2xl border border-[#39ff14]/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,.15)] hover:scale-105 transition-all flex flex-col justify-center px-4 relative z-10">
-        <span className="text-[10px] text-[#39ff14]/70 font-mono">MATCH #{matchId}</span>
-        <span className="font-bold text-sm truncate">{match?.[4] || title}</span>
-        <span className="text-center text-xs text-slate-400">VS</span>
-        <span className="font-bold text-sm truncate">{match?.[5] || "TBD"}</span>
+      <div className="relative w-40 h-16 border border-[#39ff14] rounded-xl bg-black/90 flex flex-col items-center justify-center px-3 text-[10px] font-bold text-white shadow-[0_0_15px_rgba(57,255,20,0.15)] hover:scale-105 transition-all">
+        {showConnector && <div className="absolute -right-8 top-1/2 w-8 h-px bg-[#39ff14]/50"></div>}
+        <span className="text-[8px] text-emerald-400 opacity-60 font-mono mb-1">MATCH #{matchId}</span>
+        <div className="text-center truncate w-full text-[11px]">
+          {match && match[4] && match[5] ? `${match[4]} vs ${match[5]}` : title}
+        </div>
       </div>
     );
   };
 
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans tracking-tight">
-      <style jsx global>{`
-        .bracket-line-h { position:absolute; height:2px; background:#39ff14; opacity:.45; }
-        .bracket-line-v { position:absolute; width:2px; background:#39ff14; opacity:.45; }
-      `}</style>
-      
-      <div className="absolute inset-0 z-0"><img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="BG" /></div>
+      <div className="absolute inset-0 z-0">
+        <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Tournament Background" />
+      </div>
 
-      <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
-        
-        <div className="border-t border-white/10 pt-16">
-          <h2 className="text-center text-2xl font-black text-[#39ff14] mb-16 uppercase tracking-wide">ผังการแข่งขันรอบน็อกเอาต์</h2>
-          <div className="overflow-x-auto pb-10">
-            <div className="flex gap-20 min-w-[1300px] justify-center relative">
-              
-              <div className="flex flex-col gap-6 relative">
-                <h3 className="text-center font-bold text-[#39ff14]">รอบ 16 ทีม</h3>
-                {['25','26','27','28','29','30','31','32'].map((id, i) => (
-                  <div key={id} className="relative flex items-center">
-                    <BracketBox matchId={id} title={`คู่ที่ ${i + 1}`} />
-                    {i % 2 === 0 && <div className="bracket-line-h" style={{ top: '64px', right: '-40px', width: '40px' }} />}
-                    {i % 2 === 0 && <div className="bracket-line-v" style={{ top: '64px', right: '-40px', height: '112px' }} />}
-                  </div>
-                ))}
-              </div>
+      <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
+        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
+          <div>
+            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
+              Tournament Schedule
+            </span>
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
+          </div>
+          <div className="relative w-full lg:w-80">
+            <input
+              type="text"
+              placeholder="ค้นหา แมตช์, ชื่อทีม, นักกีฬา..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-black/80 border border-white/20 px-4 py-2.5 pl-11 rounded-xl text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-slate-500 font-medium"
+            />
+          </div>
+        </div>
 
-              <div className="flex flex-col justify-center gap-[176px] relative">
-                <h3 className="text-center font-bold text-[#39ff14]">รอบ 8 ทีม</h3>
-                {['33','34','35','36'].map((id, i) => (
-                  <div key={id} className="relative flex items-center">
-                    <BracketBox key={id} matchId={id} title="" />
-                    {i % 2 === 0 && <div className="bracket-line-h" style={{ top: '64px', right: '-40px', width: '40px' }} />}
-                    {i % 2 === 0 && <div className="bracket-line-v" style={{ top: '64px', right: '-40px', height: '240px' }} />}
-                  </div>
-                ))}
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-black/60 border border-white/10 p-5 rounded-xl shadow-inner">
+            <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">จำนวนนัดที่แข่งขัน</p>
+            <h3 className="text-3xl font-black text-emerald-400 mt-1 font-mono">{tableMatches.length}</h3>
+          </div>
+          <div className="bg-black/60 border border-white/10 p-5 rounded-xl shadow-inner">
+            <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">จำนวนทีมผู้สมัคร</p>
+            <h3 className="text-3xl font-black text-white mt-1 font-mono">{statsAndFilters.uniqueTeamsCount} ทีม</h3>
+          </div>
+        </div>
 
-              <div className="flex flex-col justify-center gap-[432px] relative">
-                <h3 className="text-center font-bold text-[#39ff14]">รอบรองฯ</h3>
-                {['37','38'].map((id, i) => (
-                   <div key={id} className="relative flex items-center">
-                     <BracketBox key={id} matchId={id} title="" />
-                     {i === 0 && <div className="bracket-line-h" style={{ top: '64px', right: '-40px', width: '40px' }} />}
-                     {i === 0 && <div className="bracket-line-v" style={{ top: '64px', right: '-40px', height: '496px' }} />}
-                   </div>
-                ))}
-              </div>
+        <div className="flex flex-wrap items-center gap-4 mb-6 bg-black/50 p-3 rounded-xl border border-white/10 shadow-inner">
+          <span className="text-[11px] text-slate-400 font-bold uppercase">คัดกรอง:</span>
+          <select value={stageFilter} onChange={(e) => setStageFilter(e.target.value)} className="bg-slate-900 border border-white/20 text-white rounded-lg px-3 py-1.5 text-xs font-bold">
+            {statsAndFilters.uniqueStages.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+          <select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)} className="bg-slate-900 border border-white/20 text-white rounded-lg px-3 py-1.5 text-xs font-bold">
+            {statsAndFilters.uniqueGroups.map((g) => <option key={g} value={g}>{g === 'ทั้งหมด' ? 'กลุ่มทั้งหมด' : `กลุ่ม ${g}`}</option>)}
+          </select>
+        </div>
 
-              <div className="flex flex-col justify-center">
-                <h3 className="text-center font-bold text-yellow-400">FINAL</h3>
-                <BracketBox matchId="39" title="Championship" />
-              </div>
+        <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
+          <table className="w-full text-sm text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr className="bg-black/90 text-[12px] text-slate-300 font-black uppercase border-b border-white/10">
+                <th className="p-5 text-center">แมตช์</th>
+                <th className="p-5">รอบ</th>
+                <th className="p-5 text-right">TEAM A</th>
+                <th className="p-5 text-center">VS</th>
+                <th className="p-5 text-left">TEAM B</th>
+                <th className="p-5 text-center">ผลคะแนน</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10 font-semibold">
+              {tableMatches.length > 0 ? (
+                tableMatches.map((m, i) => (
+                  <tr key={i} className="hover:bg-white/5 h-[64px]">
+                    <td className="text-center font-mono text-slate-400">#{m[0]}</td>
+                    <td className="px-4 text-xs">{m[1]} {m[2] && <span className="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded ml-1 font-bold">{m[2]}</span>}</td>
+                    <td className="text-right text-lg font-black">{m[4] || '-'}</td>
+                    <td className="text-center text-xs italic text-slate-500">VS</td>
+                    <td className="text-left text-lg font-black">{m[5] || '-'}</td>
+                    <td className="px-4">
+                      <div className="flex justify-center items-center gap-2 bg-black rounded-lg py-1 px-2 border border-white/10 w-24 mx-auto font-mono text-emerald-400 font-black">
+                        {m[6] || 0} : {m[7] || 0}
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr><td colSpan={6} className="p-10 text-center text-slate-500">ไม่พบข้อมูล</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="border-t border-white/10 pt-10">
+          <h2 className="text-center text-2xl font-black text-[#39ff14] mb-12 uppercase tracking-wide">ผังการแข่งขันรอบน็อกเอาต์</h2>
+          <div className="flex justify-center gap-8 overflow-x-auto pb-6 relative">
+            <div className="flex flex-col gap-4 relative">
+              <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 16 คู่</h3>
+              {['25', '26', '27', '28', '29', '30', '31', '32'].map((id, i) => (
+                <div key={id} className="relative">
+                   <BracketBox matchId={id} title={`คู่ที่ ${i + 1}`} />
+                   {i % 2 === 0 && <div className="absolute -right-8 top-12 w-[2px] h-16 bg-[#39ff14]/50"></div>}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[88px] justify-center mt-12 relative">
+              <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 8 คู่</h3>
+              {['33', '34', '35', '36'].map((id, i) => (
+                <div key={id} className="relative">
+                   <BracketBox matchId={id} title={`คู่ที่ ${i + 1}`} />
+                   {i % 2 === 0 && <div className="absolute -right-8 top-12 w-[2px] h-24 bg-[#39ff14]/50"></div>}
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-[236px] justify-center mt-28 relative">
+              <h3 className="text-xs font-extrabold text-center opacity-60 mb-2">รอบ 4 คู่</h3>
+              {['37', '38'].map((id, i) => <BracketBox key={id} matchId={id} title={`คู่ที่ ${i + 1}`} showConnector={false} />)}
             </div>
           </div>
         </div>
