@@ -21,7 +21,7 @@ export default function SchedulePage() {
 
   const statsAndFilters = useMemo(() => {
     if (!matches.length) return { uniqueTeamsCount: 0, uniqueStages: ['ทั้งหมด'], uniqueGroups: ['ทั้งหมด'] };
-    const allTeams = matches.flatMap(m => [m[4], m[5]]).filter(Boolean);
+    const allTeams = matches.flatMap(m => [m[3], m[4]]).filter(Boolean); // ดูจาก TeamA(D), TeamB(E)
     const uniqueTeamsCount = new Set(allTeams).size;
     const uniqueStages = ['ทั้งหมด', ...Array.from(new Set(matches.map((m) => m[1]).filter(Boolean)))];
     const uniqueGroups = ['ทั้งหมด', ...Array.from(new Set(matches.map((m) => m[2]).filter(Boolean)))];
@@ -33,7 +33,11 @@ export default function SchedulePage() {
     return matches.filter((match) => {
       const isGroupStage = String(match[1]) === "รอบแบ่งกลุ่ม";
       const search = searchTerm.toLowerCase();
-      const found = String(match[0] || '').toLowerCase().includes(search) || String(match[1] || '').toLowerCase().includes(search) || String(match[4] || '').toLowerCase().includes(search) || String(match[5] || '').toLowerCase().includes(search);
+      // ค้นหาจาก MatchID(A), Stage(B), TeamA(D), TeamB(E)
+      const found = String(match[0] || '').toLowerCase().includes(search) || 
+                    String(match[1] || '').toLowerCase().includes(search) || 
+                    String(match[3] || '').toLowerCase().includes(search) || 
+                    String(match[4] || '').toLowerCase().includes(search);
       const stagePass = stageFilter === 'ทั้งหมด' || String(match[1]) === stageFilter;
       const groupPass = groupFilter === 'ทั้งหมด' || String(match[2]) === groupFilter;
       return isGroupStage && found && stagePass && groupPass;
@@ -45,9 +49,9 @@ export default function SchedulePage() {
     return (
       <div className="w-40 h-16 rounded-2xl border border-[#39ff14]/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,.15)] hover:scale-105 transition-all flex flex-col justify-center px-4 relative z-10">
         <span className="text-[9px] text-[#39ff14]/70 font-mono">MATCH #{matchId}</span>
-        <span className="font-bold text-[11px] truncate">{match?.[4] || title}</span>
+        <span className="font-bold text-[11px] truncate">{match?.[3] || title}</span>
         <span className="text-center text-[9px] text-slate-400">VS</span>
-        <span className="font-bold text-[11px] truncate">{match?.[5] || "TBD"}</span>
+        <span className="font-bold text-[11px] truncate">{match?.[4] || "TBD"}</span>
       </div>
     );
   };
@@ -74,7 +78,7 @@ export default function SchedulePage() {
           </div>
         </div>
 
-        {/* ตารางแสดงผล */}
+        {/* ตารางแสดงผล - เอา # ออกจาก MatchID */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
           <table className="w-full text-sm text-left border-collapse min-w-[700px]">
             <thead>
@@ -90,12 +94,12 @@ export default function SchedulePage() {
             <tbody className="divide-y divide-white/10 font-semibold">
               {tableMatches.length > 0 ? tableMatches.map((m, i) => (
                 <tr key={i} className="hover:bg-white/5 h-[64px]">
-                  <td className="text-center font-mono text-slate-400">#{m[0]}</td>
-                  <td className="px-4 text-xs">{m[1]} {m[2] && <span className="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded ml-1 font-bold">{m[2]}</span>}</td>
-                  <td className="text-right text-lg font-black">{m[4] || '-'}</td>
+                  <td className="text-center font-mono text-slate-400">{m[0]}</td>
+                  <td className="px-4 text-xs">{m[1]}</td>
+                  <td className="text-right text-lg font-black">{m[3] || '-'}</td>
                   <td className="text-center text-xs italic text-slate-500">VS</td>
-                  <td className="text-left text-lg font-black">{m[5] || '-'}</td>
-                  <td className="px-4"><div className="flex justify-center items-center gap-2 bg-black rounded-lg py-1 px-2 border border-white/10 w-24 mx-auto font-mono text-emerald-400 font-black">{m[6] || 0} : {m[7] || 0}</div></td>
+                  <td className="text-left text-lg font-black">{m[4] || '-'}</td>
+                  <td className="px-4"><div className="flex justify-center items-center gap-2 bg-black rounded-lg py-1 px-2 border border-white/10 w-24 mx-auto font-mono text-emerald-400 font-black">{m[5] || 0} : {m[6] || 0}</div></td>
                 </tr>
               )) : <tr><td colSpan={6} className="p-10 text-center text-slate-500">ไม่พบข้อมูล</td></tr>}
             </tbody>
