@@ -36,7 +36,7 @@ export default function SchedulePage() {
 
   const BracketBox = ({ title }: { title: string }) => {
     return (
-      <div className="w-40 h-16 rounded-2xl border border-[#39ff14]/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
+      <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
         <span className="font-black text-[14px] text-white tracking-wide">{title}</span>
       </div>
     );
@@ -45,8 +45,8 @@ export default function SchedulePage() {
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans tracking-tight">
       <style jsx global>{`
-        .bracket-line-h { position:absolute; height:2px; background:#39ff14; opacity:.45; }
-        .bracket-line-v { position:absolute; width:2px; background:#39ff14; opacity:.45; }
+        .bracket-line-h { position:absolute; height:2px; background:#34d399; opacity:.45; }
+        .bracket-line-v { position:absolute; width:2px; background:#34d399; opacity:.45; }
       `}</style>
 
       <div className="absolute inset-0 z-0">
@@ -91,13 +91,15 @@ export default function SchedulePage() {
           </table>
         </div>
 
-        <h2 className="text-3xl font-black text-[#39ff14] text-center mb-12">แผนผังการแข่งขัน</h2>
+        {/* หัวข้อแผนผัง - เปลี่ยนเป็น Emerald Green */}
+        <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
 
         <div className="overflow-x-auto pb-8 relative">
           <div className="flex justify-center gap-16 min-w-[1200px]">
             {['รอบ 16 คู่', 'รอบ 8 คู่', 'รอบ 4 คู่', 'รอบ 2 คู่'].map((round, idx) => (
               <div key={round} className="w-44 flex flex-col items-center">
-                <h3 className="text-center text-lg font-black text-[#39ff14] mb-8">{round}</h3>
+                {/* ชื่อรอบย่อย - เปลี่ยนเป็น Emerald Green */}
+                <h3 className="text-center text-lg font-black text-emerald-400 mb-8">{round}</h3>
                 <div className={`h-[900px] flex flex-col ${idx === 0 ? 'justify-between' : idx === 1 ? 'justify-evenly' : idx === 2 ? 'justify-around' : 'items-center justify-center'}`}>
                   {idx === 0 && ['25','26','27','28','29','30','31','32'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}} /><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'80px'}} /></>}</div>)}
                   {idx === 1 && ['33','34','35','36'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}} /><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'160px'}} /></>}</div>)}
