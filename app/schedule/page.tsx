@@ -44,10 +44,6 @@ export default function SchedulePage() {
 
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans">
-      <style jsx global>{`
-        .bracket-line { position: absolute; right: -32px; border-right: 2px solid #34d399; border-bottom: 2px solid #34d399; }
-      `}</style>
-
       <div className="absolute inset-0 z-0">
         <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
@@ -92,44 +88,47 @@ export default function SchedulePage() {
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
         
         <div className="flex justify-center gap-10 overflow-x-auto pb-10">
-          {/* รอบ 16 คู่ */}
-          <div className="flex flex-col justify-between h-[900px]">
-            <h3 className="text-center font-black text-emerald-400">รอบ 16 คู่</h3>
-            {Array.from({length: 16}).map((_, i) => (
-              <div key={i} className="relative flex items-center">
-                <BracketBox title={`คู่ที่ ${i+1}`} />
-                {i % 2 === 0 && <div className="bracket-line w-[32px] h-[80px] top-[32px]" />}
-              </div>
-            ))}
-          </div>
+            {/* รอบ 16 */}
+            <div className="flex flex-col">
+                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
+                <div className="flex flex-col gap-3">
+                    {Array.from({ length: 16 }).map((_, i) => (
+                        <div key={i} className="relative h-20">
+                            <BracketBox title={`คู่ที่ ${i + 1}`} />
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-          {/* รอบ 8 คู่ */}
-          <div className="flex flex-col justify-between h-[900px] pt-[40px]">
-            <h3 className="text-center font-black text-emerald-400">รอบ 8 คู่</h3>
-            {Array.from({length: 8}).map((_, i) => (
-              <div key={i} className="relative flex items-center">
-                <BracketBox title={`คู่ที่ ${i+1}`} />
-                {i % 2 === 0 && <div className="bracket-line w-[32px] h-[160px] top-[32px]" />}
-              </div>
-            ))}
-          </div>
+            {/* รอบ 8 */}
+            <div className="flex flex-col mt-[42px]">
+                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 8 คู่</h3>
+                <div className="flex flex-col gap-[76px]">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <div key={i} className="relative h-20">
+                            <BracketBox title={`คู่ที่ ${i + 1}`} />
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-          {/* รอบ 4 คู่ */}
-          <div className="flex flex-col justify-between h-[900px] pt-[160px]">
-            <h3 className="text-center font-black text-emerald-400">รอบ 4 คู่</h3>
-            {Array.from({length: 4}).map((_, i) => (
-              <div key={i} className="relative flex items-center">
-                <BracketBox title={`คู่ที่ ${i+1}`} />
-                {i % 2 === 0 && <div className="bracket-line w-[32px] h-[320px] top-[32px]" />}
-              </div>
-            ))}
-          </div>
+            {/* รอบ 4 */}
+            <div className="flex flex-col mt-[150px]">
+                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 4 คู่</h3>
+                <div className="flex flex-col gap-[240px]">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <div key={i} className="relative h-20">
+                            <BracketBox title={`คู่ที่ ${i + 1}`} />
+                        </div>
+                    ))}
+                </div>
+            </div>
 
-          {/* รอบชิงชนะเลิศ */}
-          <div className="flex flex-col justify-center h-[900px]">
-            <h3 className="text-center font-black text-emerald-400 mb-8">รอบ 2 คู่</h3>
-            <BracketBox title="ชิงชนะเลิศ" />
-          </div>
+            {/* รอบชิง */}
+            <div className="flex flex-col mt-[360px]">
+                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 2 คู่</h3>
+                <BracketBox title="ชิงชนะเลิศ" />
+            </div>
         </div>
       </div>
     </div>
