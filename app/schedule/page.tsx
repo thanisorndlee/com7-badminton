@@ -117,11 +117,17 @@ console.log(finalRound);
             <div className="flex flex-col">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
                 <div className="flex flex-col gap-3">
-                    {Array.from({ length: 16 }).map((_, i) => (
-                        <div key={i} className="relative h-20">
-                            <BracketBox title={`คู่ที่ ${i + 1}`} />
-                        </div>
-                    ))}
+                    {round16.map((match, i) => (
+    <div key={i} className="relative h-20">
+        <BracketBox
+            title={
+                match[3] && match[4]
+                    ? `${match[3]} VS ${match[4]}`
+                    : `คู่ที่ ${match[0]}`
+            }
+        />
+    </div>
+))}
                 </div>
             </div>
 
@@ -129,11 +135,17 @@ console.log(finalRound);
             <div className="flex flex-col mt-[42px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 8 คู่</h3>
                 <div className="flex flex-col gap-[76px]">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                        <div key={i} className="relative h-20">
-                            <BracketBox title={`คู่ที่ ${i + 1}`} />
-                        </div>
-                    ))}
+                    {round8.map((match, i) => (
+    <div key={i} className="relative h-20">
+        <BracketBox
+            title={
+                match[3] && match[4]
+                    ? `${match[3]} VS ${match[4]}`
+                    : `คู่ที่ ${match[0]}`
+            }
+        />
+    </div>
+))}
                 </div>
             </div>
 
@@ -141,18 +153,33 @@ console.log(finalRound);
             <div className="flex flex-col mt-[150px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 4 คู่</h3>
                 <div className="flex flex-col gap-[240px]">
-                    {Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="relative h-20">
-                            <BracketBox title={`คู่ที่ ${i + 1}`} />
-                        </div>
-                    ))}
+                    {round4.map((match, i) => (
+    <div key={i} className="relative h-20">
+        <BracketBox
+            title={
+                match[3] && match[4]
+                    ? `${match[3]} VS ${match[4]}`
+                    : `คู่ที่ ${match[0]}`
+            }
+        />
+    </div>
+))}
                 </div>
             </div>
 
             {/* รอบชิง */}
             <div className="flex flex-col mt-[360px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 2 คู่</h3>
-                <BracketBox title="ชิงชนะเลิศ" />
+                {finalRound.map((match, i) => (
+    <BracketBox
+        key={i}
+        title={
+            match[3] && match[4]
+                ? `${match[3]} VS ${match[4]}`
+                : `คู่ที่ ${match[0]}`
+        }
+    />
+))}
             </div>
         </div>
       </div>
