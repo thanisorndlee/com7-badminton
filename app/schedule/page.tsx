@@ -59,13 +59,29 @@ console.log(round8);
 console.log(round4);
 console.log(finalRound);
 
-  const BracketBox = ({ title }: { title: string }) => {
-    return (
-      <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
-        <span className="font-black text-[14px] text-white tracking-wide">{title}</span>
-      </div>
-    );
-  };
+  const BracketBox = ({ match }: { match: any }) => {
+  return (
+    <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
+
+      <span className="text-[11px] text-emerald-300 font-bold">
+        {match[0]}
+      </span>
+
+      <span className="text-white text-xs font-semibold">
+        {match[3] || "-"}
+      </span>
+
+      <span className="text-[10px] text-slate-400">
+        VS
+      </span>
+
+      <span className="text-white text-xs font-semibold">
+        {match[4] || "-"}
+      </span>
+
+    </div>
+  );
+};
 
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans">
@@ -119,13 +135,7 @@ console.log(finalRound);
                 <div className="flex flex-col gap-3">
                     {round16.map((match, i) => (
     <div key={i} className="relative h-20">
-        <BracketBox
-            title={
-                match[3] && match[4]
-                    ? `${match[3]} VS ${match[4]}`
-                    : `คู่ที่ ${match[0]}`
-            }
-        />
+        <BracketBox match={match} />
     </div>
 ))}
                 </div>
@@ -137,13 +147,7 @@ console.log(finalRound);
                 <div className="flex flex-col gap-[76px]">
                     {round8.map((match, i) => (
     <div key={i} className="relative h-20">
-        <BracketBox
-            title={
-                match[3] && match[4]
-                    ? `${match[3]} VS ${match[4]}`
-                    : `คู่ที่ ${match[0]}`
-            }
-        />
+        <BracketBox match={match} />
     </div>
 ))}
                 </div>
@@ -155,13 +159,7 @@ console.log(finalRound);
                 <div className="flex flex-col gap-[240px]">
                     {round4.map((match, i) => (
     <div key={i} className="relative h-20">
-        <BracketBox
-            title={
-                match[3] && match[4]
-                    ? `${match[3]} VS ${match[4]}`
-                    : `คู่ที่ ${match[0]}`
-            }
-        />
+        <BracketBox match={match} />
     </div>
 ))}
                 </div>
@@ -171,14 +169,7 @@ console.log(finalRound);
             <div className="flex flex-col mt-[360px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 2 คู่</h3>
                 {finalRound.map((match, i) => (
-    <BracketBox
-        key={i}
-        title={
-            match[3] && match[4]
-                ? `${match[3]} VS ${match[4]}`
-                : `คู่ที่ ${match[0]}`
-        }
-    />
+    <BracketBox match={match} />
 ))}
             </div>
         </div>
