@@ -58,9 +58,9 @@ export default function SchedulePage() {
         .bracket-line-h { position:absolute; height:2px; background:#39ff14; opacity:.45; }
         .bracket-line-v { position:absolute; width:2px; background:#39ff14; opacity:.45; }
       `}</style>
-      
+
       <div className="absolute inset-0 z-0">
-        <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Tournament Background" />
+        <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
