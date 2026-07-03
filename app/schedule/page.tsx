@@ -70,7 +70,6 @@ export default function SchedulePage() {
       <div className="absolute inset-0 z-0"><img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="BG" /></div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
-        {/* ... ส่วนตารางข้อมูลของคุณคงเดิม ... */}
         
         <div className="border-t border-white/10 pt-16">
           <h2 className="text-center text-2xl font-black text-[#39ff14] mb-16 uppercase tracking-wide">ผังการแข่งขันรอบน็อกเอาต์</h2>
