@@ -34,7 +34,6 @@ export default function SchedulePage() {
     });
   }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
 
-  // ปรับ BracketBox ให้แสดงแค่ "คู่ที่ X"
   const BracketBox = ({ title }: { title: string }) => {
     return (
       <div className="w-40 h-16 rounded-2xl border border-[#39ff14]/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(57,255,20,.15)] hover:scale-105 transition-all flex flex-col items-center justify-center relative z-10">
@@ -92,15 +91,17 @@ export default function SchedulePage() {
           </table>
         </div>
 
+        <h2 className="text-3xl font-black text-white text-center mb-12">แผนผังการแข่งขัน</h2>
+
         <div className="overflow-x-auto pb-8 relative">
           <div className="flex justify-center gap-16 min-w-[1200px]">
             {['รอบ 16 คู่', 'รอบ 8 คู่', 'รอบ 4 คู่', 'รอบ 2 คู่'].map((round, idx) => (
               <div key={round} className="w-44 flex flex-col items-center">
-                <h3 className="text-center text-lg font-black text-[#39ff14] mb-8">{round}</h3>
+                <h3 className="text-center text-lg font-black text-white mb-8">{round}</h3>
                 <div className={`h-[900px] flex flex-col ${idx === 0 ? 'justify-between' : idx === 1 ? 'justify-evenly' : idx === 2 ? 'justify-around' : 'items-center justify-center'}`}>
-                  {idx === 0 && ['25','26','27','28','29','30','31','32'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'80px'}}/> </>}</div>)}
-                  {idx === 1 && ['33','34','35','36'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'160px'}}/> </>}</div>)}
-                  {idx === 2 && ['37','38'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}}/><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'320px'}}/> </>}</div>)}
+                  {idx === 0 && ['25','26','27','28','29','30','31','32'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}} /><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'80px'}} /></>}</div>)}
+                  {idx === 1 && ['33','34','35','36'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i%2===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}} /><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'160px'}} /></>}</div>)}
+                  {idx === 2 && ['37','38'].map((id, i) => <div key={id} className="relative"><BracketBox title={`คู่ที่ ${i+1}`} />{i===0 && <><div className="bracket-line-h" style={{top:'50%', left:'160px', width:'32px'}} /><div className="bracket-line-v" style={{top:'50%', left:'192px', height:'320px'}} /></>}</div>)}
                   {idx === 3 && <BracketBox title="ชิงชนะเลิศ" />}
                 </div>
               </div>
