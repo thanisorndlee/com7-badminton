@@ -61,8 +61,7 @@ console.log(finalRound);
 
   const BracketBox = ({ match }: { match: any }) => {
   return (
-    <div className="w-40 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex items-center justify-center">
-
+    <div className="w-52 h-16 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex items-center justify-center">
       <span className="text-white font-black text-lg">
         {match[0]}
       </span>
@@ -116,9 +115,7 @@ console.log(finalRound);
         {/* แผนผังการแข่งขัน */}
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
         
-        <div className="flex justify-center gap-10 overflow-x-auto pb-10">
-            {/* รอบ 16 */}
-            <div className="flex flex-col">
+                <div className="flex justify-center gap-32 overflow-x-auto pb-10 px-12 min-w-[1700px]">            <div className="flex flex-col">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
                 <div className="flex flex-col gap-3">
                     {round16.map((match, i) => (
@@ -130,7 +127,7 @@ console.log(finalRound);
             </div>
 
             {/* รอบ 8 */}
-            <div className="flex flex-col mt-[42px]">
+            <div className="flex flex-col mt-[50px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 8 คู่</h3>
                 <div className="flex flex-col gap-[76px]">
                     {round8.map((match, i) => (
@@ -142,7 +139,7 @@ console.log(finalRound);
             </div>
 
             {/* รอบ 4 */}
-            <div className="flex flex-col mt-[150px]">
+            <div className="flex flex-col mt-[170px]">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 4 คู่</h3>
                 <div className="flex flex-col gap-[240px]">
                     {round4.map((match, i) => (
@@ -155,13 +152,18 @@ console.log(finalRound);
 
             {/* รอบชิง */}
             <div className="flex flex-col mt-[360px]">
-                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 2 คู่</h3>
+            <h3 className="mb-6 text-center font-black text-emerald-400">
+                รอบ 2 คู่
+            </h3> 
+
+            <div className="flex flex-col gap-16">      
                 {finalRound.map((match, i) => (
-    <BracketBox match={match} />
-))}
+                    <BracketBox key={i} match={match} />
+                ))}
             </div>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
