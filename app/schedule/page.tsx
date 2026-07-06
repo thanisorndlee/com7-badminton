@@ -161,7 +161,15 @@ console.log(finalRound);
   xmlns="http://www.w3.org/2000/svg"
   className="absolute inset-0 w-full h-full pointer-events-none z-0"
 >
-</svg>              
+  <line
+    x1="140"
+    y1="90"
+    x2="250"
+    y2="90"
+    stroke="#10b981"
+    strokeWidth="2"
+  />
+</svg>             
    <div className="flex flex-col">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
                 <div className="flex flex-col gap-2">
