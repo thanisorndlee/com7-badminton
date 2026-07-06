@@ -158,7 +158,7 @@ console.log(finalRound);
                 รอบ 2 คู่
             </h3> 
 
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-3">
                   {finalRound.map((match, i) => (
                     <BracketBox key={i} match={match} />
                 ))}
