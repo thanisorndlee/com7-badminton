@@ -27,26 +27,41 @@ export default function ResultsPage() {
       });
   }, []);
 
-  const uniqueStages = ['ทั้งหมด', ...Array.from(new Set(results.map((m) => m[1]).filter(Boolean)))];
-  const uniqueGroups = ['ทั้งหมด', ...Array.from(new Set(results.map((m) => m[2]).filter(Boolean)))];
+  const uniqueStages = [
+  'ทั้งหมด',
+  ...Array.from(new Set(results.map((m) => String(m[1] || '').trim()).filter(Boolean))),
+];
+
+const uniqueGroups = [
+  'ทั้งหมด',
+  ...Array.from(new Set(results.map((m) => String(m[2] || '').trim()).filter(Boolean))),
+];
 
   const filteredResults = isFetched
-    ? results.filter((row) => {
-        const search = searchTerm.toLowerCase();
+  ? results.filter((row) => {
+      const search = searchTerm.trim().toLowerCase();
 
-        const found =
-          String(row[0] || '').toLowerCase().includes(search) ||
-          String(row[1] || '').toLowerCase().includes(search) ||
-          String(row[2] || '').toLowerCase().includes(search) ||
-          String(row[3] || '').toLowerCase().includes(search) ||
-          String(row[4] || '').toLowerCase().includes(search) ||
-          String(row[7] || '').toLowerCase().includes(search);
-        const stagePass = stageFilter === 'ทั้งหมด' || row[1] === stageFilter;
-        const groupPass = groupFilter === 'ทั้งหมด' || row[2] === groupFilter;
+      const stage = String(row[1] || '').trim();
+      const group = String(row[2] || '').trim();
 
-        return found && stagePass && groupPass;
-      })
-    : Array(6).fill([null, null, null, null, null, null, null, null, null]);
+      const found =
+        search === '' ||
+        String(row[0] || '').trim().toLowerCase().includes(search) ||
+        stage.toLowerCase().includes(search) ||
+        group.toLowerCase().includes(search) ||
+        String(row[3] || '').trim().toLowerCase().includes(search) ||
+        String(row[4] || '').trim().toLowerCase().includes(search) ||
+        String(row[7] || '').trim().toLowerCase().includes(search);
+
+      const stagePass =
+        stageFilter === 'ทั้งหมด' || stage === String(stageFilter).trim();
+
+      const groupPass =
+        groupFilter === 'ทั้งหมด' || group === String(groupFilter).trim();
+
+      return found && stagePass && groupPass;
+    })
+  : Array(6).fill([null, null, null, null, null, null, null, null]);
 
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative overflow-x-hidden flex flex-col items-center">
@@ -121,8 +136,7 @@ export default function ResultsPage() {
             <thead>
               <tr className="bg-black/80 text-[11px] text-slate-400 font-bold uppercase tracking-wider border-b border-white/10">
                 <th className="p-4 text-center w-20">แมตช์</th>
-                <th className="p-4 w-44">รอบการแข่ง</th>
-                <th className="p-4 text-right w-1/3 text-slate-300">TEAM A</th>
+                <th className="p-4 min-w-[180px]">รอบการแข่ง</th>                <th className="p-4 text-right w-1/3 text-slate-300">TEAM A</th>
                 <th className="p-4 text-center w-16">VS</th>
                 <th className="p-4 text-left w-1/3 text-slate-300">TEAM B</th>
                 <th className="p-4 text-center w-36">ผลคะแนน</th>
@@ -156,13 +170,12 @@ export default function ResultsPage() {
                       </td>
 
                       {/* รอบการแข่ง */}
-                      <td className="p-4">
-                        {isRowLoading ? (
+                          <td className="p-4 min-w-[180px] whitespace-nowrap">                        {isRowLoading ? (
                           <div className="w-24 h-5 bg-white/20 rounded animate-pulse" />
                         ) : (
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="text-slate-200 text-xs font-bold tracking-wide">
-                              {row[1]}
+                            <span className="text-slate-200 text-xs font-bold tracking-wide whitespace-nowrap">
+                                {row[1]}
                             </span>
                             {row[2] && (
                               <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-extrabold border border-emerald-500/20">
