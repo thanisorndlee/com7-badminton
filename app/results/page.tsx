@@ -126,8 +126,7 @@ export default function ResultsPage() {
                 <th className="p-4 text-center w-16">VS</th>
                 <th className="p-4 text-left w-1/3 text-slate-300">TEAM B</th>
                 <th className="p-4 text-center w-36">ผลคะแนน</th>
-                <th className="p-4 text-center w-36 text-amber-400">ผู้ชนะ</th>
-              </tr>
+                <th className="p-4 text-center min-w-[140px] text-amber-400">ผู้ชนะ</th>              </tr>
             </thead>
 
             <tbody className="divide-y divide-white/10 font-medium">
@@ -214,7 +213,7 @@ export default function ResultsPage() {
                       </td>
 
                       {/* ผู้ชนะ */}
-                      <td className="p-4 text-center">
+                      <td className="p-4 text-center min-w-[140px]">
                         {isRowLoading ? (
                           <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
                         ) : hasPlayed && winnerName ? (
@@ -222,8 +221,10 @@ export default function ResultsPage() {
                             🏆 {winnerName}
                           </span>
                         ) : (
-                          <span className="text-xs text-slate-600 font-normal italic">รอผลการแข่ง</span>
-                        )}
+              <span className="inline-flex items-center justify-center bg-slate-700/30 border border-slate-600/30 text-slate-400 px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap">
+                ⏳ รอผล
+              </span>                       
+             )}
                       </td>
                     </tr>
                   );
