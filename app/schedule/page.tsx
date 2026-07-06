@@ -220,7 +220,39 @@ console.log(finalRound);
       />
     );
   })}
+  {/* รอบ2 -> ถ้วย */}
+<path
+  d="M888 352 H970 V672 H1110"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+<path
+  d="M888 992 H970 V672 H1110"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
 </svg>
+
+{/* ถ้วยรางวัล */}
+<div className="relative w-36 h-[1280px]">
+  <div
+    className="absolute left-0 z-10 flex flex-col items-center"
+    style={{ top: "610px" }}
+  >
+    <img
+      src="/trophy.png"
+      alt="Champion"
+      className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
+    />
+
+    <p className="mt-3 text-center text-yellow-400 font-black text-xl">
+      CHAMPION
+    </p>
+  </div>
+</div>
    {/* รอบ 16 */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
