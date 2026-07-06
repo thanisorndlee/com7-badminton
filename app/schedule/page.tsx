@@ -156,7 +156,7 @@ console.log(finalRound);
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
         
 <div className="overflow-x-auto pb-10">
-<div className="relative w-max mx-auto flex gap-16 px-6"> 
+<div className="relative w-max mx-auto flex gap-24 px-6"> 
   <svg
   xmlns="http://www.w3.org/2000/svg"
   className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -172,61 +172,70 @@ console.log(finalRound);
 </svg>             
    <div className="flex flex-col">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                     {round16.map((match, i) => (
 <div key={i} className="relative h-12 z-10">
           <BracketBox match={match} />
     </div>
 ))}
-                </div>
-            </div>
-
+</div>
+</div>
             {/* รอบ 8 */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
     รอบ 8 คู่
   </h3>
   <div className="flex flex-col">
-  <div className="h-[28px]" />
-  {round8[0] && <BracketBox match={round8[0]} />}
-  <div className="h-[64px]" />
-  {round8[1] && <BracketBox match={round8[1]} />}
-  <div className="h-[64px]" />
-  {round8[2] && <BracketBox match={round8[2]} />}
-  <div className="h-[64px]" />
-  {round8[3] && <BracketBox match={round8[3]} />}
+
+  <div className="mt-[32px]">
+    {round8[0] && <BracketBox match={round8[0]} />}
+  </div>
+
+  <div className="mt-[88px]">
+    {round8[1] && <BracketBox match={round8[1]} />}
+  </div>
+
+  <div className="mt-[88px]">
+    {round8[2] && <BracketBox match={round8[2]} />}
+  </div>
+
+  <div className="mt-[88px]">
+    {round8[3] && <BracketBox match={round8[3]} />}
+  </div>
 </div>
 </div>
 
             {/* รอบ 4 */}
             <div className="flex flex-col ">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 4 คู่</h3>
-                <div className="flex flex-col gap-[170px]">
-                    {round4.map((match, i) => (
-<div key={i} className="relative h-12 z-10">
-          <BracketBox match={match} />
+                <div className="flex flex-col">
+    <div className="mt-[96px]">
+        {round4[0] && <BracketBox match={round4[0]} />}
     </div>
-))}
-                </div>
-            </div>
-
+    <div className="mt-[216px]">
+        {round4[1] && <BracketBox match={round4[1]} />}
+    </div>
+</div>
+</div>
             {/* รอบชิง */}
             <div className="flex flex-col ">
             <h3 className="mb-6 text-center font-black text-emerald-400">
                 รอบ 2 คู่
             </h3> 
 
-            <div className="flex flex-col gap-3">
-                  {finalRound.map((match, i) => (
-                  <div key={i} className="relative z-10">
-                    <BracketBox match={match} />
-                  </div>
-                ))}
-            </div>
+            <div className="flex flex-col ">
+                  <div className="mt-[215px]">
+        {finalRound[0] && <BracketBox match={finalRound[0]} />}
+    </div>
+
+    <div className="mt-[32px]">
+        {finalRound[1] && <BracketBox match={finalRound[1]} />}
+    </div>
+</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+</div>
 );
 }
