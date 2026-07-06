@@ -227,6 +227,12 @@ console.log(finalRound);
     <div className="mt-[216px]">
         {round4[1] && <BracketBox match={round4[1]} />}
     </div>
+    <div className="mt-[216px]">
+        {round4[2] && <BracketBox match={round4[2]} />}
+    </div>
+    <div className="mt-[216px]">
+        {round4[2] && <BracketBox match={round4[2]} />}
+    </div>
 </div>
 </div>
             {/* รอบชิง */}
