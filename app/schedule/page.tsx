@@ -157,149 +157,70 @@ console.log(finalRound);
         
 <div className="overflow-x-auto pb-10">
 <div className="relative w-max mx-auto flex gap-24 px-6"> 
-  <svg
+    <svg
   xmlns="http://www.w3.org/2000/svg"
-  className="absolute inset-0 w-full h-full pointer-events-none z-0"
+  className="absolute left-0 top-0 w-full h-[1360px] pointer-events-none z-0"
 >
-  <line
-    x1="140"
-    y1="90"
-    x2="250"
-    y2="90"
-    stroke="#10b981"
-    strokeWidth="2"
-  />
-  {/* คู่1 + คู่2 -> รอบ8 คู่1 */}
-<path
-  d="M190 110
-     H250
-     V150
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+  {Array.from({ length: 8 }).map((_, i) => {
+    const x1 = 168;
+    const x2 = 264;
+    const midX = 216;
 
-{/* คู่3 + คู่4 -> รอบ8 คู่2 */}
-<path
-  d="M190 250
-     H250
-     V290
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+    const yA = 72 + i * 160;
+    const yB = 152 + i * 160;
+    const yTarget = 112 + i * 160;
 
-{/* คู่5 + คู่6 -> รอบ8 คู่3 */}
-<path
-  d="M190 390
-     H250
-     V430
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+    return (
+      <path
+        key={`16-8-${i}`}
+        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+      />
+    );
+  })}
 
-{/* คู่7 + คู่8 -> รอบ8 คู่4 */}
-<path
-  d="M190 530
-     H250
-     V570
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+  {Array.from({ length: 4 }).map((_, i) => {
+    const x1 = 408;
+    const x2 = 504;
+    const midX = 456;
 
-{/* คู่9 + คู่10 -> รอบ8 คู่5 */}
-<path
-  d="M190 670
-     H250
-     V710
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+    const yA = 112 + i * 320;
+    const yB = 272 + i * 320;
+    const yTarget = 192 + i * 320;
 
-{/* คู่11 + คู่12 -> รอบ8 คู่6 */}
-<path
-  d="M190 810
-     H250
-     V850
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+    return (
+      <path
+        key={`8-4-${i}`}
+        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+      />
+    );
+  })}
 
-{/* คู่13 + คู่14 -> รอบ8 คู่7 */}
-<path
-  d="M190 950
-     H250
-     V990
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+  {Array.from({ length: 2 }).map((_, i) => {
+    const x1 = 648;
+    const x2 = 744;
+    const midX = 696;
 
-{/* คู่15 + คู่16 -> รอบ8 คู่8 */}
-<path
-  d="M190 1090
-     H250
-     V1130
-     H330"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
-{/* รอบ8 คู่1-2 -> รอบ4 คู่1 */}
-<path
-  d="M520 150
-     H600
-     V290
-     H700"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+    const yA = 192 + i * 640;
+    const yB = 512 + i * 640;
+    const yTarget = 352 + i * 640;
 
-{/* รอบ8 คู่3-4 -> รอบ4 คู่2 */}
-<path
-  d="M520 430
-     H600
-     V570
-     H700"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
-
-{/* รอบ8 คู่5-6 -> รอบ4 คู่3 */}
-<path
-  d="M520 710
-     H600
-     V850
-     H700"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
-
-{/* รอบ8 คู่7-8 -> รอบ4 คู่4 */}
-<path
-  d="M520 990
-     H600
-     V1130
-     H700"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
-</svg>             
+    return (
+      <path
+        key={`4-2-${i}`}
+        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+      />
+    );
+  })}
+</svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
