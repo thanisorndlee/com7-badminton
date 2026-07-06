@@ -4,10 +4,25 @@ import React from 'react';
 
 export default function HomePage() {
   const sponsors = [
-    { id: 1, name: 'COM7TECH', logo: '/logo-placeholder.png', label: 'ONE' },
-    { id: 2, name: 'SIAM SPORTS ARENA', logo: '/badminton-shuttle.png', label: 'TWO' },
-    { id: 3, name: 'GLOBAL BRANDS', logo: '/global-brands-logo.png', label: 'THREE' },
-  ];
+  {
+    id: 1,
+    name: 'COM7TECH',
+    logo: '/Sandisk-Horizontal-Mark-TM-Red-RGB.svg',
+    label: 'ONE',
+  },
+  {
+    id: 2,
+    name: 'SIAM SPORTS ARENA',
+    logo: '/ชื่อไฟล์สปอนเซอร์ตัวที่2.svg',
+    label: 'TWO',
+  },
+  {
+    id: 3,
+    name: 'GLOBAL BRANDS',
+    logo: '/ชื่อไฟล์สปอนเซอร์ตัวที่3.svg',
+    label: 'THREE',
+  },
+];
 
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
@@ -75,9 +90,9 @@ export default function HomePage() {
             {sponsors.map((sponsor, index) => (
               <div key={sponsor.id} className={`flex items-center justify-center gap-3 p-4 ${index !== 2 ? 'border-r border-white/10' : ''}`}>
               <img
-              src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" // ใส่ Path รูปสปอนเซอร์ของคุณที่นี่
-              alt={sponsor.name}
-              className="h-5 w-28 object-contain"
+                src={sponsor.logo}
+                alt={sponsor.name}
+                className="h-5 w-28 object-contain"
               />                
               <div className="flex flex-col text-left">
                   <span className="text-[7px] text-slate-500 uppercase tracking-wider">SPONSOR {sponsor.label}:</span>
