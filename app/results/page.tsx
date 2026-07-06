@@ -35,11 +35,12 @@ export default function ResultsPage() {
         const search = searchTerm.toLowerCase();
 
         const found =
-          String(row[0] || '').toLowerCase().includes(search) || 
-          String(row[1] || '').toLowerCase().includes(search) || 
-          String(row[4] || '').toLowerCase().includes(search) || 
-          String(row[5] || '').toLowerCase().includes(search);
-
+          String(row[0] || '').toLowerCase().includes(search) ||
+          String(row[1] || '').toLowerCase().includes(search) ||
+          String(row[2] || '').toLowerCase().includes(search) ||
+          String(row[3] || '').toLowerCase().includes(search) ||
+          String(row[4] || '').toLowerCase().includes(search) ||
+          String(row[7] || '').toLowerCase().includes(search);
         const stagePass = stageFilter === 'ทั้งหมด' || row[1] === stageFilter;
         const groupPass = groupFilter === 'ทั้งหมด' || row[2] === groupFilter;
 
@@ -134,16 +135,10 @@ export default function ResultsPage() {
                 filteredResults.map((row, index) => {
                   const isRowLoading = !isFetched;
 
-                  const scoreA = row[6] !== undefined && row[6] !== '' ? Number(row[6]) : 0;
-                  const scoreB = row[7] !== undefined && row[7] !== '' ? Number(row[7]) : 0;
-
-                  // 🛠️ ผูกข้อมูลข้ามแท็บ: ค้นหาแถวในแท็บ Results ที่มี MatchID ตรงกับแถวปัจจุบันในแท็บ matches
-                  const currentMatchId = String(row[0] || '');
-                  const resultRowForMatch = sheetResults.find(r => String(r[0] || '') === currentMatchId);
-                  
-                  // คอลัมน์ B ในแท็บ Results คือช่อง Winner (ก็คือดัชนีที่ 1)
-                  const winnerName = resultRowForMatch ? resultRowForMatch[1] : '';
-
+                  const scoreA = row[5] !== undefined && row[5] !== '' ? Number(row[5]) : 0;
+                  const scoreB = row[6] !== undefined && row[6] !== '' ? Number(row[6]) : 0;
+                  const winnerName = row[7] || '';
+  
                   const hasPlayed = (row[6] !== undefined && row[6] !== '') || 
                                     (row[7] !== undefined && row[7] !== '') || 
                                     (winnerName !== undefined && winnerName !== '');
@@ -186,7 +181,7 @@ export default function ResultsPage() {
                         {isRowLoading ? (
                           <div className="w-24 h-4 bg-white/20 rounded ml-auto animate-pulse" />
                         ) : (
-                          row[4] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
+                          row[3] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
                         )}
                       </td>
 
@@ -201,7 +196,7 @@ export default function ResultsPage() {
                         {isRowLoading ? (
                           <div className="w-24 h-4 bg-white/20 rounded animate-pulse" />
                         ) : (
-                          row[5] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
+                          row[4] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
                         )}
                       </td>
 
@@ -211,9 +206,9 @@ export default function ResultsPage() {
                           <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
                         ) : (
                           <div className="flex items-center justify-center gap-1.5 bg-black/90 border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold font-mono tracking-wide text-emerald-400 shadow-md max-w-[95px] mx-auto whitespace-nowrap">
-                            <span>{row[6] !== undefined && row[6] !== '' ? row[6] : 0}</span>
+                            <span>{row[5] !== undefined && row[5] !== '' ? row[5] : 0}</span>
                             <span>:</span>
-                            <span>{row[7] !== undefined && row[7] !== '' ? row[7] : 0}</span>
+                            <span>{row[6] !== undefined && row[6] !== '' ? row[6] : 0}</span>
                           </div>
                         )}
                       </td>
