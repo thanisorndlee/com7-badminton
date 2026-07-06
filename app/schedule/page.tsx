@@ -81,43 +81,53 @@ console.log(finalRound);
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
         <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
-          <div>
-            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">Tournament Schedule</span>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
-            <div className="mt-6 relative max-w-md">
-  {/* ไอคอนแว่นขยาย */}
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  </svg>
+         <div className="mb-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 border-b border-white/10 pb-6">
 
-  <input
-    type="text"
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-placeholder="ค้นหาแมตช์, รอบ, ทีม, กลุ่ม หรือคะแนน"
-    className="w-full pl-12 pr-4 py-3 rounded-xl
-               bg-slate-900/80
-               border border-emerald-500/30
-               text-white
-               placeholder:text-slate-400
-               outline-none
-               focus:border-emerald-400
-               focus:ring-2
-               focus:ring-emerald-500/30"
-  />
+  {/* ฝั่งซ้าย */}
+  <div>
+    <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
+      Tournament Schedule
+    </span>
+
+    <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">
+      ตารางการแข่งขัน
+    </h1>
+  </div>
+
+  {/* ฝั่งขวา */}
+  <div className="relative w-full max-w-md">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
+      />
+    </svg>
+
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="ค้นหาแมตช์, รอบ, ทีม หรือคะแนน"
+      className="w-full pl-12 pr-4 py-3 rounded-xl
+                 bg-slate-900/80
+                 border border-emerald-500/30
+                 text-white
+                 placeholder:text-slate-400
+                 outline-none
+                 focus:border-emerald-400
+                 focus:ring-2
+                 focus:ring-emerald-500/30"
+    />
+  </div>
 </div>
-          </div>
         </div>
 
         {/* ตารางแสดงผล */}
