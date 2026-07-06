@@ -222,25 +222,35 @@ console.log(finalRound);
   })}
   {/* รอบ2 -> ถ้วย */}
 <path
-  d="M888 352 H970 V672 H1110"
+  d="
+    M888 352
+    H970
+    V672
+    H1110
+  "
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
 />
 
 <path
-  d="M888 992 H970 V672 H1110"
+  d="
+    M888 992
+    H970
+    V672
+    H1110
+  "
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
 />
-</svg>
-
 {/* ถ้วยรางวัล */}
-<div className="relative w-36 h-[1280px]">
+<div className="flex flex-col items-center justify-center">
   <div
-    className="absolute left-0 z-10 flex flex-col items-center"
-    style={{ top: "610px" }}
+    className="relative"
+    style={{
+      marginTop: "610px",
+    }}
   >
     <img
       src="/trophy.png"
@@ -253,6 +263,7 @@ console.log(finalRound);
     </p>
   </div>
 </div>
+</svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
