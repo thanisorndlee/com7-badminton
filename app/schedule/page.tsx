@@ -327,6 +327,12 @@ console.log(finalRound);
         alt="Champion"
         className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
       />
+      <div className="absolute w-40 h-40 rounded-full bg-yellow-400/20 blur-3xl"></div>
+      <img
+        src="/trophy.png"
+        alt="Champion"
+        className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
+      />
 
       <p className="mt-3 text-center text-yellow-400 font-black text-xl">
         CHAMPION
