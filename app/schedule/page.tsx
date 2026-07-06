@@ -87,9 +87,8 @@ console.log(finalRound);
       Tournament Schedule
     </span>
 
-    <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">
-      ตารางการแข่งขัน
-    </h1>
+    <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
+    </div>
 {/* ฝั่งขวา */}
 <div className="relative w-full lg:w-[420px] ml-auto">
         <svg
@@ -124,8 +123,6 @@ console.log(finalRound);
     />
   </div>
 </div>
-        </div>
-
         {/* ตารางแสดงผล */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
           <table className="w-full text-sm text-left border-collapse min-w-[700px]">
