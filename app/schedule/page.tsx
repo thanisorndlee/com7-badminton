@@ -205,6 +205,15 @@ console.log(finalRound);
   <div className="mt-[88px]">
     {round8[4] && <BracketBox match={round8[4]} />}
   </div>
+  <div className="mt-[88px]">
+    {round8[5] && <BracketBox match={round8[5]} />}
+  </div>
+  <div className="mt-[88px]">
+    {round8[6] && <BracketBox match={round8[6]} />}
+  </div>
+  <div className="mt-[88px]">
+    {round8[7] && <BracketBox match={round8[7]} />}
+  </div>
 </div>
 </div>
 
