@@ -29,12 +29,21 @@ export default function ResultsPage() {
 
   const uniqueStages = [
   'ทั้งหมด',
-  ...Array.from(new Set(results.map((m) => String(m[1] || '').trim()).filter(Boolean))),
+  'รอบแบ่งกลุ่ม',
+  'รอบ 16 คู่',
+  'รอบ 8 คู่',
+  'รอบ 4 คู่',
+  'รอบ 2 คู่',
 ];
 
 const uniqueGroups = [
   'ทั้งหมด',
-  ...Array.from(new Set(results.map((m) => String(m[2] || '').trim()).filter(Boolean))),
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
 ];
 
   const filteredResults = isFetched
@@ -124,8 +133,9 @@ const uniqueGroups = [
               className="bg-slate-900 border border-white/20 text-slate-200 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-emerald-500 cursor-pointer font-semibold min-w-[140px]"
             >
               {uniqueGroups.map((group) => (
-                <option key={group} value={group}>{group === 'ทั้งหมด' ? 'กลุ่มทั้งหมด' : `กลุ่ม / สาย ${group}`}</option>
-              ))}
+              <option key={group} value={group}>
+                {group === 'ทั้งหมด' ? 'กลุ่มทั้งหมด' : `กลุ่ม ${group}`}
+              </option>              ))}
             </select>
           </div>
         </div>
