@@ -153,7 +153,7 @@ console.log(finalRound);
             </div>
 
             {/* รอบชิง */}
-            <div className="flex flex-col mt-[265px]">
+            <div className="flex flex-col mt-[395px]">
             <h3 className="mb-6 text-center font-black text-emerald-400">
                 รอบ 2 คู่
             </h3> 
