@@ -64,8 +64,13 @@ return streams.filter((stream) => stream.live);
         />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mb-8">
-        <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-3">
+        <div className="relative z-10 w-full max-w-7xl mb-8
+                bg-slate-950/70
+                backdrop-blur-md
+                border border-white/15
+                rounded-[28px]
+                px-8 py-7
+                shadow-[0_20px_60px_rgba(0,0,0,.55)]">        <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-3">
           Live Streams
         </span>
 
@@ -74,8 +79,9 @@ return streams.filter((stream) => stream.live);
         </h1>
 
         <p className="text-sm text-slate-300 mt-2">
-          รับชมการแข่งขันสดจากแต่ละสนาม หากปิดจอใดจอหนึ่ง จอที่เหลือจะขยายอัตโนมัติ
-        </p>
+        เชิญรับชมการถ่ายทอดสดการแข่งขันแบดมินตัน COM7 Tournament
+        จากทุกสนามแบบเรียลไทม์ พร้อมติดตามการแข่งขันของแต่ละคู่ได้ตลอดการแข่งขัน        
+  </p>
       </div>
 
       <div className={`relative z-10 w-full grid ${gridClass} gap-6 transition-all duration-500`}>
