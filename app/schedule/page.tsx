@@ -23,6 +23,7 @@ export default function SchedulePage() {
   if (!isFetched) return [];
 
   return matches.filter((match) => {
+    if (String(match[1]) !== "รอบแบ่งกลุ่ม") return false;
     const search = searchTerm.toLowerCase();
 
     return (
