@@ -231,21 +231,19 @@ console.log(finalRound);
   </div>
 </div>
             {/* รอบชิง */}
-            <div className="flex flex-col ">
-            <h3 className="mb-6 text-center font-black text-emerald-400">
-                รอบ 2 คู่
-            </h3> 
-
-            <div className="flex flex-col ">
-                  <div className="mt-[215px]">
-        {finalRound[0] && <BracketBox match={finalRound[0]} />}
+<div className="flex flex-col">
+  <h3 className="mb-6 text-center font-black text-emerald-400">
+    รอบ 2 คู่
+  </h3>
+  <div className="flex flex-col">
+    <div className="mt-[220px]">
+      {finalRound[0] && <BracketBox match={finalRound[0]} />}
     </div>
-
-    <div className="mt-[32px]">
-        {finalRound[1] && <BracketBox match={finalRound[1]} />}
+    <div className="mt-[345px]">
+      {finalRound[1] && <BracketBox match={finalRound[1]} />}
     </div>
+  </div>
 </div>
-          </div>
         </div>
       </div>
     </div>
