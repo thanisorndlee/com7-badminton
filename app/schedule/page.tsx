@@ -297,7 +297,7 @@ console.log(finalRound);
 </div>
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบ 2 คู่
+    รอบชิงชนะเลิศ
   </h3>
 
   <div className="relative w-36 h-[1280px]">
