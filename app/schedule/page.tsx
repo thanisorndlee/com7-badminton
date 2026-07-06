@@ -170,29 +170,19 @@ console.log(finalRound);
     strokeWidth="2"
   />
 </svg>             
-   <div className="flex flex-col">
-                <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 16 คู่</h3>
-                <div className="flex flex-col gap-8">
-                    {round16.map((match, i) => (
-<div key={i} className="relative h-12 z-10">
-          <BracketBox match={match} />
-    </div>
-))}
-</div>
-</div>
-{/* รอบ 8 */}
+   {/* รอบ 16 */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบ 8 คู่
+    รอบ 16 คู่
   </h3>
 
-  <div className="relative h-[1050px] w-36">
-    {round8.map((match, i) => (
+  <div className="relative w-36 h-[1280px]">
+    {round16.map((match, i) => (
       <div
         key={i}
         className="absolute left-0 z-10"
         style={{
-          top: `${40 + i * 128}px`,
+          top: `${i * 80}px`,
         }}
       >
         <BracketBox match={match} />
@@ -200,7 +190,26 @@ console.log(finalRound);
     ))}
   </div>
 </div>
+{/* รอบ 8 */}
+<div className="flex flex-col">
+  <h3 className="mb-6 text-center font-black text-emerald-400">
+    รอบ 8 คู่
+  </h3>
 
+  <div className="relative w-36 h-[1280px]">
+    {round8.map((match, i) => (
+      <div
+        key={i}
+        className="absolute left-0 z-10"
+        style={{
+          top: `${40 + i * 160}px`,
+        }}
+      >
+        <BracketBox match={match} />
+      </div>
+    ))}
+  </div>
+</div>
             {/* รอบ 4 */}
             <div className="flex flex-col ">
                 <h3 className="mb-6 text-center font-black text-emerald-400">รอบ 4 คู่</h3>
