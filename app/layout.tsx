@@ -59,12 +59,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="h-5 w-28 object-contain"
                   />
                   <img
-                    src="/Sponsor.png"
+                    src="/"
                     alt="Sponsor"
                     className="h-8 w-auto object-contain"
                   />
                   <img
-                    src="/Sponsor.png"
+                    src="/"
                     alt="Sponsor"
                     className="h-8 w-auto object-contain"
                   />
