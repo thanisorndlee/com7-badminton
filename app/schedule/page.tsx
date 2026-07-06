@@ -20,19 +20,22 @@ export default function SchedulePage() {
   }, []);
 
   const tableMatches = useMemo(() => {
-    if (!isFetched) return [];
-    return matches.filter((match) => {
-      const isGroupStage = String(match[1]) === "รอบแบ่งกลุ่ม";
-      const search = searchTerm.toLowerCase();
-      const found = String(match[0] || '').toLowerCase().includes(search) || 
-                    String(match[1] || '').toLowerCase().includes(search) || 
-                    String(match[3] || '').toLowerCase().includes(search) || 
-                    String(match[4] || '').toLowerCase().includes(search);
-      const stagePass = stageFilter === 'ทั้งหมด' || String(match[1]) === stageFilter;
-      const groupPass = groupFilter === 'ทั้งหมด' || String(match[2]) === groupFilter;
-      return isGroupStage && found && stagePass && groupPass;
-    });
-  }, [isFetched, matches, searchTerm, stageFilter, groupFilter]);
+  if (!isFetched) return [];
+
+  return matches.filter((match) => {
+    const search = searchTerm.toLowerCase();
+
+    return (
+      String(match[0] || '').toLowerCase().includes(search) || // แมตช์
+      String(match[1] || '').toLowerCase().includes(search) || // รอบ
+      String(match[2] || '').toLowerCase().includes(search) || // กลุ่ม
+      String(match[3] || '').toLowerCase().includes(search) || // TEAM A
+      String(match[4] || '').toLowerCase().includes(search) || // TEAM B
+      String(match[5] || '').toLowerCase().includes(search) || // คะแนน A
+      String(match[6] || '').toLowerCase().includes(search)    // คะแนน B
+    );
+  });
+}, [isFetched, matches, searchTerm]);
 
   // =============================
 // ข้อมูลแต่ละรอบของสายการแข่งขัน
@@ -81,6 +84,39 @@ console.log(finalRound);
           <div>
             <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">Tournament Schedule</span>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
+            <div className="mt-6 relative max-w-md">
+  {/* ไอคอนแว่นขยาย */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+
+  <input
+    type="text"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+placeholder="ค้นหาแมตช์, รอบ, ทีม, กลุ่ม หรือคะแนน"
+    className="w-full pl-12 pr-4 py-3 rounded-xl
+               bg-slate-900/80
+               border border-emerald-500/30
+               text-white
+               placeholder:text-slate-400
+               outline-none
+               focus:border-emerald-400
+               focus:ring-2
+               focus:ring-emerald-500/30"
+  />
+</div>
           </div>
         </div>
 
