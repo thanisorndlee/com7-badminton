@@ -169,6 +169,136 @@ console.log(finalRound);
     stroke="#10b981"
     strokeWidth="2"
   />
+  {/* คู่1 + คู่2 -> รอบ8 คู่1 */}
+<path
+  d="M190 110
+     H250
+     V150
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่3 + คู่4 -> รอบ8 คู่2 */}
+<path
+  d="M190 250
+     H250
+     V290
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่5 + คู่6 -> รอบ8 คู่3 */}
+<path
+  d="M190 390
+     H250
+     V430
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่7 + คู่8 -> รอบ8 คู่4 */}
+<path
+  d="M190 530
+     H250
+     V570
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่9 + คู่10 -> รอบ8 คู่5 */}
+<path
+  d="M190 670
+     H250
+     V710
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่11 + คู่12 -> รอบ8 คู่6 */}
+<path
+  d="M190 810
+     H250
+     V850
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่13 + คู่14 -> รอบ8 คู่7 */}
+<path
+  d="M190 950
+     H250
+     V990
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* คู่15 + คู่16 -> รอบ8 คู่8 */}
+<path
+  d="M190 1090
+     H250
+     V1130
+     H330"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+{/* รอบ8 คู่1-2 -> รอบ4 คู่1 */}
+<path
+  d="M520 150
+     H600
+     V290
+     H700"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* รอบ8 คู่3-4 -> รอบ4 คู่2 */}
+<path
+  d="M520 430
+     H600
+     V570
+     H700"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* รอบ8 คู่5-6 -> รอบ4 คู่3 */}
+<path
+  d="M520 710
+     H600
+     V850
+     H700"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+
+{/* รอบ8 คู่7-8 -> รอบ4 คู่4 */}
+<path
+  d="M520 990
+     H600
+     V1130
+     H700"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
 </svg>             
    {/* รอบ 16 */}
 <div className="flex flex-col">
