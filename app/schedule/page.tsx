@@ -297,7 +297,7 @@ console.log(finalRound);
 </div>
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบชิงชนะเลิศ
+    รอบชิงชนะเลิศ 🏆
   </h3>
 
   <div className="relative w-36 h-[1280px]">
@@ -322,11 +322,7 @@ console.log(finalRound);
       className="absolute left-0 z-10 flex flex-col items-center"
       style={{ top: "480px" }}
     >
-      <img
-        src="/trophy.png"
-        alt="Champion"
-        className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
-      />
+      <div className="absolute w-40 h-40 rounded-full bg-yellow-400/20 blur-3xl -z-10"></div>
       <img
         src="/trophy.png"
         alt="Champion"
