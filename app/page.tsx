@@ -11,9 +11,8 @@ export default function HomePage() {
   },
   {
     id: 2,
-    name: 'SIAM SPORTS ARENA',
-    logo: '/ชื่อไฟล์สปอนเซอร์ตัวที่2.svg',
-    label: 'TWO',
+    name: 'XIAOMI',
+    logo: '/xiaomi.png',
   },
   {
     id: 3,
