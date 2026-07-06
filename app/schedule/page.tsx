@@ -325,20 +325,24 @@ console.log(finalRound);
   </div>
 </div>
 <div className="flex flex-col">
-  <h3 className="mb-6 opacity-0">ถ้วย</h3>
+  <h3 className="mb-6 text-center font-black text-emerald-400">
+    CHAMPION
+  </h3>
 
   <div className="relative w-36 h-[1280px]">
     <div
       className="absolute left-0 z-10 flex flex-col items-center"
-      style={{ top: "610px" }}
+      style={{ top: "420px" }} 
     >
+      <div className="absolute -left-8 top-[45px] w-8 h-[2px] bg-emerald-400" />
+      
       <img
         src="/trophy.png"
         alt="Champion"
-        className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
+        className="w-20 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]" 
       />
 
-      <p className="mt-3 text-center text-yellow-400 font-black text-xl">
+      <p className="mt-2 text-center text-yellow-400 font-black text-lg">
         CHAMPION
       </p>
     </div>
