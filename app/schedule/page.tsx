@@ -80,24 +80,19 @@ console.log(finalRound);
       </div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
-        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
-         <div className="mb-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 border-b border-white/10 pb-6">
-
+<div className="mb-8 flex flex-col lg:flex-row items-start lg:items-end gap-6 border-b border-white/10 pb-6 w-full">
   {/* ฝั่งซ้าย */}
-  <div>
-    <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
+<div className="flex-1">
+      <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
       Tournament Schedule
     </span>
 
     <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">
       ตารางการแข่งขัน
     </h1>
-  </div>
-
-  {/* ฝั่งขวา */}
 {/* ฝั่งขวา */}
-<div className="relative w-full max-w-md lg:ml-auto">
-      <svg
+<div className="relative w-full lg:w-[420px] ml-auto">
+        <svg
       xmlns="http://www.w3.org/2000/svg"
       className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
       fill="none"
