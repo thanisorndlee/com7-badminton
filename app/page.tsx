@@ -74,8 +74,12 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10 relative z-30">
             {sponsors.map((sponsor, index) => (
               <div key={sponsor.id} className={`flex items-center justify-center gap-3 p-4 ${index !== 2 ? 'border-r border-white/10' : ''}`}>
-                <img src={sponsor.logo} className="h-8 w-auto object-contain" />
-                <div className="flex flex-col text-left">
+              <img
+              src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg" // ใส่ Path รูปสปอนเซอร์ของคุณที่นี่
+              alt={sponsor.name}
+              className="h-5 w-28 object-contain"
+              />                
+              <div className="flex flex-col text-left">
                   <span className="text-[7px] text-slate-500 uppercase tracking-wider">SPONSOR {sponsor.label}:</span>
                   <span className="text-[10px] font-bold text-white uppercase">{sponsor.name}</span>
                 </div>
