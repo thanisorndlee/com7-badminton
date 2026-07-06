@@ -153,7 +153,7 @@ export default function ResultsPage() {
                     >
                       {/* Match ID */}
                       <td className="p-4 text-center font-mono text-xs text-slate-400 font-bold">
-                        {isRowLoading ? <div className="w-6 h-4 bg-white/20 rounded mx-auto animate-pulse" /> : `#${row[0]}`}
+                        {isRowLoading ? <div className="w-6 h-4 bg-white/20 rounded mx-auto animate-pulse" /> : `${row[0]}`}
                       </td>
 
                       {/* รอบการแข่ง */}
