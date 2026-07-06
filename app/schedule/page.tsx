@@ -244,25 +244,6 @@ console.log(finalRound);
   stroke="#10b981"
   strokeWidth="3"
 />
-{/* ถ้วยรางวัล */}
-<div className="flex flex-col items-center justify-center">
-  <div
-    className="relative"
-    style={{
-      marginTop: "610px",
-    }}
-  >
-    <img
-      src="/trophy.png"
-      alt="Champion"
-      className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
-    />
-
-    <p className="mt-3 text-center text-yellow-400 font-black text-xl">
-      CHAMPION
-    </p>
-  </div>
-</div>
 </svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
@@ -341,6 +322,26 @@ console.log(finalRound);
         <BracketBox match={match} />
       </div>
     ))}
+  </div>
+</div>
+<div className="flex flex-col">
+  <h3 className="mb-6 opacity-0">ถ้วย</h3>
+
+  <div className="relative w-36 h-[1280px]">
+    <div
+      className="absolute left-0 z-10 flex flex-col items-center"
+      style={{ top: "610px" }}
+    >
+      <img
+        src="/trophy.png"
+        alt="Champion"
+        className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
+      />
+
+      <p className="mt-3 text-center text-yellow-400 font-black text-xl">
+        CHAMPION
+      </p>
+    </div>
   </div>
 </div>
         </div>
