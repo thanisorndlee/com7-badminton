@@ -6,9 +6,8 @@ export default function HomePage() {
   const sponsors = [
   {
     id: 1,
-    name: 'COM7TECH',
+    name: 'SANDISK',
     logo: '/Sandisk-Horizontal-Mark-TM-Red-RGB.svg',
-    label: 'ONE',
   },
   {
     id: 2,
