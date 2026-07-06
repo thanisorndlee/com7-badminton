@@ -7,7 +7,7 @@ export default function StreamPage() {
     {
       id: 1,
       title: 'จอที่ 1',
-      live: true,
+      live: false,
       embedUrl: 'https://www.youtube.com/embed/SEANzrzUKLU?autoplay=0&rel=0',
       stage: 'รอบแบ่งกลุ่ม',
       group: 'กลุ่ม A',
