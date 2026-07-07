@@ -25,7 +25,7 @@ const [current, setCurrent] = useState(0);
 useEffect(() => {
   const timer = setInterval(() => {
     setCurrent((prev) => (prev + 1) % sponsors.length);
-  }, 3500);
+  }, 2500);
 
   return () => clearInterval(timer);
 }, []);
@@ -64,20 +64,40 @@ useEffect(() => {
     clip-path: polygon(45% 100%, 55% 100%, 100% 0%, 0% 0%);
     animation: stageBeam 4.5s ease-in-out infinite alternate;
   }
-   @keyframes slideUpLogo {
-  0% {
-    opacity: 0;
-    transform: translateY(150%);
+   @keyframes sponsorSlide {
+
+  0%{
+    opacity:0;
+    transform:
+      translateY(90px)
+      scale(.88);
   }
 
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
+  15%{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
   }
+
+  80%{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  100%{
+    opacity:0;
+    transform:
+      translateY(-90px)
+      scale(.92);
+  }
+
 }
 
-.animate-slide-up {
-  animation: slideUpLogo .8s cubic-bezier(.2,.8,.2,1);
+.animate-slide-up{
+    animation:sponsorSlide .9s cubic-bezier(.22,1,.36,1);
 }
 `}</style>
 
@@ -90,8 +110,18 @@ useEffect(() => {
 
 {/* กรอบสปอนเซอร์ */}
 <div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
-  <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl p-6 relative overflow-hidden">
-
+<div className="
+w-full
+bg-black/60
+border border-[#39ff14]/30
+rounded-2xl
+backdrop-blur-md
+shadow-2xl
+py-4
+px-6
+relative
+overflow-hidden
+">
     <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
       <div className="stage-beam left-[8%]" style={{ '--start': '-38deg', '--end': '-18deg' } as React.CSSProperties} />
       <div className="stage-beam left-[18%]" style={{ '--start': '-28deg', '--end': '-8deg' } as React.CSSProperties} />
@@ -110,25 +140,31 @@ useEffect(() => {
     </h3>
 <div className="relative z-30 border-t border-white/10 pt-8">
 
-  <div className="h-[180px] flex justify-center items-center overflow-hidden">
+<div className="h-[120px] overflow-hidden relative flex justify-center items-center">  
   <img
-    key={current}
+ key={current}
+ className="
+animate-slide-up
+max-h-[80px]
+md:max-h-[95px]
+max-w-[360px]
+object-contain
+"
     src={sponsors[current].logo}
     alt={sponsors[current].name}
-    className="max-h-[110px] max-w-[420px] object-contain animate-slide-up"
   />
 </div>
 
-  <h2 className="text-center text-2xl font-black tracking-wider mt-2">
-    {sponsors[current].name}
+<h2 className="mt-2 text-center text-lg font-bold tracking-[0.15em] text-white">    
+  {sponsors[current].name}
   </h2>
 
-  <div className="flex justify-center gap-3 mt-5">
+  <div className="flex justify-center gap-3 mt-2">
     {sponsors.map((_, index) => (
       <button
         key={index}
         onClick={() => setCurrent(index)}
-        className={`w-3 h-3 rounded-full transition-all ${
+        className={`w-2 h-2 rounded-full transition-all ${
           current === index
             ? 'bg-[#39ff14] scale-125'
             : 'bg-white/30'
