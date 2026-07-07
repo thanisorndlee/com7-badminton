@@ -109,19 +109,8 @@ useEffect(() => {
 </div>
 
 {/* กรอบสปอนเซอร์ */}
-<div className="absolute bottom-10 z-20 w-full max-w-5xl px-4">
-<div className="
-w-full
-bg-black/60
-border border-[#39ff14]/30
-rounded-2xl
-backdrop-blur-md
-shadow-2xl
-py-4
-px-6
-relative
-overflow-hidden
-">
+<div className="absolute bottom-8 z-20 w-full max-w-3xl px-4">
+  <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl py-3 px-5 relative overflow-hidden">
     <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
       <div className="stage-beam left-[8%]" style={{ '--start': '-38deg', '--end': '-18deg' } as React.CSSProperties} />
       <div className="stage-beam left-[18%]" style={{ '--start': '-28deg', '--end': '-8deg' } as React.CSSProperties} />
@@ -140,8 +129,7 @@ overflow-hidden
     </h3>
 <div className="relative z-30 border-t border-white/10 pt-8">
 
-<div className="h-[120px] overflow-hidden relative flex justify-center items-center">  
-  <img
+<div className="h-[85px] overflow-hidden relative flex justify-center items-center">  <img
  key={current}
  className="
 animate-slide-up
