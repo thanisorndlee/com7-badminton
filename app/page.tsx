@@ -141,7 +141,7 @@ useEffect(() => {
     {sponsors[current].name}
   </h2>
 
-    <div className="flex justify-center gap-3 mt-5">
+        <div className="flex justify-center gap-3 mt-5">
     {sponsors.map((_, index) => (
       <button
         key={index}
@@ -156,8 +156,8 @@ useEffect(() => {
   </div>
 
 </div>
-  </div>
 </div>
-    </div>
+</div>
+</div>
   );
 }
