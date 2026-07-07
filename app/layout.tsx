@@ -54,11 +54,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {/* SPONSOR */}
                 <div className="flex items-center gap-4 h-full py-1">
                   <img
-                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
-                    alt="Sandisk"
-                    className="h-5 w-28 object-contain"
-                  />
-                  <img
                     src="/xiaomi-logo.png"
                     alt="XIAOMI"
                     className="h-8 w-auto object-contain"
@@ -67,6 +62,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     src="/Jbl-logo.jpg"
                     alt="JBL"
                     className="h-8 w-auto object-contain"
+                  />
+                  <img
+                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
+                    alt="Sandisk"
+                    className="h-5 w-28 object-contain"
                   />
                 </div>
               </div>

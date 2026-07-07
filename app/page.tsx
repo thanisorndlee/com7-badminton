@@ -88,25 +88,19 @@ export default function HomePage() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10 relative z-30">
       {sponsors.map((sponsor, index) => (
         <div
-          key={sponsor.id}
-          className={`flex items-center justify-center gap-3 p-4 ${index !== 2 ? 'md:border-r border-white/10' : ''}`}
-        >
-          <img
-            src={sponsor.logo}
-            alt={sponsor.name}
-            className="h-5 w-28 object-contain"
-          />
-
-          <div className="flex flex-col text-left">
-  <span className="text-[7px] text-slate-500 uppercase tracking-wider">
-    SPONSOR
-  </span>
-
-  <span className="text-[10px] font-bold text-white uppercase">
-    {sponsor.name}
-  </span>
+  key={sponsor.id}
+  className={`flex justify-center items-center p-10 ${
+    index !== 2 ? 'md:border-r border-white/10' : ''
+  }`}
+>
+  <div className="w-[220px] h-[80px] flex items-center justify-center">
+    <img
+      src={sponsor.logo}
+      alt={sponsor.name}
+      className="max-w-full max-h-full object-contain"
+    />
+  </div>
 </div>
-        </div>
       ))}
     </div>
   </div>
