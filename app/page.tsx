@@ -12,12 +12,12 @@ export default function HomePage() {
   {
     id: 2,
     name: 'XIAOMI',
-    logo: '/xiaomi.png',
+    logo: '/xiaomi-logo.png',
   },
   {
     id: 3,
     name: 'JBL',
-    logo: '/jbl.png',
+    logo: '/Jbl-logo.jpg',
   },
 ];
 

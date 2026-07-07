@@ -59,13 +59,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="h-5 w-28 object-contain"
                   />
                   <img
-                    src="/xiaomi.png"
+                    src="/xiaomi-logo.png"
                     alt="XIAOMI"
                     className="h-8 w-auto object-contain"
                   />
                   <img
-                    src="/"
-                    alt="Sponsor"
+                    src="/Jbl-logo.jpg"
+                    alt="JBL"
                     className="h-8 w-auto object-contain"
                   />
                 </div>
