@@ -65,18 +65,19 @@ useEffect(() => {
     animation: stageBeam 4.5s ease-in-out infinite alternate;
   }
    @keyframes slideUpLogo {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(70px) scale(.92);
+    transform: translateY(150%);
   }
-  to {
+
+  100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0%);
   }
 }
 
 .animate-slide-up {
-  animation: slideUpLogo .75s ease-out;
+  animation: slideUpLogo .8s cubic-bezier(.2,.8,.2,1);
 }
 `}</style>
 
@@ -107,26 +108,15 @@ useEffect(() => {
     <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
       SPONSORED BY
     </h3>
-
-    <button
-      onClick={() =>
-        setCurrent((current + 1) % sponsors.length)
-      }
-      className="absolute right-6 w-12 h-12 rounded-full border border-[#39ff14]/40 bg-black/40 backdrop-blur-md hover:bg-[#39ff14]/10 transition"
-    >
-      ❯
-    </button>
 <div className="relative z-30 border-t border-white/10 pt-8">
 
   <div className="h-[180px] flex justify-center items-center overflow-hidden">
-
   <img
     key={current}
     src={sponsors[current].logo}
     alt={sponsors[current].name}
     className="max-h-[110px] max-w-[420px] object-contain animate-slide-up"
   />
-
 </div>
 
   <h2 className="text-center text-2xl font-black tracking-wider mt-2">
