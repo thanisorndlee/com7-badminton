@@ -26,7 +26,7 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % sponsors.length);
-    }, 2200);
+    }, 4200);
 
     return () => clearInterval(timer);
   }, [sponsors.length]);
@@ -34,31 +34,33 @@ export default function HomePage() {
   return (
     <div className="w-full h-[calc(100vh-68px)] relative overflow-hidden bg-black select-none">
       <style jsx global>{`
-        @keyframes sponsorTvSlide {
-          0% {
-            opacity: 0;
-            transform: translateY(55px) scale(0.92);
-          }
+        @keyframes sponsorSlide {
 
-          18% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+  0%{
+    opacity:0;
+    transform:translateY(80px) scale(.92);
+  }
 
-          78% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+  12%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 
-          100% {
-            opacity: 0;
-            transform: translateY(-55px) scale(0.94);
-          }
-        }
+  88%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 
-        .sponsor-tv-slide {
-          animation: sponsorTvSlide 2.2s cubic-bezier(.22,1,.36,1);
-        }
+  100%{
+    opacity:0;
+    transform:translateY(-80px) scale(.96);
+  }
+
+}
+
+.animate-slide-up{
+    animation:sponsorSlide 4.2s cubic-bezier(.19,1,.22,1);
+}
       `}</style>
 
       {/* Background */}
@@ -80,21 +82,21 @@ export default function HomePage() {
 
       {/* Sponsor Floating Slider */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-        <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-[8px] mb-2 drop-shadow-[0_0_8px_rgba(57,255,20,.6)]">
+        <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-xs md:text-sm mb-4 drop-shadow-[0_0_12px_rgba(57,255,20,.8)]">          
           SPONSORED BY
         </h3>
 
-        <div className="relative w-[260px] h-[62px] overflow-hidden flex items-center justify-center">
-          <img
+        <div className="relative w-[360px] h-[100px] overflow-hidden flex items-center justify-center">
+            <img
             key={current}
             src={sponsors[current].logo}
             alt={sponsors[current].name}
-            className="sponsor-tv-slide max-h-[46px] max-w-[220px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
+            className="animate-slide-up max-h-[78px] max-w-[320px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
           />
         </div>
 
-        <h2 className="mt-1 text-center text-xs font-black tracking-[0.2em] text-white drop-shadow-[0_0_8px_rgba(0,0,0,.8)]">
-          {sponsors[current].name}
+        <h2 className="mt-2 text-center text-lg md:text-xl font-black tracking-[0.18em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,.4)]">
+            {sponsors[current].name}
         </h2>
 
         <div className="flex justify-center gap-2 mt-2">
@@ -102,11 +104,11 @@ export default function HomePage() {
             <button
               key={index}
               onClick={() => setCurrent(index)}
-              className={`w-1.5 h-1.5 rounded-full transition-all ${
-                current === index
-                  ? 'bg-[#39ff14] scale-125 shadow-[0_0_8px_rgba(57,255,20,.9)]'
-                  : 'bg-white/35'
-              }`}
+              className={`w-3 h-3 rounded-full transition-all ${
+              current === index
+                ? 'bg-[#39ff14] scale-150 shadow-[0_0_10px_#39ff14]'
+                : 'bg-white/35'
+            }`}
             />
           ))}
         </div>
