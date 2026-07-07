@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function HomePage() {
   const sponsors = [
@@ -20,6 +20,15 @@ export default function HomePage() {
     logo: '/Jbl-logo.jpg',
   },
 ];
+const [current, setCurrent] = useState(0);
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrent((prev) => (prev + 1) % sponsors.length);
+  }, 3500);
+
+  return () => clearInterval(timer);
+}, []);
 
   return (
     <div className="w-full h-[calc(100vh-68px)] relative flex flex-col items-center justify-center overflow-hidden bg-black select-none">
@@ -55,6 +64,14 @@ export default function HomePage() {
     clip-path: polygon(45% 100%, 55% 100%, 100% 0%, 0% 0%);
     animation: stageBeam 4.5s ease-in-out infinite alternate;
   }
+    @keyframes fadeLogo {
+  from { opacity: 0; transform: scale(.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade {
+  animation: fadeLogo .6s ease;
+}
 `}</style>
 
       {/* Background */}
@@ -85,24 +102,60 @@ export default function HomePage() {
       SPONSORED BY
     </h3>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-white/10 relative z-30">
-      {sponsors.map((sponsor, index) => (
-        <div
-  key={sponsor.id}
-  className={`flex justify-center items-center p-10 ${
-    index !== 2 ? 'md:border-r border-white/10' : ''
-  }`}
->
-  <div className="w-[220px] h-[80px] flex items-center justify-center">
-    <img
-      src={sponsor.logo}
-      alt={sponsor.name}
-      className="max-w-full max-h-full object-contain"
-    />
-  </div>
-</div>
-      ))}
+    <div className="relative z-30 pt-6 border-t border-white/10">
+
+  <div className="flex items-center justify-center">
+
+    <button
+      onClick={() =>
+        setCurrent((current - 1 + sponsors.length) % sponsors.length)
+      }
+      className="absolute left-6 w-12 h-12 rounded-full border border-[#39ff14]/40 bg-black/40 backdrop-blur-md hover:bg-[#39ff14]/10 transition"
+    >
+      ❮
+    </button>
+
+    <div className="w-full flex justify-center items-center h-[170px]">
+
+      <img
+        key={current}
+        src={sponsors[current].logo}
+        alt={sponsors[current].name}
+        className="max-h-[90px] md:max-h-[120px] object-contain animate-fade"
+      />
+
     </div>
+
+    <button
+      onClick={() =>
+        setCurrent((current + 1) % sponsors.length)
+      }
+      className="absolute right-6 w-12 h-12 rounded-full border border-[#39ff14]/40 bg-black/40 backdrop-blur-md hover:bg-[#39ff14]/10 transition"
+    >
+      ❯
+    </button>
+
+  </div>
+
+  <h2 className="mt-4 text-center text-2xl font-black text-white tracking-wide">
+    {sponsors[current].name}
+  </h2>
+
+    <div className="flex justify-center gap-3 mt-5">
+    {sponsors.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrent(index)}
+        className={`w-3 h-3 rounded-full transition ${
+          current === index
+            ? 'bg-[#39ff14] scale-125'
+            : 'bg-white/30'
+        }`}
+      />
+    ))}
+  </div>
+
+</div>
   </div>
 </div>
     </div>
