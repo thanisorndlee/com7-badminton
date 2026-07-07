@@ -52,24 +52,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 
                 {/* SPONSOR */}
-                <div className="flex items-center gap-4 h-full py-1">
-                  <img
-                    src="/xiaomi-logo.png"
-                    alt="XIAOMI"
-                    className="h-8 w-auto object-contain"
-                  />
-                  <img
-                    src="/Jbl-logo.jpg"
-                    alt="JBL"
-                    className="h-8 w-auto object-contain"
-                  />
-                  <img
-                    src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
-                    alt="Sandisk"
-                    className="h-5 w-28 object-contain"
-                  />
-                </div>
-              </div>
+<div className="flex items-center gap-4 h-full py-1">
+  <div className="w-16 h-10 flex items-center justify-center">
+    <img
+      src="/xiaomi-logo.png"
+      alt="XIAOMI"
+      className="max-w-full max-h-full object-contain"
+    />
+  </div>
+
+  <div className="w-16 h-10 flex items-center justify-center">
+    <img
+      src="/Jbl-logo.jpg"
+      alt="JBL"
+      className="max-w-full max-h-full object-contain"
+    />
+  </div>
+
+  <div className="w-24 h-10 flex items-center justify-center">
+    <img
+      src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
+      alt="Sandisk"
+      className="max-w-full max-h-full object-contain"
+    />
+  </div>
+</div>
 
               <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
                 <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
