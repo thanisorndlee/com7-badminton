@@ -64,13 +64,19 @@ useEffect(() => {
     clip-path: polygon(45% 100%, 55% 100%, 100% 0%, 0% 0%);
     animation: stageBeam 4.5s ease-in-out infinite alternate;
   }
-    @keyframes fadeLogo {
-  from { opacity: 0; transform: scale(.9); }
-  to { opacity: 1; transform: scale(1); }
+   @keyframes slideUpLogo {
+  from {
+    opacity: 0;
+    transform: translateY(70px) scale(.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.animate-fade {
-  animation: fadeLogo .6s ease;
+.animate-slide-up {
+  animation: slideUpLogo .75s ease-out;
 }
 `}</style>
 
@@ -112,30 +118,16 @@ useEffect(() => {
     </button>
 <div className="relative z-30 border-t border-white/10 pt-8">
 
-  <button
-    onClick={() =>
-      setCurrent((current - 1 + sponsors.length) % sponsors.length)
-    }
-    className="absolute left-8 top-1/2 -translate-y-1/2 z-30
-    w-12 h-12 rounded-full
-    border border-[#39ff14]/40
-    bg-black/40
-    hover:bg-[#39ff14]/20
-    transition"
-  >
-    ❮
-  </button>
+  <div className="h-[180px] flex justify-center items-center overflow-hidden">
 
-  <div className="h-[180px] flex justify-center items-center">
+  <img
+    key={current}
+    src={sponsors[current].logo}
+    alt={sponsors[current].name}
+    className="max-h-[110px] max-w-[420px] object-contain animate-slide-up"
+  />
 
-    <img
-      key={current}
-      src={sponsors[current].logo}
-      alt={sponsors[current].name}
-      className="max-h-[110px] max-w-[420px] object-contain animate-fade"
-    />
-
-  </div>
+</div>
 
   <h2 className="text-center text-2xl font-black tracking-wider mt-2">
     {sponsors[current].name}
