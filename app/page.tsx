@@ -126,20 +126,6 @@ useEffect(() => {
     ❮
   </button>
 
-  <button
-    onClick={() =>
-      setCurrent((current + 1) % sponsors.length)
-    }
-    className="absolute right-8 top-1/2 -translate-y-1/2 z-30
-    w-12 h-12 rounded-full
-    border border-[#39ff14]/40
-    bg-black/40
-    hover:bg-[#39ff14]/20
-    transition"
-  >
-    ❯
-  </button>
-
   <div className="h-[180px] flex justify-center items-center">
 
     <img
@@ -171,27 +157,6 @@ useEffect(() => {
 
 </div>
   </div>
-
-  <h2 className="mt-4 text-center text-2xl font-black text-white tracking-wide">
-    {sponsors[current].name}
-  </h2>
-
-        <div className="flex justify-center gap-3 mt-5">
-    {sponsors.map((_, index) => (
-      <button
-        key={index}
-        onClick={() => setCurrent(index)}
-        className={`w-3 h-3 rounded-full transition ${
-          current === index
-            ? 'bg-[#39ff14] scale-125'
-            : 'bg-white/30'
-        }`}
-      />
-    ))}
-  </div>
-
-</div>
-</div>
 </div>
 </div>
   );
