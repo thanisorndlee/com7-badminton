@@ -109,9 +109,8 @@ useEffect(() => {
 </div>
 
 {/* กรอบสปอนเซอร์ */}
-<div className="absolute bottom-8 z-20 w-full max-w-3xl px-4">
-  <div className="w-full bg-black/60 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl py-3 px-5 relative overflow-hidden">
-    <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+<div className="absolute bottom-6 z-20 w-full max-w-2xl px-4">  
+<div className="w-full bg-black/55 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl py-2 px-5 relative overflow-hidden">    <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
       <div className="stage-beam left-[8%]" style={{ '--start': '-38deg', '--end': '-18deg' } as React.CSSProperties} />
       <div className="stage-beam left-[18%]" style={{ '--start': '-28deg', '--end': '-8deg' } as React.CSSProperties} />
       <div className="stage-beam left-[32%]" style={{ '--start': '-18deg', '--end': '8deg' } as React.CSSProperties} />
@@ -124,18 +123,17 @@ useEffect(() => {
       <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[65%] h-16 bg-[#39ff14]/20 blur-[35px]" />
     </div>
 
-    <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[10px] mb-6 relative z-30">
-      SPONSORED BY
+<h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[9px] mb-3 relative z-30">
+        SPONSORED BY
     </h3>
-<div className="relative z-30 border-t border-white/10 pt-8">
-
-<div className="h-[85px] overflow-hidden relative flex justify-center items-center">  <img
- key={current}
+<div className="relative z-30 border-t border-white/10 pt-4">
+<div className="h-[65px] overflow-hidden relative flex justify-center items-center">
+   key={current}
  className="
 animate-slide-up
-max-h-[80px]
-md:max-h-[95px]
-max-w-[360px]
+max-h-[45px]
+md:max-h-[58px]
+max-w-[230px]
 object-contain
 "
     src={sponsors[current].logo}
@@ -143,12 +141,12 @@ object-contain
   />
 </div>
 
-<h2 className="mt-2 text-center text-lg font-bold tracking-[0.15em] text-white">    
-  {sponsors[current].name}
+<h2 className="mt-1 text-center text-sm font-bold tracking-[0.15em] text-white">
+    {sponsors[current].name}
   </h2>
 
-  <div className="flex justify-center gap-3 mt-2">
-    {sponsors.map((_, index) => (
+<div className="flex justify-center gap-2 mt-1">
+      {sponsors.map((_, index) => (
       <button
         key={index}
         onClick={() => setCurrent(index)}
