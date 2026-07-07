@@ -150,7 +150,9 @@ const uniqueGroups = [
                 <th className="p-4 text-center w-16">VS</th>
                 <th className="p-4 text-left w-1/3 text-slate-300">TEAM B</th>
                 <th className="p-4 text-center w-36">ผลคะแนน</th>
-                <th className="p-4 text-center min-w-[140px] text-amber-400">ผู้ชนะ</th>              </tr>
+                <th className="p-4 text-center min-w-[140px] text-amber-400">ผู้ชนะ</th>
+                <th className="p-4 text-center min-w-[140px] text-red-400">ย้อนหลัง</th>
+              </tr>
             </thead>
 
             <tbody className="divide-y divide-white/10 font-medium">
@@ -158,16 +160,23 @@ const uniqueGroups = [
                 filteredResults.map((row, index) => {
                   const isRowLoading = !isFetched;
 
-                  const scoreA = row[5] !== undefined && row[5] !== '' ? Number(row[5]) : 0;
-                  const scoreB = row[6] !== undefined && row[6] !== '' ? Number(row[6]) : 0;
-                  const winnerName = row[7] || '';
-  
-                  const hasPlayed = (row[6] !== undefined && row[6] !== '') || 
-                                    (row[7] !== undefined && row[7] !== '') || 
-                                    (winnerName !== undefined && winnerName !== '');
+                  const scoreA =
+                    row[5] !== undefined && row[5] !== ''
+                      ? Number(row[5])
+                      : 0;
 
-                  const isAWinner = hasPlayed && scoreA > scoreB;
-                  const isBWinner = hasPlayed && scoreB > scoreA;
+                  const scoreB =
+                    row[6] !== undefined && row[6] !== ''
+                      ? Number(row[6])
+                      : 0;
+
+                  const winnerName = String(row[7] || '').trim();
+                  const replayUrl = String(row[8] || '').trim();
+
+                  const hasWinner = winnerName !== '';
+
+                  const isAWinner = hasWinner && scoreA > scoreB;
+                  const isBWinner = hasWinner && scoreB > scoreA;
 
                   return (
                     <tr 
@@ -239,7 +248,7 @@ const uniqueGroups = [
                       <td className="p-4 text-center min-w-[140px]">
                         {isRowLoading ? (
                           <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
-                        ) : hasPlayed && winnerName ? (
+                        ) : hasWinner ? (
                           <span className="inline-block bg-amber-500/10 text-amber-400 px-3 py-1 rounded-xl text-xs font-black border border-amber-500/20 tracking-wide whitespace-nowrap">
                             🏆 {winnerName}
                           </span>
@@ -249,12 +258,26 @@ const uniqueGroups = [
               </span>                       
              )}
                       </td>
+                      <td className="p-4 text-center min-w-[140px]">
+  {replayUrl ? (
+    <a
+      href={replayUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center bg-red-600/90 hover:bg-red-500 text-white px-3 py-1 rounded-xl text-xs font-black transition whitespace-nowrap"
+    >
+      ▶ ดูย้อนหลัง
+    </a>
+  ) : (
+    <span className="text-xs text-slate-600">-</span>
+  )}
+</td>
                     </tr>
                   );
                 })
               ) : (
                 <tr>
-                  <td colSpan={7} className="p-12 text-center text-xs text-zinc-500 font-medium tracking-wide">
+                  <td colSpan={8} className="p-12 text-center text-xs text-zinc-500 font-medium tracking-wide">
                     ❌ ไม่พบข้อมูลผลการแข่งขันตามเงื่อนไขที่เลือก
                   </td>
                 </tr>
