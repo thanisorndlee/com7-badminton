@@ -109,35 +109,26 @@ useEffect(() => {
 </div>
 
 {/* กรอบสปอนเซอร์ */}
-<div className="absolute bottom-6 z-20 w-full max-w-2xl px-4">  
-<div className="w-full bg-black/55 border border-[#39ff14]/30 rounded-2xl backdrop-blur-md shadow-2xl py-2 px-5 relative overflow-hidden">    <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-      <div className="stage-beam left-[8%]" style={{ '--start': '-38deg', '--end': '-18deg' } as React.CSSProperties} />
-      <div className="stage-beam left-[18%]" style={{ '--start': '-28deg', '--end': '-8deg' } as React.CSSProperties} />
-      <div className="stage-beam left-[32%]" style={{ '--start': '-18deg', '--end': '8deg' } as React.CSSProperties} />
-      <div className="stage-beam left-1/2 -translate-x-1/2" style={{ '--start': '-6deg', '--end': '6deg' } as React.CSSProperties} />
-      <div className="stage-beam right-[32%]" style={{ '--start': '18deg', '--end': '-8deg' } as React.CSSProperties} />
-      <div className="stage-beam right-[18%]" style={{ '--start': '28deg', '--end': '8deg' } as React.CSSProperties} />
-      <div className="stage-beam right-[8%]" style={{ '--start': '38deg', '--end': '18deg' } as React.CSSProperties} />
-
-      <div className="absolute bottom-[-30px] left-1/2 -translate-x-1/2 w-[80%] h-24 bg-purple-500/25 blur-[45px]" />
-      <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[65%] h-16 bg-[#39ff14]/20 blur-[35px]" />
-    </div>
+{/* สปอนเซอร์แบบไม่มีกรอบ */}
+<div className="absolute bottom-10 z-20 left-1/2 -translate-x-1/2">
+  <div className="relative"> 
 
 <h3 className="text-center text-[#39ff14] font-bold tracking-[0.3em] uppercase text-[9px] mb-3 relative z-30">
         SPONSORED BY
     </h3>
 <div className="relative z-30 border-t border-white/10 pt-4">
 <div className="h-[65px] overflow-hidden relative flex justify-center items-center">
-   key={current}
- className="
-animate-slide-up
-max-h-[45px]
-md:max-h-[58px]
-max-w-[230px]
-object-contain
-"
+  <img
+    key={current}
     src={sponsors[current].logo}
     alt={sponsors[current].name}
+    className="
+      animate-slide-up
+      max-h-[45px]
+      md:max-h-[58px]
+      max-w-[230px]
+      object-contain
+    "
   />
 </div>
 
