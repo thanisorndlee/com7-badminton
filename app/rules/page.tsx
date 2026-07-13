@@ -216,9 +216,18 @@ export default function RulesPage() {
               </div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
-                <p className="font-semibold text-white mb-1">⏰ กรณีเลื่อนการแข่งขัน</p>
-                <p className="text-slate-400 leading-relaxed">ผู้เข้าแข่งขันต้องติดต่อประสานงานและสลับวันแข่งกันเองให้เรียบร้อยจากนั้นจึงแจ้งให้ฝ่าย HR ทราบ <span className="text-amber-400 font-medium">ล่วงหน้าอย่างน้อย 1 วัน</span> 
-              </div>
+  <p className="font-semibold text-white mb-1">
+    ⏰ กรณีเลื่อนการแข่งขัน
+  </p>
+
+  <p className="text-slate-400 leading-relaxed">
+    ผู้เข้าแข่งขันต้องติดต่อประสานงานและสลับวันแข่งกันเองให้เรียบร้อย
+    จากนั้นจึงแจ้งให้ฝ่าย HR ทราบ
+    <span className="text-amber-400 font-medium">
+      {' '}ล่วงหน้าอย่างน้อย 1 วัน
+    </span>
+  </p>
+</div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
                 <p className="font-semibold text-white mb-1">🚑 การบาดเจ็บระหว่างแมตช์</p>
