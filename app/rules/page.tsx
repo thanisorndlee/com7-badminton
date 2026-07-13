@@ -149,7 +149,7 @@ export default function RulesPage() {
                 </div>
                 <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
                   <span className="text-black font-bold bg-emerald-400 px-1.5 py-0.5 rounded text-[10px] mr-1.5">อันดับ 3 ดีที่สุด</span>
-                  <span className="text-slate-400">คัดเลือกเอาทีมอันดับ 3 จำนวน <span className="text-emerald-400 font-semibold">4 อันดับแรก</span> เข้ารอบสมทบ</span>
+                  <span className="text-slate-400">Best Ranking 4 คู่ คัดเลือกจากอันดับ 3 ของทุกสาย เอาที่มีคะแนนดีที่สุด <span className="text-emerald-400 font-semibold">4 อันดับแรก</span> เข้ารอบสมทบ</span>
                 </div>
               </div>
             </div>
