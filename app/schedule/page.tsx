@@ -135,7 +135,6 @@ console.log(finalRound);
                 <th className="p-5 text-center">VS</th>
                 <th className="p-5 text-left">TEAM B</th>
                 <th className="p-5 text-center">ผลคะแนน</th>
-                <th className="p-5 text-center">ย้อนหลัง</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/10 font-semibold">

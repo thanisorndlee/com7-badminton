@@ -104,7 +104,7 @@ export default function RulesPage() {
               </table>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed bg-black/20 p-3 rounded-lg border border-white/5">
-              📌 <span className="text-white font-semibold">กรณีที่คะแนนรวมสะสมเท่ากันเมื่อจบตาราง:</span> อันดับจะตัดสินจาก <span className="text-emerald-400 font-medium">ผลต่างคะแนนได้เสีย</span> &rarr; ผลรวมคะแนนได้มากที่สุด &rarr; ผลรวมคะแนนเส้อยน้อยที่สุดตามลำดับ
+              📌 <span className="text-white font-semibold">กรณีที่คะแนนรวมสะสมเท่ากันเมื่อจบตาราง:</span> อันดับจะตัดสินจาก <span className="text-emerald-400 font-medium">ผลต่างคะแนนได้เสีย</span> &rarr; ผลรวมคะแนนได้มากที่สุด &rarr; ผลรวมคะแนนเสียน้อยที่สุดตามลำดับ
             </p>
           </div>
 
