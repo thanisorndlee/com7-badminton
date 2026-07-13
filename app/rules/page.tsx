@@ -46,11 +46,11 @@ export default function RulesPage() {
           <div className="bg-slate-950/75 border border-white/20 p-4 rounded-xl grid grid-cols-3 gap-2 text-center shadow-md">
             <div className="flex flex-col justify-center">
               <p className="text-[10px] text-slate-400 font-bold uppercase">รอบกลุ่ม</p>
-              <p className="text-base font-black text-emerald-400 mt-0.5">15 แต้ม</p>
+              <p className="text-base font-black text-emerald-400 mt-0.5">21 แต้ม</p>
             </div>
             <div className="flex flex-col justify-center border-x border-white/10">
               <p className="text-[10px] text-slate-400 font-bold uppercase">รอบ 16 ทีม</p>
-              <p className="text-base font-black text-white mt-0.5">15 แต้ม (2/3)</p>
+              <p className="text-base font-black text-white mt-0.5">21 แต้ม (2/3)</p>
             </div>
             <div className="flex flex-col justify-center">
               <p className="text-[10px] text-slate-400 font-bold uppercase">รอบ 8 ทีมขึ้นไป</p>
@@ -98,7 +98,7 @@ export default function RulesPage() {
                   <tr className="hover:bg-white/5 transition-colors">
                     <td className="p-3 font-medium text-white">ชนะบาย (คู่แข่งไม่มา)</td>
                     <td className="p-3 border-x border-white/10 font-bold text-emerald-400 text-center">3 คะแนน</td>
-                    <td className="p-3 text-emerald-400 font-medium">บันทึกแต้มเซ็ตเป็น 15 - 0</td>
+                    <td className="p-3 text-emerald-400 font-medium">บันทึกแต้มเซ็ตเป็น 21 - 0</td>
                   </tr>
                 </tbody>
               </table>
@@ -125,15 +125,19 @@ export default function RulesPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
-                <span>แข่งขันทั้งหมด <span className="text-emerald-400 font-semibold">2 เซ็ตเท่านั้น</span> (ไม่มีดิวส์ ใครถึง 15 แต้มก่อนชนะในเซ็ตนั้นทันที)</span>
+                <span>แข่งขันทั้งหมด <span className="text-emerald-400 font-semibold">2 เซ็ตเท่านั้น</span> (ไม่มีดิวส์ ใครถึง 21 แต้มก่อนชนะในเซ็ตนั้นทันที)</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
-                <span>มีเวลาให้พักระหว่างเซ็ต <span className="text-white font-medium">1 นาที</span> เมื่อคะแนนฝ่ายใดฝ่ายหนึ่งดำเนินถึง <span className="text-amber-400 font-semibold">แต้มที่ 7</span></span>
+                <span>มีเวลาให้พักระหว่างเซ็ต <span className="text-white font-medium">1 นาที</span> เมื่อคะแนนฝ่ายใดฝ่ายหนึ่งดำเนินถึง <span className="text-amber-400 font-semibold">แต้มที่ 11</span></span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
                 <span>ทีมงานจัดเตรียมลูกแบดมินตันให้ <span className="text-white font-medium">แมตช์ละ 2 ลูก</span> แข่งขันเสร็จแล้วลูกเหลือต้องคืนส่วนกลาง</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-400 mt-0.5">▪</span>
+                <span>หากผู้เข้าแข่งขันต้องการลูกแบดเพิ่มระหว่างแมตช์ ให้แจ้งทีมงาน HR ทันที <span className="text-white font-medium">(ขอสงวนสิทธิ์การขอเพิ่มแบบวันต่อวัน เนื่องจากมีจำนวนจำกัด)</span> </span>
               </li>
             </ul>
 
@@ -164,11 +168,11 @@ export default function RulesPage() {
             <ul className="space-y-2.5 text-xs text-slate-300 pl-1">
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
-                <span>ปรับเปลี่ยนมาใช้ระบบการนับแต้มแบบ <span className="text-white font-semibold">Rally Point 15 แต้ม (ตัดสินผู้ชนะ 2 ใน 3 เซ็ต)</span></span>
+                <span>ปรับเปลี่ยนมาใช้ระบบการนับแต้มแบบ <span className="text-white font-semibold">Rally Point 21 แต้ม (ตัดสินผู้ชนะ 2 ใน 3 เซ็ต)</span></span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
-                <span><span className="text-white font-semibold">กฎการดิวส์ (Deuce):</span> หากแต้มเสมอกันที่ 14-14 แข่งต่อจนกว่าแต้มห่าง 2 แต้ม โดยจะ<span className="text-amber-400 font-bold">สิ้นสุดจำกัดสูงสุดที่ 21 แต้ม</span></span>
+                <span><span className="text-white font-semibold">กฎการดิวส์ (Deuce):</span> หากแต้มเสมอกันที่ 14-14 แข่งต่อจนกว่าแต้มห่าง 2 แต้ม โดยจะ<span className="text-amber-400 font-bold">สิ้นสุดจำกัดสูงสุดที่ 30 แต้ม</span></span>
               </li>
             </ul>
           </div>
@@ -212,8 +216,8 @@ export default function RulesPage() {
               </div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
-                <p className="font-semibold text-white mb-1">⏰ การรักษาเวลาสนาม</p>
-                <p className="text-slate-400 leading-relaxed">เมื่อถึงกำหนดเรียกแมตช์ หากไม่ลงสนามจะจับเวลา <span className="text-amber-400 font-medium">5 นาที</span> หากเกินกำหนดจะปรับเป็น <span className="text-red-400 font-medium">"แพ้บาย"</span> ทันที</p>
+                <p className="font-semibold text-white mb-1">⏰ กรณีเลื่อนการแข่งขัน</p>
+                <p className="text-slate-400 leading-relaxed">ผู้เข้าแข่งขันต้องติดต่อประสานงานและสลับวันแข่งกันเองให้เรียบร้อยจากนั้นจึงแจ้งให้ฝ่าย HR ทราบ <span className="text-amber-400 font-medium">ล่วงหน้าอย่างน้อย 1 วัน</span> 
               </div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
@@ -222,8 +226,8 @@ export default function RulesPage() {
               </div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
-                <p className="font-semibold text-white mb-1">📝 การส่งใบคะแนนส่วนกลาง</p>
-                <p className="text-slate-400 leading-relaxed">หลังจบแมตช์ นักกีฬาทั้ง 2 ฝ่ายต้องเซ็นชื่อรับรอง โดยให้ <span className="text-emerald-400 font-medium">ผู้ชนะในเซ็ตสุดท้าย</span> ถือใบสรุปผลส่งให้ทีมงานที่โต๊ะเทคนิค</p>
+                <p className="font-semibold text-white mb-1">🏅 การนับคะแนนการแข่งขัน</p>
+                <p className="text-slate-400 leading-relaxed">ผู้เข้าแข่งขันทำการนับคะแนนด้วยตนเอง <span className="text-emerald-400 font-medium">โดยหลังจบแมตช์จะต้องนำคะแนนมากรอกในใบลงคะแนนของ HR</span> พร้อมเซ็นชื่อรับรองผลการแข่งขันร่วมกันทั้งสองฝ่าย</p>
               </div>
             </div>
           </div>
