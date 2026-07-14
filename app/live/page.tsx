@@ -20,7 +20,7 @@ export default function StreamPage() {
       id: 2,
       title: 'จอที่ 2',
       live: true,
-      embedUrl: 'https://www.youtube.com/embed/9MZADTdeTu8?autoplay=0&rel=0',
+      embedUrl: 'https://www.youtube.com/embed/EIahYxR_ass?si=sYGz3ivVsJnkwtNE',
       stage: 'รอบแบ่งกลุ่ม',
       group: 'กลุ่ม B',
       teamA: 'B1',
