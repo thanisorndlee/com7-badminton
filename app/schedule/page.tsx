@@ -309,7 +309,7 @@ const getGroupClass = (group: string) => {
 
               {/* TEAM ฝั่งซ้าย */}
               <td className="px-3 py-5 align-middle">
-                <div className="flex items-start justify-end gap-3">
+  <div className="flex items-start justify-end gap-1">
 
                   {/* รายชื่ออยู่ด้านซ้าย */}
                   <div className="min-w-0 flex-1 space-y-2 text-right">
@@ -339,7 +339,7 @@ const getGroupClass = (group: string) => {
                   </div>
 
                   {/* รหัสทีมติดใกล้ VS */}
-                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+<div className="ml-6 flex h-10 w-[54px] items-center justify-center rounded-lg border border-white/20 bg-white/5 text-sm font-black text-white">
                     {m[6] || '-'}
                   </div>
                 </div>
@@ -357,7 +357,7 @@ const getGroupClass = (group: string) => {
                 <div className="flex items-start gap-3">
 
                   {/* รหัสทีมติดใกล้ VS */}
-                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+<div className="mr-6 flex h-10 w-[54px] items-center justify-center rounded-lg border border-white/20 bg-white/5 text-sm font-black text-white">
                     {m[11] || '-'}
                   </div>
 
