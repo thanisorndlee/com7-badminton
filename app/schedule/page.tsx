@@ -22,18 +22,44 @@ export default function SchedulePage() {
   const tableMatches = useMemo(() => {
   if (!isFetched) return [];
 
-  return matches.filter((match) => {
-    if (String(match[1]) !== "รอบแบ่งกลุ่ม") return false;
-    const search = searchTerm.toLowerCase();
+  const search = searchTerm.trim().toLowerCase();
 
-    return (
-      String(match[0] || '').toLowerCase().includes(search) || // แมตช์
-      String(match[1] || '').toLowerCase().includes(search) || // รอบ
-      String(match[2] || '').toLowerCase().includes(search) || // กลุ่ม
-      String(match[3] || '').toLowerCase().includes(search) || // TEAM A
-      String(match[4] || '').toLowerCase().includes(search) || // TEAM B
-      String(match[5] || '').toLowerCase().includes(search) || // คะแนน A
-      String(match[6] || '').toLowerCase().includes(search)    // คะแนน B
+  return matches.filter((match) => {
+    // ตารางด้านบนแสดงเฉพาะรอบแบ่งกลุ่ม 36 แมตช์
+    if (String(match[1] || '').trim() !== 'รอบแบ่งกลุ่ม') {
+      return false;
+    }
+
+    // ถ้าไม่ได้ค้นหา ให้แสดงทั้งหมด
+    if (!search) {
+      return true;
+    }
+
+    // ค้นหาได้จากทุกข้อมูลในตาราง
+    return [
+      match[0],  // MatchID
+      match[1],  // Stage
+      match[2],  // MatchDate
+      match[3],  // MatchTime
+      match[4],  // Court
+      match[5],  // Group
+
+      match[6],  // TeamA
+      match[7],  // TeamAPlayer1
+      match[8],  // TeamADept1
+      match[9],  // TeamAPlayer2
+      match[10], // TeamADept2
+
+      match[11], // TeamB
+      match[12], // TeamBPlayer1
+      match[13], // TeamBDept1
+      match[14], // TeamBPlayer2
+      match[15], // TeamBDept2
+
+      match[16], // ScoreA
+      match[17], // ScoreB
+    ].some((value) =>
+      String(value || '').toLowerCase().includes(search)
     );
   });
 }, [isFetched, matches, searchTerm]);
@@ -71,6 +97,25 @@ console.log(finalRound);
       </span>
 
     </div>
+  );
+};
+const getGroupClass = (group: string) => {
+  const normalizedGroup = String(group || '')
+    .trim()
+    .toUpperCase();
+
+  const groupClasses: Record<string, string> = {
+    A: 'bg-emerald-500/90 border-emerald-300/50 text-white shadow-[0_0_14px_rgba(16,185,129,.35)]',
+    B: 'bg-blue-500/90 border-blue-300/50 text-white shadow-[0_0_14px_rgba(59,130,246,.35)]',
+    C: 'bg-violet-500/90 border-violet-300/50 text-white shadow-[0_0_14px_rgba(139,92,246,.35)]',
+    D: 'bg-orange-500/90 border-orange-300/50 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
+    E: 'bg-pink-500/90 border-pink-300/50 text-white shadow-[0_0_14px_rgba(236,72,153,.35)]',
+    F: 'bg-cyan-500/90 border-cyan-300/50 text-white shadow-[0_0_14px_rgba(6,182,212,.35)]',
+  };
+
+  return (
+    groupClasses[normalizedGroup] ||
+    'bg-slate-600 border-slate-400/40 text-white'
   );
 };
 
@@ -126,29 +171,177 @@ console.log(finalRound);
 </div>
         {/* ตารางแสดงผล */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-          <table className="w-full text-sm text-left border-collapse min-w-[700px]">
-            <thead>
-              <tr className="bg-black/90 text-[12px] text-slate-300 font-black uppercase border-b border-white/10">
-                <th className="p-5 text-center">แมตช์</th>
-                <th className="p-5">รอบ</th>
-                <th className="p-5 text-right">TEAM</th>
-                <th className="p-5 text-center">VS</th>
-                <th className="p-5 text-left">TEAM</th>
-                <th className="p-5 text-center">ผลคะแนน</th>
-              </tr>
-            </thead>
+<table className="w-full text-sm text-left border-collapse min-w-[1300px]">
+<thead>
+  <tr className="bg-black/90 text-[11px] text-slate-300 font-black uppercase border-b border-white/10">
+    <th className="px-3 py-5 text-center whitespace-nowrap">
+      วันที่
+    </th>
+
+    <th className="px-3 py-5 text-center whitespace-nowrap">
+      เวลา
+    </th>
+
+    <th className="px-3 py-5 text-center whitespace-nowrap">
+      สนาม
+    </th>
+
+    <th className="px-3 py-5 text-center whitespace-nowrap">
+      สาย
+    </th>
+
+    <th className="px-4 py-5 text-left min-w-[270px]">
+      TEAM
+    </th>
+
+    <th className="px-3 py-5 text-center">
+      VS
+    </th>
+
+    <th className="px-4 py-5 text-left min-w-[270px]">
+      TEAM
+    </th>
+
+    <th className="px-3 py-5 text-center whitespace-nowrap">
+      ผลคะแนน
+    </th>
+  </tr>
+</thead>
             <tbody className="divide-y divide-white/10 font-semibold">
-              {tableMatches.length > 0 ? tableMatches.map((m, i) => (
-                <tr key={i} className="hover:bg-white/5 h-[64px]">
-                  <td className="text-center font-mono text-slate-400">{m[0]}</td>
-                  <td className="px-4 text-xs">{m[1]}</td>
-                  <td className="text-right text-base font-black">{m[3] || '-'}</td>
-                  <td className="text-center text-xs italic text-slate-500">VS</td>
-                  <td className="text-left text-base font-black">{m[4] || '-'}</td>
-                  <td className="px-4"><div className="flex justify-center items-center gap-2 bg-black rounded-lg py-1 px-2 border border-white/10 w-24 mx-auto font-mono text-emerald-400 font-black">{m[5] || 0} : {m[6] || 0}</div></td>
-                </tr>
-              )) : <tr><td colSpan={6} className="p-10 text-center text-slate-500">ไม่พบข้อมูล</td></tr>}
-            </tbody>
+  {tableMatches.length > 0 ? (
+    tableMatches.map((m, i) => {
+      const group = String(m[5] || '').trim();
+
+      const scoreA =
+        m[16] === '' || m[16] === null || m[16] === undefined
+          ? '-'
+          : m[16];
+
+      const scoreB =
+        m[17] === '' || m[17] === null || m[17] === undefined
+          ? '-'
+          : m[17];
+
+      return (
+        <tr
+          key={`${m[0]}-${i}`}
+          className="hover:bg-white/5 transition-colors"
+        >
+          {/* วันที่ */}
+          <td className="px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
+            {m[2] || '-'}
+          </td>
+
+          {/* เวลา */}
+          <td className="px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
+            {m[3] || '-'}
+          </td>
+
+          {/* สนาม */}
+          <td className="px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
+            {m[4] || '-'}
+          </td>
+
+          {/* สาย */}
+          <td className="px-3 py-5 text-center">
+            <span
+              className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
+                group
+              )}`}
+            >
+              {group || '-'}
+            </span>
+          </td>
+
+          {/* TEAM ฝั่งซ้าย */}
+          <td className="px-4 py-5">
+            <div className="flex items-start gap-3">
+              <div className="min-w-[44px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
+                {m[6] || '-'}
+              </div>
+
+              <div className="min-w-0 space-y-3">
+                <div>
+                  <p className="text-sm font-black text-white leading-tight">
+                    {m[7] || '-'}
+                  </p>
+
+                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                    {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-black text-white leading-tight">
+                    {m[9] || '-'}
+                  </p>
+
+                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                    {m[10] ? `แผนก ${m[10]}` : 'ไม่ระบุแผนก'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          {/* VS */}
+          <td className="px-3 py-5 text-center">
+            <span className="text-sm italic font-black text-slate-500">
+              VS
+            </span>
+          </td>
+
+          {/* TEAM ฝั่งขวา */}
+          <td className="px-4 py-5">
+            <div className="flex items-start gap-3">
+              <div className="min-w-[44px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
+                {m[11] || '-'}
+              </div>
+
+              <div className="min-w-0 space-y-3">
+                <div>
+                  <p className="text-sm font-black text-white leading-tight">
+                    {m[12] || '-'}
+                  </p>
+
+                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                    {m[13] ? `แผนก ${m[13]}` : 'ไม่ระบุแผนก'}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-sm font-black text-white leading-tight">
+                    {m[14] || '-'}
+                  </p>
+
+                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                    {m[15] ? `แผนก ${m[15]}` : 'ไม่ระบุแผนก'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          {/* คะแนน */}
+          <td className="px-3 py-5">
+            <div className="mx-auto flex w-24 items-center justify-center gap-2 rounded-lg border border-white/10 bg-black px-2 py-2 font-mono font-black text-emerald-400">
+              {scoreA} : {scoreB}
+            </div>
+          </td>
+        </tr>
+      );
+    })
+  ) : (
+    <tr>
+      <td
+        colSpan={8}
+        className="p-10 text-center text-slate-500"
+      >
+        ไม่พบข้อมูล
+      </td>
+    </tr>
+  )}
+</tbody>
           </table>
         </div>
 
