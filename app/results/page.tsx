@@ -160,8 +160,8 @@ const uniqueGroups = [
 
         {/* 📊 ตารางสรุปผลการแข่งขัน */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20">
-          <table className="w-full text-sm text-left border-collapse">
-            <thead>
+<table className="w-full min-w-[1250px] text-sm text-left border-collapse">
+              <thead>
               <tr className="bg-black/80 text-[11px] text-slate-400 font-bold uppercase tracking-wider border-b border-white/10">
                 <th className="p-4 text-center w-20">แมตช์</th>
                 <th className="p-4 min-w-[180px]">รอบการแข่ง</th>                <th className="p-4 text-right w-1/3 text-slate-300">TEAM</th>
@@ -223,37 +223,139 @@ const replayUrl = String(row[19] || '').trim();
                         )}
                       </td>
 
-                      {/* TEAM A */}
-                      <td className={`p-4 text-right text-base md:text-lg font-black tracking-wide drop-shadow-sm transition-colors ${
-                        isAWinner ? 'text-emerald-400' : isBWinner ? 'text-slate-400/70 font-medium' : 'text-white'
-                      }`}>
-                        {isRowLoading ? (
-                          <div className="w-24 h-4 bg-white/20 rounded ml-auto animate-pulse" />
-                        ) : (
-row[6] || (
-  <span className="text-slate-600 font-normal text-xs italic">
-    TBD
-  </span>
-)                        )}
-                      </td>
+                      {/* TEAM ฝั่งซ้าย */}
+<td className="p-4 min-w-[260px]">
+  {isRowLoading ? (
+    <div className="w-40 h-16 bg-white/20 rounded animate-pulse ml-auto" />
+  ) : row[6] ? (
+    <div className="flex items-start justify-end gap-4">
+      {/* รหัสทีม */}
+      <div
+        className={`min-w-[58px] h-[58px] rounded-xl border flex items-center justify-center text-xl font-black ${
+          isAWinner
+            ? 'border-emerald-400/50 bg-emerald-500/15 text-emerald-400'
+            : isBWinner
+            ? 'border-white/10 bg-white/5 text-slate-500'
+            : 'border-white/20 bg-white/5 text-white'
+        }`}
+      >
+        {row[6]}
+      </div>
+
+      {/* รายชื่อผู้เล่น */}
+      <div className="text-left space-y-3 min-w-[140px]">
+        <div>
+          <p
+            className={`text-base font-black leading-tight ${
+              isAWinner
+                ? 'text-emerald-400'
+                : isBWinner
+                ? 'text-slate-500'
+                : 'text-white'
+            }`}
+          >
+            {row[7] || '-'}
+          </p>
+
+          <p className="mt-1 text-[11px] font-bold text-emerald-400">
+            {row[8] ? `แผนก ${row[8]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+
+        <div>
+          <p
+            className={`text-base font-black leading-tight ${
+              isAWinner
+                ? 'text-emerald-400'
+                : isBWinner
+                ? 'text-slate-500'
+                : 'text-white'
+            }`}
+          >
+            {row[9] || '-'}
+          </p>
+
+          <p className="mt-1 text-[11px] font-bold text-emerald-400">
+            {row[10] ? `แผนก ${row[10]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <span className="text-slate-600 font-normal text-xs italic">
+      TBD
+    </span>
+  )}
+</td>
 
                       <td className="p-2 text-center font-black text-slate-500 text-xs italic">
                         VS
                       </td>
 
-                      {/* TEAM B */}
-                      <td className={`p-4 text-left text-base md:text-lg font-black tracking-wide drop-shadow-sm transition-colors ${
-                        isBWinner ? 'text-emerald-400' : isAWinner ? 'text-slate-400/70 font-medium' : 'text-white'
-                      }`}>
-                        {isRowLoading ? (
-                          <div className="w-24 h-4 bg-white/20 rounded animate-pulse" />
-                        ) : (
-row[11] || (
-  <span className="text-slate-600 font-normal text-xs italic">
-    TBD
-  </span>
-)                        )}
-                      </td>
+                      {/* TEAM ฝั่งขวา */}
+<td className="p-4 min-w-[260px]">
+  {isRowLoading ? (
+    <div className="w-40 h-16 bg-white/20 rounded animate-pulse" />
+  ) : row[11] ? (
+    <div className="flex items-start gap-4">
+      {/* รหัสทีม */}
+      <div
+        className={`min-w-[58px] h-[58px] rounded-xl border flex items-center justify-center text-xl font-black ${
+          isBWinner
+            ? 'border-emerald-400/50 bg-emerald-500/15 text-emerald-400'
+            : isAWinner
+            ? 'border-white/10 bg-white/5 text-slate-500'
+            : 'border-white/20 bg-white/5 text-white'
+        }`}
+      >
+        {row[11]}
+      </div>
+
+      {/* รายชื่อผู้เล่น */}
+      <div className="text-left space-y-3 min-w-[140px]">
+        <div>
+          <p
+            className={`text-base font-black leading-tight ${
+              isBWinner
+                ? 'text-emerald-400'
+                : isAWinner
+                ? 'text-slate-500'
+                : 'text-white'
+            }`}
+          >
+            {row[12] || '-'}
+          </p>
+
+          <p className="mt-1 text-[11px] font-bold text-emerald-400">
+            {row[13] ? `แผนก ${row[13]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+
+        <div>
+          <p
+            className={`text-base font-black leading-tight ${
+              isBWinner
+                ? 'text-emerald-400'
+                : isAWinner
+                ? 'text-slate-500'
+                : 'text-white'
+            }`}
+          >
+            {row[14] || '-'}
+          </p>
+
+          <p className="mt-1 text-[11px] font-bold text-emerald-400">
+            {row[15] ? `แผนก ${row[15]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <span className="text-slate-600 font-normal text-xs italic">
+      TBD
+    </span>
+  )}
+</td>
 
                       {/* ผลคะแนนแนวนอน */}
                       <td className="p-4 text-center w-36">
