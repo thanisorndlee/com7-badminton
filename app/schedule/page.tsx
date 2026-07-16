@@ -142,7 +142,7 @@ const getGroupClass = (group: string) => {
          className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
 
-      <div className="max-w-[1500px] w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
+<div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
 <div className="mb-8 border-b border-white/10 pb-6">
   <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
 
@@ -207,9 +207,8 @@ const getGroupClass = (group: string) => {
   </div>
 </div>
         {/* ตารางแสดงผล */}
-<div className="mx-auto mb-12 w-full max-w-[1250px] overflow-x-auto rounded-xl border border-white/10 bg-black/20">
-  <table className="w-full min-w-[1100px] table-fixed border-collapse text-left text-sm">
-
+<div className="w-full overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
+<table className="w-full min-w-[1040px] table-fixed border-collapse text-left text-sm">
     {/* กำหนดความกว้างแต่ละคอลัมน์ให้บาลานซ์ */}
     <colgroup>
       <col className="w-[10%]" />
