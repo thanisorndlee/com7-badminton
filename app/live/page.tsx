@@ -115,14 +115,14 @@ return streams.filter((stream) => stream.live);
             <div className="mt-4 bg-black/40 border border-white/10 rounded-xl p-4">
               <div className="flex items-center justify-between gap-4">
                 <div className="text-left">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase">TEAM A</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase">TEAM</p>
                   <h2 className="text-2xl font-black text-white">{stream.teamA}</h2>
                 </div>
 
                 <div className="text-emerald-400 text-xl font-black">VS</div>
 
                 <div className="text-right">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase">TEAM B</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase">TEAM</p>
                   <h2 className="text-2xl font-black text-white">{stream.teamB}</h2>
                 </div>
               </div>
