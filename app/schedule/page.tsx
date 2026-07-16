@@ -172,8 +172,8 @@ const getGroupClass = (group: string) => {
 </div>
         {/* ตารางแสดงผล */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-<table className="w-full text-sm text-left border-collapse min-w-[1300px]">
-<thead>
+<table className="w-full text-sm text-left border-collapse min-w-[1050px]">
+  <thead>
   <tr className="bg-black/90 text-[11px] text-slate-300 font-black uppercase border-b border-white/10">
     <th className="px-3 py-5 text-center whitespace-nowrap">
       วันที่
@@ -191,15 +191,15 @@ const getGroupClass = (group: string) => {
       สาย
     </th>
 
-    <th className="px-4 py-5 text-left min-w-[270px]">
+    <th className="px-3 py-5 text-left min-w-[210px]">
       TEAM
     </th>
 
-    <th className="px-3 py-5 text-center">
+    <th className="px-1 py-5 text-center w-10">
       VS
     </th>
 
-    <th className="px-4 py-5 text-left min-w-[270px]">
+    <th className="px-3 py-5 text-left min-w-[210px]">
       TEAM
     </th>
 
@@ -256,8 +256,8 @@ const getGroupClass = (group: string) => {
 
           {/* TEAM ฝั่งซ้าย */}
           <td className="px-4 py-5">
-            <div className="flex items-start gap-3">
-              <div className="min-w-[44px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
+            <div className="flex items-start gap-2">
+<div className="min-w-[40px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
                 {m[6] || '-'}
               </div>
 
@@ -286,8 +286,8 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* VS */}
-          <td className="px-3 py-5 text-center">
-            <span className="text-sm italic font-black text-slate-500">
+<td className="px-1 py-5 text-center w-10">
+              <span className="text-sm italic font-black text-slate-500">
               VS
             </span>
           </td>
