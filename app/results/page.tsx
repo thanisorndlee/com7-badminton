@@ -146,9 +146,9 @@ const uniqueGroups = [
             <thead>
               <tr className="bg-black/80 text-[11px] text-slate-400 font-bold uppercase tracking-wider border-b border-white/10">
                 <th className="p-4 text-center w-20">แมตช์</th>
-                <th className="p-4 min-w-[180px]">รอบการแข่ง</th>                <th className="p-4 text-right w-1/3 text-slate-300">TEAM A</th>
+                <th className="p-4 min-w-[180px]">รอบการแข่ง</th>                <th className="p-4 text-right w-1/3 text-slate-300">TEAM</th>
                 <th className="p-4 text-center w-16">VS</th>
-                <th className="p-4 text-left w-1/3 text-slate-300">TEAM B</th>
+                <th className="p-4 text-left w-1/3 text-slate-300">TEAM</th>
                 <th className="p-4 text-center w-36">ผลคะแนน</th>
                 <th className="p-4 text-center min-w-[140px] text-amber-400">ผู้ชนะ</th>
                 <th className="p-4 text-center min-w-[140px] text-red-400">ย้อนหลัง</th>
