@@ -4,12 +4,13 @@ import { useEffect, useState, useMemo } from 'react';
 
 export default function SchedulePage() {
   const [matches, setMatches] = useState<any[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
-  const [stageFilter, setStageFilter] = useState('ทั้งหมด');
-  const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
-  const [isFetched, setIsFetched] = useState(false);
-  const matchDates = [
+const [searchTerm, setSearchTerm] = useState('');
+const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
+const [stageFilter, setStageFilter] = useState('ทั้งหมด');
+const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
+const [isFetched, setIsFetched] = useState(false);
+
+const matchDates = [
   '6 ส.ค. 2569',
   '11 ส.ค. 2569',
   '19 ส.ค. 2569',
@@ -30,45 +31,54 @@ export default function SchedulePage() {
 
   const search = searchTerm.trim().toLowerCase();
 
-  return matches.filter((match) => {
-    // ตารางด้านบนแสดงเฉพาะรอบแบ่งกลุ่ม 36 แมตช์
-    if (String(match[1] || '').trim() !== 'รอบแบ่งกลุ่ม') {
-      return false;
-    }
+  return matches
+    .filter((match) => {
+      const stage = String(match[1] || '').trim();
+      const matchDate = String(match[2] || '').trim();
 
-    // ถ้าไม่ได้ค้นหา ให้แสดงทั้งหมด
-    if (!search) {
-      return true;
-    }
+      // แสดงเฉพาะรอบแบ่งกลุ่ม
+      if (stage !== 'รอบแบ่งกลุ่ม') {
+        return false;
+      }
 
-    // ค้นหาได้จากทุกข้อมูลในตาราง
-    return [
-      match[0],  // MatchID
-      match[1],  // Stage
-      match[2],  // MatchDate
-      match[3],  // MatchTime
-      match[4],  // Court
-      match[5],  // Group
+      // แสดงเฉพาะวันที่ที่กดเลือก
+      if (matchDate !== selectedDate) {
+        return false;
+      }
 
-      match[6],  // TeamA
-      match[7],  // TeamAPlayer1
-      match[8],  // TeamADept1
-      match[9],  // TeamAPlayer2
-      match[10], // TeamADept2
+      // ถ้าไม่ได้ค้นหา ให้แสดงทุกคู่ของวันที่นั้น
+      if (!search) {
+        return true;
+      }
 
-      match[11], // TeamB
-      match[12], // TeamBPlayer1
-      match[13], // TeamBDept1
-      match[14], // TeamBPlayer2
-      match[15], // TeamBDept2
-
-      match[16], // ScoreA
-      match[17], // ScoreB
-    ].some((value) =>
-      String(value || '').toLowerCase().includes(search)
-    );
-  });
-}, [isFetched, matches, searchTerm]);
+      return [
+        match[0],
+        match[1],
+        match[2],
+        match[3],
+        match[4],
+        match[5],
+        match[6],
+        match[7],
+        match[8],
+        match[9],
+        match[10],
+        match[11],
+        match[12],
+        match[13],
+        match[14],
+        match[15],
+        match[16],
+        match[17],
+      ].some((value) =>
+        String(value || '')
+          .trim()
+          .toLowerCase()
+          .includes(search)
+      );
+    })
+    .slice(0, 12);
+}, [isFetched, matches, searchTerm, selectedDate]);
 
   // =============================
 // ข้อมูลแต่ละรอบของสายการแข่งขัน
@@ -132,84 +142,107 @@ const getGroupClass = (group: string) => {
          className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
 
-      <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
-<div className="mb-8 flex flex-col lg:flex-row items-start lg:items-end gap-6 border-b border-white/10 pb-6 w-full">
-  {/* ฝั่งซ้าย */}
-<div className="flex-1">
-      <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-black tracking-widest uppercase border border-emerald-500/20 inline-block mb-1.5 shadow-sm">
-      Tournament Schedule
-    </span>
+      <div className="max-w-[1500px] w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">
+<div className="mb-8 border-b border-white/10 pb-6">
+  <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
 
-    <h1 className="text-2xl md:text-3xl font-black text-white tracking-wide drop-shadow-md">ตารางการแข่งขัน</h1>
+    {/* ฝั่งซ้าย: หัวข้อ */}
+    <div className="flex-shrink-0">
+      <span className="mb-1.5 inline-block rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 shadow-sm">
+        Tournament Schedule
+      </span>
+
+      <h1 className="text-2xl font-black tracking-wide text-white drop-shadow-md md:text-3xl">
+        ตารางการแข่งขัน
+      </h1>
     </div>
-{/* ฝั่งขวา */}
-<div className="relative w-full lg:w-[420px] ml-auto">
-        <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
-      />
-    </svg>
 
-    <input
-      type="text"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      placeholder="ค้นหาแมตช์, รอบ, ทีม หรือคะแนน"
-      className="w-full pl-12 pr-4 py-3 rounded-xl
-                 bg-slate-900/80
-                 border border-emerald-500/30
-                 text-white
-                 placeholder:text-slate-400
-                 outline-none
-                 focus:border-emerald-400
-                 focus:ring-2
-                 focus:ring-emerald-500/30"
-    />
+    {/* ฝั่งขวา: ปุ่มวันที่ + ช่องค้นหา */}
+    <div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
+
+      {/* ปุ่มวันที่ */}
+      <div className="flex flex-wrap gap-2 xl:justify-end">
+        {matchDates.map((date) => (
+          <button
+            key={date}
+            type="button"
+            onClick={() => setSelectedDate(date)}
+            className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
+              selectedDate === date
+                ? 'border-emerald-400 bg-emerald-500 text-black shadow-[0_0_18px_rgba(16,185,129,.35)]'
+                : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-emerald-500/50 hover:text-white'
+            }`}
+          >
+            {date}
+          </button>
+        ))}
+      </div>
+
+      {/* ช่องค้นหา */}
+      <div className="relative w-full xl:w-[460px]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="ค้นหาแมตช์ ทีม ผู้เล่น หรือแผนก"
+          className="w-full rounded-xl border border-emerald-500/30 bg-slate-900/80 py-3 pl-12 pr-4 text-white outline-none placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30"
+        />
+      </div>
+    </div>
   </div>
 </div>
         {/* ตารางแสดงผล */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-<table className="w-full text-sm text-left border-collapse min-w-[1050px]">
-  <thead>
-  <tr className="bg-black/90 text-[11px] text-slate-300 font-black uppercase border-b border-white/10">
-    <th className="px-3 py-5 text-center whitespace-nowrap">
+<table className="w-full min-w-[1180px] text-sm text-left border-collapse">
+    <thead>
+  <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
+    <th className="w-[120px] border-r border-white/10 px-3 py-5 text-center">
       วันที่
     </th>
 
-    <th className="px-3 py-5 text-center whitespace-nowrap">
+    <th className="w-[100px] border-r border-white/10 px-3 py-5 text-center">
       เวลา
     </th>
 
-    <th className="px-3 py-5 text-center whitespace-nowrap">
+    <th className="w-[95px] border-r border-white/10 px-3 py-5 text-center">
       สนาม
     </th>
 
-    <th className="px-3 py-5 text-center whitespace-nowrap">
+    <th className="w-[80px] border-r border-white/10 px-3 py-5 text-center">
       สาย
     </th>
 
-    <th className="px-3 py-5 text-left min-w-[210px]">
+    {/* TEAM ซ้าย */}
+    <th className="min-w-[250px] px-4 py-5 text-left">
       TEAM
     </th>
 
-    <th className="px-1 py-5 text-center w-10">
+    {/* VS ไม่มีเส้นคั่น */}
+    <th className="w-[50px] px-1 py-5 text-center">
       VS
     </th>
 
-    <th className="px-3 py-5 text-left min-w-[210px]">
+    {/* TEAM ขวา คั่นเส้นก่อนผลคะแนน */}
+    <th className="min-w-[250px] border-r border-white/10 px-4 py-5 text-left">
       TEAM
     </th>
 
-    <th className="px-3 py-5 text-center whitespace-nowrap">
+    <th className="w-[120px] px-3 py-5 text-center">
       ผลคะแนน
     </th>
   </tr>
@@ -261,7 +294,7 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* TEAM ฝั่งซ้าย */}
-          <td className="border-r border-white/10 px-4 py-5 align-middle">
+          <td className="px-4 py-5 align-middle">
             <div className="flex items-start gap-3">
               <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
                 {m[6] || '-'}
@@ -292,7 +325,7 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* VS */}
-          <td className="border-r border-white/10 px-1 py-5 text-center">
+          <td className="px-1 py-5 text-center">
             <span className="text-sm italic font-black text-slate-500">
               VS
             </span>
