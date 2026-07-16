@@ -32,7 +32,7 @@ export default function StreamPage() {
       id: 3,
       title: 'จอที่ 3',
       live: true,
-      embedUrl: 'https://www.youtube.com/embed/n4lcJjsMEb0?autoplay=0&rel=0',
+      embedUrl: 'https://www.youtube.com/embed/SEANzrzUKLU?si=qQ2GWmEhZcPd7HTr',
       stage: 'รอบแบ่งกลุ่ม',
       group: 'กลุ่ม C',
       teamA: 'C1',
