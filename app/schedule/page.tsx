@@ -131,9 +131,9 @@ console.log(finalRound);
               <tr className="bg-black/90 text-[12px] text-slate-300 font-black uppercase border-b border-white/10">
                 <th className="p-5 text-center">แมตช์</th>
                 <th className="p-5">รอบ</th>
-                <th className="p-5 text-right">TEAM A</th>
+                <th className="p-5 text-right">TEAM</th>
                 <th className="p-5 text-center">VS</th>
-                <th className="p-5 text-left">TEAM B</th>
+                <th className="p-5 text-left">TEAM</th>
                 <th className="p-5 text-center">ผลคะแนน</th>
               </tr>
             </thead>
