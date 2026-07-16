@@ -208,41 +208,38 @@ const getGroupClass = (group: string) => {
 </div>
         {/* ตารางแสดงผล */}
         <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-<table className="w-full min-w-[1180px] text-sm text-left border-collapse">
-    <thead>
+<table className="w-full table-fixed min-w-[1180px] text-sm text-left border-collapse">
+      <thead>
   <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
-    <th className="w-[120px] border-r border-white/10 px-3 py-5 text-center">
+    <th className="w-[9%] border-r border-white/10 px-3 py-5 text-center">
       วันที่
     </th>
 
-    <th className="w-[100px] border-r border-white/10 px-3 py-5 text-center">
+    <th className="w-[8%] border-r border-white/10 px-3 py-5 text-center">
       เวลา
     </th>
 
-    <th className="w-[95px] border-r border-white/10 px-3 py-5 text-center">
+    <th className="w-[8%] border-r border-white/10 px-3 py-5 text-center">
       สนาม
     </th>
 
-    <th className="w-[80px] border-r border-white/10 px-3 py-5 text-center">
+    <th className="w-[7%] border-r border-white/10 px-3 py-5 text-center">
       สาย
     </th>
 
-    {/* TEAM ซ้าย */}
-    <th className="min-w-[250px] px-4 py-5 text-left">
+    <th className="w-[28%] px-4 py-5 text-left">
       TEAM
     </th>
 
-    {/* VS ไม่มีเส้นคั่น */}
-    <th className="w-[50px] px-1 py-5 text-center">
+    <th className="w-[4%] px-1 py-5 text-center">
       VS
     </th>
 
-    {/* TEAM ขวา คั่นเส้นก่อนผลคะแนน */}
-    <th className="min-w-[250px] border-r border-white/10 px-4 py-5 text-left">
+    <th className="w-[28%] border-r border-white/10 px-4 py-5 text-left">
       TEAM
     </th>
 
-    <th className="w-[120px] px-3 py-5 text-center">
+    <th className="w-[8%] px-3 py-5 text-center">
       ผลคะแนน
     </th>
   </tr>
@@ -295,12 +292,12 @@ const getGroupClass = (group: string) => {
 
           {/* TEAM ฝั่งซ้าย */}
           <td className="px-4 py-5 align-middle">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+          <div className="w-[150px] min-w-0 space-y-2">
+                <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
                 {m[6] || '-'}
               </div>
 
-              <div className="min-w-0 flex-1 space-y-2">
+              <div className="w-[150px] min-w-0 space-y-2">
                 <div>
                   <p className="truncate text-sm font-black text-white leading-tight">
                     {m[7] || '-'}
@@ -325,8 +322,8 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* VS */}
-          <td className="px-1 py-5 text-center">
-            <span className="text-sm italic font-black text-slate-500">
+          <td className="px-0 py-5 text-center align-middle">
+            <span className="inline-flex h-full items-center justify-center text-sm italic font-black text-slate-500">
               VS
             </span>
           </td>
