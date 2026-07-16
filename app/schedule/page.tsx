@@ -122,7 +122,8 @@ const getGroupClass = (group: string) => {
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans">
       <div className="absolute inset-0 z-0">
-        <img src="/wall-ตารางการแข่งขัน.png" className="w-full h-full object-fill opacity-85" alt="Background" />
+        <img src="/badminton-bg.jpg"
+         className="w-full h-full object-fill opacity-85" alt="Background" />
       </div>
 
       <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-2xl">

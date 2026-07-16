@@ -58,7 +58,7 @@ return streams.filter((stream) => stream.live);
 
       <div className="absolute inset-0 z-0">
         <img
-          src="/wall-ตารางการแข่งขัน.png"
+          src="/badminton-bg.jpg"
           className="w-full h-full object-fill opacity-85"
           alt="Tournament Background"
         />

@@ -51,16 +51,34 @@ const uniqueGroups = [
       const search = searchTerm.trim().toLowerCase();
 
       const stage = String(row[1] || '').trim();
-      const group = String(row[2] || '').trim();
+      const group = String(row[5] || '').trim();
 
       const found =
-        search === '' ||
-        String(row[0] || '').trim().toLowerCase().includes(search) ||
-        stage.toLowerCase().includes(search) ||
-        group.toLowerCase().includes(search) ||
-        String(row[3] || '').trim().toLowerCase().includes(search) ||
-        String(row[4] || '').trim().toLowerCase().includes(search) ||
-        String(row[7] || '').trim().toLowerCase().includes(search);
+  search === '' ||
+  [
+    row[0],  // MatchID
+    row[1],  // Stage
+    row[2],  // MatchDate
+    row[3],  // MatchTime
+    row[4],  // Court
+    row[5],  // Group
+
+    row[6],  // TeamA
+    row[7],  // TeamAPlayer1
+    row[8],  // TeamADept1
+    row[9],  // TeamAPlayer2
+    row[10], // TeamADept2
+
+    row[11], // TeamB
+    row[12], // TeamBPlayer1
+    row[13], // TeamBDept1
+    row[14], // TeamBPlayer2
+    row[15], // TeamBDept2
+
+    row[18], // Winner
+  ].some((value) =>
+    String(value || '').trim().toLowerCase().includes(search)
+  );
 
       const stagePass =
         stageFilter === 'ทั้งหมด' || stage === String(stageFilter).trim();
@@ -78,7 +96,7 @@ const uniqueGroups = [
       {/* 🏞️ รูปพื้นหลังหลัก */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/wall-สรุปผลการแข่ง.png"
+          src="/badminton-bg.jpg"
           className="w-full h-full object-fill opacity-85"
           alt="Tournament Background"
         />
@@ -161,17 +179,17 @@ const uniqueGroups = [
                   const isRowLoading = !isFetched;
 
                   const scoreA =
-                    row[5] !== undefined && row[5] !== ''
-                      ? Number(row[5])
-                      : 0;
+  row[16] !== undefined && row[16] !== ''
+    ? Number(row[16])
+    : 0;
 
-                  const scoreB =
-                    row[6] !== undefined && row[6] !== ''
-                      ? Number(row[6])
-                      : 0;
+const scoreB =
+  row[17] !== undefined && row[17] !== ''
+    ? Number(row[17])
+    : 0;
 
-                  const winnerName = String(row[7] || '').trim();
-                  const replayUrl = String(row[8] || '').trim();
+const winnerName = String(row[18] || '').trim();
+const replayUrl = String(row[19] || '').trim();
 
                   const hasWinner = winnerName !== '';
 
@@ -196,11 +214,11 @@ const uniqueGroups = [
                             <span className="text-slate-200 text-xs font-bold tracking-wide whitespace-nowrap">
                                 {row[1]}
                             </span>
-                            {row[2] && (
-                              <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-extrabold border border-emerald-500/20">
-                                {row[2]}
-                              </span>
-                            )}
+                            {row[5] && (
+  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-extrabold border border-emerald-500/20">
+    สาย {row[5]}
+  </span>
+)}
                           </div>
                         )}
                       </td>
@@ -212,8 +230,11 @@ const uniqueGroups = [
                         {isRowLoading ? (
                           <div className="w-24 h-4 bg-white/20 rounded ml-auto animate-pulse" />
                         ) : (
-                          row[3] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
-                        )}
+row[6] || (
+  <span className="text-slate-600 font-normal text-xs italic">
+    TBD
+  </span>
+)                        )}
                       </td>
 
                       <td className="p-2 text-center font-black text-slate-500 text-xs italic">
@@ -227,8 +248,11 @@ const uniqueGroups = [
                         {isRowLoading ? (
                           <div className="w-24 h-4 bg-white/20 rounded animate-pulse" />
                         ) : (
-                          row[4] || <span className="text-slate-600 font-normal text-xs italic">TBD</span>
-                        )}
+row[11] || (
+  <span className="text-slate-600 font-normal text-xs italic">
+    TBD
+  </span>
+)                        )}
                       </td>
 
                       {/* ผลคะแนนแนวนอน */}
@@ -237,9 +261,19 @@ const uniqueGroups = [
                           <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
                         ) : (
                           <div className="flex items-center justify-center gap-1.5 bg-black/90 border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold font-mono tracking-wide text-emerald-400 shadow-md max-w-[95px] mx-auto whitespace-nowrap">
-                            <span>{row[5] !== undefined && row[5] !== '' ? row[5] : 0}</span>
-                            <span>:</span>
-                            <span>{row[6] !== undefined && row[6] !== '' ? row[6] : 0}</span>
+                            <span>
+  {row[16] !== undefined && row[16] !== ''
+    ? row[16]
+    : 0}
+</span>
+
+<span>:</span>
+
+<span>
+  {row[17] !== undefined && row[17] !== ''
+    ? row[17]
+    : 0}
+</span>
                           </div>
                         )}
                       </td>
