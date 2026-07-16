@@ -5,9 +5,15 @@ import { useEffect, useState, useMemo } from 'react';
 export default function SchedulePage() {
   const [matches, setMatches] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
   const [stageFilter, setStageFilter] = useState('ทั้งหมด');
   const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
   const [isFetched, setIsFetched] = useState(false);
+  const matchDates = [
+  '6 ส.ค. 2569',
+  '11 ส.ค. 2569',
+  '19 ส.ค. 2569',
+];
 
   useEffect(() => {
     fetch('https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec')
@@ -229,22 +235,22 @@ const getGroupClass = (group: string) => {
           className="hover:bg-white/5 transition-colors"
         >
           {/* วันที่ */}
-          <td className="px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
+          <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
             {m[2] || '-'}
           </td>
 
           {/* เวลา */}
-          <td className="px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
+          <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
             {m[3] || '-'}
           </td>
 
           {/* สนาม */}
-          <td className="px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
+          <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
             {m[4] || '-'}
           </td>
 
           {/* สาย */}
-          <td className="px-3 py-5 text-center">
+          <td className="border-r border-white/10 px-3 py-5 text-center">
             <span
               className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
                 group
@@ -255,29 +261,29 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* TEAM ฝั่งซ้าย */}
-          <td className="px-4 py-5">
-            <div className="flex items-start gap-2">
-<div className="min-w-[40px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
+          <td className="border-r border-white/10 px-4 py-5 align-middle">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
                 {m[6] || '-'}
               </div>
 
-              <div className="min-w-0 space-y-3">
+              <div className="min-w-0 flex-1 space-y-2">
                 <div>
-                  <p className="text-sm font-black text-white leading-tight">
+                  <p className="truncate text-sm font-black text-white leading-tight">
                     {m[7] || '-'}
                   </p>
 
-                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
                     {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm font-black text-white leading-tight">
+                  <p className="truncate text-sm font-black text-white leading-tight">
                     {m[9] || '-'}
                   </p>
 
-                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
                     {m[10] ? `แผนก ${m[10]}` : 'ไม่ระบุแผนก'}
                   </p>
                 </div>
@@ -286,36 +292,36 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* VS */}
-<td className="px-1 py-5 text-center w-10">
-              <span className="text-sm italic font-black text-slate-500">
+          <td className="border-r border-white/10 px-1 py-5 text-center">
+            <span className="text-sm italic font-black text-slate-500">
               VS
             </span>
           </td>
 
           {/* TEAM ฝั่งขวา */}
-          <td className="px-4 py-5">
+          <td className="border-r border-white/10 px-4 py-5 align-middle">
             <div className="flex items-start gap-3">
-              <div className="min-w-[44px] rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-center text-sm font-black text-white">
+              <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
                 {m[11] || '-'}
               </div>
 
-              <div className="min-w-0 space-y-3">
+              <div className="min-w-0 flex-1 space-y-2">
                 <div>
-                  <p className="text-sm font-black text-white leading-tight">
+                  <p className="truncate text-sm font-black text-white leading-tight">
                     {m[12] || '-'}
                   </p>
 
-                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
                     {m[13] ? `แผนก ${m[13]}` : 'ไม่ระบุแผนก'}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-sm font-black text-white leading-tight">
+                  <p className="truncate text-sm font-black text-white leading-tight">
                     {m[14] || '-'}
                   </p>
 
-                  <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
                     {m[15] ? `แผนก ${m[15]}` : 'ไม่ระบุแผนก'}
                   </p>
                 </div>
@@ -324,8 +330,8 @@ const getGroupClass = (group: string) => {
           </td>
 
           {/* คะแนน */}
-          <td className="px-3 py-5">
-            <div className="mx-auto flex w-24 items-center justify-center gap-2 rounded-lg border border-white/10 bg-black px-2 py-2 font-mono font-black text-emerald-400">
+          <td className="px-3 py-5 text-center">
+            <div className="mx-auto flex w-[92px] items-center justify-center gap-2 rounded-lg border border-white/10 bg-black px-2 py-2 font-mono font-black text-emerald-400">
               {scoreA} : {scoreB}
             </div>
           </td>
@@ -336,9 +342,9 @@ const getGroupClass = (group: string) => {
     <tr>
       <td
         colSpan={8}
-        className="p-10 text-center text-slate-500"
+        className="p-12 text-center text-slate-500"
       >
-        ไม่พบข้อมูล
+        ไม่พบข้อมูลการแข่งขันของวันที่ {selectedDate}
       </td>
     </tr>
   )}
