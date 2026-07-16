@@ -207,23 +207,22 @@ const getGroupClass = (group: string) => {
   </div>
 </div>
         {/* ตารางแสดงผล */}
-<div className="w-full overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-<table className="w-full min-w-[1040px] table-fixed border-collapse text-left text-sm">
-    {/* กำหนดความกว้างแต่ละคอลัมน์ให้บาลานซ์ */}
+<div className="mb-12 w-full overflow-x-auto rounded-xl border border-white/10 bg-black/20">
+  <table className="w-full min-w-[1040px] table-fixed border-collapse text-left text-sm">
+
     <colgroup>
       <col className="w-[10%]" />
       <col className="w-[9%]" />
       <col className="w-[9%]" />
       <col className="w-[8%]" />
-      <col className="w-[24%]" />
+      <col className="w-[25%]" />
       <col className="w-[5%]" />
-      <col className="w-[24%]" />
+      <col className="w-[23%]" />
       <col className="w-[11%]" />
     </colgroup>
 
     <thead>
       <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
-
         <th className="border-r border-white/10 px-3 py-5 text-center">
           วันที่
         </th>
@@ -240,17 +239,15 @@ const getGroupClass = (group: string) => {
           สาย
         </th>
 
-        {/* ไม่มีเส้นระหว่าง TEAM / VS / TEAM */}
-        <th className="px-4 py-5 text-left">
+        <th className="px-4 py-5 text-center">
           TEAM
         </th>
 
-        <th className="px-1 py-5 text-center">
+        <th className="px-0 py-5 text-center">
           VS
         </th>
 
-        {/* มีเส้นก่อนผลคะแนน */}
-        <th className="border-r border-white/10 px-4 py-5 text-left">
+        <th className="border-r border-white/10 px-4 py-5 text-center">
           TEAM
         </th>
 
@@ -284,7 +281,6 @@ const getGroupClass = (group: string) => {
               key={`${m[0]}-${i}`}
               className="transition-colors hover:bg-white/5"
             >
-
               {/* วันที่ */}
               <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
                 {m[2] || '-'}
@@ -312,16 +308,11 @@ const getGroupClass = (group: string) => {
               </td>
 
               {/* TEAM ฝั่งซ้าย */}
-              <td className="px-4 py-5 align-middle">
-                <div className="flex items-start gap-3">
+              <td className="px-3 py-5 align-middle">
+                <div className="flex items-start justify-end gap-3">
 
-                  {/* รหัสทีม */}
-                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
-                    {m[6] || '-'}
-                  </div>
-
-                  {/* รายชื่อ */}
-                  <div className="min-w-0 flex-1 space-y-2">
+                  {/* รายชื่ออยู่ด้านซ้าย */}
+                  <div className="min-w-0 flex-1 space-y-2 text-right">
                     <div>
                       <p className="break-words text-sm font-black leading-tight text-white">
                         {m[7] || '-'}
@@ -346,27 +337,32 @@ const getGroupClass = (group: string) => {
                       </p>
                     </div>
                   </div>
+
+                  {/* รหัสทีมติดใกล้ VS */}
+                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+                    {m[6] || '-'}
+                  </div>
                 </div>
               </td>
 
-              {/* VS */}
-              <td className="px-1 py-5 text-center align-middle">
-                <span className="text-sm font-black italic text-slate-500">
+              {/* VS ขยับซ้ายเล็กน้อย */}
+              <td className="px-0 py-5 text-center align-middle">
+                <span className="relative -left-1 text-xl font-black italic text-slate-400">
                   VS
                 </span>
               </td>
 
               {/* TEAM ฝั่งขวา */}
-              <td className="border-r border-white/10 px-4 py-5 align-middle">
+              <td className="border-r border-white/10 px-3 py-5 align-middle">
                 <div className="flex items-start gap-3">
 
-                  {/* รหัสทีม */}
+                  {/* รหัสทีมติดใกล้ VS */}
                   <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
                     {m[11] || '-'}
                   </div>
 
-                  {/* รายชื่อ */}
-                  <div className="min-w-0 flex-1 space-y-2">
+                  {/* รายชื่ออยู่ด้านขวา */}
+                  <div className="min-w-0 flex-1 space-y-2 text-left">
                     <div>
                       <p className="break-words text-sm font-black leading-tight text-white">
                         {m[12] || '-'}
@@ -416,7 +412,6 @@ const getGroupClass = (group: string) => {
     </tbody>
   </table>
 </div>
-
         {/* แผนผังการแข่งขัน */}
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
         
