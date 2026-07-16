@@ -207,180 +207,216 @@ const getGroupClass = (group: string) => {
   </div>
 </div>
         {/* ตารางแสดงผล */}
-        <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20 mb-12">
-<table className="w-full table-fixed min-w-[1180px] text-sm text-left border-collapse">
-      <thead>
-  <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
-    <th className="w-[9%] border-r border-white/10 px-3 py-5 text-center">
-      วันที่
-    </th>
+<div className="mx-auto mb-12 w-full max-w-[1250px] overflow-x-auto rounded-xl border border-white/10 bg-black/20">
+  <table className="w-full min-w-[1100px] table-fixed border-collapse text-left text-sm">
 
-    <th className="w-[8%] border-r border-white/10 px-3 py-5 text-center">
-      เวลา
-    </th>
+    {/* กำหนดความกว้างแต่ละคอลัมน์ให้บาลานซ์ */}
+    <colgroup>
+      <col className="w-[10%]" />
+      <col className="w-[9%]" />
+      <col className="w-[9%]" />
+      <col className="w-[8%]" />
+      <col className="w-[24%]" />
+      <col className="w-[5%]" />
+      <col className="w-[24%]" />
+      <col className="w-[11%]" />
+    </colgroup>
 
-    <th className="w-[8%] border-r border-white/10 px-3 py-5 text-center">
-      สนาม
-    </th>
+    <thead>
+      <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
 
-    <th className="w-[7%] border-r border-white/10 px-3 py-5 text-center">
-      สาย
-    </th>
+        <th className="border-r border-white/10 px-3 py-5 text-center">
+          วันที่
+        </th>
 
-    <th className="w-[28%] px-4 py-5 text-left">
-      TEAM
-    </th>
+        <th className="border-r border-white/10 px-3 py-5 text-center">
+          เวลา
+        </th>
 
-    <th className="w-[4%] px-1 py-5 text-center">
-      VS
-    </th>
+        <th className="border-r border-white/10 px-3 py-5 text-center">
+          สนาม
+        </th>
 
-    <th className="w-[28%] border-r border-white/10 px-4 py-5 text-left">
-      TEAM
-    </th>
+        <th className="border-r border-white/10 px-3 py-5 text-center">
+          สาย
+        </th>
 
-    <th className="w-[8%] px-3 py-5 text-center">
-      ผลคะแนน
-    </th>
-  </tr>
-</thead>
-            <tbody className="divide-y divide-white/10 font-semibold">
-  {tableMatches.length > 0 ? (
-    tableMatches.map((m, i) => {
-      const group = String(m[5] || '').trim();
+        {/* ไม่มีเส้นระหว่าง TEAM / VS / TEAM */}
+        <th className="px-4 py-5 text-left">
+          TEAM
+        </th>
 
-      const scoreA =
-        m[16] === '' || m[16] === null || m[16] === undefined
-          ? '-'
-          : m[16];
+        <th className="px-1 py-5 text-center">
+          VS
+        </th>
 
-      const scoreB =
-        m[17] === '' || m[17] === null || m[17] === undefined
-          ? '-'
-          : m[17];
+        {/* มีเส้นก่อนผลคะแนน */}
+        <th className="border-r border-white/10 px-4 py-5 text-left">
+          TEAM
+        </th>
 
-      return (
-        <tr
-          key={`${m[0]}-${i}`}
-          className="hover:bg-white/5 transition-colors"
-        >
-          {/* วันที่ */}
-          <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
-            {m[2] || '-'}
-          </td>
+        <th className="px-3 py-5 text-center">
+          ผลคะแนน
+        </th>
+      </tr>
+    </thead>
 
-          {/* เวลา */}
-          <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
-            {m[3] || '-'}
-          </td>
+    <tbody className="divide-y divide-white/10 font-semibold">
+      {tableMatches.length > 0 ? (
+        tableMatches.map((m, i) => {
+          const group = String(m[5] || '').trim();
 
-          {/* สนาม */}
-          <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
-            {m[4] || '-'}
-          </td>
+          const scoreA =
+            m[16] === '' ||
+            m[16] === null ||
+            m[16] === undefined
+              ? '-'
+              : m[16];
 
-          {/* สาย */}
-          <td className="border-r border-white/10 px-3 py-5 text-center">
-            <span
-              className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
-                group
-              )}`}
+          const scoreB =
+            m[17] === '' ||
+            m[17] === null ||
+            m[17] === undefined
+              ? '-'
+              : m[17];
+
+          return (
+            <tr
+              key={`${m[0]}-${i}`}
+              className="transition-colors hover:bg-white/5"
             >
-              {group || '-'}
-            </span>
-          </td>
 
-          {/* TEAM ฝั่งซ้าย */}
-          <td className="px-4 py-5 align-middle">
-          <div className="w-[150px] min-w-0 space-y-2">
-                <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
-                {m[6] || '-'}
-              </div>
+              {/* วันที่ */}
+              <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-300 whitespace-nowrap">
+                {m[2] || '-'}
+              </td>
 
-              <div className="w-[150px] min-w-0 space-y-2">
-                <div>
-                  <p className="truncate text-sm font-black text-white leading-tight">
-                    {m[7] || '-'}
-                  </p>
+              {/* เวลา */}
+              <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
+                {m[3] || '-'}
+              </td>
 
-                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
-                    {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
-                  </p>
+              {/* สนาม */}
+              <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
+                {m[4] || '-'}
+              </td>
+
+              {/* สาย */}
+              <td className="border-r border-white/10 px-3 py-5 text-center">
+                <span
+                  className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
+                    group
+                  )}`}
+                >
+                  {group || '-'}
+                </span>
+              </td>
+
+              {/* TEAM ฝั่งซ้าย */}
+              <td className="px-4 py-5 align-middle">
+                <div className="flex items-start gap-3">
+
+                  {/* รหัสทีม */}
+                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+                    {m[6] || '-'}
+                  </div>
+
+                  {/* รายชื่อ */}
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div>
+                      <p className="break-words text-sm font-black leading-tight text-white">
+                        {m[7] || '-'}
+                      </p>
+
+                      <p className="mt-1 break-words text-[10px] font-semibold text-emerald-400">
+                        {m[8]
+                          ? `แผนก ${m[8]}`
+                          : 'ไม่ระบุแผนก'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="break-words text-sm font-black leading-tight text-white">
+                        {m[9] || '-'}
+                      </p>
+
+                      <p className="mt-1 break-words text-[10px] font-semibold text-emerald-400">
+                        {m[10]
+                          ? `แผนก ${m[10]}`
+                          : 'ไม่ระบุแผนก'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </td>
 
-                <div>
-                  <p className="truncate text-sm font-black text-white leading-tight">
-                    {m[9] || '-'}
-                  </p>
+              {/* VS */}
+              <td className="px-1 py-5 text-center align-middle">
+                <span className="text-sm font-black italic text-slate-500">
+                  VS
+                </span>
+              </td>
 
-                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
-                    {m[10] ? `แผนก ${m[10]}` : 'ไม่ระบุแผนก'}
-                  </p>
+              {/* TEAM ฝั่งขวา */}
+              <td className="border-r border-white/10 px-4 py-5 align-middle">
+                <div className="flex items-start gap-3">
+
+                  {/* รหัสทีม */}
+                  <div className="flex h-10 min-w-[52px] flex-shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
+                    {m[11] || '-'}
+                  </div>
+
+                  {/* รายชื่อ */}
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div>
+                      <p className="break-words text-sm font-black leading-tight text-white">
+                        {m[12] || '-'}
+                      </p>
+
+                      <p className="mt-1 break-words text-[10px] font-semibold text-emerald-400">
+                        {m[13]
+                          ? `แผนก ${m[13]}`
+                          : 'ไม่ระบุแผนก'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="break-words text-sm font-black leading-tight text-white">
+                        {m[14] || '-'}
+                      </p>
+
+                      <p className="mt-1 break-words text-[10px] font-semibold text-emerald-400">
+                        {m[15]
+                          ? `แผนก ${m[15]}`
+                          : 'ไม่ระบุแผนก'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </td>
+              </td>
 
-          {/* VS */}
-          <td className="px-0 py-5 text-center align-middle">
-            <span className="inline-flex h-full items-center justify-center text-sm italic font-black text-slate-500">
-              VS
-            </span>
-          </td>
-
-          {/* TEAM ฝั่งขวา */}
-          <td className="border-r border-white/10 px-4 py-5 align-middle">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 min-w-[52px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-sm font-black text-white">
-                {m[11] || '-'}
-              </div>
-
-              <div className="min-w-0 flex-1 space-y-2">
-                <div>
-                  <p className="truncate text-sm font-black text-white leading-tight">
-                    {m[12] || '-'}
-                  </p>
-
-                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
-                    {m[13] ? `แผนก ${m[13]}` : 'ไม่ระบุแผนก'}
-                  </p>
+              {/* ผลคะแนน */}
+              <td className="px-3 py-5 text-center">
+                <div className="mx-auto flex w-[88px] items-center justify-center gap-2 rounded-lg border border-white/10 bg-black px-2 py-2 font-mono font-black text-emerald-400">
+                  {scoreA} : {scoreB}
                 </div>
-
-                <div>
-                  <p className="truncate text-sm font-black text-white leading-tight">
-                    {m[14] || '-'}
-                  </p>
-
-                  <p className="mt-1 truncate text-[10px] font-semibold text-emerald-400">
-                    {m[15] ? `แผนก ${m[15]}` : 'ไม่ระบุแผนก'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </td>
-
-          {/* คะแนน */}
-          <td className="px-3 py-5 text-center">
-            <div className="mx-auto flex w-[92px] items-center justify-center gap-2 rounded-lg border border-white/10 bg-black px-2 py-2 font-mono font-black text-emerald-400">
-              {scoreA} : {scoreB}
-            </div>
+              </td>
+            </tr>
+          );
+        })
+      ) : (
+        <tr>
+          <td
+            colSpan={8}
+            className="p-12 text-center text-slate-500"
+          >
+            ไม่พบข้อมูลการแข่งขันของวันที่ {selectedDate}
           </td>
         </tr>
-      );
-    })
-  ) : (
-    <tr>
-      <td
-        colSpan={8}
-        className="p-12 text-center text-slate-500"
-      >
-        ไม่พบข้อมูลการแข่งขันของวันที่ {selectedDate}
-      </td>
-    </tr>
-  )}
-</tbody>
-          </table>
-        </div>
+      )}
+    </tbody>
+  </table>
+</div>
 
         {/* แผนผังการแข่งขัน */}
         <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
