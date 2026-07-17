@@ -483,52 +483,65 @@ export default function ResultsPage() {
         return (
           <div
             key={`${match[0]}-${index}`}
-            className="flex items-center justify-between px-4 py-3 text-sm"
+            className="flex min-h-[72px] items-center px-4 py-3 text-sm"
           >
             <span className="w-10 font-black text-white">
               {teamA}
             </span>
 
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {Array.from({ length: totalSets }).map((_, i) => {
-                const a = Number(scoresA[i]);
-                const b = Number(scoresB[i]);
+            <div className="grid flex-1 grid-cols-[50px_1fr_50px] items-start gap-2">
+  {/* ทีม A */}
+  <span className="pt-0.5 text-left font-black text-white">
+    {teamA}
+  </span>
 
-                return (
-                  <span key={i} className="font-mono font-black">
-                    <span
-  className={
-    scoresA[i] === undefined
-      ? 'text-slate-600'
-      : a > b
-        ? 'text-emerald-400'
-        : a < b
-          ? 'text-red-400'
-          : 'text-slate-300'
-  }
->
-  {scoresA[i] ?? '-'}
-</span>
+  {/* คะแนนแต่ละเซต */}
+  <div className="flex flex-col items-center gap-1 font-mono font-black">
+    {Array.from({ length: totalSets }).map((_, i) => {
+      const a = Number(scoresA[i]);
+      const b = Number(scoresB[i]);
 
-<span className="text-slate-500">-</span>
+      return (
+        <div key={i} className="flex items-center justify-center">
+          <span
+            className={
+              scoresA[i] === undefined
+                ? 'text-slate-600'
+                : a > b
+                  ? 'text-emerald-400'
+                  : a < b
+                    ? 'text-red-400'
+                    : 'text-slate-300'
+            }
+          >
+            {scoresA[i] ?? '-'}
+          </span>
 
-<span
-  className={
-    scoresB[i] === undefined
-      ? 'text-slate-600'
-      : b > a
-        ? 'text-emerald-400'
-        : b < a
-          ? 'text-red-400'
-          : 'text-slate-300'
-  }
->
-  {scoresB[i] ?? '-'}
-</span>
-                  </span>
-                );
-              })}
-            </div>
+          <span className="px-0.5 text-slate-500">-</span>
+
+          <span
+            className={
+              scoresB[i] === undefined
+                ? 'text-slate-600'
+                : b > a
+                  ? 'text-emerald-400'
+                  : b < a
+                    ? 'text-red-400'
+                    : 'text-slate-300'
+            }
+          >
+            {scoresB[i] ?? '-'}
+          </span>
+        </div>
+      );
+    })}
+  </div>
+
+  {/* ทีม B */}
+  <span className="pt-0.5 text-right font-black text-white">
+    {teamB}
+  </span>
+</div>
 
             <span className="w-10 text-right font-black text-white">
               {teamB}
