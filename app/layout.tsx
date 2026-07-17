@@ -27,79 +27,99 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="min-h-screen text-white antialiased bg-black relative flex flex-col"
         style={{ fontFamily: "'Kanit', sans-serif" }}
       >
-        <div className="w-full flex flex-col h-full min-h-screen relative z-10">
-          
-          <nav className="w-full sticky top-0 z-50 shadow-2xl border-b border-[#39ff14]/30 flex justify-center items-center flex-shrink-0 relative overflow-hidden bg-black">
-            
-            <img 
-              src="/badminton-hero.jpg" 
-              alt="Navbar Background" 
-              className="absolute inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
-            />
-            
-            <div className="absolute inset-0 bg-black/65 z-10 pointer-events-none"></div>
+        <div className="w-full flex flex-col h-full min-h-screen relative z-10">    
+<nav className="sticky top-0 z-50 w-full overflow-x-auto overflow-y-hidden touch-pan-x no-scrollbar border-b border-[#39ff14]/30 bg-black shadow-2xl">
+<img
+    src="/badminton-hero.jpg"
+    alt="Navbar Background"
+    className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
+ />
 
-            <div className="relative w-full py-3.5 px-4 md:px-8 flex flex-row justify-between items-center select-none flex-shrink-0 z-20 gap-4">
-              
-              <div className="flex items-center gap-6 relative z-20">
-                {/* LOGO */}
-                <div className="flex flex-col font-black tracking-wider leading-none select-none uppercase flex-shrink-0">
-                  <span className="text-xs text-slate-400 font-bold tracking-[0.25em]">COM7</span>
-                  <span className="text-2xl md:text-3xl text-[#39ff14] font-black my-0.5 drop-shadow-[0_0_12px_rgba(57,255,20,0.4)]">
-                    BADMINTON
-                  </span>
-                  <span className="text-[11px] text-white/90 font-semibold tracking-[0.42em]">TOURNAMENT 2026</span>
-                </div>
-                
-                {/* SPONSOR */}
-<div className="flex items-center gap-4 h-full py-1">
-  <div className="w-16 h-10 flex items-center justify-center">
-    <img
-      src="/xiaomi-logo.png"
-      alt="XIAOMI"
-      className="max-w-full max-h-full object-contain"
-    />
+  <div className="pointer-events-none absolute inset-0 z-10 bg-black/65" />
+
+  <div className="relative z-20 flex min-w-[1180px] flex-row items-center gap-8 px-4 py-3.5 select-none md:px-8">
+    {/* LOGO + SPONSOR */}
+    <div className="relative z-20 flex flex-shrink-0 items-center gap-6">
+      <div className="flex flex-shrink-0 select-none flex-col font-black uppercase leading-none tracking-wider">
+        <span className="text-xs font-bold tracking-[0.25em] text-slate-400">
+          COM7
+        </span>
+
+        <span className="my-0.5 text-2xl font-black text-[#39ff14] drop-shadow-[0_0_12px_rgba(57,255,20,0.4)] md:text-3xl">
+          BADMINTON
+        </span>
+
+        <span className="text-[11px] font-semibold tracking-[0.42em] text-white/90">
+          TOURNAMENT 2026
+        </span>
+      </div>
+
+      <div className="flex h-full items-center gap-4 py-1">
+        <div className="flex h-10 w-16 items-center justify-center">
+          <img
+            src="/xiaomi-logo.png"
+            alt="XIAOMI"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+
+        <div className="flex h-10 w-16 items-center justify-center">
+          <img
+            src="/Jbl-logo.jpg"
+            alt="JBL"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+
+        <div className="flex h-10 w-24 items-center justify-center">
+          <img
+            src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
+            alt="Sandisk"
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* MENU */}
+    <div className="relative z-20 flex flex-row items-center gap-6 whitespace-nowrap text-sm font-normal tracking-wide">
+      <Link href="/" className={getMenuClass('/')}>
+        หน้าหลัก
+      </Link>
+
+      <Link href="/schedule" className={getMenuClass('/schedule')}>
+        ตารางการแข่งขัน
+      </Link>
+
+      <Link href="/results" className={getMenuClass('/results')}>
+        ผลการแข่งขัน
+      </Link>
+
+      <Link href="/live" className={getMenuClass('/live')}>
+        ไลฟ์สตรีม
+      </Link>
+
+      <Link href="/rules" className={getMenuClass('/rules')}>
+        กฎกติกาการแข่งขัน
+      </Link>
+
+      <Link href="/gallery" className={getMenuClass('/gallery')}>
+        ภาพบรรยากาศการแข่งขัน
+      </Link>
+
+      <Link
+        href="/register"
+        className={`flex-shrink-0 whitespace-nowrap rounded-full border px-5 py-2 font-semibold transition-all duration-500 ease-in-out ${
+          pathname === '/register'
+            ? 'border-[#39ff14] bg-[#39ff14] text-black shadow-lg shadow-[#39ff14]/40'
+            : 'border-white/20 bg-white/10 text-slate-200 shadow-md backdrop-blur-sm hover:border-zinc-500 hover:bg-zinc-700 hover:text-white'
+        }`}
+      >
+        สมัครเข้าร่วมการแข่งขัน
+      </Link>
+    </div>
   </div>
-
-  <div className="w-16 h-10 flex items-center justify-center">
-    <img
-      src="/Jbl-logo.jpg"
-      alt="JBL"
-      className="max-w-full max-h-full object-contain"
-    />
-  </div>
-
-  <div className="w-24 h-10 flex items-center justify-center">
-    <img
-      src="/Sandisk-Horizontal-Mark-TM-Red-RGB.svg"
-      alt="Sandisk"
-      className="max-w-full max-h-full object-contain"
-    />
-  </div>
-</div>
-</div>
-
-              <div className="flex flex-row items-center justify-start gap-4 md:gap-6 text-xs md:text-sm font-normal tracking-wide relative z-20 overflow-x-auto scroll-smooth pb-2 pt-1 max-w-[calc(100vw-350px)] md:max-w-none">
-                <Link href="/" className={getMenuClass('/')}>หน้าหลัก</Link>
-                <Link href="/schedule" className={getMenuClass('/schedule')}>ตารางการแข่งขัน</Link>
-                <Link href="/results" className={getMenuClass('/results')}>ผลการแข่งขัน</Link>
-                <Link href="/live" className={getMenuClass('/live')}>ไลฟ์สตรีม</Link>                
-                <Link href="/rules" className={getMenuClass('/rules')}>กฎกติกาการแข่งขัน</Link>
-                <Link href="/gallery" className={getMenuClass('/gallery')}>ภาพบรรยากาศการแข่งขัน</Link>               
-
-                <Link 
-                  href="/register" 
-                  className={`transition-all duration-500 ease-in-out px-5 py-2 rounded-full font-semibold flex-shrink-0 whitespace-nowrap border ${
-                    pathname === '/register' 
-                      ? 'bg-[#39ff14] text-black border-[#39ff14] shadow-lg shadow-[#39ff14]/40' 
-                      : 'bg-white/10 text-slate-200 border-white/20 backdrop-blur-sm hover:bg-zinc-700 hover:text-white hover:border-zinc-500 shadow-md'
-                  }`}
-                >
-                  สมัครเข้าร่วมการแข่งขัน
-                </Link>
-              </div>
-            </div>
-          </nav>
+</nav>
 
           <main className="w-full flex-grow relative flex flex-col">
             <div className="w-full h-full relative ">
