@@ -215,8 +215,7 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden bg-[#070b14] p-4 pt-28 text-slate-100 md:p-8 md:pt-28">
-
+<div className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden bg-[#070b14] p-4 pt-20 text-slate-100 md:p-8 md:pt-20">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
