@@ -1,427 +1,665 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+const GROUP_STYLES: Record<
+  string,
+  {
+    text: string;
+    border: string;
+    background: string;
+    badge: string;
+  }
+> = {
+  A: {
+    text: 'text-emerald-400',
+    border: 'border-emerald-500/40',
+    background: 'bg-emerald-500/5',
+    badge: 'bg-emerald-500/90 border-emerald-300/40',
+  },
+  B: {
+    text: 'text-blue-400',
+    border: 'border-blue-500/40',
+    background: 'bg-blue-500/5',
+    badge: 'bg-blue-500/90 border-blue-300/40',
+  },
+  C: {
+    text: 'text-rose-400',
+    border: 'border-rose-500/40',
+    background: 'bg-rose-500/5',
+    badge: 'bg-rose-500/90 border-rose-300/40',
+  },
+  D: {
+    text: 'text-yellow-400',
+    border: 'border-yellow-500/40',
+    background: 'bg-yellow-500/5',
+    badge: 'bg-yellow-500/90 border-yellow-300/40',
+  },
+  E: {
+    text: 'text-violet-400',
+    border: 'border-violet-500/40',
+    background: 'bg-violet-500/5',
+    badge: 'bg-violet-500/90 border-violet-300/40',
+  },
+  F: {
+    text: 'text-orange-400',
+    border: 'border-orange-500/40',
+    background: 'bg-orange-500/5',
+    badge: 'bg-orange-500/90 border-orange-300/40',
+  },
+};
+
+function getRankDisplay(rank: number) {
+  if (rank === 1) return '🥇';
+  if (rank === 2) return '🥈';
+  if (rank === 3) return '🥉';
+  return String(rank);
+}
 
 export default function ResultsPage() {
-  const [results, setMatches] = useState<any[]>([]);
-  // 🛠️ เพิ่ม State สำหรับเก็บข้อมูลที่มาจากแท็บ Results ใน Google Sheets
-  const [sheetResults, setSheetResults] = useState<any[]>([]);
+  const [matches, setMatches] = useState<any[][]>([]);
+  const [standings, setStandings] = useState<any[][]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [stageFilter, setStageFilter] = useState('ทั้งหมด');
-  const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
+  const [selectedGroup, setSelectedGroup] = useState('ทั้งหมด');
+  const [activeTab, setActiveTab] = useState<
+    'ตารางคะแนน' | 'ผลการแข่งขันทั้งหมด'
+  >('ตารางคะแนน');
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
     fetch(
       'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec'
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('โหลดข้อมูลไม่สำเร็จ');
+        }
+
+        return res.json();
+      })
       .then((data) => {
-        setMatches(data.matches.slice(1));
-        // 🛠️ สอยก้อนข้อมูลจากแท็บ results ใน Google Sheets มารอไว้
-        setSheetResults(data.results ? data.results.slice(1) : []);
+        setMatches(
+          Array.isArray(data.matches)
+            ? data.matches.slice(1)
+            : []
+        );
+
+        setStandings(
+          Array.isArray(data.standings)
+            ? data.standings.slice(1)
+            : []
+        );
+
         setIsFetched(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         setIsFetched(true);
       });
   }, []);
 
-  const uniqueStages = [
-  'ทั้งหมด',
-  'รอบแบ่งกลุ่ม',
-  'รอบ 16 คู่',
-  'รอบ 8 คู่',
-  'รอบ 4 คู่',
-  'รอบ 2 คู่',
-];
+  const normalizedSearch = searchTerm.trim().toLowerCase();
 
-const uniqueGroups = [
-  'ทั้งหมด',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-];
+  const visibleGroups = useMemo(() => {
+    if (selectedGroup === 'ทั้งหมด') {
+      return GROUPS;
+    }
 
-  const filteredResults = isFetched
-  ? results.filter((row) => {
-      const search = searchTerm.trim().toLowerCase();
+    return [selectedGroup];
+  }, [selectedGroup]);
 
+  const filteredStandings = useMemo(() => {
+    return standings.filter((row) => {
+      const team = String(row[0] || '').trim();
+      const group = String(row[1] || '').trim();
+
+      if (!team || !GROUPS.includes(group)) {
+        return false;
+      }
+
+      if (!normalizedSearch) {
+        return true;
+      }
+
+      return [team, group].some((value) =>
+        String(value)
+          .toLowerCase()
+          .includes(normalizedSearch)
+      );
+    });
+  }, [standings, normalizedSearch]);
+
+  const groupMatches = useMemo(() => {
+    return matches.filter((row) => {
       const stage = String(row[1] || '').trim();
       const group = String(row[5] || '').trim();
 
-      const found =
-  search === '' ||
-  [
-    row[0],  // MatchID
-    row[1],  // Stage
-    row[2],  // MatchDate
-    row[3],  // MatchTime
-    row[4],  // Court
-    row[5],  // Group
+      if (stage !== 'รอบแบ่งกลุ่ม') {
+        return false;
+      }
 
-    row[6],  // TeamA
-    row[7],  // TeamAPlayer1
-    row[8],  // TeamADept1
-    row[9],  // TeamAPlayer2
-    row[10], // TeamADept2
+      if (!GROUPS.includes(group)) {
+        return false;
+      }
 
-    row[11], // TeamB
-    row[12], // TeamBPlayer1
-    row[13], // TeamBDept1
-    row[14], // TeamBPlayer2
-    row[15], // TeamBDept2
+      if (!normalizedSearch) {
+        return true;
+      }
 
-    row[18], // Winner
-  ].some((value) =>
-    String(value || '').trim().toLowerCase().includes(search)
-  );
+      return [
+        row[0],  // MatchID
+        row[2],  // MatchDate
+        row[3],  // MatchTime
+        row[4],  // Court
+        row[5],  // Group
+        row[6],  // TeamA
+        row[7],  // TeamAPlayer1
+        row[8],  // TeamADept1
+        row[9],  // TeamAPlayer2
+        row[10], // TeamADept2
+        row[11], // TeamB
+        row[12], // TeamBPlayer1
+        row[13], // TeamBDept1
+        row[14], // TeamBPlayer2
+        row[15], // TeamBDept2
+      ].some((value) =>
+        String(value || '')
+          .trim()
+          .toLowerCase()
+          .includes(normalizedSearch)
+      );
+    });
+  }, [matches, normalizedSearch]);
 
-      const stagePass =
-        stageFilter === 'ทั้งหมด' || stage === String(stageFilter).trim();
+  const getStandingsByGroup = (group: string) => {
+    return filteredStandings
+      .filter(
+        (row) =>
+          String(row[1] || '').trim() === group
+      )
+      .sort((a, b) => {
+        const pointA = Number(a[6] || 0);
+        const pointB = Number(b[6] || 0);
 
-      const groupPass =
-        groupFilter === 'ทั้งหมด' || group === String(groupFilter).trim();
+        if (pointB !== pointA) {
+          return pointB - pointA;
+        }
 
-      return found && stagePass && groupPass;
-    })
-  : Array(6).fill([null, null, null, null, null, null, null, null]);
+        const winA = Number(a[3] || 0);
+        const winB = Number(b[3] || 0);
+
+        if (winB !== winA) {
+          return winB - winA;
+        }
+
+        return String(a[0] || '').localeCompare(
+          String(b[0] || '')
+        );
+      });
+  };
+
+  const getMatchesByGroup = (group: string) => {
+    return groupMatches.filter(
+      (row) =>
+        String(row[5] || '').trim() === group
+    );
+  };
 
   return (
-    <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative overflow-x-hidden flex flex-col items-center">
-      
-      {/* 🏞️ รูปพื้นหลังหลัก */}
+    <div className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden bg-[#070b14] p-4 pt-28 text-slate-100 md:p-8 md:pt-28">
+
+      {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
           src="/badminton-bg.jpg"
-          className="w-full h-full object-fill opacity-85"
           alt="Tournament Background"
+          className="h-full w-full object-cover opacity-80"
         />
+        <div className="absolute inset-0 bg-slate-950/35" />
       </div>
 
-      {/* 📦 กล่อง Dashboard */}
-      <div className="max-w-6xl w-full bg-slate-950/75 border border-white/20 p-6 md:p-8 rounded-[24px] relative z-10 mb-12 shadow-[0_25px_60px_rgba(0,0,0,0.6)]">
-        
+      {/* Main dashboard */}
+      <div className="relative z-10 mb-12 w-full max-w-[1500px] rounded-[24px] border border-white/20 bg-slate-950/80 p-5 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-7">
+
         {/* Header */}
-        <div className="mb-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 border-b border-white/10 pb-6">
+        <div className="mb-5 flex flex-col gap-5 border-b border-white/10 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-md font-bold tracking-wider uppercase border border-emerald-500/20 inline-block mb-1.5">
+            <span className="mb-2 inline-flex rounded-md border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-emerald-400">
               Tournament Results
             </span>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-md">
-              สรุปผลการแข่งขัน
-            </h1>
+
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🏆</span>
+
+              <div>
+                <h1 className="text-3xl font-black text-white md:text-4xl">
+                  ผลการแข่งขัน
+                </h1>
+
+                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">
+                  COM7 Badminton Tournament 2026
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* 🔍 ช่องค้นหา */}
-          <div className="relative w-full lg:w-80">
+          {/* Search */}
+          <div className="relative w-full lg:w-[400px]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+
             <input
               type="text"
-              placeholder="ค้นหา แมตช์, ชื่อทีม, นักกีฬา..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-black/80 border border-white/20 px-4 py-2.5 pl-11 rounded-xl text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-slate-500"
+              onChange={(event) =>
+                setSearchTerm(event.target.value)
+              }
+              placeholder="ค้นหาทีม หรือชื่อผู้เล่น"
+              className="w-full rounded-xl border border-white/20 bg-slate-950/90 py-3 pl-12 pr-4 text-sm text-white outline-none placeholder:text-slate-500 focus:border-emerald-500"
             />
           </div>
         </div>
 
-        {/* 🎛️ กล่องตัวกรอง */}
-        <div className="flex flex-wrap items-center gap-4 mb-6 bg-black/50 p-3 rounded-xl border border-white/10 shadow-inner">
-          <span className="text-xs text-slate-400 font-bold uppercase tracking-wider text-[11px]">คัดกรองผล:</span>
-          
-          <div className="flex flex-col gap-1">
-            <select
-              value={stageFilter}
-              onChange={(e) => setStageFilter(e.target.value)}
-              className="bg-slate-900 border border-white/20 text-slate-200 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-emerald-500 cursor-pointer font-semibold min-w-[140px]"
+        {/* Tabs and group buttons */}
+        <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+          {/* Tabs */}
+          <div className="inline-flex w-fit overflow-hidden rounded-lg border border-white/20 bg-slate-950/70">
+            <button
+              type="button"
+              onClick={() =>
+                setActiveTab('ตารางคะแนน')
+              }
+              className={`px-6 py-3 text-sm font-black transition ${
+                activeTab === 'ตารางคะแนน'
+                  ? 'bg-emerald-600 text-white'
+                  : 'text-slate-400 hover:text-white'
+              }`}
             >
-              {uniqueStages.map((stage) => (
-                <option key={stage} value={stage}>{stage === 'ทั้งหมด' ? 'รอบทั้งหมด' : stage}</option>
-              ))}
-            </select>
+              ตารางคะแนน
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                setActiveTab('ผลการแข่งขันทั้งหมด')
+              }
+              className={`px-6 py-3 text-sm font-black transition ${
+                activeTab === 'ผลการแข่งขันทั้งหมด'
+                  ? 'bg-emerald-600 text-white'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              ผลการแข่งขันทั้งหมด
+            </button>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <select
-              value={groupFilter}
-              onChange={(e) => setGroupFilter(e.target.value)}
-              className="bg-slate-900 border border-white/20 text-slate-200 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-emerald-500 cursor-pointer font-semibold min-w-[140px]"
+          {/* Group filter */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedGroup('ทั้งหมด')
+              }
+              className={`min-w-[76px] rounded-lg border px-4 py-2 text-sm font-black transition ${
+                selectedGroup === 'ทั้งหมด'
+                  ? 'border-emerald-400 bg-emerald-600 text-white'
+                  : 'border-white/20 bg-slate-950/70 text-slate-300'
+              }`}
             >
-              {uniqueGroups.map((group) => (
-              <option key={group} value={group}>
-                {group === 'ทั้งหมด' ? 'กลุ่มทั้งหมด' : `กลุ่ม ${group}`}
-              </option>              ))}
-            </select>
+              ทั้งหมด
+            </button>
+
+            {GROUPS.map((group) => {
+              const style = GROUP_STYLES[group];
+
+              return (
+                <button
+                  key={group}
+                  type="button"
+                  onClick={() =>
+                    setSelectedGroup(group)
+                  }
+                  className={`min-w-[62px] rounded-lg border px-4 py-2 text-sm font-black transition ${
+                    selectedGroup === group
+                      ? `${style.badge} text-white`
+                      : `${style.border} bg-slate-950/70 ${style.text}`
+                  }`}
+                >
+                  {group}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* 📊 ตารางสรุปผลการแข่งขัน */}
-        <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/20">
-<table className="w-full min-w-[1250px] text-sm text-left border-collapse">
-              <thead>
-              <tr className="bg-black/80 text-[11px] text-slate-400 font-bold uppercase tracking-wider border-b border-white/10">
-                <th className="p-4 text-center w-20">แมตช์</th>
-                <th className="p-4 min-w-[180px]">รอบการแข่ง</th>                <th className="p-4 text-right w-1/3 text-slate-300">TEAM</th>
-                <th className="p-4 text-center w-16">VS</th>
-                <th className="p-4 text-left w-1/3 text-slate-300">TEAM</th>
-                <th className="p-4 text-center w-36">ผลคะแนน</th>
-                <th className="p-4 text-center min-w-[140px] text-amber-400">ผู้ชนะ</th>
-                <th className="p-4 text-center min-w-[140px] text-red-400">ย้อนหลัง</th>
-              </tr>
-            </thead>
+        {!isFetched ? (
+          <div className="py-24 text-center text-slate-400">
+            กำลังโหลดข้อมูลการแข่งขัน...
+          </div>
+        ) : activeTab === 'ตารางคะแนน' ? (
 
-            <tbody className="divide-y divide-white/10 font-medium">
-              {filteredResults.length > 0 ? (
-                filteredResults.map((row, index) => {
-                  const isRowLoading = !isFetched;
+          /* ตารางคะแนนแบบการ์ด A-F */
+          <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+            {visibleGroups.map((group) => {
+              const style = GROUP_STYLES[group];
+              const groupStanding =
+                getStandingsByGroup(group);
+              const matchesInGroup =
+                getMatchesByGroup(group);
 
-                  const scoreA =
-  row[16] !== undefined && row[16] !== ''
-    ? Number(row[16])
-    : 0;
-
-const scoreB =
-  row[17] !== undefined && row[17] !== ''
-    ? Number(row[17])
-    : 0;
-
-const winnerName = String(row[18] || '').trim();
-const replayUrl = String(row[19] || '').trim();
-
-                  const hasWinner = winnerName !== '';
-
-                  const isAWinner = hasWinner && scoreA > scoreB;
-                  const isBWinner = hasWinner && scoreB > scoreA;
-
-                  return (
-                    <tr 
-                      key={row[0] || index} 
-                      className="hover:bg-white/5 transition-all duration-150 group h-[60px]"
+              return (
+                <section
+                  key={group}
+                  className={`overflow-hidden rounded-xl border bg-slate-950/65 ${style.border}`}
+                >
+                  {/* Group title */}
+                  <div
+                    className={`flex items-center gap-3 border-b px-4 py-3 ${style.border} ${style.background}`}
+                  >
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-full border text-lg font-black text-white ${style.badge}`}
                     >
-                      {/* Match ID */}
-                      <td className="p-4 text-center font-mono text-xs text-slate-400 font-bold">
-                        {isRowLoading ? <div className="w-6 h-4 bg-white/20 rounded mx-auto animate-pulse" /> : `${row[0]}`}
-                      </td>
+                      {group}
+                    </div>
 
-                      {/* รอบการแข่ง */}
-                          <td className="p-4 min-w-[180px] whitespace-nowrap">                        {isRowLoading ? (
-                          <div className="w-24 h-5 bg-white/20 rounded animate-pulse" />
+                    <h2
+                      className={`text-xl font-black ${style.text}`}
+                    >
+                      สาย {group}
+                    </h2>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr]">
+
+                    {/* Standing table */}
+                    <div className="border-b border-white/10 lg:border-b-0 lg:border-r">
+                      <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
+                        ตารางคะแนน
+                      </div>
+
+                      <table className="w-full border-collapse text-xs">
+                        <thead>
+                          <tr className="border-b border-white/10 bg-black/20 text-slate-400">
+                            <th className="px-2 py-2 text-center">
+                              อันดับ
+                            </th>
+                            <th className="px-2 py-2 text-left">
+                              ทีม
+                            </th>
+                            <th className="px-2 py-2 text-center">
+                              แข่ง
+                            </th>
+                            <th className="px-2 py-2 text-center">
+                              ชนะ
+                            </th>
+                            <th className="px-2 py-2 text-center">
+                              แพ้
+                            </th>
+                            <th className="px-2 py-2 text-center">
+                              คะแนน
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody className="divide-y divide-white/10">
+                          {groupStanding.length > 0 ? (
+                            groupStanding.map(
+                              (row, index) => (
+                                <tr key={row[0]}>
+                                  <td className="px-2 py-2 text-center text-base">
+                                    {getRankDisplay(
+                                      index + 1
+                                    )}
+                                  </td>
+
+                                  <td className="px-2 py-2 text-left text-sm font-black text-white">
+                                    {row[0]}
+                                  </td>
+
+                                  <td className="px-2 py-2 text-center">
+                                    {row[2] || 0}
+                                  </td>
+
+                                  <td className="px-2 py-2 text-center">
+                                    {row[3] || 0}
+                                  </td>
+
+                                  <td className="px-2 py-2 text-center">
+                                    {row[5] || 0}
+                                  </td>
+
+                                  <td className="px-2 py-2 text-center text-sm font-black text-white">
+                                    {row[6] || 0}
+                                  </td>
+                                </tr>
+                              )
+                            )
+                          ) : (
+                            <tr>
+                              <td
+                                colSpan={6}
+                                className="px-3 py-8 text-center text-slate-500"
+                              >
+                                ไม่พบทีมในสาย {group}
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Match results */}
+                    <div>
+                      <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
+                        ผลการแข่งขัน
+                      </div>
+
+                      <div className="divide-y divide-white/10">
+                        {matchesInGroup.length > 0 ? (
+                          matchesInGroup.map(
+                            (match, index) => {
+                              const teamA =
+                                String(
+                                  match[6] || '-'
+                                );
+                              const teamB =
+                                String(
+                                  match[11] || '-'
+                                );
+
+                              const hasScoreA =
+                                match[16] !== '' &&
+                                match[16] !== null &&
+                                match[16] !== undefined;
+
+                              const hasScoreB =
+                                match[17] !== '' &&
+                                match[17] !== null &&
+                                match[17] !== undefined;
+
+                              return (
+                                <div
+                                  key={`${match[0]}-${index}`}
+                                  className="grid grid-cols-[42px_1fr_65px_1fr] items-center gap-2 px-3 py-2 text-xs"
+                                >
+                                  <span className="font-black text-white">
+                                    {teamA}
+                                  </span>
+
+                                  <span className="truncate text-slate-400">
+                                    {match[7] || ''}
+                                  </span>
+
+                                  <span
+                                    className={`text-center font-mono font-black ${
+                                      hasScoreA &&
+                                      hasScoreB
+                                        ? 'text-emerald-400'
+                                        : 'text-slate-600'
+                                    }`}
+                                  >
+                                    {hasScoreA &&
+                                    hasScoreB
+                                      ? `${match[16]}–${match[17]}`
+                                      : '–'}
+                                  </span>
+
+                                  <span className="text-right font-black text-white">
+                                    {teamB}
+                                  </span>
+                                </div>
+                              );
+                            }
+                          )
                         ) : (
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="text-slate-200 text-xs font-bold tracking-wide whitespace-nowrap">
-                                {row[1]}
-                            </span>
-                            {row[5] && (
-  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-extrabold border border-emerald-500/20">
-    สาย {row[5]}
-  </span>
-)}
+                          <div className="px-3 py-8 text-center text-xs text-slate-500">
+                            ยังไม่มีการแข่งขันในสาย{' '}
+                            {group}
                           </div>
                         )}
-                      </td>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        ) : (
 
-                      {/* TEAM ฝั่งซ้าย */}
-<td className="p-4 min-w-[260px]">
-  {isRowLoading ? (
-    <div className="w-40 h-16 bg-white/20 rounded animate-pulse ml-auto" />
-  ) : row[6] ? (
-    <div className="flex items-start justify-end gap-4">
-      {/* รหัสทีม */}
-      <div
-        className={`min-w-[58px] h-[58px] rounded-xl border flex items-center justify-center text-xl font-black ${
-          isAWinner
-            ? 'border-emerald-400/50 bg-emerald-500/15 text-emerald-400'
-            : isBWinner
-            ? 'border-white/10 bg-white/5 text-slate-500'
-            : 'border-white/20 bg-white/5 text-white'
-        }`}
-      >
-        {row[6]}
-      </div>
-
-      {/* รายชื่อผู้เล่น */}
-      <div className="text-left space-y-3 min-w-[140px]">
-        <div>
-          <p
-            className={`text-base font-black leading-tight ${
-              isAWinner
-                ? 'text-emerald-400'
-                : isBWinner
-                ? 'text-slate-500'
-                : 'text-white'
-            }`}
-          >
-            {row[7] || '-'}
-          </p>
-
-          <p className="mt-1 text-[11px] font-bold text-emerald-400">
-            {row[8] ? `แผนก ${row[8]}` : 'ไม่ระบุแผนก'}
-          </p>
-        </div>
-
-        <div>
-          <p
-            className={`text-base font-black leading-tight ${
-              isAWinner
-                ? 'text-emerald-400'
-                : isBWinner
-                ? 'text-slate-500'
-                : 'text-white'
-            }`}
-          >
-            {row[9] || '-'}
-          </p>
-
-          <p className="mt-1 text-[11px] font-bold text-emerald-400">
-            {row[10] ? `แผนก ${row[10]}` : 'ไม่ระบุแผนก'}
-          </p>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <span className="text-slate-600 font-normal text-xs italic">
-      TBD
-    </span>
-  )}
-</td>
-
-                      <td className="p-2 text-center font-black text-slate-500 text-xs italic">
-                        VS
-                      </td>
-
-                      {/* TEAM ฝั่งขวา */}
-<td className="p-4 min-w-[260px]">
-  {isRowLoading ? (
-    <div className="w-40 h-16 bg-white/20 rounded animate-pulse" />
-  ) : row[11] ? (
-    <div className="flex items-start gap-4">
-      {/* รหัสทีม */}
-      <div
-        className={`min-w-[58px] h-[58px] rounded-xl border flex items-center justify-center text-xl font-black ${
-          isBWinner
-            ? 'border-emerald-400/50 bg-emerald-500/15 text-emerald-400'
-            : isAWinner
-            ? 'border-white/10 bg-white/5 text-slate-500'
-            : 'border-white/20 bg-white/5 text-white'
-        }`}
-      >
-        {row[11]}
-      </div>
-
-      {/* รายชื่อผู้เล่น */}
-      <div className="text-left space-y-3 min-w-[140px]">
-        <div>
-          <p
-            className={`text-base font-black leading-tight ${
-              isBWinner
-                ? 'text-emerald-400'
-                : isAWinner
-                ? 'text-slate-500'
-                : 'text-white'
-            }`}
-          >
-            {row[12] || '-'}
-          </p>
-
-          <p className="mt-1 text-[11px] font-bold text-emerald-400">
-            {row[13] ? `แผนก ${row[13]}` : 'ไม่ระบุแผนก'}
-          </p>
-        </div>
-
-        <div>
-          <p
-            className={`text-base font-black leading-tight ${
-              isBWinner
-                ? 'text-emerald-400'
-                : isAWinner
-                ? 'text-slate-500'
-                : 'text-white'
-            }`}
-          >
-            {row[14] || '-'}
-          </p>
-
-          <p className="mt-1 text-[11px] font-bold text-emerald-400">
-            {row[15] ? `แผนก ${row[15]}` : 'ไม่ระบุแผนก'}
-          </p>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <span className="text-slate-600 font-normal text-xs italic">
-      TBD
-    </span>
-  )}
-</td>
-
-                      {/* ผลคะแนนแนวนอน */}
-                      <td className="p-4 text-center w-36">
-                        {isRowLoading ? (
-                          <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
-                        ) : (
-                          <div className="flex items-center justify-center gap-1.5 bg-black/90 border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold font-mono tracking-wide text-emerald-400 shadow-md max-w-[95px] mx-auto whitespace-nowrap">
-                            <span>
-  {row[16] !== undefined && row[16] !== ''
-    ? row[16]
-    : 0}
-</span>
-
-<span>:</span>
-
-<span>
-  {row[17] !== undefined && row[17] !== ''
-    ? row[17]
-    : 0}
-</span>
-                          </div>
-                        )}
-                      </td>
-
-                      {/* ผู้ชนะ */}
-                      <td className="p-4 text-center min-w-[140px]">
-                        {isRowLoading ? (
-                          <div className="w-20 h-5 bg-white/20 rounded mx-auto animate-pulse" />
-                        ) : hasWinner ? (
-                          <span className="inline-block bg-amber-500/10 text-amber-400 px-3 py-1 rounded-xl text-xs font-black border border-amber-500/20 tracking-wide whitespace-nowrap">
-                            🏆 {winnerName}
-                          </span>
-                        ) : (
-              <span className="inline-flex items-center justify-center bg-slate-700/30 border border-slate-600/30 text-slate-400 px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap">
-                ⏳ รอผล
-              </span>                       
-             )}
-                      </td>
-                      <td className="p-4 text-center min-w-[140px]">
-  {replayUrl ? (
-    <a
-      href={replayUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center bg-red-600/90 hover:bg-red-500 text-white px-3 py-1 rounded-xl text-xs font-black transition whitespace-nowrap"
-    >
-      ▶ ดูย้อนหลัง
-    </a>
-  ) : (
-    <span className="text-xs text-slate-600">-</span>
-  )}
-</td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td colSpan={8} className="p-12 text-center text-xs text-zinc-500 font-medium tracking-wide">
-                    ❌ ไม่พบข้อมูลผลการแข่งขันตามเงื่อนไขที่เลือก
-                  </td>
+          /* ผลการแข่งขันทั้งหมด */
+          <div className="overflow-x-auto rounded-xl border border-white/10 bg-slate-950/60">
+            <table className="w-full min-w-[900px] border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-white/10 bg-black/80 text-xs text-slate-400">
+                  <th className="px-4 py-4 text-center">
+                    แมตช์
+                  </th>
+                  <th className="px-4 py-4 text-center">
+                    วันที่
+                  </th>
+                  <th className="px-4 py-4 text-center">
+                    เวลา
+                  </th>
+                  <th className="px-4 py-4 text-center">
+                    สนาม
+                  </th>
+                  <th className="px-4 py-4 text-center">
+                    สาย
+                  </th>
+                  <th className="px-4 py-4 text-right">
+                    ทีม
+                  </th>
+                  <th className="px-2 py-4 text-center">
+                    ผล
+                  </th>
+                  <th className="px-4 py-4 text-left">
+                    ทีม
+                  </th>
+                  <th className="px-4 py-4 text-center">
+                    ผู้ชนะ
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
 
+              <tbody className="divide-y divide-white/10">
+                {groupMatches
+                  .filter(
+                    (row) =>
+                      selectedGroup === 'ทั้งหมด' ||
+                      String(
+                        row[5] || ''
+                      ).trim() === selectedGroup
+                  )
+                  .map((row, index) => {
+                    const hasScore =
+                      row[16] !== '' &&
+                      row[16] !== null &&
+                      row[17] !== '' &&
+                      row[17] !== null;
+
+                    return (
+                      <tr
+                        key={`${row[0]}-${index}`}
+                        className="hover:bg-white/5"
+                      >
+                        <td className="px-4 py-4 text-center text-xs text-slate-400">
+                          {row[0]}
+                        </td>
+
+                        <td className="px-4 py-4 text-center whitespace-nowrap">
+                          {row[2] || '-'}
+                        </td>
+
+                        <td className="px-4 py-4 text-center whitespace-nowrap">
+                          {row[3] || '-'}
+                        </td>
+
+                        <td className="px-4 py-4 text-center">
+                          {row[4] || '-'}
+                        </td>
+
+                        <td className="px-4 py-4 text-center">
+                          {row[5] || '-'}
+                        </td>
+
+                        <td className="px-4 py-4 text-right font-black text-white">
+                          {row[6] || 'TBD'}
+                        </td>
+
+                        <td className="px-2 py-4 text-center">
+                          <span className="inline-flex min-w-[72px] justify-center rounded-lg border border-white/10 bg-black px-3 py-1 font-mono font-black text-emerald-400">
+                            {hasScore
+                              ? `${row[16]} : ${row[17]}`
+                              : '- : -'}
+                          </span>
+                        </td>
+
+                        <td className="px-4 py-4 text-left font-black text-white">
+                          {row[11] || 'TBD'}
+                        </td>
+
+                        <td className="px-4 py-4 text-center">
+                          {row[18] ? (
+                            <span className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-black text-amber-400">
+                              🏆 {row[18]}
+                            </span>
+                          ) : (
+                            <span className="text-xs text-slate-600">
+                              รอผล
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* Note */}
+        <div className="mt-5 rounded-xl border border-white/10 bg-slate-950/65 px-4 py-3 text-xs leading-6 text-slate-400">
+          <span className="mr-2 text-blue-400">
+            ℹ
+          </span>
+          การจัดอันดับอ้างอิงจากคะแนนรวม ตามด้วยจำนวนชนะ
+          และชื่อทีมตามลำดับ
+        </div>
       </div>
     </div>
   );
