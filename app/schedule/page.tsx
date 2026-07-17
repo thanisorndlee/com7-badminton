@@ -121,13 +121,13 @@ const getGroupClass = (group: string) => {
     .toUpperCase();
 
   const groupClasses: Record<string, string> = {
-    A: 'bg-emerald-500/90 border-emerald-300/50 text-white shadow-[0_0_14px_rgba(16,185,129,.35)]',
-    B: 'bg-blue-500/90 border-blue-300/50 text-white shadow-[0_0_14px_rgba(59,130,246,.35)]',
-    C: 'bg-violet-500/90 border-violet-300/50 text-white shadow-[0_0_14px_rgba(139,92,246,.35)]',
-    D: 'bg-orange-500/90 border-orange-300/50 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
-    E: 'bg-pink-500/90 border-pink-300/50 text-white shadow-[0_0_14px_rgba(236,72,153,.35)]',
-    F: 'bg-cyan-500/90 border-cyan-300/50 text-white shadow-[0_0_14px_rgba(6,182,212,.35)]',
-  };
+  A: 'bg-amber-500 border-amber-300 text-black shadow-[0_0_16px_rgba(245,158,11,.45)]',
+  B: 'bg-blue-500 border-blue-300 text-white shadow-[0_0_14px_rgba(59,130,246,.35)]',
+  C: 'bg-violet-500 border-violet-300 text-white shadow-[0_0_14px_rgba(139,92,246,.35)]',
+  D: 'bg-orange-500 border-orange-300 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
+  E: 'bg-pink-500 border-pink-300 text-white shadow-[0_0_14px_rgba(236,72,153,.35)]',
+  F: 'bg-cyan-500 border-cyan-300 text-white shadow-[0_0_14px_rgba(6,182,212,.35)]',
+};
 
   return (
     groupClasses[normalizedGroup] ||

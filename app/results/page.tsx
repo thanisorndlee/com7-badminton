@@ -50,7 +50,7 @@ const GROUP_STYLES: Record<
   },
 };
 const GROUP_BUTTONS: Record<string, string> = {
-  A: 'bg-emerald-500 border-emerald-300 text-white shadow-[0_0_14px_rgba(16,185,129,.35)]',
+  A: 'bg-yellow-500 border-yellow-300 text-black shadow-[0_0_14px_rgba(234,179,8,.35)]', 
   B: 'bg-blue-500 border-blue-300 text-white shadow-[0_0_14px_rgba(59,130,246,.35)]',
   C: 'bg-violet-500 border-violet-300 text-white shadow-[0_0_14px_rgba(139,92,246,.35)]',
   D: 'bg-orange-500 border-orange-300 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
