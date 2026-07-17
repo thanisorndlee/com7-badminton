@@ -28,12 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         style={{ fontFamily: "'Kanit', sans-serif" }}
       >
         <div className="w-full flex flex-col h-full min-h-screen relative z-10">    
-<nav className="sticky top-0 z-50 w-full overflow-x-auto overflow-y-hidden touch-pan-x no-scrollbar border-b border-[#39ff14]/30 bg-black shadow-2xl">
+<nav className="sticky top-0 z-50 w-full border-b border-[#39ff14]/30 bg-black shadow-2xl">
 <img
-    src="/badminton-hero.jpg"
-    alt="Navbar Background"
-    className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center"
- />
+  src="/badminton-hero.jpg"
+  alt="Navbar Background"
+  className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-[30%_center] md:object-center"
+/>
 
   <div className="pointer-events-none absolute inset-0 z-10 bg-black/65" />
 
