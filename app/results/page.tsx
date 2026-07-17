@@ -64,6 +64,13 @@ function getRankDisplay(rank: number) {
   if (rank === 3) return '🥉';
   return String(rank);
 }
+function splitScores(value: unknown) {
+  return String(value ?? '')
+    .trim()
+    .split(/[\s,\/|]+/)
+    .map((score) => score.trim())
+    .filter(Boolean);
+}
 
 export default function ResultsPage() {
   const [matches, setMatches] = useState<any[][]>([]);
@@ -469,78 +476,85 @@ export default function ResultsPage() {
                         </tbody>
                       </table>
                     </div>
+{/* Match results */}
+<div>
+  <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
+    ผลการแข่งขัน
+  </div>
 
-                    {/* Match results */}
-                    <div>
-                      <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
-                        ผลการแข่งขัน
-                      </div>
+  <div className="divide-y divide-white/10">
+    {matchesInGroup.length > 0 ? (
+      matchesInGroup.map((match, index) => {
+        const teamA = String(match[6] || '-');
+        const teamB = String(match[11] || '-');
 
-                      <div className="divide-y divide-white/10">
-                        {matchesInGroup.length > 0 ? (
-                          matchesInGroup.map(
-                            (match, index) => {
-                              const teamA =
-                                String(
-                                  match[6] || '-'
-                                );
-                              const teamB =
-                                String(
-                                  match[11] || '-'
-                                );
+        const scoresA = splitScores(match[16]);
+        const scoresB = splitScores(match[17]);
 
-                              const hasScoreA =
-                                match[16] !== '' &&
-                                match[16] !== null &&
-                                match[16] !== undefined;
+        const totalSets = Math.max(scoresA.length, scoresB.length, 1);
+        return (
+          <div
+            key={`${match[0]}-${index}`}
+            className="flex items-center justify-between px-4 py-3 text-sm"
+          >
+            <span className="w-10 font-black text-white">
+              {teamA}
+            </span>
 
-                              const hasScoreB =
-                                match[17] !== '' &&
-                                match[17] !== null &&
-                                match[17] !== undefined;
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {Array.from({ length: totalSets }).map((_, i) => {
+                const a = Number(scoresA[i]);
+                const b = Number(scoresB[i]);
 
-                              return (
-                                <div
-                                  key={`${match[0]}-${index}`}
-                                  className="grid grid-cols-[42px_1fr_65px_1fr] items-center gap-2 px-3 py-2 text-xs"
-                                >
-                                  <span className="font-black text-white">
-                                    {teamA}
-                                  </span>
+                return (
+                  <span key={i} className="font-mono font-black">
+                    <span
+  className={
+    scoresA[i] === undefined
+      ? 'text-slate-600'
+      : a > b
+        ? 'text-emerald-400'
+        : a < b
+          ? 'text-red-400'
+          : 'text-slate-300'
+  }
+>
+  {scoresA[i] ?? '-'}
+</span>
 
-                                  <span className="truncate text-slate-400">
-                                    {match[7] || ''}
-                                  </span>
+<span className="text-slate-500">-</span>
 
-                                  <span
-                                    className={`text-center font-mono font-black ${
-                                      hasScoreA &&
-                                      hasScoreB
-                                        ? 'text-emerald-400'
-                                        : 'text-slate-600'
-                                    }`}
-                                  >
-                                    {hasScoreA &&
-                                    hasScoreB
-                                      ? `${match[16]}–${match[17]}`
-                                      : '–'}
-                                  </span>
+<span
+  className={
+    scoresB[i] === undefined
+      ? 'text-slate-600'
+      : b > a
+        ? 'text-emerald-400'
+        : b < a
+          ? 'text-red-400'
+          : 'text-slate-300'
+  }
+>
+  {scoresB[i] ?? '-'}
+</span>
+                  </span>
+                );
+              })}
+            </div>
 
-                                  <span className="text-right font-black text-white">
-                                    {teamB}
-                                  </span>
-                                </div>
-                              );
-                            }
-                          )
-                        ) : (
-                          <div className="px-3 py-8 text-center text-xs text-slate-500">
-                            ยังไม่มีการแข่งขันในสาย{' '}
-                            {group}
-                          </div>
-                        )}
-                      </div>
-                    </div>
+            <span className="w-10 text-right font-black text-white">
+              {teamB}
+            </span>
+          </div>
+        );
+      })
+    ) : (
+      <div className="px-3 py-8 text-center text-xs text-slate-500">
+        ยังไม่มีการแข่งขันในสาย {group}
+      </div>
+    )}
+  </div>
+</div>
                   </div>
                 </section>
               );
