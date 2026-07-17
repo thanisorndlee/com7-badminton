@@ -37,8 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   <div className="pointer-events-none absolute inset-0 z-10 bg-black/65" />
 
-  <div className="relative z-20 flex min-w-[1180px] flex-row items-center gap-8 px-4 py-3.5 select-none md:px-8">
-    {/* LOGO + SPONSOR */}
+<div className="relative z-20 flex w-full flex-col gap-3 px-4 py-3.5 select-none lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-8">
+      {/* LOGO + SPONSOR */}
     <div className="relative z-20 flex flex-shrink-0 items-center gap-6">
       <div className="flex flex-shrink-0 select-none flex-col font-black uppercase leading-none tracking-wider">
         <span className="text-xs font-bold tracking-[0.25em] text-slate-400">
@@ -82,8 +82,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </div>
 
     {/* MENU */}
-    <div className="relative z-20 flex flex-row items-center gap-6 whitespace-nowrap text-sm font-normal tracking-wide">
-      <Link href="/" className={getMenuClass('/')}>
+<div className="no-scrollbar relative z-20 flex w-full touch-pan-x items-center gap-6 overflow-x-auto whitespace-nowrap text-sm font-normal tracking-wide lg:w-auto lg:overflow-visible">
+        <Link href="/" className={getMenuClass('/')}>
         หน้าหลัก
       </Link>
 
