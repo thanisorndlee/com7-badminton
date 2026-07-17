@@ -379,9 +379,7 @@ export default function ResultsPage() {
                       {group}
                     </div>
 
-                    <h2
-                      className={`text-xl font-black ${style.text}`}
-                    >
+                    <h2 className="text-xl font-black text-white">
                       สาย {group}
                     </h2>
                   </div>
@@ -465,95 +463,120 @@ export default function ResultsPage() {
                       </table>
                     </div>
 {/* Match results */}
-<div>
+<div className="flex min-h-[432px] flex-col">
   <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
     ผลการแข่งขัน
   </div>
 
-  <div className="divide-y divide-white/10">
-    {matchesInGroup.length > 0 ? (
-      matchesInGroup.map((match, index) => {
-        const teamA = String(match[6] || '-');
-        const teamB = String(match[11] || '-');
+  {/* แบ่งพื้นที่เป็น 6 แมตช์เท่า ๆ กัน */}
+  <div className="grid flex-1 grid-rows-6 divide-y divide-white/10">
+    {Array.from({ length: 6 }).map((_, index) => {
+      const match = matchesInGroup[index];
 
-        const scoresA = splitScores(match[16]);
-        const scoresB = splitScores(match[17]);
-
-        const totalSets = Math.max(scoresA.length, scoresB.length, 1);
+      /* กรณีสายนี้ยังมีข้อมูลไม่ครบ 6 แมตช์ */
+      if (!match) {
         return (
           <div
-            key={`${match[0]}-${index}`}
-            className="flex min-h-[72px] items-center px-4 py-3 text-sm"
+            key={`empty-${group}-${index}`}
+            className="grid grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
-            <span className="w-10 font-black text-white">
-              {teamA}
+            <span className="font-black text-slate-600">-</span>
+
+            <span className="text-center text-xs text-slate-600">
+              รอการแข่งขัน
             </span>
 
-            <div className="grid flex-1 grid-cols-[50px_1fr_50px] items-start gap-2">
-  {/* ทีม A */}
-  <span className="pt-0.5 text-left font-black text-white">
-    {teamA}
-  </span>
+            <span className="text-right font-black text-slate-600">
+              -
+            </span>
+          </div>
+        );
+      }
 
-  {/* คะแนนแต่ละเซต */}
-  <div className="flex flex-col items-center gap-1 font-mono font-black">
-    {Array.from({ length: totalSets }).map((_, i) => {
-      const a = Number(scoresA[i]);
-      const b = Number(scoresB[i]);
+      const teamA = String(match[6] || '-');
+      const teamB = String(match[11] || '-');
+
+      /* ดึงคะแนนจากคอลัมน์ของแต่ละเซต */
+      const scoreSets = [
+        [match[16], match[17]],
+        [match[18], match[19]],
+        [match[20], match[21]],
+      ].filter(
+        ([scoreA, scoreB]) =>
+          scoreA !== '' &&
+          scoreA !== null &&
+          scoreA !== undefined &&
+          scoreB !== '' &&
+          scoreB !== null &&
+          scoreB !== undefined
+      );
 
       return (
-        <div key={i} className="flex items-center justify-center">
-          <span
-            className={
-              scoresA[i] === undefined
-                ? 'text-slate-600'
-                : a > b
-                  ? 'text-emerald-400'
-                  : a < b
-                    ? 'text-red-400'
-                    : 'text-slate-300'
-            }
-          >
-            {scoresA[i] ?? '-'}
+        <div
+          key={`${match[0]}-${index}`}
+          className="grid grid-cols-[50px_1fr_50px] items-center gap-2 px-4 py-2 text-sm"
+        >
+          {/* ทีม A แสดงครั้งเดียว */}
+          <span className="self-start pt-1 font-black text-white">
+            {teamA}
           </span>
 
-          <span className="px-0.5 text-slate-500">-</span>
+          {/* คะแนนแต่ละเซตอยู่ตรงกลาง */}
+          <div className="flex flex-col items-center justify-center gap-0.5 font-mono font-black">
+            {scoreSets.length > 0 ? (
+              scoreSets.map(([scoreA, scoreB], scoreIndex) => {
+                const a = Number(scoreA);
+                const b = Number(scoreB);
 
-          <span
-            className={
-              scoresB[i] === undefined
-                ? 'text-slate-600'
-                : b > a
-                  ? 'text-emerald-400'
-                  : b < a
-                    ? 'text-red-400'
-                    : 'text-slate-300'
-            }
-          >
-            {scoresB[i] ?? '-'}
+                return (
+                  <div
+                    key={scoreIndex}
+                    className="flex items-center justify-center"
+                  >
+                    <span
+                      className={
+                        a > b
+                          ? 'text-emerald-400'
+                          : a < b
+                            ? 'text-red-400'
+                            : 'text-slate-300'
+                      }
+                    >
+                      {scoreA}
+                    </span>
+
+                    <span className="px-0.5 text-slate-500">
+                      -
+                    </span>
+
+                    <span
+                      className={
+                        b > a
+                          ? 'text-emerald-400'
+                          : b < a
+                            ? 'text-red-400'
+                            : 'text-slate-300'
+                      }
+                    >
+                      {scoreB}
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <span className="text-xs font-medium text-slate-500">
+                รอการแข่งขัน
+              </span>
+            )}
+          </div>
+
+          {/* ทีม B แสดงครั้งเดียว */}
+          <span className="self-start pt-1 text-right font-black text-white">
+            {teamB}
           </span>
         </div>
       );
     })}
-  </div>
-
-  {/* ทีม B */}
-  <span className="pt-0.5 text-right font-black text-white">
-    {teamB}
-  </span>
-</div>
-
-            <span className="w-10 text-right font-black text-white">
-              {teamB}
-            </span>
-          </div>
-        );
-      })
-    ) : (
-      <div className="px-3 py-8 text-center text-xs text-slate-500">
-        ยังไม่มีการแข่งขันในสาย {group}
-      </div>
-    )}
   </div>
 </div>
                   </div>
