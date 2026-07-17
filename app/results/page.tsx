@@ -12,12 +12,13 @@ const GROUP_STYLES: Record<
     background: string;
     badge: string;
   }
-> = {  A: {
-    text: 'text-white',
-    border: 'border-emerald-300/60',
-    background: 'bg-emerald-500/10',
-    badge: 'bg-emerald-500 border-emerald-300 shadow-[0_0_18px_rgba(16,185,129,.45)]',
-  },
+> = {  
+  A: {
+  text: 'text-amber-400',
+  border: 'border-amber-300/60',
+  background: 'bg-amber-500/10',
+  badge: 'bg-amber-500 border-amber-300 text-black shadow-[0_0_18px_rgba(245,158,11,.45)]',
+},
   B: {
     text: 'text-white',
     border: 'border-blue-300/60',
