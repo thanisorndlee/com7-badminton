@@ -371,16 +371,16 @@ export default function ResultsPage() {
                 >
                   {/* Group title */}
                   <div
-                    className={`flex items-center gap-3 border-b px-4 py-3 ${style.border} ${style.background}`}
+                    className={`flex items-center gap-3 border-b px-4 py-2 ${style.border} ${style.background}`}
                   >
                     <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-full border text-lg font-black text-white ${style.badge}`}
+                    className={`flex h-9 w-9 items-center justify-center rounded-full border text-base font-black text-white ${style.badge}`}                    
                     >
                       {group}
                     </div>
 
-                    <h2 className="text-xl font-black text-white">
-                      สาย {group}
+                    <h2 className="text-lg font-black text-white">
+                        สาย {group}
                     </h2>
                   </div>
 
@@ -388,7 +388,7 @@ export default function ResultsPage() {
 
                     {/* Standing table */}
                     <div className="border-b border-white/10 lg:border-b-0 lg:border-r">
-                      <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
+                      <div className="border-b border-white/10 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
                         ตารางคะแนน
                       </div>
 
@@ -464,11 +464,11 @@ export default function ResultsPage() {
                     </div>
 {/* Match results */}
 <div className="flex flex-col">
-  <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
+  <div className="border-b border-white/10 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
     ผลการแข่งขัน
   </div>
 
-  <div className="grid auto-rows-[46px] divide-y divide-white/10">
+  <div className="grid auto-rows-[38px] divide-y divide-white/10">
     {Array.from({ length: 6 }).map((_, index) => {
       const match = matchesInGroup[index];
 
@@ -476,7 +476,7 @@ export default function ResultsPage() {
         return (
           <div
             key={`empty-${group}-${index}`}
-            className="grid h-[46px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+            className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
             <span className="font-black text-slate-600">
               -
@@ -511,20 +511,23 @@ export default function ResultsPage() {
       return (
         <div
           key={`${match[0]}-${index}`}
-          className="grid h-[46px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+          className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
         >
           <span className="font-black text-white">
             {teamA}
           </span>
 
-          <div className="flex flex-col items-center justify-center font-mono text-xs font-black leading-[14px]">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-3 font-mono text-xs font-black">
             {scoreSets.length > 0 ? (
               scoreSets.map(([scoreA, scoreB], scoreIndex) => {
                 const a = Number(scoreA);
                 const b = Number(scoreB);
 
                 return (
-                  <div key={scoreIndex}>
+                  <div
+                    key={scoreIndex}
+                    className="flex items-center"
+                  >
                     <span
                       className={
                         a > b
