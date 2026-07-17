@@ -468,19 +468,19 @@ export default function ResultsPage() {
     ผลการแข่งขัน
   </div>
 
-  {/* แบ่งพื้นที่เป็น 6 แมตช์เท่า ๆ กัน */}
-<div className="grid grid-rows-6 divide-y divide-white/10">
+  <div className="grid auto-rows-[46px] divide-y divide-white/10">
     {Array.from({ length: 6 }).map((_, index) => {
       const match = matchesInGroup[index];
 
-      /* กรณีสายนี้ยังมีข้อมูลไม่ครบ 6 แมตช์ */
       if (!match) {
         return (
           <div
             key={`empty-${group}-${index}`}
-className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+            className="grid h-[46px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
-            <span className="font-black text-slate-600">-</span>
+            <span className="font-black text-slate-600">
+              -
+            </span>
 
             <span className="text-center text-xs text-slate-600">
               รอการแข่งขัน
@@ -496,7 +496,6 @@ className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 t
       const teamA = String(match[6] || '-');
       const teamB = String(match[11] || '-');
 
-      /* ดึงคะแนนจากคอลัมน์ของแต่ละเซต */
       const scoreSets = [
         [match[16], match[17]],
         [match[18], match[19]],
@@ -504,35 +503,28 @@ className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 t
       ].filter(
         ([scoreA, scoreB]) =>
           scoreA !== '' &&
-          scoreA !== null &&
-          scoreA !== undefined &&
+          scoreA != null &&
           scoreB !== '' &&
-          scoreB !== null &&
-          scoreB !== undefined
+          scoreB != null
       );
 
       return (
         <div
           key={`${match[0]}-${index}`}
-          className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 py-2 text-sm"
-                  >
-          {/* ทีม A แสดงครั้งเดียว */}
-          <span className="self-start pt-1 font-black text-white">
+          className="grid h-[46px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+        >
+          <span className="font-black text-white">
             {teamA}
           </span>
 
-          {/* คะแนนแต่ละเซตอยู่ตรงกลาง */}
-          <div className="flex flex-col items-center justify-center gap-0.5 font-mono font-black">
+          <div className="flex flex-col items-center justify-center font-mono text-xs font-black leading-[14px]">
             {scoreSets.length > 0 ? (
               scoreSets.map(([scoreA, scoreB], scoreIndex) => {
                 const a = Number(scoreA);
                 const b = Number(scoreB);
 
                 return (
-                  <div
-                    key={scoreIndex}
-                    className="flex items-center justify-center"
-                  >
+                  <div key={scoreIndex}>
                     <span
                       className={
                         a > b
@@ -564,14 +556,13 @@ className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 t
                 );
               })
             ) : (
-              <span className="text-xs font-medium text-slate-500">
+              <span className="font-medium text-slate-600">
                 รอการแข่งขัน
               </span>
             )}
           </div>
 
-          {/* ทีม B แสดงครั้งเดียว */}
-          <span className="self-start pt-1 text-right font-black text-white">
+          <span className="text-right font-black text-white">
             {teamB}
           </span>
         </div>
@@ -637,14 +628,15 @@ const setWinB = scoreSets.filter(
     ? teamB
     : '';
         return (
-          <article
-            key={`${match[0]}-${index}`}
-            className="overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)]"
-          >
-            <div className="grid grid-cols-1 xl:grid-cols-[130px_1fr_230px_1fr_180px]">
+          <div
+  key={`${match[0]}-${index}`}
+  className="w-full overflow-x-auto rounded-2xl"
+>
+  <article className="min-w-[1100px] overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)]">
+    <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
 
               {/* สาย */}
-              <div className="flex items-center justify-center border-b border-white/10 p-5 xl:border-b-0 xl:border-r">
+              <div className="flex items-center justify-center border-r border-white/10 p-5">
                 <span
                   className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
                     GROUP_BUTTONS[group] ||
@@ -656,7 +648,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* ทีม A */}
-              <div className="border-b border-white/10 p-5 xl:border-b-0 xl:border-r">
+              <div className="border-r border-white/10 p-5 ">
                 <p className="mb-3 text-xl font-black text-emerald-400">
                   ทีม {teamA}
                 </p>
@@ -679,7 +671,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* คะแนน */}
-              <div className="flex flex-col items-center justify-center border-b border-white/10 p-5 xl:border-b-0 xl:border-r">
+              <div className="flex flex-col items-center justify-center border-r border-white/10 p-5">
                 <span className="mb-2 text-3xl">🏸</span>
 
                 <div className="text-4xl font-black text-emerald-400">
@@ -705,7 +697,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* ทีม B */}
-              <div className="border-b border-white/10 p-5 xl:border-b-0 xl:border-r">
+              <div className="border-r border-white/10 p-5">
                 <p className="mb-3 text-xl font-black text-white">
                   ทีม {teamB}
                 </p>
@@ -741,6 +733,7 @@ const setWinB = scoreSets.filter(
               </div>
             </div>
           </article>
+          </div>
         );
       })}
 
