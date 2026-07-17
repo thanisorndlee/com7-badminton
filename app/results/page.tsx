@@ -17,37 +17,37 @@ const GROUP_STYLES: Record<
     text: 'text-emerald-400',
     border: 'border-emerald-500/40',
     background: 'bg-emerald-500/5',
-    badge: 'bg-emerald-500/90 border-emerald-300/40',
+badge: 'shadow-[0_0_18px_rgba(16,185,129,.35)]',
   },
   B: {
     text: 'text-blue-400',
     border: 'border-blue-500/40',
     background: 'bg-blue-500/5',
-    badge: 'bg-blue-500/90 border-blue-300/40',
+badge: 'shadow-[0_0_18px_rgba(59,130,246,.35)]'
   },
   C: {
     text: 'text-rose-400',
     border: 'border-rose-500/40',
     background: 'bg-rose-500/5',
-    badge: 'bg-rose-500/90 border-rose-300/40',
+badge: 'shadow-[0_0_18px_rgba(236,72,153,.35)]'
   },
   D: {
     text: 'text-yellow-400',
     border: 'border-yellow-500/40',
     background: 'bg-yellow-500/5',
-    badge: 'bg-yellow-500/90 border-yellow-300/40',
+badge: 'shadow-[0_0_18px_rgba(245,158,11,.35)]'
   },
   E: {
     text: 'text-violet-400',
     border: 'border-violet-500/40',
     background: 'bg-violet-500/5',
-    badge: 'bg-violet-500/90 border-violet-300/40',
+badge: 'shadow-[0_0_18px_rgba(168,85,247,.35)]'
   },
   F: {
     text: 'text-orange-400',
     border: 'border-orange-500/40',
     background: 'bg-orange-500/5',
-    badge: 'bg-orange-500/90 border-orange-300/40',
+badge: 'shadow-[0_0_18px_rgba(6,182,212,.35)]'
   },
 };
 
@@ -315,11 +315,11 @@ export default function ResultsPage() {
               onClick={() =>
                 setSelectedGroup('ทั้งหมด')
               }
-              className={`min-w-[76px] rounded-lg border px-4 py-2 text-sm font-black transition ${
-                selectedGroup === 'ทั้งหมด'
-                  ? 'border-emerald-400 bg-emerald-600 text-white'
-                  : 'border-white/20 bg-slate-950/70 text-slate-300'
-              }`}
+              className={`min-w-[76px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
+  selectedGroup === 'ทั้งหมด'
+    ? 'border-emerald-400 bg-[#081221] text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,.35)]'
+    : 'border-white/20 bg-[#081221] text-slate-300 hover:bg-[#0d1b2d]'
+}`}
             >
               ทั้งหมด
             </button>
@@ -334,11 +334,11 @@ export default function ResultsPage() {
                   onClick={() =>
                     setSelectedGroup(group)
                   }
-                  className={`min-w-[62px] rounded-lg border px-4 py-2 text-sm font-black transition ${
-                    selectedGroup === group
-                      ? `${style.badge} text-white`
-                      : `${style.border} bg-slate-950/70 ${style.text}`
-                  }`}
+                  className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all duration-200 ${
+  selectedGroup === group
+    ? `${style.border} bg-[#081221] ${style.text} shadow-lg`
+    : `${style.border} bg-[#081221] ${style.text} hover:bg-[#0d1b2d]`
+}`}
                 >
                   {group}
                 </button>
