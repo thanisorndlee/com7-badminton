@@ -463,13 +463,13 @@ export default function ResultsPage() {
                       </table>
                     </div>
 {/* Match results */}
-<div className="flex min-h-[432px] flex-col">
+<div className="flex flex-col">
   <div className="border-b border-white/10 bg-black/30 px-3 py-2 text-center text-xs font-black text-slate-200">
     ผลการแข่งขัน
   </div>
 
   {/* แบ่งพื้นที่เป็น 6 แมตช์เท่า ๆ กัน */}
-  <div className="grid flex-1 grid-rows-6 divide-y divide-white/10">
+<div className="grid grid-rows-6 divide-y divide-white/10">
     {Array.from({ length: 6 }).map((_, index) => {
       const match = matchesInGroup[index];
 
@@ -478,7 +478,7 @@ export default function ResultsPage() {
         return (
           <div
             key={`empty-${group}-${index}`}
-            className="grid grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
             <span className="font-black text-slate-600">-</span>
 
@@ -514,8 +514,8 @@ export default function ResultsPage() {
       return (
         <div
           key={`${match[0]}-${index}`}
-          className="grid grid-cols-[50px_1fr_50px] items-center gap-2 px-4 py-2 text-sm"
-        >
+          className="grid min-h-[58px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 py-2 text-sm"
+                  >
           {/* ทีม A แสดงครั้งเดียว */}
           <span className="self-start pt-1 font-black text-white">
             {teamA}
