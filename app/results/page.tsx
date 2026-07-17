@@ -281,38 +281,73 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-5">
-          <div className="inline-flex w-fit overflow-hidden rounded-lg border border-white/20 bg-slate-950/70">
-            <button
-              type="button"
-              onClick={() =>
-                setActiveTab('ตารางคะแนน')
-              }
-              className={`px-6 py-3 text-sm font-black transition ${
-                activeTab === 'ตารางคะแนน'
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              ตารางคะแนน
-            </button>
+        {/* Tabs + Group filter */}
+<div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 
-            <button
-              type="button"
-              onClick={() =>
-                setActiveTab('ผลการแข่งขันทั้งหมด')
-              }
-              className={`px-6 py-3 text-sm font-black transition ${
-                activeTab === 'ผลการแข่งขันทั้งหมด'
-                  ? 'bg-emerald-600 text-white'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              ผลการแข่งขันทั้งหมด
-            </button>
-          </div>
-        </div>
+  {/* Tabs อยู่ฝั่งซ้าย */}
+  <div className="inline-flex w-fit overflow-hidden rounded-lg border border-white/20 bg-slate-950/70">
+    <button
+      type="button"
+      onClick={() => setActiveTab('ตารางคะแนน')}
+      className={`px-6 py-3 text-sm font-black transition ${
+        activeTab === 'ตารางคะแนน'
+          ? 'bg-emerald-600 text-white'
+          : 'text-slate-400 hover:text-white'
+      }`}
+    >
+      ตารางคะแนน
+    </button>
+
+    <button
+      type="button"
+      onClick={() => {
+        setActiveTab('ผลการแข่งขันทั้งหมด');
+        setSelectedGroup('ทั้งหมด');
+      }}
+      className={`px-6 py-3 text-sm font-black transition ${
+        activeTab === 'ผลการแข่งขันทั้งหมด'
+          ? 'bg-emerald-600 text-white'
+          : 'text-slate-400 hover:text-white'
+      }`}
+    >
+      ผลการแข่งขันทั้งหมด
+    </button>
+  </div>
+
+  {/* ปุ่มสาย แสดงเฉพาะตอนกดผลการแข่งขันทั้งหมด */}
+  {activeTab === 'ผลการแข่งขันทั้งหมด' && (
+    <div className="flex flex-wrap gap-2 lg:justify-end">
+      <button
+        type="button"
+        onClick={() => setSelectedGroup('ทั้งหมด')}
+        className={`min-w-[82px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
+          selectedGroup === 'ทั้งหมด'
+            ? 'border-emerald-400 bg-[#081221] text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,.35)]'
+            : 'border-white/20 bg-[#081221] text-slate-300 hover:bg-[#0d1b2d]'
+        }`}
+      >
+        ทั้งหมด
+      </button>
+
+      {GROUPS.map((group) => (
+        <button
+          key={group}
+          type="button"
+          onClick={() => setSelectedGroup(group)}
+          className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all duration-200 ${
+            GROUP_BUTTONS[group]
+          } ${
+            selectedGroup === group
+              ? 'scale-105 ring-2 ring-white/60'
+              : 'opacity-90 hover:opacity-100'
+          }`}
+        >
+          {group}
+        </button>
+      ))}
+    </div>
+  )}
+</div>
 
         {!isFetched ? (
           <div className="py-24 text-center text-slate-400">
@@ -518,36 +553,6 @@ export default function ResultsPage() {
  /* ผลการแข่งขันทั้งหมด */
 <div>
   {/* ปุ่มกรองสาย แสดงเฉพาะแท็บนี้ */}
-  <div className="mb-6 flex flex-wrap justify-end gap-2">
-    <button
-      type="button"
-      onClick={() => setSelectedGroup('ทั้งหมด')}
-      className={`min-w-[82px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
-        selectedGroup === 'ทั้งหมด'
-          ? 'border-emerald-400 bg-[#081221] text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,.35)]'
-          : 'border-white/20 bg-[#081221] text-slate-300 hover:bg-[#0d1b2d]'
-      }`}
-    >
-      ทั้งหมด
-    </button>
-
-    {GROUPS.map((group) => (
-      <button
-        key={group}
-        type="button"
-        onClick={() => setSelectedGroup(group)}
-        className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all duration-200 ${
-          GROUP_BUTTONS[group]
-        } ${
-          selectedGroup === group
-            ? 'scale-105 ring-2 ring-white/60'
-            : 'opacity-90 hover:opacity-100'
-        }`}
-      >
-        {group}
-      </button>
-    ))}
-  </div>
 
   {/* รายการการ์ดผลการแข่งขัน */}
   <div className="space-y-4">
@@ -570,24 +575,31 @@ export default function ResultsPage() {
         const set3A = match[20];
         const set3B = match[21];
 
-        const setWinA = match[22] || 0;
-        const setWinB = match[23] || 0;
-        const winner = String(match[24] || '');
-
         const scoreSets = [
-          [set1A, set1B],
-          [set2A, set2B],
-          [set3A, set3B],
-        ].filter(
-          ([scoreA, scoreB]) =>
-            scoreA !== '' &&
-            scoreA !== null &&
-            scoreA !== undefined &&
-            scoreB !== '' &&
-            scoreB !== null &&
-            scoreB !== undefined
-        );
+  [set1A, set1B],
+  [set2A, set2B],
+  [set3A, set3B],
+].filter(
+  ([a, b]) =>
+    a !== '' &&
+    a != null &&
+    b !== '' &&
+    b != null
+);
 
+const setWinA = scoreSets.filter(
+  ([a, b]) => Number(a) > Number(b)
+).length;
+
+const setWinB = scoreSets.filter(
+  ([a, b]) => Number(b) > Number(a)
+).length;
+        const winner =
+  setWinA > setWinB
+    ? teamA
+    : setWinB > setWinA
+    ? teamB
+    : '';
         return (
           <article
             key={`${match[0]}-${index}`}
@@ -622,7 +634,11 @@ export default function ResultsPage() {
                 </p>
 
                 <p className="mt-3 text-sm font-black text-emerald-400">
-                  แผนก {match[8] || '-'}
+                  แผนก {match[8]}
+
+                  {match[10] && match[10] !== match[8]
+                    ? ` / ${match[10]}`
+                    : ''}
                 </p>
               </div>
 
@@ -667,7 +683,11 @@ export default function ResultsPage() {
                 </p>
 
                 <p className="mt-3 text-sm font-black text-emerald-400">
-                  แผนก {match[13] || '-'}
+                  แผนก {match[13]}
+
+                  {match[15] && match[15] !== match[13]
+                    ? ` / ${match[15]}`
+                    : ''}
                 </p>
               </div>
 
