@@ -4,53 +4,44 @@ import { useEffect, useMemo, useState } from 'react';
 
 const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-const GROUP_STYLES: Record<
-  string,
-  {
-    text: string;
-    border: string;
-    background: string;
-    badge: string;
-  }
-> = {
+const GROUP_STYLES = {
   A: {
-    text: 'text-emerald-400',
-    border: 'border-emerald-500/40',
-    background: 'bg-emerald-500/5',
-badge: 'shadow-[0_0_18px_rgba(16,185,129,.35)]',
+    text: 'text-white',
+    border: 'border-emerald-300/60',
+    background: 'bg-emerald-500/10',
+    badge: 'bg-emerald-500 border-emerald-300 shadow-[0_0_18px_rgba(16,185,129,.45)]',
   },
   B: {
-    text: 'text-blue-400',
-    border: 'border-blue-500/40',
-    background: 'bg-blue-500/5',
-badge: 'shadow-[0_0_18px_rgba(59,130,246,.35)]'
+    text: 'text-white',
+    border: 'border-blue-300/60',
+    background: 'bg-blue-500/10',
+    badge: 'bg-blue-500 border-blue-300 shadow-[0_0_18px_rgba(59,130,246,.45)]',
   },
   C: {
-    text: 'text-rose-400',
-    border: 'border-rose-500/40',
-    background: 'bg-rose-500/5',
-badge: 'shadow-[0_0_18px_rgba(236,72,153,.35)]'
+    text: 'text-white',
+    border: 'border-violet-300/60',
+    background: 'bg-violet-500/10',
+    badge: 'bg-violet-500 border-violet-300 shadow-[0_0_18px_rgba(139,92,246,.45)]',
   },
   D: {
-    text: 'text-yellow-400',
-    border: 'border-yellow-500/40',
-    background: 'bg-yellow-500/5',
-badge: 'shadow-[0_0_18px_rgba(245,158,11,.35)]'
+    text: 'text-white',
+    border: 'border-orange-300/60',
+    background: 'bg-orange-500/10',
+    badge: 'bg-orange-500 border-orange-300 shadow-[0_0_18px_rgba(249,115,22,.45)]',
   },
   E: {
-    text: 'text-violet-400',
-    border: 'border-violet-500/40',
-    background: 'bg-violet-500/5',
-badge: 'shadow-[0_0_18px_rgba(168,85,247,.35)]'
+    text: 'text-white',
+    border: 'border-pink-300/60',
+    background: 'bg-pink-500/10',
+    badge: 'bg-pink-500 border-pink-300 shadow-[0_0_18px_rgba(236,72,153,.45)]',
   },
   F: {
-    text: 'text-orange-400',
-    border: 'border-orange-500/40',
-    background: 'bg-orange-500/5',
-badge: 'shadow-[0_0_18px_rgba(6,182,212,.35)]'
+    text: 'text-white',
+    border: 'border-cyan-300/60',
+    background: 'bg-cyan-500/10',
+    badge: 'bg-cyan-500 border-cyan-300 shadow-[0_0_18px_rgba(6,182,212,.45)]',
   },
 };
-
 function getRankDisplay(rank: number) {
   if (rank === 1) return '🥇';
   if (rank === 2) return '🥈';
@@ -336,8 +327,8 @@ export default function ResultsPage() {
                   }
                   className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all duration-200 ${
   selectedGroup === group
-    ? `${style.border} bg-[#081221] ${style.text} shadow-lg`
-    : `${style.border} bg-[#081221] ${style.text} hover:bg-[#0d1b2d]`
+    ? `${style.badge}`
+    : `${style.badge} opacity-90 hover:opacity-100`
 }`}
                 >
                   {group}
