@@ -108,15 +108,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </Link>
 
       <Link
-        href="/register"
-        className={`flex-shrink-0 whitespace-nowrap rounded-full border px-5 py-2 font-semibold transition-all duration-500 ease-in-out ${
-          pathname === '/register'
-            ? 'border-[#39ff14] bg-[#39ff14] text-black shadow-lg shadow-[#39ff14]/40'
-            : 'border-white/20 bg-white/10 text-slate-200 shadow-md backdrop-blur-sm hover:border-zinc-500 hover:bg-zinc-700 hover:text-white'
-        }`}
-      >
-        สมัครเข้าร่วมการแข่งขัน
-      </Link>
+  href="/register"
+  className={`flex-shrink-0 whitespace-nowrap rounded-full border px-5 py-2 font-semibold transition-all duration-500 ease-in-out ${
+    pathname === '/register'
+      ? 'border-[#39ff14] bg-[#39ff14] text-black shadow-lg shadow-[#39ff14]/40'
+      : 'border-white/20 bg-white/10 text-slate-200 shadow-md backdrop-blur-sm hover:border-zinc-500 hover:bg-zinc-700 hover:text-white'
+  }`}
+>
+  ดูย้อนหลัง
+</Link>
     </div>
   </div>
 </nav>
