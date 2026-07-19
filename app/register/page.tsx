@@ -376,10 +376,18 @@ export default function ReplayPage() {
                               href={replayUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="mt-3 flex w-full max-w-[280px] items-center justify-center gap-2 rounded-lg border border-emerald-400/70 bg-black/30 px-4 py-2 text-sm font-black text-white transition hover:bg-emerald-500 hover:text-black"
+                              className="mt-3 flex w-full max-w-[280px] items-center justify-center gap-2 rounded-lg border border-red-500/70 bg-red-500/10 px-4 py-2 text-sm font-black text-red-400 transition-all duration-300 hover:bg-red-600 hover:text-white hover:border-red-400 hover:shadow-[0_0_18px_rgba(239,68,68,.45)]"
                             >
-                              <span>▶</span>
-                              ดูย้อนหลัง YouTube
+                              <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path d="M21.8 8.001a2.75 2.75 0 00-1.936-1.946C18.16 5.5 12 5.5 12 5.5s-6.16 0-7.864.555A2.75 2.75 0 002.2 8.001C1.65 9.72 1.65 12 1.65 12s0 2.28.55 3.999a2.75 2.75 0 001.936 1.946C5.84 18.5 12 18.5 12 18.5s6.16 0 7.864-.555a2.75 2.75 0 001.936-1.946c.55-1.719.55-3.999.55-3.999s0-2.28-.55-3.999zM10 15.5v-7l6 3.5-6 3.5z" />
+                            </svg>
+
+                            <span>ดูย้อนหลัง YouTube</span>
                             </a>
                           ) : (
                             <div className="mt-3 w-full max-w-[280px] rounded-lg border border-slate-600/60 px-4 py-2 text-sm text-slate-500">
