@@ -471,7 +471,7 @@ export default function ResultsPage() {
     ผลการแข่งขัน
   </div>
 
-  <div className="grid auto-rows-[38px] divide-y divide-white/10">
+  <div className="grid auto-rows-[52px] divide-y divide-white/20">
     {Array.from({ length: 6 }).map((_, index) => {
       const match = matchesInGroup[index];
 
@@ -479,7 +479,7 @@ export default function ResultsPage() {
         return (
           <div
             key={`empty-${group}-${index}`}
-            className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+            className="grid h-[52px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
             <span className="font-black text-slate-600">
               -
@@ -514,59 +514,63 @@ export default function ResultsPage() {
       return (
         <div
           key={`${match[0]}-${index}`}
-          className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+          className="grid h-[52px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
         >
           <span className="font-black text-white">
             {teamA}
           </span>
 
-          <div className="flex flex-row flex-wrap items-center justify-center gap-3 font-mono text-xs font-black">
-            {scoreSets.length > 0 ? (
-              scoreSets.map(([scoreA, scoreB], scoreIndex) => {
-                const a = Number(scoreA);
-                const b = Number(scoreB);
+          <div className="flex items-center justify-center gap-3">
+  {scoreSets.length > 0 ? (
+    scoreSets.map(([scoreA, scoreB], scoreIndex) => {
+      const a = Number(scoreA);
+      const b = Number(scoreB);
 
-                return (
-                  <div
-                    key={scoreIndex}
-                    className="flex items-center"
-                  >
-                    <span
-                      className={
-                        a > b
-                          ? 'text-emerald-400'
-                          : a < b
-                            ? 'text-red-400'
-                            : 'text-slate-300'
-                      }
-                    >
-                      {scoreA}
-                    </span>
+      return (
+        <div
+          key={scoreIndex}
+          className="flex flex-col items-center border-l border-white/20 pl-3 first:border-l-0 first:pl-0"
+        >
+          <span className="mb-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+            Set {scoreIndex + 1}
+          </span>
 
-                    <span className="px-0.5 text-slate-500">
-                      -
-                    </span>
+          <div className="flex items-center gap-1 font-mono text-xs font-black">
+            <span
+              className={
+                a > b
+                  ? 'text-emerald-400'
+                  : a < b
+                    ? 'text-red-400'
+                    : 'text-slate-300'
+              }
+            >
+              {scoreA}
+            </span>
 
-                    <span
-                      className={
-                        b > a
-                          ? 'text-emerald-400'
-                          : b < a
-                            ? 'text-red-400'
-                            : 'text-slate-300'
-                      }
-                    >
-                      {scoreB}
-                    </span>
-                  </div>
-                );
-              })
-            ) : (
-              <span className="font-medium text-slate-600">
-                รอการแข่งขัน
-              </span>
-            )}
+            <span className="text-slate-500">-</span>
+
+            <span
+              className={
+                b > a
+                  ? 'text-emerald-400'
+                  : b < a
+                    ? 'text-red-400'
+                    : 'text-slate-300'
+              }
+            >
+              {scoreB}
+            </span>
           </div>
+        </div>
+      );
+    })
+  ) : (
+    <span className="font-medium text-slate-600">
+      รอการแข่งขัน
+    </span>
+  )}
+</div>
 
           <span className="text-right font-black text-white">
             {teamB}
