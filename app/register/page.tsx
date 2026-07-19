@@ -171,7 +171,7 @@ export default function ReplayPage() {
         {/* Header */}
         <div className="mb-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <span className="inline-flex rounded-md border border-red-500/30 bg-red-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-red-400">
+            <span className="inline-flex rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-emerald-400">
               Tournament Replay
             </span>
 
@@ -194,7 +194,7 @@ export default function ReplayPage() {
                   onClick={() => setSelectedDate(date)}
                   className={`flex-shrink-0 rounded-xl border px-5 py-3 text-sm font-black transition ${
                     selectedDate === date
-                      ? 'border-red-500 bg-red-500 text-white shadow-[0_0_20px_rgba(239,68,68,.35)]'
+                      ? 'border-emerald-400 bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,.35)]'
                       : 'border-white/20 bg-slate-950/70 text-slate-300 hover:border-white/40'
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function ReplayPage() {
                   setSearchTerm(event.target.value)
                 }
                 placeholder="ค้นหาแมตช์ ทีม ผู้เล่น หรือสนาม"
-                className="w-full rounded-xl border border-white/20 bg-slate-950/80 py-3 pl-12 pr-4 text-sm text-white outline-none placeholder:text-slate-500 focus:border-red-500"
+                className="w-full rounded-xl border border-white/20 bg-slate-950/80 py-3 pl-12 pr-4 text-sm text-white outline-none placeholder:text-slate-500 focus:border-emerald-400"
               />
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function ReplayPage() {
                           <span
                             className={`absolute left-3 top-3 h-3 w-3 rounded-full ${
                               hasReplay
-                                ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,.8)]'
+                                ? 'bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.8)]'
                                 : 'bg-slate-500'
                             }`}
                           />
@@ -338,19 +338,21 @@ export default function ReplayPage() {
                             สาย {group}
                           </p>
 
-                          <div className="mt-2 flex items-center justify-center gap-5">
-                            <span className="text-2xl font-black">
-                              {teamA}
-                            </span>
-
-                            <span className="text-xl font-black text-red-500">
-                              VS
-                            </span>
-
-                            <span className="text-2xl font-black">
-                              {teamB}
-                            </span>
+                          <div className="mt-2 flex items-center justify-center gap-8">
+                          <div className="text-center">
+                            <p className="text-lg font-black">{match[7]}</p>
+                            <p className="text-lg font-black">{match[9]}</p>
                           </div>
+
+                          <span className="text-xl font-black text-emerald-400">
+                            VS
+                          </span>
+
+                          <div className="text-center">
+                            <p className="text-lg font-black">{match[12]}</p>
+                            <p className="text-lg font-black">{match[14]}</p>
+                          </div>
+                        </div>
 
                           {scoreSets.length > 0 ? (
                             <div className="mt-2 flex flex-wrap justify-center gap-3">
@@ -358,7 +360,7 @@ export default function ReplayPage() {
                                 ([scoreA, scoreB], scoreIndex) => (
                                   <span
                                     key={scoreIndex}
-                                    className="font-mono text-lg font-black text-red-500"
+                                    className="font-mono text-lg font-black text-emerald-400"
                                   >
                                     {scoreA}-{scoreB}
                                   </span>
@@ -403,11 +405,6 @@ export default function ReplayPage() {
             </div>
           </div>
         )}
-
-        <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
-          <span>ℹ</span>
-          วิดีโอย้อนหลังจะแสดงเมื่อมีการเพิ่มลิงก์ใน Replay URL
-        </div>
       </div>
     </div>
   );
