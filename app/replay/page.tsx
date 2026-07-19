@@ -310,7 +310,7 @@ export default function ReplayPage() {
                     const teamA = String(match[6] || 'TBD');
                     const teamB = String(match[11] || 'TBD');
                     const group = String(match[5] || '-');
-                    const replayUrl = String(match[25] || '').trim();
+                    const replayUrl = String(match[27] || '').trim();
                     const scoreSets = getScoreSets(match);
                     const hasReplay = Boolean(replayUrl);
 
