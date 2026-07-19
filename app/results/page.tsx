@@ -386,13 +386,13 @@ export default function ResultsPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr]">
 
                     {/* Standing table */}
-                    <div className="border-b border-white/20 lg:border-b-0 lg:border-r">
+                    <div className="flex h-full flex-col border-b border-white/20 lg:border-b-0 lg:border-r">
                       <div className="border-b border-white/20 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
                         ตารางคะแนน
                       </div>
-
-                      <table className="w-full border-collapse text-xs">
-                        <thead>
+                        <div className="flex-1">
+                          <table className="h-full w-full table-fixed border-collapse text-xs">
+                          <thead>
                         <tr className="h-[38px] border-b border-white/20 bg-black/20 text-slate-400">
                           <th className="px-2 py-0 text-center">
                             อันดับ
@@ -419,11 +419,11 @@ export default function ResultsPage() {
                           </th>
                         </tr>
                       </thead>
-                        <tbody className="divide-y divide-white/10">
+                        <tbody className="divide-y divide-white/20">
                           {groupStanding.length > 0 ? (
                             groupStanding.map(
                               (row, index) => (
-                                <tr key={row[0]}>
+                                <tr key={row[0]} className="h-[103px]">
                                   <td className="px-2 py-2 text-center text-base">
                                     {getRankDisplay(
                                       index + 1
@@ -464,6 +464,7 @@ export default function ResultsPage() {
                           )}
                         </tbody>
                       </table>
+                      </div>
                     </div>
 {/* Match results */}
 <div className="flex flex-col">
