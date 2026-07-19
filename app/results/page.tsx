@@ -230,7 +230,7 @@ export default function ResultsPage() {
       <div className="relative z-10 mb-12 w-full max-w-[1500px] rounded-[24px] border border-white/20 bg-slate-950/80 p-5 shadow-[0_25px_60px_rgba(0,0,0,0.6)] backdrop-blur-md md:p-7">
 
         {/* Header */}
-        <div className="mb-5 flex flex-col gap-5 border-b border-white/10 pb-5 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-5 flex flex-col gap-5 border-b border-white/20 pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <span className="mb-2 inline-flex rounded-md border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-emerald-400">
               Tournament Results
@@ -386,14 +386,14 @@ export default function ResultsPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr]">
 
                     {/* Standing table */}
-                    <div className="border-b border-white/10 lg:border-b-0 lg:border-r">
-                      <div className="border-b border-white/10 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
+                    <div className="border-b border-white/20 lg:border-b-0 lg:border-r">
+                      <div className="border-b border-white/20 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
                         ตารางคะแนน
                       </div>
 
                       <table className="w-full border-collapse text-xs">
                         <thead>
-                        <tr className="h-[38px] border-b border-white/10 bg-black/20 text-slate-400">
+                        <tr className="h-[38px] border-b border-white/20 bg-black/20 text-slate-400">
                           <th className="px-2 py-0 text-center">
                             อันดับ
                           </th>
@@ -467,7 +467,7 @@ export default function ResultsPage() {
                     </div>
 {/* Match results */}
 <div className="flex flex-col">
-  <div className="border-b border-white/10 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
+  <div className="border-b border-white/20 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
     ผลการแข่งขัน
   </div>
 
@@ -642,7 +642,7 @@ const setWinB = scoreSets.filter(
     <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
 
               {/* สาย */}
-              <div className="flex items-center justify-center border-r border-white/10 p-5">
+              <div className="flex items-center justify-center border-r border-white/20 p-5">
                 <span
                   className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
                     GROUP_BUTTONS[group] ||
@@ -654,7 +654,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* ทีม A */}
-              <div className="border-r border-white/10 p-5 ">
+              <div className="border-r border-white/20 p-5 ">
                 <p className="mb-3 text-xl font-black text-emerald-400">
                   ทีม {teamA}
                 </p>
@@ -677,33 +677,59 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* คะแนน */}
-              <div className="flex flex-col items-center justify-center border-r border-white/10 p-5">
+              <div className="flex flex-col items-center justify-center border-r border-white/20 p-5">
                 <span className="mb-2 text-3xl">🏸</span>
 
                 <div className="text-4xl font-black text-emerald-400">
                   {setWinA} : {setWinB}
                 </div>
 
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                  {scoreSets.length > 0 ? (
-                    scoreSets.map(([scoreA, scoreB], scoreIndex) => (
-                      <span
-                        key={scoreIndex}
-                        className="rounded-lg border border-white/15 bg-black/40 px-4 py-2 font-mono text-base font-black text-white"
-                      >
-                        {scoreA}-{scoreB}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="text-sm text-slate-500">
-                      รอผลการแข่งขัน
-                    </span>
-                  )}
-                </div>
+                <div className="mt-5 flex flex-col gap-2 w-full">
+  {scoreSets.length > 0 ? (
+    scoreSets.map(([scoreA, scoreB], scoreIndex) => (
+      <div
+        key={scoreIndex}
+        className="flex items-center justify-between rounded-lg border border-white/25 bg-black/40 px-4 py-2"
+      >
+        <span className="text-sm font-semibold font-bold uppercase tracking-wider text-slate-400">
+          Set {scoreIndex + 1}
+        </span>
+
+        <div className="flex items-center gap-2 font-mono text-base font-black">
+          <span
+            className={
+              Number(scoreA) > Number(scoreB)
+                ? 'text-emerald-400'
+                : 'text-red-400'
+            }
+          >
+            {scoreA}
+          </span>
+
+          <span className="text-slate-500">-</span>
+
+          <span
+            className={
+              Number(scoreB) > Number(scoreA)
+                ? 'text-emerald-400'
+                : 'text-red-400'
+            }
+          >
+            {scoreB}
+          </span>
+        </div>
+      </div>
+    ))
+  ) : (
+    <span className="text-sm text-slate-500 text-center">
+      รอผลการแข่งขัน
+    </span>
+  )}
+</div>
               </div>
 
               {/* ทีม B */}
-              <div className="border-r border-white/10 p-5">
+              <div className="border-r border-white/20 p-5">
                 <p className="mb-3 text-xl font-black text-white">
                   ทีม {teamB}
                 </p>
@@ -748,7 +774,7 @@ const setWinB = scoreSets.filter(
         selectedGroup === 'ทั้งหมด' ||
         String(match[5] || '').trim() === selectedGroup
     ).length === 0 && (
-      <div className="rounded-xl border border-white/10 bg-slate-950/60 px-4 py-16 text-center text-slate-500">
+      <div className="rounded-xl border border-white/20 bg-slate-950/60 px-4 py-16 text-center text-slate-500">
         ยังไม่มีผลการแข่งขันในสายที่เลือก
       </div>
     )}
@@ -757,7 +783,7 @@ const setWinB = scoreSets.filter(
         )}
 
         {/* Note */}
-        <div className="mt-5 rounded-xl border border-white/10 bg-slate-950/65 px-4 py-3 text-xs leading-6 text-slate-400">
+        <div className="mt-5 rounded-xl border border-white/20 bg-slate-950/65 px-4 py-3 text-xs leading-6 text-slate-400">
           <span className="mr-2 text-blue-400">
             ℹ
           </span>
