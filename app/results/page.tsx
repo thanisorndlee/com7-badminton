@@ -386,12 +386,12 @@ export default function ResultsPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr]">
 
                     {/* Standing table */}
-                    <div className="flex h-full flex-col border-b border-white/20 lg:border-b-0 lg:border-r">
+                    <div className="border-b border-white/20 lg:border-b-0 lg:border-r">
                       <div className="border-b border-white/20 bg-black/30 px-3 py-1.5 text-center text-xs font-black text-slate-200">
                         ตารางคะแนน
                       </div>
-                        <div className="flex-1">
-                          <table className="h-full w-full table-fixed border-collapse text-xs">
+      
+                          <table className="w-full border-collapse text-xs">
                           <thead>
                         <tr className="h-[38px] border-b border-white/20 bg-black/20 text-slate-400">
                           <th className="px-2 py-0 text-center">
@@ -423,7 +423,7 @@ export default function ResultsPage() {
                           {groupStanding.length > 0 ? (
                             groupStanding.map(
                               (row, index) => (
-                                <tr key={row[0]} className="h-[103px]">
+                                <tr key={row[0]}>
                                   <td className="px-2 py-2 text-center text-base">
                                     {getRankDisplay(
                                       index + 1
@@ -464,7 +464,6 @@ export default function ResultsPage() {
                           )}
                         </tbody>
                       </table>
-                      </div>
                     </div>
 {/* Match results */}
 <div className="flex flex-col">
@@ -472,7 +471,7 @@ export default function ResultsPage() {
     ผลการแข่งขัน
   </div>
 
-  <div className="grid auto-rows-[52px] divide-y divide-white/20">
+  <div className="grid auto-rows-[38px] divide-y divide-white/20">
     {Array.from({ length: 6 }).map((_, index) => {
       const match = matchesInGroup[index];
 
@@ -480,7 +479,7 @@ export default function ResultsPage() {
         return (
           <div
             key={`empty-${group}-${index}`}
-            className="grid h-[52px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+            className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
           >
             <span className="font-black text-slate-600">
               -
@@ -515,13 +514,13 @@ export default function ResultsPage() {
       return (
         <div
           key={`${match[0]}-${index}`}
-          className="grid h-[52px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+          className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
         >
           <span className="font-black text-white">
             {teamA}
           </span>
 
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-4">
   {scoreSets.length > 0 ? (
     scoreSets.map(([scoreA, scoreB], scoreIndex) => {
       const a = Number(scoreA);
@@ -530,13 +529,13 @@ export default function ResultsPage() {
       return (
         <div
           key={scoreIndex}
-          className="flex flex-col items-center border-l border-white/20 pl-3 first:border-l-0 first:pl-0"
+          className="flex items-center gap-1.5 border-l border-white/20 pl-4 first:border-l-0 first:pl-0"
         >
-          <span className="mb-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+          <span className="text-[9px] font-black uppercase tracking-wide text-slate-500">
             Set {scoreIndex + 1}
           </span>
 
-          <div className="flex items-center gap-1 font-mono text-xs font-black">
+          <div className="flex items-center font-mono text-xs font-black">
             <span
               className={
                 a > b
@@ -549,7 +548,7 @@ export default function ResultsPage() {
               {scoreA}
             </span>
 
-            <span className="text-slate-500">-</span>
+            <span className="px-0.5 text-slate-500">-</span>
 
             <span
               className={
