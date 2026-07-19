@@ -1,50 +1,181 @@
 'use client';
-import React from 'react';
+
+import React, { useEffect, useMemo, useState } from 'react';
+
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec';
+
+function convertGoogleDriveUrl(url: unknown) {
+  const value = String(url || '').trim();
+
+  if (!value) {
+    return '';
+  }
+
+  const fileMatch = value.match(/\/file\/d\/([^/]+)/);
+
+  if (fileMatch) {
+    return `https://drive.google.com/thumbnail?id=${fileMatch[1]}&sz=w1600`;
+  }
+
+  const idMatch = value.match(/[?&]id=([^&]+)/);
+
+  if (idMatch) {
+    return `https://drive.google.com/thumbnail?id=${idMatch[1]}&sz=w1600`;
+  }
+
+  return value;
+}
 
 export default function GalleryPage() {
-  const photos = [
-    '/gallery-1.jpg', '/gallery-2.jpg', '/gallery-3.jpg', 
-    '/gallery-4.jpeg', '/gallery-5.jpeg', '/gallery-6.jpg'
-  ];
+  const [galleryRows, setGalleryRows] = useState<any[][]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showUploadForm, setShowUploadForm] = useState(false);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('โหลดรูปภาพไม่สำเร็จ');
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setGalleryRows(
+          Array.isArray(data.gallery)
+            ? data.gallery.slice(1)
+            : []
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  const photos = useMemo(() => {
+    return galleryRows
+      .filter((row) => {
+        const status = String(row[2] || '')
+          .trim()
+          .toUpperCase();
+
+        return status === 'APPROVED';
+      })
+      .map((row) => convertGoogleDriveUrl(row[0]))
+      .filter(Boolean);
+  }, [galleryRows]);
 
   return (
-    <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-24 select-none relative overflow-x-hidden flex flex-col items-center">
-      
-      {/* 🏞️ Background Image  */}
+    <div className="relative flex min-h-screen w-full select-none flex-col items-center overflow-x-hidden bg-[#070b14] p-4 pt-24 text-slate-100 md:p-10">
       <div className="absolute inset-0 z-0">
         <img
           src="/badminton-bg.jpg"
-          className="w-full h-full object-fill opacity-85"
+          className="h-full w-full object-fill opacity-85"
           alt="Tournament Background"
         />
-        {/* เพิ่ม Overlay เพื่อให้ตัวหนังสือในหน้า Gallery อ่านง่ายขึ้น */}
+
         <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* เนื้อหาหน้า Gallery (อยู่บนพื้นหลัง) */}
       <div className="relative z-10 w-full max-w-6xl">
         <div className="mb-10 text-center">
-          <h1 className="text-3xl md:text-5xl font-black text-[#39ff14] tracking-widest uppercase mb-4">
-            ภาพบรรยากาศการแข่งขัน 
+          <h1 className="mb-4 text-3xl font-black uppercase tracking-widest text-[#39ff14] md:text-5xl">
+            ภาพบรรยากาศการแข่งขัน
           </h1>
-          <div className="w-20 h-1 bg-[#39ff14] mx-auto rounded-full" />
+
+          <div className="mx-auto mb-6 h-1 w-20 rounded-full bg-[#39ff14]" />
+
+          <button
+            type="button"
+            onClick={() => setShowUploadForm(true)}
+            className="inline-flex items-center justify-center rounded-xl border border-[#39ff14]/50 bg-[#39ff14]/10 px-6 py-3 text-sm font-black text-[#39ff14] transition-all hover:bg-[#39ff14] hover:text-black"
+          >
+            📸 แชร์ภาพของคุณ
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {photos.map((photo, index) => (
-            <div 
-              key={index} 
-              className="group relative overflow-hidden rounded-2xl border border-white/10 hover:border-[#39ff14]/50 transition-all duration-500 bg-black/40"
-            >
-              <img 
-                src={photo} 
-                alt={`Atmosphere ${index + 1}`} 
-                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/600x400?text=Image+Unavailable'; }}
-              />
+        {showUploadForm && (
+          <div className="mb-10 rounded-2xl border border-white/15 bg-slate-950/90 p-6 shadow-2xl backdrop-blur-md">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-black text-white">
+                  แชร์ภาพการแข่งขัน
+                </h2>
+
+                <p className="mt-1 text-sm text-slate-400">
+                  เลือกรูปภาพจากโทรศัพท์ของคุณ
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowUploadForm(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-lg text-white transition hover:bg-white/10"
+              >
+                ✕
+              </button>
             </div>
-          ))}
-        </div>
+
+            <label className="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#39ff14]/40 bg-black/30 p-6 text-center transition hover:border-[#39ff14] hover:bg-[#39ff14]/5">
+              <span className="mb-3 text-4xl">📷</span>
+
+              <span className="font-black text-white">
+                แตะเพื่อเลือกรูป
+              </span>
+
+              <span className="mt-1 text-xs text-slate-400">
+                รองรับ JPG, PNG และ WEBP
+              </span>
+
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+              />
+            </label>
+
+            <button
+              type="button"
+              className="mt-5 w-full rounded-xl bg-[#39ff14] px-6 py-3 font-black text-black transition hover:brightness-110"
+            >
+              อัปโหลดรูปภาพ
+            </button>
+
+            <p className="mt-3 text-center text-xs text-slate-500">
+              รูปภาพจะได้รับการตรวจสอบก่อนแสดงบนเว็บไซต์
+            </p>
+          </div>
+        )}
+
+        {isLoading ? (
+          <div className="rounded-2xl border border-white/10 bg-black/40 py-24 text-center text-slate-400">
+            กำลังโหลดรูปภาพ...
+          </div>
+        ) : photos.length === 0 ? (
+          <div className="rounded-2xl border border-white/10 bg-black/40 py-24 text-center text-slate-400">
+            ยังไม่มีภาพบรรยากาศการแข่งขัน
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {photos.map((photo, index) => (
+              <div
+                key={`${photo}-${index}`}
+                className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-black/40 transition-all duration-500 hover:border-[#39ff14]/50"
+              >
+                <img
+                  src={photo}
+                  alt={`Atmosphere ${index + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

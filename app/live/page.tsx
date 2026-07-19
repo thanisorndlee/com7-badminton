@@ -171,7 +171,7 @@ export default function StreamPage() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="text-left">
                     <p className="text-[10px] font-bold uppercase text-slate-400">
-                      TEAM A
+                      TEAM 
                     </p>
 
                     <p className="text-base font-black text-white">
@@ -189,7 +189,7 @@ export default function StreamPage() {
 
                   <div className="text-right">
                     <p className="text-[10px] font-bold uppercase text-slate-400">
-                      TEAM B
+                      TEAM 
                     </p>
 
                     <p className="text-base font-black text-white">
