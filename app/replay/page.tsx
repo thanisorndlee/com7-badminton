@@ -282,9 +282,15 @@ export default function ReplayPage() {
                 >
                   {/* Time */}
                   <div className="flex min-h-[180px] flex-col items-center justify-center border-r border-white/15 px-4 text-center">
+                    <div className="text-center">
                     <p className="text-2xl font-black">
                       คู่ที่ {rowIndex + 1}
                     </p>
+
+                    <p className="mt-2 text-sm font-semibold text-slate-400">
+                      (รอบวันที่ {selectedDate})
+                    </p>
+                  </div>
 
                     
                   </div>
