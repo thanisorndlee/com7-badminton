@@ -286,9 +286,7 @@ export default function ReplayPage() {
                       คู่ที่ {rowIndex + 1}
                     </p>
 
-                    <p className="mt-2 text-base text-slate-300">
-                      เริ่มแข่ง {time}
-                    </p>
+                    
                   </div>
 
                   {COURTS.map((court) => {
@@ -329,7 +327,7 @@ export default function ReplayPage() {
                           <span
                             className={`absolute left-3 top-3 h-3 w-3 rounded-full ${
                               hasReplay
-                                ? 'bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.8)]'
+                                ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,.8)]'
                                 : 'bg-slate-500'
                             }`}
                           />
@@ -344,7 +342,7 @@ export default function ReplayPage() {
                             <p className="text-lg font-black">{match[9]}</p>
                           </div>
 
-                          <span className="text-xl font-black text-emerald-400">
+                          <span className="text-xl font-black text-red-500">
                             VS
                           </span>
 
@@ -360,7 +358,7 @@ export default function ReplayPage() {
                                 ([scoreA, scoreB], scoreIndex) => (
                                   <span
                                     key={scoreIndex}
-                                    className="font-mono text-lg font-black text-emerald-400"
+                                    className="font-mono text-lg font-black text-red-500"
                                   >
                                     {scoreA}-{scoreB}
                                   </span>
