@@ -58,7 +58,71 @@ export default function GalleryPage() {
         setIsLoading(false);
       });
   }, []);
+  const handleUpload = async () => {
+  if (!selectedFile) {
+    setUploadMessage('กรุณาเลือกรูปภาพก่อน');
+    return;
+  }
 
+  try {
+    setIsUploading(true);
+    setUploadMessage('');
+
+    const base64Data = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const result = String(reader.result || '');
+        const base64 = result.split(',')[1];
+
+        if (!base64) {
+          reject(new Error('ไม่สามารถอ่านไฟล์รูปภาพได้'));
+          return;
+        }
+
+        resolve(base64);
+      };
+
+      reader.onerror = () => {
+        reject(new Error('ไม่สามารถอ่านไฟล์รูปภาพได้'));
+      };
+
+      reader.readAsDataURL(selectedFile);
+    });
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        fileName: selectedFile.name,
+        mimeType: selectedFile.type,
+        base64Data,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || 'อัปโหลดรูปภาพไม่สำเร็จ');
+    }
+
+    setUploadMessage(
+      'อัปโหลดรูปภาพสำเร็จ รอทีมงานตรวจสอบก่อนแสดงบนเว็บไซต์'
+    );
+
+    setSelectedFile(null);
+  } catch (error) {
+    setUploadMessage(
+      error instanceof Error
+        ? error.message
+        : 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ'
+    );
+  } finally {
+    setIsUploading(false);
+  }
+};
   const photos = useMemo(() => {
     return galleryRows
       .filter((row) => {
@@ -154,11 +218,23 @@ export default function GalleryPage() {
 
             <button
               type="button"
-              className="mt-5 w-full rounded-xl bg-[#39ff14] px-6 py-3 font-black text-black transition hover:brightness-110"
+              onClick={handleUpload}
+              disabled={!selectedFile || isUploading}
+              className="mt-5 w-full rounded-xl bg-[#39ff14] px-6 py-3 font-black text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              อัปโหลดรูปภาพ
+              {isUploading ? 'กำลังอัปโหลด...' : 'อัปโหลดรูปภาพ'}
             </button>
-
+            {uploadMessage && (
+            <p
+              className={`mt-3 text-center text-sm font-semibold ${
+                uploadMessage.includes('สำเร็จ')
+                  ? 'text-[#39ff14]'
+                  : 'text-red-400'
+              }`}
+            >
+              {uploadMessage}
+            </p>
+          )}
             <p className="mt-3 text-center text-xs text-slate-500">
               รูปภาพจะได้รับการตรวจสอบก่อนแสดงบนเว็บไซต์
             </p>
