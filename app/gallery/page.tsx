@@ -64,48 +64,94 @@ export default function GalleryPage() {
     return;
   }
 
+  const maxFileSize = 5 * 1024 * 1024;
+
+  if (selectedFile.size > maxFileSize) {
+    setUploadMessage(
+      'รูปภาพมีขนาดใหญ่เกินไป กรุณาเลือกไฟล์ไม่เกิน 5 MB'
+    );
+    return;
+  }
+
+  const controller = new AbortController();
+
+  const timeoutId = window.setTimeout(() => {
+    controller.abort();
+  }, 60000);
+
   try {
     setIsUploading(true);
     setUploadMessage('');
 
-    const base64Data = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
+    const base64Data = await new Promise<string>(
+      (resolve, reject) => {
+        const reader = new FileReader();
 
-      reader.onload = () => {
-        const result = String(reader.result || '');
-        const base64 = result.split(',')[1];
+        reader.onload = () => {
+          const result = String(reader.result || '');
+          const base64 = result.split(',')[1];
 
-        if (!base64) {
-          reject(new Error('ไม่สามารถอ่านไฟล์รูปภาพได้'));
-          return;
-        }
+          if (!base64) {
+            reject(
+              new Error('ไม่สามารถอ่านข้อมูลรูปภาพได้')
+            );
+            return;
+          }
 
-        resolve(base64);
-      };
+          resolve(base64);
+        };
 
-      reader.onerror = () => {
-        reject(new Error('ไม่สามารถอ่านไฟล์รูปภาพได้'));
-      };
+        reader.onerror = () => {
+          reject(
+            new Error('ไม่สามารถอ่านไฟล์รูปภาพได้')
+          );
+        };
 
-      reader.readAsDataURL(selectedFile);
-    });
+        reader.readAsDataURL(selectedFile);
+      }
+    );
 
     const response = await fetch(API_URL, {
       method: 'POST',
+
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
+
       body: JSON.stringify({
         fileName: selectedFile.name,
         mimeType: selectedFile.type,
-        base64Data,
+        base64Data: base64Data,
       }),
+
+      redirect: 'follow',
+      signal: controller.signal,
     });
 
-    const data = await response.json();
+    const responseText = await response.text();
+
+    console.log('คำตอบจาก Apps Script:', responseText);
+
+    if (!responseText) {
+      throw new Error(
+        'Apps Script ไม่ได้ส่งข้อมูลตอบกลับ'
+      );
+    }
+
+    let data;
+
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      throw new Error(
+        'รูปอาจถูกอัปโหลดแล้ว แต่ไม่สามารถอ่านผลตอบกลับจาก Apps Script ได้'
+      );
+    }
 
     if (!data.success) {
-      throw new Error(data.message || 'อัปโหลดรูปภาพไม่สำเร็จ');
+      throw new Error(
+        data.message || 'อัปโหลดรูปภาพไม่สำเร็จ'
+      );
     }
 
     setUploadMessage(
@@ -113,13 +159,28 @@ export default function GalleryPage() {
     );
 
     setSelectedFile(null);
+
+    window.setTimeout(() => {
+      setShowUploadForm(false);
+      setUploadMessage('');
+    }, 2500);
   } catch (error) {
-    setUploadMessage(
-      error instanceof Error
-        ? error.message
-        : 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ'
-    );
+    if (
+      error instanceof Error &&
+      error.name === 'AbortError'
+    ) {
+      setUploadMessage(
+        'ใช้เวลาอัปโหลดนานเกินไป กรุณาลองใช้รูปที่มีขนาดเล็กลง'
+      );
+    } else {
+      setUploadMessage(
+        error instanceof Error
+          ? error.message
+          : 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ'
+      );
+    }
   } finally {
+    window.clearTimeout(timeoutId);
     setIsUploading(false);
   }
 };
@@ -161,7 +222,7 @@ export default function GalleryPage() {
             onClick={() => setShowUploadForm(true)}
             className="inline-flex items-center justify-center rounded-xl border border-[#39ff14]/50 bg-[#39ff14]/10 px-6 py-3 text-sm font-black text-[#39ff14] transition-all hover:bg-[#39ff14] hover:text-black"
           >
-            📸 แชร์ภาพของคุณ
+            📸 คลิกเพื่อแชร์ภาพของคุณ
           </button>
         </div>
 
