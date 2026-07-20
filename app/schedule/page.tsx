@@ -228,11 +228,11 @@ const getGroupClass = (group: string) => {
         </th>
 
         <th className="border-r border-white/10 px-3 py-5 text-center">
-          เวลา
+          สนาม
         </th>
 
         <th className="border-r border-white/10 px-3 py-5 text-center">
-          สนาม
+          ลำดับ
         </th>
 
         <th className="border-r border-white/10 px-3 py-5 text-center">
@@ -286,14 +286,14 @@ const getGroupClass = (group: string) => {
                 {m[2] || '-'}
               </td>
 
-              {/* เวลา */}
+              {/* สนาม */}
               <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
-                {m[3] || '-'}
+                {m[4] || '-'}
               </td>
 
-              {/* สนาม */}
-              <td className="border-r border-white/10 px-3 py-5 text-center text-xs text-slate-200 whitespace-nowrap">
-                {m[4] || '-'}
+              {/* ลำดับ */}
+              <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
+                คู่ที่ {i + 1}
               </td>
 
               {/* สาย */}
