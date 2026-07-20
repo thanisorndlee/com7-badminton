@@ -32,6 +32,9 @@ export default function GalleryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showUploadForm, setShowUploadForm] = useState(false);
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState('');
   useEffect(() => {
     fetch(API_URL)
       .then((response) => {
@@ -131,10 +134,21 @@ export default function GalleryPage() {
                 รองรับ JPG, PNG และ WEBP
               </span>
 
+              {selectedFile && (
+                <span className="mt-3 max-w-full truncate rounded-lg bg-white/10 px-3 py-2 text-xs font-semibold text-[#39ff14]">
+                  เลือกแล้ว: {selectedFile.name}
+                </span>
+              )}
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
                 className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+
+                  setSelectedFile(file);
+                  setUploadMessage('');
+                }}
               />
             </label>
 
