@@ -36,28 +36,28 @@ export default function GalleryPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('โหลดรูปภาพไม่สำเร็จ');
-        }
+  fetch(API_URL)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('โหลดรูปภาพไม่สำเร็จ');
+      }
 
-        return response.json();
-      })
-      .then((data) => {
-        setGalleryRows(
-          Array.isArray(data.gallery)
-            ? data.gallery.slice(1)
-            : []
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+      return response.json();
+    })
+    .then((data) => {
+      setGalleryRows(
+        Array.isArray(data.gallery)
+          ? data.gallery.slice(1)
+          : []
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
+}, []);
   const handleUpload = async () => {
   if (!selectedFile) {
     setUploadMessage('กรุณาเลือกรูปภาพก่อน');
@@ -157,9 +157,8 @@ export default function GalleryPage() {
     setUploadMessage(
       'อัปโหลดรูปภาพสำเร็จ รอทีมงานตรวจสอบก่อนแสดงบนเว็บไซต์'
     );
-
     setSelectedFile(null);
-
+    window.location.reload();
     window.setTimeout(() => {
       setShowUploadForm(false);
       setUploadMessage('');
