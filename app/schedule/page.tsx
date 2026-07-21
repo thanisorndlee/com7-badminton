@@ -206,6 +206,131 @@ const getGroupClass = (group: string) => {
     </div>
   </div>
 </div>
+{/* Mobile cards */}
+<div className="space-y-4 md:hidden">
+  {tableMatches.length > 0 ? (
+    tableMatches.map((m, i) => {
+      const group = String(m[5] || '').trim();
+
+      const scoreA =
+        m[16] === '' || m[16] == null ? '-' : m[16];
+
+      const scoreB =
+        m[17] === '' || m[17] == null ? '-' : m[17];
+
+      return (
+        <article
+          key={`${m[0]}-${i}`}
+          className="overflow-hidden rounded-2xl border border-white/20 bg-slate-950/80 shadow-xl"
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-white/15 px-4 py-3">
+            <span className="rounded-lg border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-sm font-black text-emerald-400">
+              คู่ที่ {i + 1}
+            </span>
+
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-black text-slate-300">
+                🏸 {m[4] || '-'}
+              </span>
+
+              <span
+                className={`inline-flex min-w-[70px] items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-black ${getGroupClass(
+                  group
+                )}`}
+              >
+                สาย {group || '-'}
+              </span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="grid grid-cols-[1fr_1fr_110px]">
+            {/* Team A */}
+            <div className="border-r border-white/15 p-4">
+              <p className="text-xs font-black uppercase text-emerald-400">
+                TEAM A
+              </p>
+
+              <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
+                {m[6] || '-'}
+              </div>
+
+              <p className="mt-3 text-base font-black text-white">
+                {m[7] || '-'}
+              </p>
+
+              <p className="mt-1 text-xs font-semibold text-emerald-400">
+                {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
+              </p>
+
+              <p className="mt-3 text-base font-black text-white">
+                {m[9] || '-'}
+              </p>
+
+              <p className="mt-1 text-xs font-semibold text-emerald-400">
+                {m[10]
+                  ? `แผนก ${m[10]}`
+                  : 'ไม่ระบุแผนก'}
+              </p>
+            </div>
+
+            {/* Team B */}
+            <div className="border-r border-white/15 p-4">
+              <p className="text-xs font-black uppercase text-emerald-400">
+                TEAM B
+              </p>
+
+              <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
+                {m[11] || '-'}
+              </div>
+
+              <p className="mt-3 text-base font-black text-white">
+                {m[12] || '-'}
+              </p>
+
+              <p className="mt-1 text-xs font-semibold text-emerald-400">
+                {m[13]
+                  ? `แผนก ${m[13]}`
+                  : 'ไม่ระบุแผนก'}
+              </p>
+
+              <p className="mt-3 text-base font-black text-white">
+                {m[14] || '-'}
+              </p>
+
+              <p className="mt-1 text-xs font-semibold text-emerald-400">
+                {m[15]
+                  ? `แผนก ${m[15]}`
+                  : 'ไม่ระบุแผนก'}
+              </p>
+            </div>
+
+            {/* Score */}
+            <div className="flex flex-col items-center justify-center p-3 text-center">
+              <p className="text-xs font-black text-slate-300">
+                ผลคะแนน
+              </p>
+
+              <div className="mt-3 rounded-lg border border-white/15 bg-black px-3 py-2 font-mono text-base font-black text-emerald-400">
+                {scoreA} : {scoreB}
+              </div>
+
+              <p className="mt-4 text-xs font-semibold text-slate-400">
+                {m[2] || '-'}
+              </p>
+            </div>
+          </div>
+        </article>
+      );
+    })
+  ) : (
+    <div className="rounded-xl border border-white/15 bg-slate-950/70 px-4 py-12 text-center text-slate-500">
+      ไม่พบข้อมูลการแข่งขันของวันที่ {selectedDate}
+    </div>
+  )}
+</div>
+<div className="hidden md:block">
         {/* ตารางแสดงผล */}
 <div className="mb-12 w-full overflow-x-auto rounded-xl border border-white/10 bg-black/20">
   <table className="w-full min-w-[1040px] table-fixed border-collapse text-left text-sm">
@@ -596,6 +721,7 @@ const getGroupClass = (group: string) => {
   </div>
 </div>
         </div>
+      </div>
       </div>
     </div>
 </div>
