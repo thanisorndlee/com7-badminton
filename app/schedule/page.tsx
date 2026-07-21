@@ -245,11 +245,11 @@ const getGroupClass = (group: string) => {
           </div>
 
           {/* Content */}
-          <div className="grid grid-cols-[1fr_1fr_110px]">
+          <div className="grid grid-cols-[1fr_60px_1fr_150px]">
             {/* Team A */}
             <div className="border-r border-white/15 p-4">
               <p className="text-xs font-black uppercase text-emerald-400">
-                TEAM A
+                TEAM 
               </p>
 
               <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
@@ -274,11 +274,16 @@ const getGroupClass = (group: string) => {
                   : 'ไม่ระบุแผนก'}
               </p>
             </div>
-
+            {/* VS */}
+            <div className="flex items-center justify-center border-r border-white/15">
+<span className="text-2xl font-black italic text-emerald-400">
+                  VS
+              </span>
+            </div>
             {/* Team B */}
             <div className="border-r border-white/15 p-4">
-              <p className="text-xs font-black uppercase text-emerald-400">
-                TEAM B
+<p className="text-center text-xs font-black uppercase tracking-wider text-emerald-400">
+                  TEAM 
               </p>
 
               <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
