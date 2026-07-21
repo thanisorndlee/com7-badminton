@@ -512,11 +512,11 @@ export default function ResultsPage() {
       );
 
       return (
-        <div
-          key={`${match[0]}-${index}`}
-          className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
-        >
-          <span className="font-black text-white">
+  <div
+    key={`${match[0]}-${index}`}
+    className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+  >
+                  <span className="font-black text-white">
             {teamA}
           </span>
 
@@ -640,13 +640,12 @@ const setWinB = scoreSets.filter(
         return (
           <div
   key={`${match[0]}-${index}`}
-  className="w-full overflow-x-auto rounded-2xl"
+className="w-full rounded-2xl"
 >
-  <article className="min-w-[1100px] overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)]">
-    <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
-
+<article className="w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)]">
+<div className="grid grid-cols-1 md:grid-cols-[130px_1fr_230px_1fr_180px]">
               {/* สาย */}
-              <div className="flex items-center justify-center border-r border-white/20 p-5">
+<div className="flex items-center justify-center border-b border-white/20 p-5 md:border-b-0 md:border-r">
                 <span
                   className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
                     GROUP_BUTTONS[group] ||
@@ -658,7 +657,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* ทีม A */}
-              <div className="border-r border-white/20 p-5 ">
+<div className="border-b border-white/20 p-5 text-center md:border-b-0 md:border-r md:text-left">
                 <p className="mb-3 text-xl font-black text-emerald-400">
                   ทีม {teamA}
                 </p>
@@ -681,7 +680,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* คะแนน */}
-              <div className="flex flex-col items-center justify-center border-r border-white/20 p-5">
+<div className="flex flex-col items-center justify-center border-b border-white/20 p-5 md:border-b-0 md:border-r">
                 <span className="mb-2 text-3xl">🏸</span>
 
                 <div className="text-4xl font-black text-emerald-400">
@@ -733,7 +732,7 @@ const setWinB = scoreSets.filter(
               </div>
 
               {/* ทีม B */}
-              <div className="border-r border-white/20 p-5">
+<div className="border-b border-white/20 p-5 text-center md:border-b-0 md:border-r md:text-left">
                 <p className="mb-3 text-xl font-black text-white">
                   ทีม {teamB}
                 </p>
