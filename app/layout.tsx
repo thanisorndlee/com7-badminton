@@ -17,17 +17,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="th" >
+    <html lang="th" className="w-full max-w-full overflow-x-hidden bg-[#070b14]">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet" />
       </head>
-      <body 
-        className="min-h-screen text-white antialiased bg-black relative flex flex-col"
+      <body
+  className="relative flex min-h-screen w-full max-w-full flex-col overflow-x-hidden bg-[#070b14] text-white antialiased"
         style={{ fontFamily: "'Kanit', sans-serif" }}
       >
-        <div className="w-full flex flex-col h-full min-h-screen relative z-10">    
+        <div className="relative z-10 flex min-h-screen w-full max-w-full flex-col overflow-x-hidden">
 <nav className="sticky top-0 z-50 w-full border-b border-[#39ff14]/30 bg-black shadow-2xl">
 <img
   src="/badminton-hero.jpg"
@@ -121,8 +121,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   </div>
 </nav>
 
-          <main className="w-full flex-grow relative flex flex-col">
-            <div className="w-full h-full relative ">
+          <main className="relative flex w-full max-w-full flex-grow flex-col overflow-x-hidden">
+            <div className="relative h-full w-full max-w-full overflow-x-hidden">
               {children}
             </div>
           </main>
