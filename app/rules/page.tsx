@@ -172,7 +172,7 @@ export default function RulesPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-400 mt-0.5">▪</span>
-                <span><span className="text-white font-semibold">กฎการดิวส์ (Deuce):</span> หากแต้มเสมอกันที่ 14-14 แข่งต่อจนกว่าแต้มห่าง 2 แต้ม โดยจะ<span className="text-amber-400 font-bold">สิ้นสุดจำกัดสูงสุดที่ 30 แต้ม</span></span>
+                <span><span className="text-white font-semibold">กฎการดิวส์ (Deuce):</span> หากแต้มเสมอกันที่ 20-20 แข่งต่อจนกว่าแต้มห่าง 2 แต้ม โดยจะ<span className="text-amber-400 font-bold">สิ้นสุดจำกัดสูงสุดที่ 30 แต้ม</span></span>
               </li>
             </ul>
           </div>
