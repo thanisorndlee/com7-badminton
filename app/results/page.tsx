@@ -512,11 +512,11 @@ export default function ResultsPage() {
       );
 
       return (
-  <div
-    key={`${match[0]}-${index}`}
-    className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
-  >
-                  <span className="font-black text-white">
+        <div
+          key={`${match[0]}-${index}`}
+          className="grid h-[38px] grid-cols-[50px_1fr_50px] items-center gap-2 px-4 text-sm"
+        >
+          <span className="font-black text-white">
             {teamA}
           </span>
 
@@ -589,9 +589,6 @@ export default function ResultsPage() {
 
  /* ผลการแข่งขันทั้งหมด */
 <div>
-  {/* ปุ่มกรองสาย แสดงเฉพาะแท็บนี้ */}
-
-  {/* รายการการ์ดผลการแข่งขัน */}
   <div className="space-y-4">
     {groupMatches
       .filter(
@@ -601,173 +598,277 @@ export default function ResultsPage() {
       )
       .map((match, index) => {
         const group = String(match[5] || '-');
-
         const teamA = String(match[6] || 'TBD');
         const teamB = String(match[11] || 'TBD');
 
-        const set1A = match[16];
-        const set1B = match[17];
-        const set2A = match[18];
-        const set2B = match[19];
-        const set3A = match[20];
-        const set3B = match[21];
-
         const scoreSets = [
-  [set1A, set1B],
-  [set2A, set2B],
-  [set3A, set3B],
-].filter(
-  ([a, b]) =>
-    a !== '' &&
-    a != null &&
-    b !== '' &&
-    b != null
-);
+          [match[16], match[17]],
+          [match[18], match[19]],
+          [match[20], match[21]],
+        ].filter(
+          ([a, b]) =>
+            a !== '' &&
+            a != null &&
+            b !== '' &&
+            b != null
+        );
 
-const setWinA = scoreSets.filter(
-  ([a, b]) => Number(a) > Number(b)
-).length;
+        const setWinA = scoreSets.filter(
+          ([a, b]) => Number(a) > Number(b)
+        ).length;
 
-const setWinB = scoreSets.filter(
-  ([a, b]) => Number(b) > Number(a)
-).length;
+        const setWinB = scoreSets.filter(
+          ([a, b]) => Number(b) > Number(a)
+        ).length;
+
         const winner =
-  setWinA > setWinB
-    ? teamA
-    : setWinB > setWinA
-    ? teamB
-    : '';
+          setWinA > setWinB
+            ? teamA
+            : setWinB > setWinA
+              ? teamB
+              : '';
+
         return (
           <div
-  key={`${match[0]}-${index}`}
-className="w-full rounded-2xl"
->
-<article className="w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)]">
-<div className="grid grid-cols-1 md:grid-cols-[130px_1fr_230px_1fr_180px]">
-              {/* สาย */}
-<div className="flex items-center justify-center border-b border-white/20 p-5 md:border-b-0 md:border-r">
+            key={`${match[0]}-${index}`}
+            className="w-full"
+          >
+            {/* Mobile */}
+            <article className="overflow-hidden rounded-2xl border border-white/20 bg-slate-950/80 md:hidden">
+              <div className="flex items-center justify-between border-b border-white/15 px-4 py-3">
                 <span
-                  className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
+                  className={`inline-flex min-w-[72px] items-center justify-center rounded-lg border px-3 py-2 text-sm font-black ${
                     GROUP_BUTTONS[group] ||
                     'border-slate-500 bg-slate-600 text-white'
                   }`}
                 >
                   สาย {group}
                 </span>
+
+                <span className="text-sm font-black text-slate-300">
+                  ทีม {teamA} vs {teamB} 🏸
+                </span>
               </div>
 
-              {/* ทีม A */}
-<div className="border-b border-white/20 p-5 text-center md:border-b-0 md:border-r md:text-left">
-                <p className="mb-3 text-xl font-black text-emerald-400">
-                  ทีม {teamA}
-                </p>
+              <div className="grid grid-cols-[1fr_92px_1fr] items-center px-3 py-5">
+                <div className="min-w-0 border-r border-white/15 pr-3 text-left">
+                  <p className="truncate text-base font-black text-emerald-400">
+                    ทีม {teamA}
+                  </p>
 
-                <p className="text-base font-bold text-white">
-                  {match[7] || '-'}
-                </p>
+                  <p className="mt-3 break-words text-lg font-black text-white">
+                    {match[7] || '-'}
+                  </p>
 
-                <p className="mt-1 text-base font-bold text-white">
-                  {match[9] || '-'}
-                </p>
+                  <p className="mt-1 break-words text-lg font-black text-white">
+                    {match[9] || '-'}
+                  </p>
 
-                <p className="mt-3 text-sm font-black text-emerald-400">
-                  แผนก {match[8]}
-
-                  {match[10] && match[10] !== match[8]
-                    ? ` / ${match[10]}`
-                    : ''}
-                </p>
-              </div>
-
-              {/* คะแนน */}
-<div className="flex flex-col items-center justify-center border-b border-white/20 p-5 md:border-b-0 md:border-r">
-                <span className="mb-2 text-3xl">🏸</span>
-
-                <div className="text-4xl font-black text-emerald-400">
-                  {setWinA} : {setWinB}
+                  <p className="mt-4 break-words text-xs font-black text-emerald-400">
+                    แผนก {match[8]}
+                    {match[10] && match[10] !== match[8]
+                      ? ` / ${match[10]}`
+                      : ''}
+                  </p>
                 </div>
 
-                <div className="mt-5 flex flex-col gap-2 w-full">
-  {scoreSets.length > 0 ? (
-    scoreSets.map(([scoreA, scoreB], scoreIndex) => (
-      <div
-        key={scoreIndex}
-        className="flex items-center justify-between rounded-lg border border-white/25 bg-black/40 px-4 py-2"
-      >
-        <span className="text-sm font-semibold font-bold uppercase tracking-wider text-slate-400">
-          Set {scoreIndex + 1}
-        </span>
+                <div className="flex flex-col items-center justify-center px-2 text-center">
+                  <span className="text-xl">🏆</span>
 
-        <div className="flex items-center gap-2 font-mono text-base font-black">
-          <span
-            className={
-              Number(scoreA) > Number(scoreB)
-                ? 'text-emerald-400'
-                : 'text-red-400'
-            }
-          >
-            {scoreA}
-          </span>
+                  <p className="mt-1 text-[10px] font-black text-white">
+                    ชนะ
+                  </p>
 
-          <span className="text-slate-500">-</span>
+                  <div className="mt-2 whitespace-nowrap text-3xl font-black text-emerald-400">
+                    {setWinA} : {setWinB}
+                  </div>
+                </div>
 
-          <span
-            className={
-              Number(scoreB) > Number(scoreA)
-                ? 'text-emerald-400'
-                : 'text-red-400'
-            }
-          >
-            {scoreB}
-          </span>
-        </div>
-      </div>
-    ))
-  ) : (
-    <span className="text-sm text-slate-500 text-center">
-      รอผลการแข่งขัน
-    </span>
-  )}
-</div>
+                <div className="min-w-0 border-l border-white/15 pl-3 text-left">
+                  <p className="truncate text-base font-black text-emerald-400">
+                    ทีม {teamB}
+                  </p>
+
+                  <p className="mt-3 break-words text-lg font-black text-white">
+                    {match[12] || '-'}
+                  </p>
+
+                  <p className="mt-1 break-words text-lg font-black text-white">
+                    {match[14] || '-'}
+                  </p>
+
+                  <p className="mt-4 break-words text-xs font-black text-emerald-400">
+                    แผนก {match[13]}
+                    {match[15] && match[15] !== match[13]
+                      ? ` / ${match[15]}`
+                      : ''}
+                  </p>
+                </div>
               </div>
 
-              {/* ทีม B */}
-<div className="border-b border-white/20 p-5 text-center md:border-b-0 md:border-r md:text-left">
-                <p className="mb-3 text-xl font-black text-white">
-                  ทีม {teamB}
-                </p>
+              <div className="flex flex-wrap justify-center gap-2 border-t border-white/15 px-3 py-4">
+                {scoreSets.length > 0 ? (
+                  scoreSets.map(
+                    ([scoreA, scoreB], scoreIndex) => (
+                      <div
+                        key={scoreIndex}
+                        className="flex min-w-[112px] items-center justify-center gap-2 rounded-xl border border-white/20 bg-black/30 px-3 py-2"
+                      >
+                        <span className="text-xs font-black text-slate-400">
+                          SET {scoreIndex + 1}
+                        </span>
 
-                <p className="text-base font-bold text-white">
-                  {match[12] || '-'}
-                </p>
+                        <div className="font-mono text-sm font-black">
+                          <span
+                            className={
+                              Number(scoreA) > Number(scoreB)
+                                ? 'text-emerald-400'
+                                : 'text-red-400'
+                            }
+                          >
+                            {scoreA}
+                          </span>
 
-                <p className="mt-1 text-base font-bold text-white">
-                  {match[14] || '-'}
-                </p>
+                          <span className="px-1.5 text-slate-500">
+                            -
+                          </span>
 
-                <p className="mt-3 text-sm font-black text-emerald-400">
-                  แผนก {match[13]}
-
-                  {match[15] && match[15] !== match[13]
-                    ? ` / ${match[15]}`
-                    : ''}
-                </p>
+                          <span
+                            className={
+                              Number(scoreB) > Number(scoreA)
+                                ? 'text-emerald-400'
+                                : 'text-red-400'
+                            }
+                          >
+                            {scoreB}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  )
+                ) : (
+                  <span className="text-sm text-slate-500">
+                    รอผลการแข่งขัน
+                  </span>
+                )}
               </div>
 
-              {/* ผู้ชนะ */}
-              <div className="flex flex-col items-center justify-center p-5 text-center">
-                <span className="text-4xl">🏆</span>
-
-                <p className="mt-2 text-sm font-black text-emerald-400">
-                  ผู้ชนะ
-                </p>
-
-                <p className="mt-1 text-2xl font-black text-emerald-400">
-                  {winner ? `ทีม ${winner}` : 'รอผล'}
-                </p>
+              <div className="border-t border-white/15 px-4 py-3 text-center">
+                <span className="text-sm font-black text-emerald-400">
+                  ผู้ชนะ: {winner ? `ทีม ${winner}` : 'รอผล'}
+                </span>
               </div>
-            </div>
-          </article>
+            </article>
+
+            {/* Desktop */}
+            <article className="hidden w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)] md:block">
+              <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
+                <div className="flex items-center justify-center border-r border-white/20 p-5">
+                  <span
+                    className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
+                      GROUP_BUTTONS[group] ||
+                      'border-slate-500 bg-slate-600 text-white'
+                    }`}
+                  >
+                    สาย {group}
+                  </span>
+                </div>
+
+                <div className="border-r border-white/20 p-5">
+                  <p className="mb-3 text-xl font-black text-emerald-400">
+                    ทีม {teamA}
+                  </p>
+                  <p className="text-base font-bold text-white">
+                    {match[7] || '-'}
+                  </p>
+                  <p className="mt-1 text-base font-bold text-white">
+                    {match[9] || '-'}
+                  </p>
+                  <p className="mt-3 text-sm font-black text-emerald-400">
+                    แผนก {match[8]}
+                    {match[10] && match[10] !== match[8]
+                      ? ` / ${match[10]}`
+                      : ''}
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center justify-center border-r border-white/20 p-5">
+                  <span className="mb-2 text-3xl">🏸</span>
+                  <div className="text-4xl font-black text-emerald-400">
+                    {setWinA} : {setWinB}
+                  </div>
+
+                  <div className="mt-5 flex w-full flex-col gap-2">
+                    {scoreSets.length > 0 ? (
+                      scoreSets.map(([scoreA, scoreB], scoreIndex) => (
+                        <div
+                          key={scoreIndex}
+                          className="flex items-center justify-between rounded-lg border border-white/25 bg-black/40 px-4 py-2"
+                        >
+                          <span className="text-sm font-black uppercase tracking-wider text-slate-400">
+                            Set {scoreIndex + 1}
+                          </span>
+
+                          <div className="flex items-center gap-2 font-mono text-base font-black">
+                            <span
+                              className={
+                                Number(scoreA) > Number(scoreB)
+                                  ? 'text-emerald-400'
+                                  : 'text-red-400'
+                              }
+                            >
+                              {scoreA}
+                            </span>
+                            <span className="text-slate-500">-</span>
+                            <span
+                              className={
+                                Number(scoreB) > Number(scoreA)
+                                  ? 'text-emerald-400'
+                                  : 'text-red-400'
+                              }
+                            >
+                              {scoreB}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <span className="text-center text-sm text-slate-500">
+                        รอผลการแข่งขัน
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="border-r border-white/20 p-5">
+                  <p className="mb-3 text-xl font-black text-white">
+                    ทีม {teamB}
+                  </p>
+                  <p className="text-base font-bold text-white">
+                    {match[12] || '-'}
+                  </p>
+                  <p className="mt-1 text-base font-bold text-white">
+                    {match[14] || '-'}
+                  </p>
+                  <p className="mt-3 text-sm font-black text-emerald-400">
+                    แผนก {match[13]}
+                    {match[15] && match[15] !== match[13]
+                      ? ` / ${match[15]}`
+                      : ''}
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center justify-center p-5 text-center">
+                  <span className="text-4xl">🏆</span>
+                  <p className="mt-2 text-sm font-black text-emerald-400">
+                    ผู้ชนะ
+                  </p>
+                  <p className="mt-1 text-2xl font-black text-emerald-400">
+                    {winner ? `ทีม ${winner}` : 'รอผล'}
+                  </p>
+                </div>
+              </div>
+            </article>
           </div>
         );
       })}
@@ -782,7 +883,7 @@ className="w-full rounded-2xl"
       </div>
     )}
   </div>
-</div>         
+</div>
         )}
 
         {/* Note */}
