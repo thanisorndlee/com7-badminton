@@ -5,14 +5,15 @@ import { useEffect, useState, useMemo } from 'react';
 export default function SchedulePage() {
   const [matches, setMatches] = useState<any[]>([]);
 const [searchTerm, setSearchTerm] = useState('');
-const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
+const [selectedDate, setSelectedDate] = useState('5 ส.ค. 2569');
 const [stageFilter, setStageFilter] = useState('ทั้งหมด');
 const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
 const [isFetched, setIsFetched] = useState(false);
 
 const matchDates = [
-  '6 ส.ค. 2569',
+  '5 ส.ค. 2569',
   '11 ส.ค. 2569',
+  '18 ส.ค. 2569',
   '19 ส.ค. 2569',
 ];
 
