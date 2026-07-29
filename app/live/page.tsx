@@ -84,7 +84,7 @@ export default function StreamPage() {
         title: String(match[4] || `จอที่ ${index + 1}`),
         embedUrl: getYoutubeEmbedUrl(match[25]),
         stage: String(match[1] || '-'),
-        group: group ? `กลุ่ม ${group}` : '-',
+        group: group ? `สาย ${group}` : '-',
         teamAPlayer1: String(match[7] || '-'),
         teamAPlayer2: String(match[9] || '-'),
         teamBPlayer1: String(match[12] || '-'),
