@@ -78,7 +78,6 @@ const matchDates = [
           .includes(search)
       );
     })
-    .slice(0, 12);
 }, [isFetched, matches, searchTerm, selectedDate]);
 
   // =============================
@@ -128,6 +127,7 @@ const getGroupClass = (group: string) => {
   D: 'bg-orange-500 border-orange-300 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
   E: 'bg-pink-500 border-pink-300 text-white shadow-[0_0_14px_rgba(236,72,153,.35)]',
   F: 'bg-cyan-500 border-cyan-300 text-white shadow-[0_0_14px_rgba(6,182,212,.35)]',
+  G: 'bg-lime-500 border-lime-300 text-black shadow-[0_0_14px_rgba(132,204,22,.35)]',
 };
 
   return (

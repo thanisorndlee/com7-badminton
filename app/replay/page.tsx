@@ -5,8 +5,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 const API_URL =
   'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec';
 
-const DATES = ['6 ส.ค. 2569', '11 ส.ค. 2569', '19 ส.ค. 2569'];
-const COURTS = ['สนาม 1', 'สนาม 2', 'สนาม 3'];
+const DATES = [
+  '5 ส.ค. 2569',
+  '11 ส.ค. 2569',
+  '18 ส.ค. 2569',
+  '19 ส.ค. 2569',
+];const COURTS = ['สนาม 1', 'สนาม 2', 'สนาม 3'];
 
 const COURT_STYLE: Record<
   string,

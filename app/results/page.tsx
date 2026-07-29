@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F'];
+const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
 const GROUP_STYLES: Record<
   string,
@@ -49,6 +49,13 @@ const GROUP_STYLES: Record<
     background: 'bg-cyan-500/10',
     badge: 'bg-cyan-500 border-cyan-300 shadow-[0_0_18px_rgba(6,182,212,.45)]',
   },
+  G: {
+  text: 'text-black',
+  border: 'border-lime-300/60',
+  background: 'bg-lime-500/10',
+  badge:
+    'bg-lime-500 border-lime-300 text-black shadow-[0_0_18px_rgba(132,204,22,.45)]',
+},
 };
 const GROUP_BUTTONS: Record<string, string> = {
   A: 'bg-yellow-500 border-yellow-300 text-black shadow-[0_0_14px_rgba(234,179,8,.35)]', 
@@ -57,6 +64,7 @@ const GROUP_BUTTONS: Record<string, string> = {
   D: 'bg-orange-500 border-orange-300 text-white shadow-[0_0_14px_rgba(249,115,22,.35)]',
   E: 'bg-pink-500 border-pink-300 text-white shadow-[0_0_14px_rgba(236,72,153,.35)]',
   F: 'bg-cyan-500 border-cyan-300 text-white shadow-[0_0_14px_rgba(6,182,212,.35)]',
+  G: 'bg-lime-500 border-lime-300 text-black shadow-[0_0_14px_rgba(132,204,22,.35)]',
 };
 function getRankDisplay(rank: number) {
   if (rank === 1) return '🥇';
