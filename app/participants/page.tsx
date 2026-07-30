@@ -30,66 +30,82 @@ const GROUP_STYLES: Record<
   }
 > = {
   A: {
-    border: 'border-yellow-400/70',
-    header: 'from-yellow-500/30 to-yellow-950/20',
-    badge: 'border-yellow-300/80 bg-yellow-400/20',
+    border: 'border-yellow-400',
+    header: 'from-yellow-500/35 to-yellow-950/10',
+    badge:
+      'border-yellow-300 bg-yellow-500 text-black shadow-[0_0_18px_rgba(250,204,21,0.45)]',
     text: 'text-yellow-300',
-    glow: 'shadow-[0_0_30px_rgba(250,204,21,0.12)]',
+    glow: 'shadow-[0_0_28px_rgba(250,204,21,0.16)]',
     department:
-      'border-yellow-400/25 bg-yellow-400/10 text-yellow-300',
+      'border-yellow-400/30 bg-yellow-400/10 text-yellow-300',
   },
+
   B: {
-    border: 'border-sky-400/70',
-    header: 'from-sky-500/30 to-sky-950/20',
-    badge: 'border-sky-300/80 bg-sky-400/20',
-    text: 'text-sky-300',
-    glow: 'shadow-[0_0_30px_rgba(56,189,248,0.12)]',
-    department: 'border-sky-400/25 bg-sky-400/10 text-sky-300',
+    border: 'border-blue-400',
+    header: 'from-blue-500/35 to-blue-950/10',
+    badge:
+      'border-blue-300 bg-blue-500 text-white shadow-[0_0_18px_rgba(59,130,246,0.45)]',
+    text: 'text-blue-300',
+    glow: 'shadow-[0_0_28px_rgba(59,130,246,0.16)]',
+    department:
+      'border-blue-400/30 bg-blue-400/10 text-blue-300',
   },
+
   C: {
-    border: 'border-violet-400/70',
-    header: 'from-violet-500/30 to-violet-950/20',
-    badge: 'border-violet-300/80 bg-violet-400/20',
+    border: 'border-violet-400',
+    header: 'from-violet-500/35 to-violet-950/10',
+    badge:
+      'border-violet-300 bg-violet-500 text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]',
     text: 'text-violet-300',
-    glow: 'shadow-[0_0_30px_rgba(167,139,250,0.12)]',
+    glow: 'shadow-[0_0_28px_rgba(139,92,246,0.16)]',
     department:
-      'border-violet-400/25 bg-violet-400/10 text-violet-300',
+      'border-violet-400/30 bg-violet-400/10 text-violet-300',
   },
+
   D: {
-    border: 'border-lime-400/70',
-    header: 'from-lime-500/30 to-lime-950/20',
-    badge: 'border-lime-300/80 bg-lime-400/20',
-    text: 'text-lime-300',
-    glow: 'shadow-[0_0_30px_rgba(163,230,53,0.12)]',
-    department: 'border-lime-400/25 bg-lime-400/10 text-lime-300',
-  },
-  E: {
-    border: 'border-rose-500/70',
-    header: 'from-rose-500/30 to-rose-950/20',
-    badge: 'border-rose-400/80 bg-rose-500/20',
-    text: 'text-rose-300',
-    glow: 'shadow-[0_0_30px_rgba(244,63,94,0.12)]',
-    department: 'border-rose-400/25 bg-rose-500/10 text-rose-300',
-  },
-  F: {
-    border: 'border-orange-400/70',
-    header: 'from-orange-500/30 to-orange-950/20',
-    badge: 'border-orange-300/80 bg-orange-400/20',
+    border: 'border-orange-400',
+    header: 'from-orange-500/35 to-orange-950/10',
+    badge:
+      'border-orange-300 bg-orange-500 text-white shadow-[0_0_18px_rgba(249,115,22,0.45)]',
     text: 'text-orange-300',
-    glow: 'shadow-[0_0_30px_rgba(251,146,60,0.12)]',
+    glow: 'shadow-[0_0_28px_rgba(249,115,22,0.16)]',
     department:
-      'border-orange-400/25 bg-orange-400/10 text-orange-300',
+      'border-orange-400/30 bg-orange-400/10 text-orange-300',
   },
-  G: {
-    border: 'border-pink-400/70',
-    header: 'from-pink-500/30 to-pink-950/20',
-    badge: 'border-pink-300/80 bg-pink-400/20',
+
+  E: {
+    border: 'border-pink-400',
+    header: 'from-pink-500/35 to-pink-950/10',
+    badge:
+      'border-pink-300 bg-pink-500 text-white shadow-[0_0_18px_rgba(236,72,153,0.45)]',
     text: 'text-pink-300',
-    glow: 'shadow-[0_0_30px_rgba(244,114,182,0.12)]',
-    department: 'border-pink-400/25 bg-pink-400/10 text-pink-300',
+    glow: 'shadow-[0_0_28px_rgba(236,72,153,0.16)]',
+    department:
+      'border-pink-400/30 bg-pink-400/10 text-pink-300',
+  },
+
+  F: {
+    border: 'border-cyan-400',
+    header: 'from-cyan-500/35 to-cyan-950/10',
+    badge:
+      'border-cyan-300 bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.45)]',
+    text: 'text-cyan-300',
+    glow: 'shadow-[0_0_28px_rgba(6,182,212,0.16)]',
+    department:
+      'border-cyan-400/30 bg-cyan-400/10 text-cyan-300',
+  },
+
+  G: {
+    border: 'border-lime-400',
+    header: 'from-lime-500/35 to-lime-950/10',
+    badge:
+      'border-lime-300 bg-lime-500 text-black shadow-[0_0_18px_rgba(132,204,22,0.45)]',
+    text: 'text-lime-300',
+    glow: 'shadow-[0_0_28px_rgba(132,204,22,0.16)]',
+    department:
+      'border-lime-400/30 bg-lime-400/10 text-lime-300',
   },
 };
-
 export default function ParticipantsPage() {
   const [participants, setParticipants] = useState<ParticipantRow[]>([]);
   const [search, setSearch] = useState('');
@@ -334,9 +350,9 @@ export default function ParticipantsPage() {
                   {/* Header สาย */}
                   <div
                     className={`flex items-center gap-4 border-b border-white/10 bg-gradient-to-r px-5 py-4 ${style.header}`}
-                  >
+                    >
                     <div
-                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-2xl font-black ${style.badge} ${style.text}`}
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-2xl font-black ${style.badge}`}
                     >
                       {group}
                     </div>
@@ -360,9 +376,9 @@ export default function ParticipantsPage() {
                       >
                         {/* รหัสทีม */}
                         <div
-                          className={`flex h-11 items-center justify-center rounded-lg border bg-black/30 text-base font-black ${style.border} ${style.text}`}
+                        className={`flex h-11 items-center justify-center rounded-lg border bg-black/40 text-base font-black shadow-[0_0_12px_rgba(255,255,255,0.04)] ${style.border} ${style.text}`}
                         >
-                          {team.team}
+                        {team.team}
                         </div>
 
                         {/* ผู้เล่น */}
