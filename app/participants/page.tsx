@@ -513,8 +513,8 @@ function UserIcon() {
 
 function ShuttleIcon() {
   return (
-    <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-lime-400/30 bg-lime-500/10 shadow-[0_0_30px_rgba(132,204,22,0.15)] backdrop-blur-sm">
-      <span className="text-4xl leading-none">🏸</span>
+    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-lime-400/30 bg-lime-400/10 shadow-[0_0_25px_rgba(132,204,22,0.18)]">
+      <span className="text-3xl leading-none">🏸</span>
     </div>
   );
 }
