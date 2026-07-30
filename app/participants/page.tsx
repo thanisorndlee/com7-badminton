@@ -236,13 +236,13 @@ export default function ParticipantsPage() {
         <section className="-mt-4 mb-8">
           <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
             <div>
-              <div className="mb-3 flex items-center gap-3">
-                <ShuttleIcon />
+            <div className="mb-4 inline-flex items-center gap-3 rounded-xl border border-[#00D8A0]/30 bg-[#00D8A0]/10 px-5 py-3 shadow-[0_0_18px_rgba(0,216,160,0.12)] backdrop-blur-md">
+            <ShuttleIcon />
 
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-lime-400">
-                  Tournament Participants
-                </p>
-              </div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#00D8A0]">
+                TOURNAMENT PARTICIPANTS
+            </p>
+            </div>
 
               <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 รายชื่อผู้เข้าแข่งขัน
@@ -250,11 +250,11 @@ export default function ParticipantsPage() {
 
               <p className="mt-3 text-sm font-medium text-slate-300 sm:text-base">
                 การแข่งขันประเภทคู่ แบ่งออกเป็น 7 สาย รวมทั้งหมด{' '}
-                <span className="font-black text-lime-400">
+                <span className="font-black text-[#00D8A0]">
                   {totalTeams} ทีม
                 </span>{' '}
                 และ{' '}
-                <span className="font-black text-lime-400">
+                <span className="font-black text-[#00D8A0]">
                   {totalPlayers} ท่าน
                 </span>
               </p>
@@ -277,7 +277,7 @@ export default function ParticipantsPage() {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="ค้นหาทีม ชื่อ หรือนามสกุล"
-                  className="h-14 w-full rounded-2xl border border-emerald-500/40 bg-slate-950/80 pl-16 pr-5 text-lg font-semibold text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"                />
+                  className="h-14 w-full rounded-2xl border border-[#00D8A0]/40 bg-slate-950/80 pl-16 pr-5 text-lg font-semibold text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"                />
 
                 {search && (
                   <button
@@ -401,7 +401,7 @@ export default function ParticipantsPage() {
         {/* หมายเหตุ */}
         {!isLoading && !error && participantData.length > 0 && (
           <div className="mx-auto mt-8 flex max-w-3xl items-start gap-3 rounded-2xl border border-white/10 bg-slate-950/70 px-5 py-4 backdrop-blur-xl">
-            <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-lime-400/40 text-xs font-black text-lime-400">
+            <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#00D8A0]/40 text-xs font-black text-[#00D8A0]">
               i
             </div>
 
@@ -466,7 +466,7 @@ function SearchIcon() {
         r="7"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="text-slate-400"
+        className="text-[#00D8A0]"
       />
       <path
         d="M16.5 16.5L21 21"
@@ -507,8 +507,6 @@ function UserIcon() {
 
 function ShuttleIcon() {
   return (
-    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-lime-400/30 bg-lime-400/10 shadow-[0_0_25px_rgba(132,204,22,0.18)]">
-      <span className="text-3xl leading-none">🏸</span>
-    </div>
+    <span className="text-3xl leading-none">🏸</span>
   );
 }
