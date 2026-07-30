@@ -6,7 +6,7 @@ const API_URL =
   'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec';
 
 const DATES = [
-  '5 ส.ค. 2569',
+  '6 ส.ค. 2569',
   '11 ส.ค. 2569',
   '18 ส.ค. 2569',
   '19 ส.ค. 2569',
