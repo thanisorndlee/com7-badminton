@@ -85,8 +85,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     {/* MENU */}
 <div className="no-scrollbar relative z-20 flex w-full touch-pan-x items-center gap-6 overflow-x-auto whitespace-nowrap text-sm font-normal tracking-wide lg:w-auto lg:overflow-visible">
-        <Link href="/" className={getMenuClass('/')}>
+      <Link href="/" className={getMenuClass('/')}>
         หน้าหลัก
+      </Link>
+
+      <Link href="/participants" className={getMenuClass('/participants')}>
+        ตารางแบ่งกลุ่ม
       </Link>
 
       <Link href="/schedule" className={getMenuClass('/schedule')}>

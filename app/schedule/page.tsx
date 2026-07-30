@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from 'react';
 
 export default function SchedulePage() {
-  const [matches, setMatches] = useState<any[]>([]);
+const [matches, setMatches] = useState<any[]>([]);
 const [searchTerm, setSearchTerm] = useState('');
 const [selectedDate, setSelectedDate] = useState('5 ส.ค. 2569');
 const [stageFilter, setStageFilter] = useState('ทั้งหมด');
