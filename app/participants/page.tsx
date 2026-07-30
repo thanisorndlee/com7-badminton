@@ -513,33 +513,8 @@ function UserIcon() {
 
 function ShuttleIcon() {
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-lime-400/30 bg-lime-400/10 text-lime-400 shadow-[0_0_20px_rgba(132,204,22,0.15)]">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M8 4L12 12M12 4L14 11M16 5L16 10"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <path
-          d="M6.5 3.5L16.5 4.5L17 10L12 13L6.5 3.5Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 13L8.5 17.5C7.8 18.4 8 19.7 8.9 20.4C9.8 21.1 11.1 20.9 11.8 20L15.2 15.5L12 13Z"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-      </svg>
+    <div className="flex h-16 w-16 items-center justify-center rounded-3xl border border-lime-400/30 bg-lime-500/10 shadow-[0_0_30px_rgba(132,204,22,0.15)] backdrop-blur-sm">
+      <span className="text-4xl leading-none">🏸</span>
     </div>
   );
 }
