@@ -218,25 +218,20 @@ export default function ParticipantsPage() {
   }, 0);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020b17] text-white">
-      {/* พื้นหลัง */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(0,255,110,0.12),transparent_30%),radial-gradient(circle_at_85%_30%,rgba(57,255,20,0.09),transparent_34%),linear-gradient(180deg,#020b17_0%,#031426_55%,#020811_100%)]" />
+  <div className="relative flex min-h-screen w-full select-none flex-col overflow-x-hidden bg-[#070b14] pt-24 text-slate-100 md:pt-28">
+    {/* Background */}
+    <div className="absolute inset-0 z-0">
+      <img
+        src="/badminton-bg.jpg"
+        alt="Tournament Background"
+        className="h-full w-full object-fill opacity-85"
+      />
+    </div>
 
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-          }}
-        />
+    {/* Overlay */}
+    <div className="absolute inset-0 z-0 bg-[#020814]/45" />
 
-        <div className="absolute -left-40 top-1/2 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]" />
-        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-lime-500/10 blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-14 pt-10 sm:px-8 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-14 sm:px-8 lg:px-12">
         {/* หัวหน้า */}
         <section className="mb-8">
           <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
@@ -419,7 +414,7 @@ export default function ParticipantsPage() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }
 
