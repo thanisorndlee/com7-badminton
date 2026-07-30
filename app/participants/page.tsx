@@ -1,0 +1,529 @@
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+
+type ParticipantRow = string[];
+
+type Participant = {
+  group: string;
+  team: string;
+  player1: string;
+  department1: string;
+  player2: string;
+  department2: string;
+};
+
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec';
+
+const GROUPS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+const GROUP_STYLES: Record<
+  string,
+  {
+    border: string;
+    header: string;
+    badge: string;
+    text: string;
+    glow: string;
+    department: string;
+  }
+> = {
+  A: {
+    border: 'border-yellow-400/70',
+    header: 'from-yellow-500/30 to-yellow-950/20',
+    badge: 'border-yellow-300/80 bg-yellow-400/20',
+    text: 'text-yellow-300',
+    glow: 'shadow-[0_0_30px_rgba(250,204,21,0.12)]',
+    department:
+      'border-yellow-400/25 bg-yellow-400/10 text-yellow-300',
+  },
+  B: {
+    border: 'border-sky-400/70',
+    header: 'from-sky-500/30 to-sky-950/20',
+    badge: 'border-sky-300/80 bg-sky-400/20',
+    text: 'text-sky-300',
+    glow: 'shadow-[0_0_30px_rgba(56,189,248,0.12)]',
+    department: 'border-sky-400/25 bg-sky-400/10 text-sky-300',
+  },
+  C: {
+    border: 'border-violet-400/70',
+    header: 'from-violet-500/30 to-violet-950/20',
+    badge: 'border-violet-300/80 bg-violet-400/20',
+    text: 'text-violet-300',
+    glow: 'shadow-[0_0_30px_rgba(167,139,250,0.12)]',
+    department:
+      'border-violet-400/25 bg-violet-400/10 text-violet-300',
+  },
+  D: {
+    border: 'border-lime-400/70',
+    header: 'from-lime-500/30 to-lime-950/20',
+    badge: 'border-lime-300/80 bg-lime-400/20',
+    text: 'text-lime-300',
+    glow: 'shadow-[0_0_30px_rgba(163,230,53,0.12)]',
+    department: 'border-lime-400/25 bg-lime-400/10 text-lime-300',
+  },
+  E: {
+    border: 'border-rose-500/70',
+    header: 'from-rose-500/30 to-rose-950/20',
+    badge: 'border-rose-400/80 bg-rose-500/20',
+    text: 'text-rose-300',
+    glow: 'shadow-[0_0_30px_rgba(244,63,94,0.12)]',
+    department: 'border-rose-400/25 bg-rose-500/10 text-rose-300',
+  },
+  F: {
+    border: 'border-orange-400/70',
+    header: 'from-orange-500/30 to-orange-950/20',
+    badge: 'border-orange-300/80 bg-orange-400/20',
+    text: 'text-orange-300',
+    glow: 'shadow-[0_0_30px_rgba(251,146,60,0.12)]',
+    department:
+      'border-orange-400/25 bg-orange-400/10 text-orange-300',
+  },
+  G: {
+    border: 'border-pink-400/70',
+    header: 'from-pink-500/30 to-pink-950/20',
+    badge: 'border-pink-300/80 bg-pink-400/20',
+    text: 'text-pink-300',
+    glow: 'shadow-[0_0_30px_rgba(244,114,182,0.12)]',
+    department: 'border-pink-400/25 bg-pink-400/10 text-pink-300',
+  },
+};
+
+export default function ParticipantsPage() {
+  const [participants, setParticipants] = useState<ParticipantRow[]>([]);
+  const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchParticipants() {
+      try {
+        setIsLoading(true);
+        setError('');
+
+        const response = await fetch(`${API_URL}?t=${Date.now()}`, {
+          cache: 'no-store',
+        });
+
+        if (!response.ok) {
+          throw new Error('ไม่สามารถโหลดข้อมูลได้');
+        }
+
+        const data = await response.json();
+
+        if (!isMounted) return;
+
+        const rows = Array.isArray(data.participants)
+          ? data.participants.slice(1)
+          : [];
+
+        setParticipants(rows);
+      } catch (fetchError) {
+        console.error(fetchError);
+
+        if (isMounted) {
+          setError('ไม่สามารถโหลดรายชื่อผู้เข้าแข่งขันได้');
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    fetchParticipants();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const participantData = useMemo<Participant[]>(() => {
+    return participants
+      .map((row) => ({
+        group: String(row[0] || '')
+          .trim()
+          .toUpperCase(),
+        team: String(row[1] || '')
+          .trim()
+          .toUpperCase(),
+        player1: String(row[2] || '').trim(),
+        department1: String(row[3] || '').trim(),
+        player2: String(row[4] || '').trim(),
+        department2: String(row[5] || '').trim(),
+      }))
+      .filter((item) => item.group && item.team);
+  }, [participants]);
+
+  const filteredParticipants = useMemo(() => {
+    const keyword = search.trim().toLowerCase();
+
+    if (!keyword) {
+      return participantData;
+    }
+
+    return participantData.filter((item) => {
+      return [
+        item.group,
+        item.team,
+        item.player1,
+        item.department1,
+        item.player2,
+        item.department2,
+      ].some((value) => value.toLowerCase().includes(keyword));
+    });
+  }, [participantData, search]);
+
+  const groupedParticipants = useMemo(() => {
+    return GROUPS.map((group) => ({
+      group,
+      teams: filteredParticipants
+        .filter((item) => item.group === group)
+        .sort((a, b) =>
+          a.team.localeCompare(b.team, undefined, {
+            numeric: true,
+            sensitivity: 'base',
+          }),
+        ),
+    })).filter((groupItem) => groupItem.teams.length > 0);
+  }, [filteredParticipants]);
+
+  const totalTeams = participantData.length;
+  const totalPlayers = participantData.reduce((total, item) => {
+    let count = total;
+
+    if (item.player1) count += 1;
+    if (item.player2) count += 1;
+
+    return count;
+  }, 0);
+
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-[#020b17] text-white">
+      {/* พื้นหลัง */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(0,255,110,0.12),transparent_30%),radial-gradient(circle_at_85%_30%,rgba(57,255,20,0.09),transparent_34%),linear-gradient(180deg,#020b17_0%,#031426_55%,#020811_100%)]" />
+
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+
+        <div className="absolute -left-40 top-1/2 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px]" />
+        <div className="absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-lime-500/10 blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-14 pt-10 sm:px-8 lg:px-12">
+        {/* หัวหน้า */}
+        <section className="mb-8">
+          <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
+            <div>
+              <div className="mb-3 flex items-center gap-3">
+                <ShuttleIcon />
+
+                <p className="text-sm font-black uppercase tracking-[0.18em] text-lime-400">
+                  Tournament Participants
+                </p>
+              </div>
+
+              <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                รายชื่อผู้เข้าแข่งขัน
+              </h1>
+
+              <p className="mt-3 text-sm font-medium text-slate-300 sm:text-base">
+                การแข่งขันประเภทคู่ แบ่งออกเป็น 7 สาย รวมทั้งหมด{' '}
+                <span className="font-black text-lime-400">
+                  {totalTeams} ทีม
+                </span>{' '}
+                และ{' '}
+                <span className="font-black text-lime-400">
+                  {totalPlayers} ท่าน
+                </span>
+              </p>
+            </div>
+
+            {/* ช่องค้นหา */}
+            <div className="w-full xl:max-w-md">
+              <label htmlFor="participant-search" className="sr-only">
+                ค้นหาทีมหรือผู้เข้าแข่งขัน
+              </label>
+
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+                  <SearchIcon />
+                </div>
+
+                <input
+                  id="participant-search"
+                  type="text"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="ค้นหาทีม ชื่อ หรือนามสกุล"
+                  className="h-14 w-full rounded-2xl border border-white/20 bg-slate-950/70 pl-12 pr-12 text-sm font-semibold text-white outline-none backdrop-blur-xl transition placeholder:text-slate-500 focus:border-lime-400/70 focus:ring-4 focus:ring-lime-400/10"
+                />
+
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    aria-label="ล้างคำค้นหา"
+                    className="absolute inset-y-0 right-4 flex items-center text-xl text-slate-400 transition hover:text-white"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Loading */}
+        {isLoading && (
+          <div className="flex min-h-[420px] items-center justify-center">
+            <div className="text-center">
+              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-white/10 border-t-lime-400" />
+              <p className="mt-4 text-sm font-bold text-slate-400">
+                กำลังโหลดรายชื่อผู้เข้าแข่งขัน...
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Error */}
+        {!isLoading && error && (
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 px-6 py-10 text-center">
+            <p className="font-black text-red-300">{error}</p>
+            <p className="mt-2 text-sm text-red-200/70">
+              กรุณาตรวจสอบ URL ของ Apps Script และการ Deploy
+            </p>
+          </div>
+        )}
+
+        {/* ไม่มีข้อมูล */}
+        {!isLoading &&
+          !error &&
+          groupedParticipants.length === 0 && (
+            <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-20 text-center backdrop-blur-xl">
+              <p className="text-lg font-black text-white">
+                ไม่พบรายชื่อผู้เข้าแข่งขัน
+              </p>
+              <p className="mt-2 text-sm text-slate-400">
+                ลองค้นหาด้วยชื่อ นามสกุล หรือรหัสทีมอื่น
+              </p>
+            </div>
+          )}
+
+        {/* การ์ดแต่ละสาย */}
+        {!isLoading && !error && groupedParticipants.length > 0 && (
+          <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {groupedParticipants.map(({ group, teams }) => {
+              const style = GROUP_STYLES[group];
+
+              return (
+                <section
+                  key={group}
+                  className={`overflow-hidden rounded-2xl border bg-slate-950/75 backdrop-blur-xl ${style.border} ${style.glow}`}
+                >
+                  {/* Header สาย */}
+                  <div
+                    className={`flex items-center gap-4 border-b border-white/10 bg-gradient-to-r px-5 py-4 ${style.header}`}
+                  >
+                    <div
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-2xl font-black ${style.badge} ${style.text}`}
+                    >
+                      {group}
+                    </div>
+
+                    <div>
+                      <p className={`text-2xl font-black ${style.text}`}>
+                        สาย {group}
+                      </p>
+                      <p className="mt-0.5 text-xs font-bold text-slate-400">
+                        {teams.length} ทีม · {teams.length * 2} คน
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* ทีมในสาย */}
+                  <div className="divide-y divide-white/10 px-4">
+                    {teams.map((team) => (
+                      <article
+                        key={`${group}-${team.team}`}
+                        className="grid grid-cols-[56px_minmax(0,1fr)] gap-4 py-4"
+                      >
+                        {/* รหัสทีม */}
+                        <div
+                          className={`flex h-11 items-center justify-center rounded-lg border bg-black/30 text-base font-black ${style.border} ${style.text}`}
+                        >
+                          {team.team}
+                        </div>
+
+                        {/* ผู้เล่น */}
+                        <div className="min-w-0 space-y-3">
+                          <PlayerItem
+                            name={team.player1}
+                            department={team.department1}
+                            departmentClass={style.department}
+                          />
+
+                          <PlayerItem
+                            name={team.player2}
+                            department={team.department2}
+                            departmentClass={style.department}
+                          />
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        )}
+
+        {/* หมายเหตุ */}
+        {!isLoading && !error && participantData.length > 0 && (
+          <div className="mx-auto mt-8 flex max-w-3xl items-start gap-3 rounded-2xl border border-white/10 bg-slate-950/70 px-5 py-4 backdrop-blur-xl">
+            <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-lime-400/40 text-xs font-black text-lime-400">
+              i
+            </div>
+
+            <p className="text-sm leading-6 text-slate-300">
+              <span className="font-black text-white">หมายเหตุ :</span>{' '}
+              การแข่งขันรอบแบ่งกลุ่มใช้รูปแบบพบกันหมดภายในสาย
+              โดยทีมอันดับที่ 1–2 ของแต่ละสายจะผ่านเข้าสู่รอบต่อไป
+            </p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
+
+type PlayerItemProps = {
+  name: string;
+  department: string;
+  departmentClass: string;
+};
+
+function PlayerItem({
+  name,
+  department,
+  departmentClass,
+}: PlayerItemProps) {
+  return (
+    <div className="flex min-w-0 items-start gap-2.5">
+      <div className="mt-0.5 shrink-0 text-slate-400">
+        <UserIcon />
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <p className="break-words text-sm font-bold leading-5 text-white">
+          {name || '-'}
+        </p>
+
+        {department && (
+          <span
+            className={`mt-1 inline-flex rounded-md border px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.08em] ${departmentClass}`}
+          >
+            {department}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="11"
+        cy="11"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        className="text-slate-400"
+      />
+      <path
+        d="M16.5 16.5L21 21"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        className="text-slate-400"
+      />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="8"
+        r="3.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M5.5 20C5.8 16.5 8.2 14.5 12 14.5C15.8 14.5 18.2 16.5 18.5 20"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function ShuttleIcon() {
+  return (
+    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-lime-400/30 bg-lime-400/10 text-lime-400 shadow-[0_0_20px_rgba(132,204,22,0.15)]">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M8 4L12 12M12 4L14 11M16 5L16 10"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M6.5 3.5L16.5 4.5L17 10L12 13L6.5 3.5Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 13L8.5 17.5C7.8 18.4 8 19.7 8.9 20.4C9.8 21.1 11.1 20.9 11.8 20L15.2 15.5L12 13Z"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+}
