@@ -26,7 +26,6 @@ const GROUP_STYLES: Record<
     badge: string;
     text: string;
     glow: string;
-    department: string;
   }
 > = {
   A: {
@@ -36,8 +35,7 @@ const GROUP_STYLES: Record<
       'border-yellow-300 bg-yellow-500 text-black shadow-[0_0_18px_rgba(250,204,21,0.45)]',
     text: 'text-yellow-300',
     glow: 'shadow-[0_0_28px_rgba(250,204,21,0.16)]',
-    department:
-      'border-yellow-400/30 bg-yellow-400/10 text-yellow-300',
+    
   },
 
   B: {
@@ -47,8 +45,7 @@ const GROUP_STYLES: Record<
       'border-blue-300 bg-blue-500 text-white shadow-[0_0_18px_rgba(59,130,246,0.45)]',
     text: 'text-blue-300',
     glow: 'shadow-[0_0_28px_rgba(59,130,246,0.16)]',
-    department:
-      'border-blue-400/30 bg-blue-400/10 text-blue-300',
+    
   },
 
   C: {
@@ -58,8 +55,7 @@ const GROUP_STYLES: Record<
       'border-violet-300 bg-violet-500 text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]',
     text: 'text-violet-300',
     glow: 'shadow-[0_0_28px_rgba(139,92,246,0.16)]',
-    department:
-      'border-violet-400/30 bg-violet-400/10 text-violet-300',
+    
   },
 
   D: {
@@ -69,8 +65,7 @@ const GROUP_STYLES: Record<
       'border-orange-300 bg-orange-500 text-white shadow-[0_0_18px_rgba(249,115,22,0.45)]',
     text: 'text-orange-300',
     glow: 'shadow-[0_0_28px_rgba(249,115,22,0.16)]',
-    department:
-      'border-orange-400/30 bg-orange-400/10 text-orange-300',
+    
   },
 
   E: {
@@ -80,8 +75,7 @@ const GROUP_STYLES: Record<
       'border-pink-300 bg-pink-500 text-white shadow-[0_0_18px_rgba(236,72,153,0.45)]',
     text: 'text-pink-300',
     glow: 'shadow-[0_0_28px_rgba(236,72,153,0.16)]',
-    department:
-      'border-pink-400/30 bg-pink-400/10 text-pink-300',
+    
   },
 
   F: {
@@ -91,8 +85,7 @@ const GROUP_STYLES: Record<
       'border-cyan-300 bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.45)]',
     text: 'text-cyan-300',
     glow: 'shadow-[0_0_28px_rgba(6,182,212,0.16)]',
-    department:
-      'border-cyan-400/30 bg-cyan-400/10 text-cyan-300',
+    
   },
 
   G: {
@@ -102,8 +95,7 @@ const GROUP_STYLES: Record<
       'border-lime-300 bg-lime-500 text-black shadow-[0_0_18px_rgba(132,204,22,0.45)]',
     text: 'text-lime-300',
     glow: 'shadow-[0_0_28px_rgba(132,204,22,0.16)]',
-    department:
-      'border-lime-400/30 bg-lime-400/10 text-lime-300',
+    
   },
 };
 export default function ParticipantsPage() {
@@ -380,13 +372,11 @@ export default function ParticipantsPage() {
                           <PlayerItem
                             name={team.player1}
                             department={team.department1}
-                            departmentClass={style.department}
                           />
 
-                          <PlayerItem
+                                                    <PlayerItem
                             name={team.player2}
                             department={team.department2}
-                            departmentClass={style.department}
                           />
                         </div>
                       </article>
@@ -420,13 +410,11 @@ export default function ParticipantsPage() {
 type PlayerItemProps = {
   name: string;
   department: string;
-  departmentClass: string;
 };
 
 function PlayerItem({
   name,
   department,
-  departmentClass,
 }: PlayerItemProps) {
   return (
     <div className="flex min-w-0 items-start gap-2.5">
@@ -440,11 +428,9 @@ function PlayerItem({
         </p>
 
         {department && (
-          <span
-            className={`mt-1 inline-flex rounded-md border px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.08em] ${departmentClass}`}
-          >
-            {department}
-          </span>
+          <p className="mt-1 text-xs text-slate-400">
+  {department}
+</p>
         )}
       </div>
     </div>
