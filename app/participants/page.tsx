@@ -218,7 +218,7 @@ export default function ParticipantsPage() {
   }, 0);
 
   return (
-  <div className="relative flex min-h-screen w-full select-none flex-col overflow-x-hidden bg-[#070b14] pt-24 text-slate-100 md:pt-28">
+  <div className="relative flex min-h-screen w-full select-none flex-col overflow-x-hidden bg-[#070b14] pt-16 text-slate-100 md:pt-20">
     {/* Background */}
     <div className="absolute inset-0 z-0">
       <img
@@ -233,7 +233,7 @@ export default function ParticipantsPage() {
 
       <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 pb-14 sm:px-8 lg:px-12">
         {/* หัวหน้า */}
-        <section className="mb-8">
+        <section className="-mt-4 mb-8">
           <div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-end">
             <div>
               <div className="mb-3 flex items-center gap-3">
@@ -267,8 +267,8 @@ export default function ParticipantsPage() {
               </label>
 
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
-                  <SearchIcon />
+                <div className="pointer-events-none absolute inset-y-0 left-5 flex items-center text-slate-300">
+                <SearchIcon />
                 </div>
 
                 <input
@@ -277,8 +277,7 @@ export default function ParticipantsPage() {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="ค้นหาทีม ชื่อ หรือนามสกุล"
-                  className="h-14 w-full rounded-2xl border border-white/20 bg-slate-950/70 pl-12 pr-12 text-sm font-semibold text-white outline-none backdrop-blur-xl transition placeholder:text-slate-500 focus:border-lime-400/70 focus:ring-4 focus:ring-lime-400/10"
-                />
+                  className="h-14 w-full rounded-2xl border border-emerald-500/40 bg-slate-950/80 pl-16 pr-5 text-lg font-semibold text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"                />
 
                 {search && (
                   <button
