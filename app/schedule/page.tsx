@@ -9,7 +9,15 @@ const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
 const [stageFilter, setStageFilter] = useState('ทั้งหมด');
 const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
 const [isFetched, setIsFetched] = useState(false);
-
+const TEAM_BADGE_STYLES: Record<string, string> = {
+  A: 'border-yellow-300 bg-yellow-500 text-black shadow-[0_0_18px_rgba(234,179,8,0.45)]',
+  B: 'border-blue-300 bg-blue-500 text-white shadow-[0_0_18px_rgba(59,130,246,0.45)]',
+  C: 'border-violet-300 bg-violet-500 text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]',
+  D: 'border-orange-300 bg-orange-500 text-white shadow-[0_0_18px_rgba(249,115,22,0.45)]',
+  E: 'border-pink-300 bg-pink-500 text-white shadow-[0_0_18px_rgba(236,72,153,0.45)]',
+  F: 'border-cyan-300 bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.45)]',
+  G: 'border-lime-300 bg-lime-500 text-black shadow-[0_0_18px_rgba(132,204,22,0.45)]',
+};
 const matchDates = [
   '6 ส.ค. 2569',
   '11 ส.ค. 2569',
@@ -253,7 +261,11 @@ const getGroupClass = (group: string) => {
                 TEAM 
               </p>
 
-              <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
+              <div
+                className={`mt-2 inline-flex min-w-[56px] items-center justify-center rounded-lg border-2 px-3 py-2 text-sm font-black ${getGroupClass(
+                  group
+                )}`}
+              >
                 {m[6] || '-'}
               </div>
 
@@ -287,7 +299,11 @@ const getGroupClass = (group: string) => {
                   TEAM 
               </p>
 
-              <div className="mt-2 inline-flex min-w-[50px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-sm font-black">
+              <div
+                className={`mt-2 inline-flex min-w-[56px] items-center justify-center rounded-lg border-2 px-3 py-2 text-sm font-black ${getGroupClass(
+                  group
+                )}`}
+              >
                 {m[11] || '-'}
               </div>
 
@@ -470,7 +486,11 @@ const getGroupClass = (group: string) => {
                   </div>
 
                   {/* รหัสทีมติดใกล้ VS */}
-<div className="ml-6 flex h-10 w-[54px] items-center justify-center rounded-lg border border-white/20 bg-white/5 text-sm font-black text-white">
+                  <div
+                    className={`ml-6 flex h-11 w-[58px] items-center justify-center rounded-lg border-2 text-sm font-black transition-all ${getGroupClass(
+                      group
+                    )}`}
+                  >
                     {m[6] || '-'}
                   </div>
                 </div>
@@ -488,7 +508,11 @@ const getGroupClass = (group: string) => {
                 <div className="flex items-start gap-3">
 
                   {/* รหัสทีมติดใกล้ VS */}
-<div className="mr-6 flex h-10 w-[54px] items-center justify-center rounded-lg border border-white/20 bg-white/5 text-sm font-black text-white">
+                  <div
+                    className={`mr-6 flex h-11 w-[58px] items-center justify-center rounded-lg border-2 text-sm font-black transition-all ${getGroupClass(
+                      group
+                    )}`}
+                  >
                     {m[11] || '-'}
                   </div>
 
