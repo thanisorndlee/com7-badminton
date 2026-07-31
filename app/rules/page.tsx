@@ -113,7 +113,7 @@ export default function RulesPage() {
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3 flex-wrap gap-2">
               <div className="flex items-center gap-2.5">
                 <span className="text-emerald-400 font-mono font-bold">01</span>
-                <h2 className="text-base font-bold text-white tracking-tight">รอบแบ่งกลุ่ม (24 คู่)</h2>
+                <h2 className="text-base font-bold text-white tracking-tight">รอบแบ่งกลุ่ม (28 คู่)</h2>
               </div>
               <span className="text-[10px] bg-slate-800 text-slate-300 font-medium px-2 py-0.5 rounded border border-white/5">พบกันหมดในสาย</span>
             </div>
