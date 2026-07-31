@@ -324,14 +324,14 @@ export default function ParticipantsPage() {
 
         {/* การ์ดแต่ละสาย */}
         {!isLoading && !error && groupedParticipants.length > 0 && (
-          <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid auto-rows-fr items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {groupedParticipants.map(({ group, teams }) => {
               const style = GROUP_STYLES[group];
 
               return (
                 <section
                   key={group}
-                  className={`overflow-hidden rounded-2xl border bg-slate-950/75 backdrop-blur-xl ${style.border} ${style.glow}`}
+                  className={`flex h-full min-h-[560px] flex-col overflow-hidden rounded-2xl border bg-slate-950/75 backdrop-blur-xl ${style.border} ${style.glow}`}
                 >
                   {/* Header สาย */}
                   <div
