@@ -212,7 +212,7 @@ export default function RulesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-300">
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
                 <p className="font-semibold text-white mb-1">🏸 กติกาการเสิร์ฟ</p>
-                <p className="text-slate-400 leading-relaxed">ยึดตามมาตรฐานสากล <span className="text-red-400 font-medium">"ห้ามเสิร์ฟลูกยิง หรือห้ามส่งลูก Backhand สูงพุ่งไปด้านหลัง"</span> หากฝ่าฝืนพิจารณาเป็นคะแนนเสีย</p>
+                <p className="text-slate-400 leading-relaxed">ยึดตามมาตรฐานสากล <span className="text-red-400 font-medium">"สามารถเสิร์ฟลูกยิง หรือลูก Backhand สูงพุ่งไปด้านหลัง"</span> ได้</p>
               </div>
 
               <div className="bg-black/30 border border-white/5 p-3 rounded-lg">
