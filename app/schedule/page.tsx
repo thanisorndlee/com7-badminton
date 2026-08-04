@@ -221,11 +221,15 @@ const getGroupClass = (group: string) => {
     tableMatches.map((m, i) => {
       const group = String(m[5] || '').trim();
 
-      const scoreA =
-        m[16] === '' || m[16] == null ? '-' : m[16];
+const scoreA =
+  m[22] !== '' && m[22] != null
+    ? m[22]
+    : '-';
 
-      const scoreB =
-        m[17] === '' || m[17] == null ? '-' : m[17];
+const scoreB =
+  m[23] !== '' && m[23] != null
+    ? m[23]
+    : '-';
 
       return (
         <article
@@ -409,19 +413,15 @@ const getGroupClass = (group: string) => {
         tableMatches.map((m, i) => {
           const group = String(m[5] || '').trim();
 
-          const scoreA =
-            m[16] === '' ||
-            m[16] === null ||
-            m[16] === undefined
-              ? '-'
-              : m[16];
+const scoreA =
+  m[22] !== '' && m[22] != null
+    ? m[22]
+    : '-';
 
-          const scoreB =
-            m[17] === '' ||
-            m[17] === null ||
-            m[17] === undefined
-              ? '-'
-              : m[17];
+const scoreB =
+  m[23] !== '' && m[23] != null
+    ? m[23]
+    : '-';
 
           return (
             <tr
