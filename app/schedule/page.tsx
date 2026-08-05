@@ -237,116 +237,122 @@ const scoreB =
           className="overflow-hidden rounded-2xl border border-white/20 bg-slate-950/80 shadow-xl"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/15 px-4 py-3">
-            <span className="rounded-lg border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-sm font-black text-emerald-400">
-              คู่ที่ {i + 1}
-            </span>
+<div className="border-b border-white/15 px-4 py-3">
+  <div className="flex items-center justify-between gap-3">
+    <span className="rounded-lg border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 text-sm font-black text-emerald-400">
+      {m[3] || '-'}
+    </span>
 
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-black text-slate-300">
-                🏸 {m[4] || '-'}
-              </span>
+    <span
+      className={`inline-flex min-w-[64px] items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-black ${getGroupClass(
+        group
+      )}`}
+    >
+      สาย {group || '-'}
+    </span>
+  </div>
 
-              <span
-                className={`inline-flex min-w-[70px] items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-black ${getGroupClass(
-                  group
-                )}`}
-              >
-                สาย {group || '-'}
-              </span>
-            </div>
-          </div>
+  <div className="mt-3 flex items-center justify-between text-xs font-bold text-slate-400">
+    <span>{m[2] || '-'}</span>
+    <span>🏸 {m[4] || '-'}</span>
+  </div>
+</div>
 
-          {/* Content */}
-          <div className="grid grid-cols-[1fr_60px_1fr_150px]">
-            {/* Team A */}
-            <div className="border-r border-white/15 p-4">
-              <p className="text-xs font-black uppercase text-emerald-400">
-                TEAM 
-              </p>
+         {/* Content */}
+<div className="p-4">
+  {/* ทีมแข่งขัน */}
+  <div className="grid grid-cols-[1fr_54px_1fr] items-center gap-3">
+    {/* Team A */}
+    <div className="min-w-0 text-center">
+      <div
+        className={`mx-auto flex h-12 w-16 items-center justify-center rounded-xl border-2 text-base font-black ${getGroupClass(
+          group
+        )}`}
+      >
+        {m[6] || '-'}
+      </div>
 
-              <div
-                className={`mt-2 inline-flex min-w-[56px] items-center justify-center rounded-lg border-2 px-3 py-2 text-sm font-black ${getGroupClass(
-                  group
-                )}`}
-              >
-                {m[6] || '-'}
-              </div>
+      <div className="mt-3 space-y-3">
+        <div>
+          <p className="break-words text-sm font-black text-white">
+            {m[7] || '-'}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+            {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
 
-              <p className="mt-3 text-base font-black text-white">
-                {m[7] || '-'}
-              </p>
+        <div>
+          <p className="break-words text-sm font-black text-white">
+            {m[9] || '-'}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+            {m[10] ? `แผนก ${m[10]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+      </div>
+    </div>
 
-              <p className="mt-1 text-xs font-semibold text-emerald-400">
-                {m[8] ? `แผนก ${m[8]}` : 'ไม่ระบุแผนก'}
-              </p>
+    {/* VS */}
+    <div className="flex items-center justify-center">
+      <span className="text-xl font-black italic text-slate-400">
+        VS
+      </span>
+    </div>
 
-              <p className="mt-3 text-base font-black text-white">
-                {m[9] || '-'}
-              </p>
+    {/* Team B */}
+    <div className="min-w-0 text-center">
+      <div
+        className={`mx-auto flex h-12 w-16 items-center justify-center rounded-xl border-2 text-base font-black ${getGroupClass(
+          group
+        )}`}
+      >
+        {m[11] || '-'}
+      </div>
 
-              <p className="mt-1 text-xs font-semibold text-emerald-400">
-                {m[10]
-                  ? `แผนก ${m[10]}`
-                  : 'ไม่ระบุแผนก'}
-              </p>
-            </div>
-            {/* VS */}
-            <div className="flex items-center justify-center border-r border-white/15">
-<span className="text-2xl font-black italic text-emerald-400">
-                  VS
-              </span>
-            </div>
-            {/* Team B */}
-            <div className="border-r border-white/15 p-4">
-<p className="text-center text-xs font-black uppercase tracking-wider text-emerald-400">
-                  TEAM 
-              </p>
+      <div className="mt-3 space-y-3">
+        <div>
+          <p className="break-words text-sm font-black text-white">
+            {m[12] || '-'}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+            {m[13] ? `แผนก ${m[13]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
 
-              <div
-                className={`mt-2 inline-flex min-w-[56px] items-center justify-center rounded-lg border-2 px-3 py-2 text-sm font-black ${getGroupClass(
-                  group
-                )}`}
-              >
-                {m[11] || '-'}
-              </div>
+        <div>
+          <p className="break-words text-sm font-black text-white">
+            {m[14] || '-'}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-emerald-400">
+            {m[15] ? `แผนก ${m[15]}` : 'ไม่ระบุแผนก'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-              <p className="mt-3 text-base font-black text-white">
-                {m[12] || '-'}
-              </p>
+  {/* คะแนน */}
+  <div className="mt-5 flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-4 py-3">
+    <div>
+      <p className="text-[10px] font-bold text-slate-400">
+        ผลคะแนน
+      </p>
+      <p className="mt-1 font-mono text-xl font-black text-emerald-400">
+        {scoreA} : {scoreB}
+      </p>
+    </div>
 
-              <p className="mt-1 text-xs font-semibold text-emerald-400">
-                {m[13]
-                  ? `แผนก ${m[13]}`
-                  : 'ไม่ระบุแผนก'}
-              </p>
-
-              <p className="mt-3 text-base font-black text-white">
-                {m[14] || '-'}
-              </p>
-
-              <p className="mt-1 text-xs font-semibold text-emerald-400">
-                {m[15]
-                  ? `แผนก ${m[15]}`
-                  : 'ไม่ระบุแผนก'}
-              </p>
-            </div>
-
-            {/* Score */}
-            <div className="flex flex-col items-center justify-center p-3 text-center">
-              <p className="text-xs font-black text-slate-300">
-                ผลคะแนน
-              </p>
-
-              <div className="mt-3 rounded-lg border border-white/15 bg-black px-3 py-2 font-mono text-base font-black text-emerald-400">
-                {scoreA} : {scoreB}
-              </div>
-
-              <p className="mt-4 text-xs font-semibold text-slate-400">
-                {m[2] || '-'}
-              </p>
-            </div>
-          </div>
+    <div className="text-right">
+      <p className="text-[10px] font-bold text-slate-400">
+        วันที่แข่งขัน
+      </p>
+      <p className="mt-1 text-xs font-black text-white">
+        {m[2] || '-'}
+      </p>
+    </div>
+  </div>
+</div>
         </article>
       );
     })
@@ -362,15 +368,15 @@ const scoreB =
   <table className="w-full min-w-[1040px] table-fixed border-collapse text-left text-sm">
 
     <colgroup>
-      <col className="w-[10%]" />
-      <col className="w-[9%]" />
-      <col className="w-[9%]" />
-      <col className="w-[8%]" />
-      <col className="w-[25%]" />
-      <col className="w-[5%]" />
-      <col className="w-[23%]" />
-      <col className="w-[11%]" />
-    </colgroup>
+  <col className="w-[9%]" />
+  <col className="w-[8%]" />
+  <col className="w-[11%]" />
+  <col className="w-[7%]" />
+  <col className="w-[25%]" />
+  <col className="w-[5%]" />
+  <col className="w-[25%]" />
+  <col className="w-[10%]" />
+</colgroup>
 
     <thead>
       <tr className="border-b border-white/15 bg-black/95 text-[11px] font-black uppercase text-slate-300">
@@ -382,9 +388,9 @@ const scoreB =
           สนาม
         </th>
 
-        <th>
-          เวลา
-        </th>
+        <th className="border-r border-white/10 px-3 py-5 text-center">
+  เวลา
+</th>
 
         <th className="border-r border-white/10 px-3 py-5 text-center">
           สาย
