@@ -382,8 +382,8 @@ const scoreB =
           สนาม
         </th>
 
-        <th className="border-r border-white/10 px-3 py-5 text-center">
-          ลำดับ
+        <th>
+          เวลา
         </th>
 
         <th className="border-r border-white/10 px-3 py-5 text-center">
@@ -438,9 +438,9 @@ const scoreB =
                 {m[4] || '-'}
               </td>
 
-              {/* ลำดับ */}
+              {/* เวลาแข่งขัน */}
               <td className="border-r border-white/10 px-3 py-5 text-center text-sm font-black text-white whitespace-nowrap">
-                คู่ที่ {i + 1}
+                {m[3] || '-'}
               </td>
 
               {/* สาย */}
