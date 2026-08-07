@@ -630,9 +630,25 @@ export default function ResultsPage() {
         ).length;
 
 const winner = String(match[24] || '')
-.trim().toUpperCase();
-console.log(match[24]);
-console.log(winner);
+  .trim()
+  .toUpperCase();
+
+const teamAUpper = teamA.toUpperCase();
+const teamBUpper = teamB.toUpperCase();
+
+const teamAColor =
+  winner === 'DRAW'
+    ? 'text-white'
+    : winner === teamAUpper
+      ? 'text-red-400'
+      : 'text-white';
+
+const teamBColor =
+  winner === 'DRAW'
+    ? 'text-white'
+    : winner === teamBUpper
+      ? 'text-red-400'
+      : 'text-white';
         return (
           <div
             key={`${match[0]}-${index}`}
@@ -657,7 +673,7 @@ console.log(winner);
 
               <div className="grid grid-cols-[1fr_92px_1fr] items-center px-3 py-5">
                 <div className="min-w-0 border-r border-white/15 pr-3 text-left">
-                  <p className="truncate text-base font-black text-emerald-400">
+                  <p className={`truncate text-base font-black ${teamAColor}`}>
                     ทีม {teamA}
                   </p>
 
@@ -690,7 +706,7 @@ console.log(winner);
                 </div>
 
                 <div className="min-w-0 border-l border-white/15 pl-3 text-left">
-                  <p className="truncate text-base font-black text-emerald-400">
+                  <p className={`truncate text-base font-black ${teamBColor}`}>
                     ทีม {teamB}
                   </p>
 
