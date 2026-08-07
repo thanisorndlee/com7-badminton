@@ -32,7 +32,7 @@ export default function GalleryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showUploadForm, setShowUploadForm] = useState(false);
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
   useEffect(() => {
@@ -58,128 +58,72 @@ export default function GalleryPage() {
       setIsLoading(false);
     });
 }, []);
-  const handleUpload = async () => {
-  if (!selectedFile) {
-    setUploadMessage('กรุณาเลือกรูปภาพก่อน');
+const handleUpload = async () => {
+  if (selectedFiles.length === 0) {
+    setUploadMessage("กรุณาเลือกรูปภาพก่อน");
     return;
   }
 
-  const maxFileSize = 5 * 1024 * 1024;
-
-  if (selectedFile.size > maxFileSize) {
-    setUploadMessage(
-      'รูปภาพมีขนาดใหญ่เกินไป กรุณาเลือกไฟล์ไม่เกิน 5 MB'
-    );
-    return;
-  }
-
-  const controller = new AbortController();
-
-  const timeoutId = window.setTimeout(() => {
-    controller.abort();
-  }, 60000);
+  setIsUploading(true);
+  setUploadMessage("");
 
   try {
-    setIsUploading(true);
-    setUploadMessage('');
+    for (const selectedFile of selectedFiles) {
+      const maxFileSize = 5 * 1024 * 1024;
 
-    const base64Data = await new Promise<string>(
-      (resolve, reject) => {
+      if (selectedFile.size > maxFileSize) {
+        throw new Error(`${selectedFile.name} มีขนาดเกิน 5 MB`);
+      }
+
+      const base64Data = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
 
         reader.onload = () => {
-          const result = String(reader.result || '');
-          const base64 = result.split(',')[1];
+          const result = String(reader.result || "");
+          const base64 = result.split(",")[1];
 
           if (!base64) {
-            reject(
-              new Error('ไม่สามารถอ่านข้อมูลรูปภาพได้')
-            );
+            reject(new Error("อ่านรูปไม่ได้"));
             return;
           }
 
           resolve(base64);
         };
 
-        reader.onerror = () => {
-          reject(
-            new Error('ไม่สามารถอ่านไฟล์รูปภาพได้')
-          );
-        };
+        reader.onerror = () => reject(new Error("อ่านไฟล์ไม่ได้"));
 
         reader.readAsDataURL(selectedFile);
+      });
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          fileName: selectedFile.name,
+          mimeType: selectedFile.type,
+          base64Data: base64Data,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message);
       }
-    );
-
-    const response = await fetch(API_URL, {
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
-      },
-
-      body: JSON.stringify({
-        fileName: selectedFile.name,
-        mimeType: selectedFile.type,
-        base64Data: base64Data,
-      }),
-
-      redirect: 'follow',
-      signal: controller.signal,
-    });
-
-    const responseText = await response.text();
-
-    console.log('คำตอบจาก Apps Script:', responseText);
-
-    if (!responseText) {
-      throw new Error(
-        'Apps Script ไม่ได้ส่งข้อมูลตอบกลับ'
-      );
     }
 
-    let data;
+    setUploadMessage("อัปโหลดรูปทั้งหมดสำเร็จ");
 
-    try {
-      data = JSON.parse(responseText);
-    } catch {
-      throw new Error(
-        'รูปอาจถูกอัปโหลดแล้ว แต่ไม่สามารถอ่านผลตอบกลับจาก Apps Script ได้'
-      );
-    }
+    setSelectedFiles([]);
 
-    if (!data.success) {
-      throw new Error(
-        data.message || 'อัปโหลดรูปภาพไม่สำเร็จ'
-      );
-    }
-
-    setUploadMessage(
-      'อัปโหลดรูปภาพสำเร็จ รอทีมงานตรวจสอบก่อนแสดงบนเว็บไซต์'
-    );
-    setSelectedFile(null);
     window.location.reload();
-    window.setTimeout(() => {
-      setShowUploadForm(false);
-      setUploadMessage('');
-    }, 2500);
-  } catch (error) {
-    if (
-      error instanceof Error &&
-      error.name === 'AbortError'
-    ) {
-      setUploadMessage(
-        'ใช้เวลาอัปโหลดนานเกินไป กรุณาลองใช้รูปที่มีขนาดเล็กลง'
-      );
-    } else {
-      setUploadMessage(
-        error instanceof Error
-          ? error.message
-          : 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ'
-      );
-    }
+  } catch (err) {
+    setUploadMessage(
+      err instanceof Error ? err.message : "อัปโหลดไม่สำเร็จ"
+    );
   } finally {
-    window.clearTimeout(timeoutId);
     setIsUploading(false);
   }
 };
@@ -257,33 +201,56 @@ export default function GalleryPage() {
               <span className="mt-1 text-xs text-slate-400">
                 รองรับ JPG, PNG และ WEBP
               </span>
+{selectedFiles.length > 0 && (
+  <div className="mt-3 w-full space-y-2">
+    {selectedFiles.map((file, index) => (
+      <div
+        key={index}
+        className="rounded-lg bg-white/10 px-3 py-2 text-xs text-[#39ff14]"
+      >
+        {file.name}
+      </div>
+    ))}
+  </div>
+)}
 
-              {selectedFile && (
-                <span className="mt-3 max-w-full truncate rounded-lg bg-white/10 px-3 py-2 text-xs font-semibold text-[#39ff14]">
-                  เลือกแล้ว: {selectedFile.name}
-                </span>
-              )}
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
+<input
+  type="file"
+  multiple
+  accept="image/jpeg,image/png,image/webp"
+  className="hidden"
+  onChange={(e) => {
+    const files = Array.from(e.target.files || []);
+    setSelectedFiles(files);
+    setUploadMessage('');
+  }}
+/>
+</label>
 
-                  setSelectedFile(file);
-                  setUploadMessage('');
-                }}
-              />
-            </label>
-
-            <button
-              type="button"
-              onClick={handleUpload}
-              disabled={!selectedFile || isUploading}
-              className="mt-5 w-full rounded-xl bg-[#39ff14] px-6 py-3 font-black text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {isUploading ? 'กำลังอัปโหลด...' : 'อัปโหลดรูปภาพ'}
-            </button>
+           <button
+  type="button"
+  onClick={handleUpload}
+  disabled={
+    selectedFiles.length === 0 ||
+    isUploading
+  }
+  className="mt-5 w-full rounded-xl bg-[#39ff14] px-6 py-3 font-black text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+>
+  {isUploading
+    ? 'กำลังอัปโหลด...'
+    : 'อัปโหลดรูปภาพ'}
+</button>
+{uploadMessage && (
+  <p
+    className={`mt-3 text-center text-sm font-semibold ${
+      uploadMessage.includes('สำเร็จ')
+        ? 'text-[#39ff14]'
+        : 'text-red-400'
+    }`}
+  >
+    {uploadMessage}
+  </p>
+)}
             {uploadMessage && (
             <p
               className={`mt-3 text-center text-sm font-semibold ${
