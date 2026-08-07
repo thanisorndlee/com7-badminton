@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const API_URL =
   'https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec';
@@ -35,6 +37,8 @@ export default function GalleryPage() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
+  const [open, setOpen] = useState(false);
+const [photoIndex, setPhotoIndex] = useState(0);
   useEffect(() => {
   fetch(API_URL)
     .then((response) => {
@@ -284,16 +288,28 @@ const handleUpload = async () => {
                 className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-black/40 transition-all duration-500 hover:border-[#39ff14]/50"
               >
                 <img
-                  src={photo}
-                  alt={`Atmosphere ${index + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
+  src={photo}
+  alt={`Atmosphere ${index + 1}`}
+  loading="lazy"
+  onClick={() => {
+    setPhotoIndex(index);
+    setOpen(true);
+  }}
+  className="h-full w-full cursor-pointer object-cover transition-transform duration-700 group-hover:scale-105"
+/>
               </div>
             ))}
           </div>
         )}
       </div>
+      <Lightbox
+  open={open}
+  close={() => setOpen(false)}
+  index={photoIndex}
+  slides={photos.map((photo) => ({
+    src: photo,
+  }))}
+/>
     </div>
   );
 }
