@@ -683,12 +683,10 @@ const teamBColor =
               <div className="grid grid-cols-[1fr_92px_1fr] items-center px-3 py-5">
                 <div className="min-w-0 border-r border-white/15 pr-3 text-left">
                   <p
-                    className={`truncate text-base font-black ${teamAColor}`}
-                  >
-                    ทีม {teamA}
-                    <br />
-                    {teamAColor}
-                  </p>
+  className={`truncate text-base font-black ${teamAColor}`}
+>
+  ทีม {teamA}
+</p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
                     {match[7] || '-'}
@@ -719,13 +717,11 @@ const teamBColor =
                 </div>
 
                 <div className="min-w-0 border-l border-white/15 pl-3 text-left">
-                 <p
-                    className={`truncate text-base font-black ${teamBColor}`}
-                  >
-                    ทีม {teamB}
-                    <br />
-                    {teamBColor}
-                  </p>
+                      <p
+        className={`truncate text-base font-black ${teamBColor}`}
+      >
+        ทีม {teamB}
+      </p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
                     {match[12] || '-'}
