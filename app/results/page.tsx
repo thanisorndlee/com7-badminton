@@ -802,7 +802,7 @@ const teamBColor =
                 </div>
 
                 <div className="border-r border-white/20 p-5">
-                  <p className="mb-3 text-xl font-black text-emerald-400">
+                  <p className={`mb-3 text-xl font-black ${teamAColor}`}>
                     ทีม {teamA}
                   </p>
                   <p className="text-base font-bold text-white">
@@ -868,7 +868,7 @@ const teamBColor =
                 </div>
 
                 <div className="border-r border-white/20 p-5">
-                  <p className="mb-3 text-xl font-black text-white">
+                  <p className={`mb-3 text-xl font-black ${teamBColor}`}>
                     ทีม {teamB}
                   </p>
                   <p className="text-base font-bold text-white">
@@ -890,12 +890,20 @@ const teamBColor =
                   <p className="mt-2 text-sm font-black text-emerald-400">
                     ผู้ชนะ
                   </p>
-                  <p className="mt-1 text-2xl font-black text-emerald-400">
+                  <p
+                    className={`mt-1 text-2xl font-black ${
+                      winner === 'DRAW'
+                        ? 'text-yellow-400'
+                        : winner
+                          ? 'text-red-400'
+                          : 'text-slate-400'
+                    }`}
+                  >
                     {winner === 'DRAW'
-                    ? 'เสมอ'
-                    : winner
-                      ? `ทีม ${winner}`
-                      : 'รอผล'}
+                      ? 'เสมอ'
+                      : winner
+                        ? `ทีม ${winner}`
+                        : 'รอผล'}
                   </p>
                 </div>
               </div>
