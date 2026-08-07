@@ -742,9 +742,11 @@ const teamBColor =
                         <div className="font-mono text-sm font-black">
                           <span
                             className={
-                              Number(scoreA) > Number(scoreB)
+                              winner === teamAUpper
                                 ? 'text-emerald-400'
-                                : 'text-red-400'
+                                : winner === teamBUpper
+                                  ? 'text-red-400'
+                                  : 'text-slate-300'
                             }
                           >
                             {scoreA}
@@ -756,9 +758,11 @@ const teamBColor =
 
                           <span
                             className={
-                              Number(scoreB) > Number(scoreA)
+                              winner === teamBUpper
                                 ? 'text-emerald-400'
-                                : 'text-red-400'
+                                : winner === teamAUpper
+                                  ? 'text-red-400'
+                                  : 'text-slate-300'
                             }
                           >
                             {scoreB}
