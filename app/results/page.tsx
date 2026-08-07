@@ -633,22 +633,23 @@ const winner = String(match[24] || '')
   .trim()
   .toUpperCase();
 
-const teamAUpper = teamA.toUpperCase();
-const teamBUpper = teamB.toUpperCase();
-
 const teamAColor =
-  winner === 'DRAW'
+  scoreSets.length === 0
     ? 'text-white'
-    : winner === teamAUpper
-      ? 'text-red-400'
-      : 'text-white';
+    : setWinA > setWinB
+      ? 'text-emerald-400'
+      : setWinA < setWinB
+        ? 'text-red-400'
+        : 'text-white';
 
 const teamBColor =
-  winner === 'DRAW'
+  scoreSets.length === 0
     ? 'text-white'
-    : winner === teamBUpper
-      ? 'text-red-400'
-      : 'text-white';
+    : setWinB > setWinA
+      ? 'text-emerald-400'
+      : setWinB < setWinA
+        ? 'text-red-400'
+        : 'text-white';
         return (
           <div
             key={`${match[0]}-${index}`}
@@ -673,8 +674,8 @@ const teamBColor =
 
               <div className="grid grid-cols-[1fr_92px_1fr] items-center px-3 py-5">
                 <div className="min-w-0 border-r border-white/15 pr-3 text-left">
-                  <p className={`truncate text-base font-black ${teamAColor}`}>
-                    ทีม {teamA}
+                  <p className={`truncate text-base font-black ${teamBColor}`}>
+                    ทีม {teamB}
                   </p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
@@ -706,9 +707,9 @@ const teamBColor =
                 </div>
 
                 <div className="min-w-0 border-l border-white/15 pl-3 text-left">
-                  <p className={`truncate text-base font-black ${teamBColor}`}>
-                    ทีม {teamB}
-                  </p>
+                 <p className={`truncate text-base font-black ${teamBColor}`}>
+                  ทีม {teamB}
+                </p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
                     {match[12] || '-'}
@@ -742,12 +743,12 @@ const teamBColor =
                         <div className="font-mono text-sm font-black">
                           <span
                             className={
-                              winner === teamAUpper
-                                ? 'text-emerald-400'
-                                : winner === teamBUpper
-                                  ? 'text-red-400'
-                                  : 'text-slate-300'
-                            }
+                            Number(scoreA) > Number(scoreB)
+                              ? 'text-emerald-400'
+                              : Number(scoreA) < Number(scoreB)
+                                ? 'text-red-400'
+                                : 'text-white'
+                          }
                           >
                             {scoreA}
                           </span>
@@ -758,12 +759,12 @@ const teamBColor =
 
                           <span
                             className={
-                              winner === teamBUpper
-                                ? 'text-emerald-400'
-                                : winner === teamAUpper
-                                  ? 'text-red-400'
-                                  : 'text-slate-300'
-                            }
+                            Number(scoreB) > Number(scoreA)
+                              ? 'text-emerald-400'
+                              : Number(scoreB) < Number(scoreA)
+                                ? 'text-red-400'
+                                : 'text-white'
+                          }
                           >
                             {scoreB}
                           </span>
@@ -807,8 +808,8 @@ const teamBColor =
 
                 <div className="border-r border-white/20 p-5">
                   <p className={`mb-3 text-xl font-black ${teamAColor}`}>
-                    ทีม {teamA}
-                  </p>
+  ทีม {teamA}
+</p>
                   <p className="text-base font-bold text-white">
                     {match[7] || '-'}
                   </p>
@@ -843,20 +844,24 @@ const teamBColor =
                           <div className="flex items-center gap-2 font-mono text-base font-black">
                             <span
                               className={
-                                Number(scoreA) > Number(scoreB)
-                                  ? 'text-emerald-400'
-                                  : 'text-red-400'
-                              }
+                              Number(scoreA) > Number(scoreB)
+                                ? 'text-emerald-400'
+                                : Number(scoreA) < Number(scoreB)
+                                  ? 'text-red-400'
+                                  : 'text-white'
+                            }
                             >
                               {scoreA}
                             </span>
                             <span className="text-slate-500">-</span>
                             <span
                               className={
-                                Number(scoreB) > Number(scoreA)
-                                  ? 'text-emerald-400'
-                                  : 'text-red-400'
-                              }
+                              Number(scoreB) > Number(scoreA)
+                                ? 'text-emerald-400'
+                                : Number(scoreB) < Number(scoreA)
+                                  ? 'text-red-400'
+                                  : 'text-white'
+                            }
                             >
                               {scoreB}
                             </span>
@@ -873,8 +878,8 @@ const teamBColor =
 
                 <div className="border-r border-white/20 p-5">
                   <p className={`mb-3 text-xl font-black ${teamBColor}`}>
-                    ทีม {teamB}
-                  </p>
+  ทีม {teamB}
+</p>
                   <p className="text-base font-bold text-white">
                     {match[12] || '-'}
                   </p>
