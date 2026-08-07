@@ -629,8 +629,10 @@ export default function ResultsPage() {
           ([a, b]) => Number(b) > Number(a)
         ).length;
 
-        const winner = String(match[24] || '').trim();
-
+const winner = String(match[24] || '')
+.trim().toUpperCase();
+console.log(match[24]);
+console.log(winner);
         return (
           <div
             key={`${match[0]}-${index}`}
@@ -873,7 +875,11 @@ export default function ResultsPage() {
                     ผู้ชนะ
                   </p>
                   <p className="mt-1 text-2xl font-black text-emerald-400">
-                    {winner ? `ทีม ${winner}` : 'รอผล'}
+                    {winner === 'DRAW'
+                    ? 'เสมอ'
+                    : winner
+                      ? `ทีม ${winner}`
+                      : 'รอผล'}
                   </p>
                 </div>
               </div>
