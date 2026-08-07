@@ -629,12 +629,7 @@ export default function ResultsPage() {
           ([a, b]) => Number(b) > Number(a)
         ).length;
 
-        const winner =
-          setWinA > setWinB
-            ? teamA
-            : setWinB > setWinA
-              ? teamB
-              : '';
+        const winner = String(match[24] || '').trim();
 
         return (
           <div
@@ -763,7 +758,13 @@ export default function ResultsPage() {
 
               <div className="border-t border-white/15 px-4 py-3 text-center">
                 <span className="text-sm font-black text-emerald-400">
-                  ผู้ชนะ: {winner ? `ทีม ${winner}` : 'รอผล'}
+                  ผู้ชนะ: {
+  winner === 'DRAW'
+    ? 'เสมอ'
+    : winner
+      ? `ทีม ${winner}`
+      : 'รอผล'
+}
                 </span>
               </div>
             </article>
