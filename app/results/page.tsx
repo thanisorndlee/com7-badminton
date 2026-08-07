@@ -638,7 +638,15 @@ export default function ResultsPage() {
         ).length;
 
 const winner = String(match[24] || '')
-  .trim()
+  .replace(/\s+/g, '')
+  .toUpperCase();
+
+const teamAKey = String(teamA)
+  .replace(/\s+/g, '')
+  .toUpperCase();
+
+const teamBKey = String(teamB)
+  .replace(/\s+/g, '')
   .toUpperCase();
 
 const teamAColor =
@@ -658,6 +666,12 @@ const teamBColor =
       : setWinB < setWinA
         ? 'text-red-400'
         : 'text-white';
+const winnerColor =
+  winner === 'DRAW'
+    ? 'text-yellow-400'
+    : winner === teamAKey || winner === teamBKey
+      ? 'text-emerald-400'
+      : 'text-slate-400';
         return (
           <div
             key={`${match[0]}-${index}`}
@@ -911,16 +925,8 @@ const teamBColor =
                   <p className="mt-2 text-sm font-black text-emerald-400">
                     ผู้ชนะ
                   </p>
-                  <p
-                    className={`mt-1 text-2xl font-black ${
-                      winner === 'DRAW'
-                        ? 'text-yellow-400'
-                        : winner
-                          ? 'text-red-400'
-                          : 'text-slate-400'
-                    }`}
-                  >
-                    {winner === 'DRAW'
+<p className="mt-1 text-2xl font-black text-emerald-400">
+                      {winner === 'DRAW'
                       ? 'เสมอ'
                       : winner
                         ? `ทีม ${winner}`
