@@ -507,17 +507,25 @@ export default function ResultsPage() {
       const teamA = String(match[6] || '-');
       const teamB = String(match[11] || '-');
 
-      const scoreSets = [
+            const scoreSets = [
         [match[16], match[17]],
         [match[18], match[19]],
         [match[20], match[21]],
       ].filter(
-        ([scoreA, scoreB]) =>
-          scoreA !== '' &&
-          scoreA != null &&
-          scoreB !== '' &&
-          scoreB != null
+        ([a, b]) =>
+          a !== '' &&
+          a != null &&
+          b !== '' &&
+          b != null
       );
+
+      const setWinA = scoreSets.filter(
+        ([a, b]) => Number(a) > Number(b)
+      ).length;
+
+      const setWinB = scoreSets.filter(
+        ([a, b]) => Number(b) > Number(a)
+      ).length;
 
       return (
         <div
@@ -674,8 +682,12 @@ const teamBColor =
 
               <div className="grid grid-cols-[1fr_92px_1fr] items-center px-3 py-5">
                 <div className="min-w-0 border-r border-white/15 pr-3 text-left">
-                  <p className={`truncate text-base font-black ${teamBColor}`}>
-                    ทีม {teamB}
+                  <p
+                    className={`truncate text-base font-black ${teamAColor}`}
+                  >
+                    ทีม {teamA}
+                    <br />
+                    {teamAColor}
                   </p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
@@ -707,9 +719,13 @@ const teamBColor =
                 </div>
 
                 <div className="min-w-0 border-l border-white/15 pl-3 text-left">
-                 <p className={`truncate text-base font-black ${teamBColor}`}>
-                  ทีม {teamB}
-                </p>
+                 <p
+                    className={`truncate text-base font-black ${teamBColor}`}
+                  >
+                    ทีม {teamB}
+                    <br />
+                    {teamBColor}
+                  </p>
 
                   <p className="mt-3 break-words text-lg font-black text-white">
                     {match[12] || '-'}
@@ -878,8 +894,8 @@ const teamBColor =
 
                 <div className="border-r border-white/20 p-5">
                   <p className={`mb-3 text-xl font-black ${teamBColor}`}>
-  ทีม {teamB}
-</p>
+                    ทีม {teamB}
+                  </p>
                   <p className="text-base font-bold text-white">
                     {match[12] || '-'}
                   </p>
