@@ -6,6 +6,8 @@ export default function SchedulePage() {
 const [matches, setMatches] = useState<any[]>([]);
 const [searchTerm, setSearchTerm] = useState('');
 const [selectedDate, setSelectedDate] = useState('6 ส.ค. 2569');
+const [selectedRound, setSelectedRound] =
+  useState('รอบแบ่งกลุ่ม');
 const [stageFilter, setStageFilter] = useState('ทั้งหมด');
 const [groupFilter, setGroupFilter] = useState('ทั้งหมด');
 const [isFetched, setIsFetched] = useState(false);
@@ -24,6 +26,13 @@ const matchDates = [
   '18 ส.ค. 2569',
   '19 ส.ค. 2569',
 ];
+const rounds = [
+  'รอบแบ่งกลุ่ม',
+  'รอบ 16 คู่',
+  'รอบ 8 คู่',
+  'รอบรองชนะเลิศ',
+  'รอบชิงชนะเลิศ',
+];
 
   useEffect(() => {
     fetch('https://script.google.com/macros/s/AKfycbz9NjLOayGMq9CA8V61wNih4h3CULqhj9x1qnfrkL4aSAogoPgmsocCN_bOth-wYc6gww/exec')
@@ -35,58 +44,66 @@ const matchDates = [
       .catch(() => setIsFetched(true));
   }, []);
 
-  const tableMatches = useMemo(() => {
+const tableMatches = useMemo(() => {
   if (!isFetched) return [];
 
   const search = searchTerm.trim().toLowerCase();
 
-  return matches
-    .filter((match) => {
-      const stage = String(match[1] || '').trim();
-      const matchDate = String(match[2] || '').trim();
+  return matches.filter((match) => {
+    const stage = String(match[1] || '').trim();
+    const matchDate = String(match[2] || '').trim();
 
-      // แสดงเฉพาะรอบแบ่งกลุ่ม
-      if (stage !== 'รอบแบ่งกลุ่ม') {
-        return false;
-      }
+    // เลือกตามรอบการแข่งขัน
+    if (stage !== selectedRound) {
+      return false;
+    }
 
-      // แสดงเฉพาะวันที่ที่กดเลือก
-      if (matchDate !== selectedDate) {
-        return false;
-      }
+    // รอบแบ่งกลุ่ม ให้กรองตามวันที่
+    if (
+      selectedRound === 'รอบแบ่งกลุ่ม' &&
+      matchDate !== selectedDate
+    ) {
+      return false;
+    }
 
-      // ถ้าไม่ได้ค้นหา ให้แสดงทุกคู่ของวันที่นั้น
-      if (!search) {
-        return true;
-      }
+    // ถ้าไม่ได้ค้นหา
+    if (!search) {
+      return true;
+    }
 
-      return [
-        match[0],
-        match[1],
-        match[2],
-        match[3],
-        match[4],
-        match[5],
-        match[6],
-        match[7],
-        match[8],
-        match[9],
-        match[10],
-        match[11],
-        match[12],
-        match[13],
-        match[14],
-        match[15],
-        match[16],
-        match[17],
-      ].some((value) =>
-        String(value || '')
-          .trim()
-          .toLowerCase()
-          .includes(search)
-      );
-    })
-}, [isFetched, matches, searchTerm, selectedDate]);
+    return [
+      match[0],
+      match[1],
+      match[2],
+      match[3],
+      match[4],
+      match[5],
+      match[6],
+      match[7],
+      match[8],
+      match[9],
+      match[10],
+      match[11],
+      match[12],
+      match[13],
+      match[14],
+      match[15],
+      match[16],
+      match[17],
+    ].some((value) =>
+      String(value || '')
+        .trim()
+        .toLowerCase()
+        .includes(search)
+    );
+  });
+}, [
+  isFetched,
+  matches,
+  searchTerm,
+  selectedDate,
+  selectedRound,
+]);
 
   // =============================
 // ข้อมูลแต่ละรอบของสายการแข่งขัน
