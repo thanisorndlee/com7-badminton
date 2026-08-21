@@ -20,12 +20,19 @@ const TEAM_BADGE_STYLES: Record<string, string> = {
   F: 'border-cyan-300 bg-cyan-500 text-white shadow-[0_0_18px_rgba(6,182,212,0.45)]',
   G: 'border-lime-300 bg-lime-500 text-black shadow-[0_0_18px_rgba(132,204,22,0.45)]',
 };
-const matchDates = [
-  '6 ส.ค. 2569',
-  '11 ส.ค. 2569',
-  '18 ส.ค. 2569',
-  '19 ส.ค. 2569',
-];
+const roundDates: Record<string, string[]> = {
+  'รอบแบ่งกลุ่ม': [
+    '6 ส.ค. 2569',
+    '11 ส.ค. 2569',
+    '18 ส.ค. 2569',
+    '19 ส.ค. 2569',
+  ],
+
+  'รอบ 16 คู่': [],
+  'รอบ 8 คู่': [],
+  'รอบรองชนะเลิศ': [],
+  'รอบชิงชนะเลิศ': [],
+};
 const rounds = [
   'รอบแบ่งกลุ่ม',
   'รอบ 16 คู่',
@@ -58,13 +65,15 @@ const tableMatches = useMemo(() => {
       return false;
     }
 
-    // รอบแบ่งกลุ่ม ให้กรองตามวันที่
-    if (
-      selectedRound === 'รอบแบ่งกลุ่ม' &&
-      matchDate !== selectedDate
-    ) {
-      return false;
-    }
+ // ถ้ารอบที่เลือกมีวันที่ ให้กรองตามวันที่
+const datesOfSelectedRound = roundDates[selectedRound] || [];
+
+if (
+  datesOfSelectedRound.length > 0 &&
+  matchDate !== selectedDate
+) {
+  return false;
+}
 
     // ถ้าไม่ได้ค้นหา
     if (!search) {
@@ -172,80 +181,71 @@ const getGroupClass = (group: string) => {
 <div className="mb-8 border-b border-white/10 pb-6">
   <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
 
-    {/* ฝั่งซ้าย: หัวข้อ */}
-    <div className="flex-shrink-0">
-      <span className="mb-1.5 inline-block rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 shadow-sm">
-        Tournament Schedule
-      </span>
+{/* ฝั่งซ้าย: หัวข้อ + ปุ่มเลือกรอบ + วันที่ */}
+<div className="flex-shrink-0">
 
-      <h1 className="text-2xl font-black tracking-wide text-white drop-shadow-md md:text-3xl">
-        ตารางการแข่งขัน
-      </h1>
-    </div>
+  <span className="mb-1.5 inline-block rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-emerald-400 shadow-sm">
+    Tournament Schedule
+  </span>
 
-    {/* ฝั่งขวา: ปุ่มวันที่ + ช่องค้นหา */}
-    <div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
-{/* ปุ่มเลือกรอบ */}
-<div className="flex flex-wrap gap-2 xl:justify-end">
-  {rounds.map((round) => (
-    <button
-      key={round}
-      type="button"
-      onClick={() => setSelectedRound(round)}
-      className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
-        selectedRound === round
-          ? 'border-yellow-400 bg-yellow-400 text-black shadow-[0_0_18px_rgba(250,204,21,.35)]'
-          : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-yellow-400/50 hover:text-white'
-      }`}
-    >
-      {round}
-    </button>
-  ))}
+  <h1 className="text-2xl font-black tracking-wide text-white drop-shadow-md md:text-3xl">
+    ตารางการแข่งขัน
+  </h1>
+
+
 </div>
-      {/* ปุ่มวันที่ */}
-      <div className="flex flex-wrap gap-2 xl:justify-end">
-        {matchDates.map((date) => (
-          <button
-            key={date}
-            type="button"
-            onClick={() => setSelectedDate(date)}
-            className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
-              selectedDate === date
-                ? 'border-emerald-400 bg-emerald-500 text-black shadow-[0_0_18px_rgba(16,185,129,.35)]'
-                : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-emerald-500/50 hover:text-white'
-            }`}
-          >
-            {date}
-          </button>
-        ))}
-      </div>
+{/* ฝั่งขวา: รอบ + วันที่ + ค้นหา */}
+<div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
 
-      {/* ช่องค้นหา */}
-      <div className="relative w-full xl:w-[460px]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
+  {/* ปุ่มเลือกรอบ */}
+  <div className="flex flex-wrap gap-2 xl:justify-end">
+    {rounds.map((round) => (
+      <button
+        key={round}
+        type="button"
+        onClick={() => {
+          setSelectedRound(round);
+
+          const dates = roundDates[round] || [];
+
+          if (dates.length > 0) {
+            setSelectedDate(dates[0]);
+          }
+        }}
+        className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
+          selectedRound === round
+            ? 'border-yellow-400 bg-yellow-400 text-black shadow-[0_0_18px_rgba(250,204,21,.35)]'
+            : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-yellow-400/50 hover:text-white'
+        }`}
+      >
+        {round}
+      </button>
+    ))}
+  </div>
+
+  {/* ปุ่มวันที่ */}
+  {roundDates[selectedRound]?.length > 0 && (
+    <div className="flex flex-wrap gap-2 xl:justify-end">
+
+      {roundDates[selectedRound].map((date) => (
+        <button
+          key={date}
+          type="button"
+          onClick={() => setSelectedDate(date)}
+          className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
+            selectedDate === date
+              ? 'border-emerald-400 bg-emerald-500 text-black shadow-[0_0_18px_rgba(16,185,129,.35)]'
+              : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-emerald-500/50 hover:text-white'
+          }`}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
+          {date}
+        </button>
+      ))}
 
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="ค้นหาแมตช์ ทีม ผู้เล่น หรือแผนก"
-          className="w-full rounded-xl border border-emerald-500/30 bg-slate-900/80 py-3 pl-12 pr-4 text-white outline-none placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30"
-        />
-      </div>
     </div>
+  )}
+
+</div>
   </div>
 </div>
 {/* Mobile cards */}
