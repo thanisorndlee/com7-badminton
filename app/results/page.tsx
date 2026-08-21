@@ -407,7 +407,7 @@ export default function ResultsPage() {
                           </th>
 
                           <th className="px-2 py-0 text-left">
-                            ทีม (ผลต่าง)
+                            ทีม (แต้มได้เสีย)
                           </th>
 
                           <th className="px-2 py-0 text-center">
