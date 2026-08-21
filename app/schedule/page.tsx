@@ -185,7 +185,23 @@ const getGroupClass = (group: string) => {
 
     {/* ฝั่งขวา: ปุ่มวันที่ + ช่องค้นหา */}
     <div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
-
+{/* ปุ่มเลือกรอบ */}
+<div className="flex flex-wrap gap-2 xl:justify-end">
+  {rounds.map((round) => (
+    <button
+      key={round}
+      type="button"
+      onClick={() => setSelectedRound(round)}
+      className={`rounded-lg border px-4 py-2 text-xs font-black transition-all ${
+        selectedRound === round
+          ? 'border-yellow-400 bg-yellow-400 text-black shadow-[0_0_18px_rgba(250,204,21,.35)]'
+          : 'border-white/15 bg-slate-900/80 text-slate-300 hover:border-yellow-400/50 hover:text-white'
+      }`}
+    >
+      {round}
+    </button>
+  ))}
+</div>
       {/* ปุ่มวันที่ */}
       <div className="flex flex-wrap gap-2 xl:justify-end">
         {matchDates.map((date) => (
