@@ -188,32 +188,46 @@ export default function ResultsPage() {
     });
   }, [matches, normalizedSearch]);
 
-  const getStandingsByGroup = (group: string) => {
-    return filteredStandings
-      .filter(
-        (row) =>
-          String(row[1] || '').trim() === group
-      )
-      .sort((a, b) => {
-        const pointA = Number(a[6] || 0);
-        const pointB = Number(b[6] || 0);
+const getStandingsByGroup = (group: string) => {
+  return filteredStandings
+    .filter(
+      (row) =>
+        String(row[1] || '').trim() === group
+    )
+    .sort((a, b) => {
+      // คะแนน
+      const pointA = Number(a[6] || 0);
+      const pointB = Number(b[6] || 0);
 
-        if (pointB !== pointA) {
-          return pointB - pointA;
-        }
+      // คะแนนมากกว่า = อยู่อันดับสูงกว่า
+      if (pointB !== pointA) {
+        return pointB - pointA;
+      }
 
-        const winA = Number(a[3] || 0);
-        const winB = Number(b[3] || 0);
-
-        if (winB !== winA) {
-          return winB - winA;
-        }
-
-        return String(a[0] || '').localeCompare(
-          String(b[0] || '')
+      // ดึงตัวเลขในวงเล็บ
+      // เช่น G2 (-22) จะได้ -22
+      const getDiff = (teamName: unknown) => {
+        const match = String(teamName || '').match(
+          /\((-?\d+)\)/
         );
-      });
-  };
+
+        return match ? Number(match[1]) : 0;
+      };
+
+      const diffA = getDiff(a[0]);
+      const diffB = getDiff(b[0]);
+
+      // แต้มได้เสียมากกว่า = อยู่อันดับสูงกว่า
+      if (diffB !== diffA) {
+        return diffB - diffA;
+      }
+
+      // ถ้าเท่ากันหมด ค่อยเรียงตามชื่อทีม
+      return String(a[0] || '').localeCompare(
+        String(b[0] || '')
+      );
+    });
+};
 
   const getMatchesByGroup = (group: string) => {
     return groupMatches.filter(
