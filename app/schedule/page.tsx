@@ -56,7 +56,7 @@ const tableMatches = useMemo(() => {
 
   const search = searchTerm.trim().toLowerCase();
 
-  return matches.filter((match) => {
+  const filtered = matches.filter((match) => {
     const stage = String(match[1] || '').trim();
     const matchDate = String(match[2] || '').trim();
 
@@ -65,15 +65,15 @@ const tableMatches = useMemo(() => {
       return false;
     }
 
- // ถ้ารอบที่เลือกมีวันที่ ให้กรองตามวันที่
-const datesOfSelectedRound = roundDates[selectedRound] || [];
+    // ถ้ารอบที่เลือกมีวันที่ ให้กรองตามวันที่
+    const datesOfSelectedRound = roundDates[selectedRound] || [];
 
-if (
-  datesOfSelectedRound.length > 0 &&
-  matchDate !== selectedDate
-) {
-  return false;
-}
+    if (
+      datesOfSelectedRound.length > 0 &&
+      matchDate !== selectedDate
+    ) {
+      return false;
+    }
 
     // ถ้าไม่ได้ค้นหา
     if (!search) {
@@ -106,6 +106,13 @@ if (
         .includes(search)
     );
   });
+
+  // รอบ 16 คู่ แสดงในตารางจริงแค่ 8 คู่
+  if (selectedRound === 'รอบ 16 คู่') {
+    return filtered.slice(0, 8);
+  }
+
+  return filtered;
 }, [
   isFetched,
   matches,
