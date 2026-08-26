@@ -620,9 +620,9 @@ const scoreB =
         
 <div className="overflow-x-auto pb-10">
 <div className="relative w-max mx-auto flex gap-24 px-6"> 
-<svg
+    <svg
   xmlns="http://www.w3.org/2000/svg"
-  className="absolute left-0 top-[48px] w-full h-[1360px] pointer-events-none z-0"
+  className="absolute left-0 top-0 w-full h-[1360px] pointer-events-none z-0"
 >
   {Array.from({ length: 8 }).map((_, i) => {
     const x1 = 168;
@@ -698,14 +698,7 @@ const scoreB =
   stroke="#10b981"
   strokeWidth="3"
 />
-{/* รอบชิงชนะเลิศ -> ถ้วย */}
 
-<path
-  d="M1128 600 H1180 V560 H1250"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
 </svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
