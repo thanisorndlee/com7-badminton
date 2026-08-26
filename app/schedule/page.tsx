@@ -928,7 +928,7 @@ const scoreB =
               key={`final-${i}`}
               className="absolute left-0"
               style={{
-                top: `${384 + i * 640}px`,
+                top: `${300 + i * 640}px`,
               }}
             >
               <BracketBox match={match} />
