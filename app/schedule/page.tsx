@@ -646,446 +646,338 @@ const scoreB =
 </h2>
 
 <div className="w-full overflow-x-auto pb-10">
-
-  <div
-    className="
-      relative
-      mx-auto
-      flex
-      w-max
-      gap-20
-      px-8
-    "
-  >
+  <div className="relative mx-auto w-[1200px] px-6">
 
     {/* =====================================================
-        SVG เส้นเชื่อม
-        ===================================================== */}
+        พื้นที่ Bracket
+        ทุกตำแหน่งใช้ระบบเดียวกัน
 
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="
-        pointer-events-none
-        absolute
-        left-8
-        top-0
-        z-0
-        h-[1400px]
-        w-[1500px]
-        overflow-visible
-      "
-    >
-
-      {/* =================================================
-          รอบ 16 → รอบ 8
-
-          รอบ 16 มี 16 ช่อง
-          รอบ 8 มี 8 ช่อง
-
-          1 + 2   → 1
-          3 + 4   → 2
-          5 + 6   → 3
-          ...
-          15 + 16 → 8
-      ================================================= */}
-
-      {Array.from({ length: 8 }).map((_, i) => {
-
-        const xStart = 144;
-        const xMiddle = 184;
-        const xEnd = 240;
-
-        const y1 = 70 + i * 80;
-        const y2 = 150 + i * 80;
-
-        const yTarget = 110 + i * 160;
-
-        return (
-          <g key={`r16-r8-${i}`}>
-
-            {/* เส้นจากคู่บน */}
-            <path
-              d={`
-                M ${xStart} ${y1}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* เส้นจากคู่ล่าง */}
-            <path
-              d={`
-                M ${xStart} ${y2}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* เส้นเข้ากล่องรอบ 8 */}
-            <path
-              d={`
-                M ${xMiddle} ${yTarget}
-                H ${xEnd}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-
-          </g>
-        );
-      })}
-
-
-      {/* =================================================
-          รอบ 8 → รอบรองชนะเลิศ
-
-          8 ช่อง
-          ↓
-          4 ช่อง
-
-          1 + 2 → 1
-          3 + 4 → 2
-          5 + 6 → 3
-          7 + 8 → 4
-      ================================================= */}
-
-      {Array.from({ length: 4 }).map((_, i) => {
-
-        const xStart = 384;
-        const xMiddle = 424;
-        const xEnd = 480;
-
-        const y1 = 110 + i * 160;
-        const y2 = 270 + i * 160;
-
-        const yTarget = 190 + i * 320;
-
-        return (
-          <g key={`r8-semi-${i}`}>
-
-            {/* คู่บน */}
-            <path
-              d={`
-                M ${xStart} ${y1}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* คู่ล่าง */}
-            <path
-              d={`
-                M ${xStart} ${y2}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* เข้ารอบรอง */}
-            <path
-              d={`
-                M ${xMiddle} ${yTarget}
-                H ${xEnd}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-
-          </g>
-        );
-      })}
-
-
-      {/* =================================================
-          รอบรองชนะเลิศ → รอบชิง
-
-          รอบรองมี 4 ช่อง
-          ↓
-          รอบชิงมี 2 ช่อง
-
-          1 + 2 → รอบชิง 1
-          3 + 4 → รอบชิง 2
-      ================================================= */}
-
-      {Array.from({ length: 2 }).map((_, i) => {
-
-        const xStart = 624;
-        const xMiddle = 664;
-        const xEnd = 720;
-
-        const y1 = 190 + i * 320;
-        const y2 = 510 + i * 320;
-
-        const yTarget = 350 + i * 640;
-
-        return (
-          <g key={`semi-final-${i}`}>
-
-            {/* รอบรองคู่บน */}
-            <path
-              d={`
-                M ${xStart} ${y1}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* รอบรองคู่ล่าง */}
-            <path
-              d={`
-                M ${xStart} ${y2}
-                H ${xMiddle}
-                V ${yTarget}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* เข้า รอบชิง */}
-            <path
-              d={`
-                M ${xMiddle} ${yTarget}
-                H ${xEnd}
-              `}
-              fill="none"
-              stroke="#10b981"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-
-          </g>
-        );
-      })}
-
-
-      {/* =================================================
-          รอบชิง → ถ้วยแชมป์
-      ================================================= */}
-
-      <path
-        d="
-          M 864 350
-          H 1000
-        "
-        fill="none"
-        stroke="#facc15"
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="
-          M 864 990
-          H 930
-          V 350
-          H 1000
-        "
-        fill="none"
-        stroke="#facc15"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-    </svg>
-
-
-    {/* =====================================================
-        COLUMN 1
-        รอบ 16 คู่
-        16 ช่อง
+        กล่องสูง 48px
+        รอบ 16 ห่างกัน 80px
+        รอบ 8 ห่างกัน 160px
+        รอบรอง ห่างกัน 320px
+        รอบชิง ห่างกัน 640px
     ===================================================== */}
 
-    <div className="relative z-10 flex w-36 flex-col">
+    <div className="relative h-[1320px]">
 
-      <h3 className="mb-6 text-center font-black text-emerald-400">
-        รอบ 16 คู่
-      </h3>
+      {/* ===================================================
+          SVG เส้น
+      =================================================== */}
 
-      <div className="relative h-[1320px] w-36">
+      <svg
+        className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full"
+        viewBox="0 0 1200 1320"
+        preserveAspectRatio="none"
+      >
 
-        {round16.slice(0, 16).map((match, i) => (
+        {/* =================================================
+            รอบ 16 → รอบ 8
 
-          <div
-            key={`round16-${i}`}
-            className="absolute left-0"
-            style={{
-              top: `${i * 80}px`,
-            }}
-          >
+            16 กล่อง
+            จับทีละ 2
+            = 8 กล่อง
+        ================================================= */}
 
-            <BracketBox match={match} />
+        {Array.from({ length: 8 }).map((_, i) => {
 
-          </div>
+          const y1 = 24 + i * 80;
+          const y2 = 104 + i * 80;
 
-        ))}
+          const targetY = 64 + i * 160;
+
+          return (
+            <g key={`line-r16-r8-${i}`}>
+
+              {/* จากคู่บน */}
+              <path
+                d={`
+                  M 144 ${y1}
+                  H 190
+                  V ${targetY}
+                  H 240
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+              {/* จากคู่ล่าง */}
+              <path
+                d={`
+                  M 144 ${y2}
+                  H 190
+                  V ${targetY}
+                  H 240
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+            </g>
+          );
+        })}
+
+
+        {/* =================================================
+            รอบ 8 → รอบรอง
+
+            8 กล่อง
+            จับทีละ 2
+            = 4 กล่อง
+        ================================================= */}
+
+        {Array.from({ length: 4 }).map((_, i) => {
+
+          const y1 = 64 + i * 160;
+          const y2 = 224 + i * 160;
+
+          const targetY = 144 + i * 320;
+
+          return (
+            <g key={`line-r8-semi-${i}`}>
+
+              {/* จากคู่บน */}
+              <path
+                d={`
+                  M 384 ${y1}
+                  H 430
+                  V ${targetY}
+                  H 480
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+              {/* จากคู่ล่าง */}
+              <path
+                d={`
+                  M 384 ${y2}
+                  H 430
+                  V ${targetY}
+                  H 480
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+            </g>
+          );
+        })}
+
+
+        {/* =================================================
+            รอบรอง → รอบชิง
+
+            4 กล่อง
+            จับทีละ 2
+            = 2 กล่อง
+        ================================================= */}
+
+        {Array.from({ length: 2 }).map((_, i) => {
+
+          const y1 = 144 + i * 320;
+          const y2 = 464 + i * 320;
+
+          const targetY = 304 + i * 640;
+
+          return (
+            <g key={`line-semi-final-${i}`}>
+
+              {/* จากรอบรองด้านบน */}
+              <path
+                d={`
+                  M 624 ${y1}
+                  H 670
+                  V ${targetY}
+                  H 720
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+              {/* จากรอบรองด้านล่าง */}
+              <path
+                d={`
+                  M 624 ${y2}
+                  H 670
+                  V ${targetY}
+                  H 720
+                `}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+              />
+
+            </g>
+          );
+        })}
+
+
+        {/* =================================================
+            รอบชิง → ถ้วย
+        ================================================= */}
+
+        <path
+          d="
+            M 864 304
+            H 1000
+          "
+          fill="none"
+          stroke="#facc15"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+
+      </svg>
+
+
+      {/* ===================================================
+          รอบ 16 คู่
+          16 กล่อง
+      =================================================== */}
+
+      <div className="absolute left-0 top-0 z-10 w-36">
+
+        <h3 className="mb-6 text-center font-black text-emerald-400">
+          รอบ 16 คู่
+        </h3>
+
+        <div className="relative h-[1280px]">
+
+          {round16.slice(0, 16).map((match, i) => (
+
+            <div
+              key={`round16-${i}`}
+              className="absolute left-0"
+              style={{
+                top: `${i * 80}px`,
+              }}
+            >
+              <BracketBox match={match} />
+            </div>
+
+          ))}
+
+        </div>
 
       </div>
 
-    </div>
 
+      {/* ===================================================
+          รอบ 8 คู่
+          8 กล่อง
+      =================================================== */}
 
-    {/* =====================================================
-        COLUMN 2
-        รอบ 8 คู่
-        8 ช่อง
-    ===================================================== */}
+      <div className="absolute left-[240px] top-0 z-10 w-36">
 
-    <div className="relative z-10 flex w-36 flex-col">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
+          รอบ 8 คู่
+        </h3>
 
-      <h3 className="mb-6 text-center font-black text-emerald-400">
-        รอบ 8 คู่
-      </h3>
+        <div className="relative h-[1280px]">
 
-      <div className="relative h-[1320px] w-36">
+          {round8.slice(0, 8).map((match, i) => (
 
-        {round8.slice(0, 8).map((match, i) => (
+            <div
+              key={`round8-${i}`}
+              className="absolute left-0"
+              style={{
+                top: `${40 + i * 160}px`,
+              }}
+            >
+              <BracketBox match={match} />
+            </div>
 
-          <div
-            key={`round8-${i}`}
-            className="absolute left-0"
-            style={{
-              top: `${40 + i * 160}px`,
-            }}
-          >
+          ))}
 
-            <BracketBox match={match} />
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
 
-    </div>
 
+      {/* ===================================================
+          รอบรองชนะเลิศ
+          4 กล่อง
+      =================================================== */}
 
-    {/* =====================================================
-        COLUMN 3
-        รอบรองชนะเลิศ
-        4 ช่อง
-    ===================================================== */}
+      <div className="absolute left-[480px] top-0 z-10 w-36">
 
-    <div className="relative z-10 flex w-36 flex-col">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
+          รอบรองชนะเลิศ
+        </h3>
 
-      <h3 className="mb-6 text-center font-black text-emerald-400">
-        รอบรองชนะเลิศ
-      </h3>
+        <div className="relative h-[1280px]">
 
-      <div className="relative h-[1320px] w-36">
+          {semifinalRound.slice(0, 4).map((match, i) => (
 
-        {semifinalRound.slice(0, 4).map((match, i) => (
+            <div
+              key={`semifinal-${i}`}
+              className="absolute left-0"
+              style={{
+                top: `${120 + i * 320}px`,
+              }}
+            >
+              <BracketBox match={match} />
+            </div>
 
-          <div
-            key={`semifinal-${i}`}
-            className="absolute left-0"
-            style={{
-              top: `${120 + i * 320}px`,
-            }}
-          >
+          ))}
 
-            <BracketBox match={match} />
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
 
-    </div>
 
+      {/* ===================================================
+          รอบชิงชนะเลิศ
+          2 กล่อง
+      =================================================== */}
 
-    {/* =====================================================
-        COLUMN 4
-        รอบชิงชนะเลิศ
-        2 ช่อง
-    ===================================================== */}
+      <div className="absolute left-[720px] top-0 z-10 w-36">
 
-    <div className="relative z-10 flex w-36 flex-col">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
+          รอบชิงชนะเลิศ 🏆
+        </h3>
 
-      <h3 className="mb-6 text-center font-black text-emerald-400">
-        รอบชิงชนะเลิศ 🏆
-      </h3>
+        <div className="relative h-[1280px]">
 
-      <div className="relative h-[1320px] w-36">
+          {finalRound.slice(0, 2).map((match, i) => (
 
-        {finalRound.slice(0, 2).map((match, i) => (
+            <div
+              key={`final-${i}`}
+              className="absolute left-0"
+              style={{
+                top: `${264 + i * 640}px`,
+              }}
+            >
+              <BracketBox match={match} />
+            </div>
 
-          <div
-            key={`final-${i}`}
-            className="absolute left-0"
-            style={{
-              top: `${280 + i * 640}px`,
-            }}
-          >
+          ))}
 
-            <BracketBox match={match} />
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
 
-    </div>
 
+      {/* ===================================================
+          ถ้วยแชมป์
+      =================================================== */}
 
-    {/* =====================================================
-        COLUMN 5
-        TROPHY
-    ===================================================== */}
+      <div className="absolute left-[1000px] top-0 z-10 w-36">
 
-    <div className="relative z-10 flex w-36 flex-col">
-
-      <h3 className="mb-6 text-center font-black opacity-0">
-        ถ้วย
-      </h3>
-
-      <div className="relative h-[1320px] w-36">
+        <h3 className="mb-6 text-center font-black opacity-0">
+          ถ้วย
+        </h3>
 
         <div
-          className="
-            absolute
-            left-0
-            flex
-            w-36
-            flex-col
-            items-center
-          "
+          className="absolute left-0 flex w-36 flex-col items-center"
           style={{
-            top: `248px`,
+            top: `240px`,
           }}
         >
 
@@ -1121,9 +1013,7 @@ const scoreB =
       </div>
 
     </div>
-
   </div>
-
 </div>
       </div>
     </div>
