@@ -519,12 +519,12 @@ const scoreB =
                 {m[3] || '-'}
               </td>
 
-              {/* สาย / ลำดับ */}
+{/* สาย / ลำดับ */}
 <td className="border-r border-white/10 px-3 py-5 text-center">
   {isKnockoutRound ? (
-    <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 text-sm font-bold text-white">
-  {matchOrder}
-</span>
+    <span className="inline-flex h-8 min-w-[70px] items-center justify-center rounded-lg border border-white/20 bg-white/5 px-3 text-xs font-bold text-white">
+      {matchOrder}
+    </span>
   ) : (
     <span
       className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
