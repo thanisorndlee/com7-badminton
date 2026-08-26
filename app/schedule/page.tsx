@@ -643,14 +643,20 @@ const scoreB =
         
 <div className="overflow-x-auto pb-10">
 <div className="relative w-max mx-auto flex gap-24 px-6"> 
-    <svg
+<svg
   xmlns="http://www.w3.org/2000/svg"
   className="absolute left-0 top-0 w-full h-[1360px] pointer-events-none z-0"
 >
-  {Array.from({ length: 8 }).map((_, i) => {
+
+  {/* =========================
+      รอบ 16 คู่ → รอบ 8 คู่
+      8 คู่ → 4 คู่
+  ========================= */}
+
+  {Array.from({ length: 4 }).map((_, i) => {
     const x1 = 168;
-    const x2 = 264;
-    const midX = 216;
+    const x2 = 408;
+    const midX = 288;
 
     const yA = 72 + i * 160;
     const yB = 152 + i * 160;
@@ -659,7 +665,14 @@ const scoreB =
     return (
       <path
         key={`16-8-${i}`}
-        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
+        d={`
+          M${x1} ${yA}
+          H${midX}
+          V${yB}
+          H${x1}
+          M${midX} ${yTarget}
+          H${x2}
+        `}
         fill="none"
         stroke="#10b981"
         strokeWidth="3"
@@ -667,68 +680,70 @@ const scoreB =
     );
   })}
 
-  {Array.from({ length: 4 }).map((_, i) => {
-    const x1 = 408;
-    const x2 = 504;
-    const midX = 456;
 
-    const yA = 112 + i * 320;
-    const yB = 272 + i * 320;
-    const yTarget = 192 + i * 320;
-
-    return (
-      <path
-        key={`8-4-${i}`}
-        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
-        fill="none"
-        stroke="#10b981"
-        strokeWidth="3"
-      />
-    );
-  })}
+  {/* =========================
+      รอบ 8 คู่ → รอบรองชนะเลิศ
+      4 คู่ → 2 คู่
+  ========================= */}
 
   {Array.from({ length: 2 }).map((_, i) => {
-    const x1 = 648;
-    const x2 = 744;
-    const midX = 696;
+    const x1 = 408;
+    const x2 = 648;
+    const midX = 528;
 
-    const yA = 192 + i * 640;
-    const yB = 512 + i * 640;
-    const yTarget = 352 + i * 640;
+    const yA = 192 + i * 320;
+    const yB = 352 + i * 320;
+    const yTarget = 272 + i * 320;
 
     return (
       <path
-        key={`4-2-${i}`}
-        d={`M${x1} ${yA} H${midX} V${yB} H${x1} M${midX} ${yTarget} H${x2}`}
+        key={`8-semifinal-${i}`}
+        d={`
+          M${x1} ${yA}
+          H${midX}
+          V${yB}
+          H${x1}
+          M${midX} ${yTarget}
+          H${x2}
+        `}
         fill="none"
         stroke="#10b981"
         strokeWidth="3"
       />
     );
   })}
-{/* รอบรองชนะเลิศ -> รอบชิงชนะเลิศ */}
 
-<path
-  d="M888 352 H940 V600 H1080"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
 
-<path
-  d="M888 992 H940 V600 H1080"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
-{/* รอบชิงชนะเลิศ -> ถ้วย */}
+  {/* =========================
+      รอบรองชนะเลิศ → รอบชิงชนะเลิศ
+      2 คู่ → 1 คู่
+  ========================= */}
 
-<path
-  d="M1080 600 H1250"
-  fill="none"
-  stroke="#10b981"
-  strokeWidth="3"
-/>
+  <path
+    d="M648 352 H888"
+    fill="none"
+    stroke="#10b981"
+    strokeWidth="3"
+  />
+
+  <path
+    d="M648 992 H768 V600 H888"
+    fill="none"
+    stroke="#10b981"
+    strokeWidth="3"
+  />
+
+  {/* =========================
+      รอบชิงชนะเลิศ → แชมป์
+  ========================= */}
+
+  <path
+    d="M1080 600 H1250"
+    fill="none"
+    stroke="#10b981"
+    strokeWidth="3"
+  />
+
 </svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
