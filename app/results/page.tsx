@@ -959,7 +959,7 @@ const winnerColor =
               <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
                 <div className="flex items-center justify-center border-r border-white/20 p-5">
                   <span
-  className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
+  className={`inline-flex min-w-[75px] items-center justify-center rounded-xl border px-2 py-2 text-xs font-black ${
     stage === 'รอบแบ่งกลุ่ม'
       ? (
           GROUP_BUTTONS[group] ||
