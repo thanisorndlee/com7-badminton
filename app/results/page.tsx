@@ -290,7 +290,7 @@ const getStandingsByGroup = (group: string) => {
         return pointB - pointA;
       }
 
-      // 2. ถ้าคะแนนเท่ากัน → จำนวนชนะมากกว่าอยู่สูงกว่า
+      // 2. คะแนนเท่ากัน → จำนวนชนะมากกว่าอยู่สูงกว่า
       const winA = Number(a[3] || 0);
       const winB = Number(b[3] || 0);
 
@@ -298,7 +298,15 @@ const getStandingsByGroup = (group: string) => {
         return winB - winA;
       }
 
-      // 3. ถ้าเท่ากันหมด → เรียงชื่อทีม
+      // 3. คะแนน + ชนะเท่ากัน → แต้มได้เสียมากกว่าอยู่สูงกว่า
+      const diffA = Number(a[9] || 0);
+      const diffB = Number(b[9] || 0);
+
+      if (diffA !== diffB) {
+        return diffB - diffA;
+      }
+
+      // 4. ถ้ายังเท่ากัน → เรียงชื่อทีม
       return String(a[0] || '').localeCompare(
         String(b[0] || ''),
         'th'
