@@ -164,7 +164,7 @@ const BracketBox = ({ match }: { match: any }) => {
   return (
     <div className="flex h-12 w-36 items-center justify-center rounded-xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all hover:scale-105">
       <span className="text-center text-sm font-bold text-white">
-        {match[0] || '-'}
+        {match[5] || '-'}
       </span>
     </div>
   );
@@ -283,8 +283,8 @@ const getTeamGroup = (team: string) => {
       const group = String(m[5] || '').trim();
 
 const matchOrder =
-  isKnockoutRound && group
-    ? group
+  isKnockoutRound && m[5]
+    ? `คู่ที่ ${m[5]}`
     : '-';
 
 const scoreA =
@@ -488,7 +488,7 @@ const scoreB =
       {tableMatches.length > 0 ? (
         tableMatches.map((m, i) => {
 const group = String(m[5] || '').trim();
-const matchOrder = m[0] || '-';
+const matchOrder = m[5] ? `คู่ที่ ${m[5]}` : '-';
 const scoreA =
   m[22] !== '' && m[22] != null
     ? m[22]
