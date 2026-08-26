@@ -954,7 +954,7 @@ const scoreB =
         <div
           className="absolute left-0 flex w-36 flex-col items-center"
           style={{
-            top: `360px`,
+            top: `460px`,
           }}
         >
 
