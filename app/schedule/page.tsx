@@ -332,8 +332,8 @@ const scoreB =
     <div className="min-w-0 text-center">
       <div
         className={`mx-auto flex h-12 w-16 items-center justify-center rounded-xl border-2 text-base font-black ${getGroupClass(
-          group
-        )}`}
+  getTeamGroup(m[11])
+)}`}
       >
         {m[6] || '-'}
       </div>
@@ -370,8 +370,8 @@ const scoreB =
     <div className="min-w-0 text-center">
       <div
         className={`mx-auto flex h-12 w-16 items-center justify-center rounded-xl border-2 text-base font-black ${getGroupClass(
-          group
-        )}`}
+  getTeamGroup(m[6])
+)}`}
       >
         {m[11] || '-'}
       </div>
