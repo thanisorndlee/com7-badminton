@@ -130,14 +130,23 @@ const round4 = useMemo(() => {
   return matches.filter((m) => String(m[1]) === "รอบ 4 คู่");
 }, [matches]);
 
-const finalRound = useMemo(() => {
-  return matches.filter((m) => String(m[1]) === "ชิงชนะเลิศ");
+const semifinalRound = useMemo(() => {
+  return matches.filter(
+    (m) => String(m[1]).trim() === "รอบรองชนะเลิศ"
+  );
 }, [matches]);
 
-console.log(round16);
-console.log(round8);
-console.log(round4);
-console.log(finalRound);
+const finalRound = useMemo(() => {
+  return matches.filter(
+    (m) => String(m[1]).trim() === "รอบชิงชนะเลิศ"
+  );
+}, [matches]);
+
+console.log("Round 16:", round16);
+console.log("Round 8:", round8);
+console.log("Round 4:", round4);
+console.log("Semifinal:", semifinalRound);
+console.log("Final:", finalRound);
 
   const BracketBox = ({ match }: { match: any }) => {
   return (
@@ -674,16 +683,25 @@ const scoreB =
       />
     );
   })}
-  {/* รอบ2 -> ถ้วย */}
+{/* รอบรองชนะเลิศ -> รอบชิงชนะเลิศ */}
+
 <path
-  d="M888 352 H940 V560 H1010"
+  d="M888 352 H940 V600 H1010"
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
 />
 
 <path
-  d="M888 992 H940 V560 H1010"
+  d="M888 992 H940 V600 H1010"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
+{/* รอบชิงชนะเลิศ -> ถ้วย */}
+
+<path
+  d="M1128 600 H1180 V560 H1250"
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
@@ -749,6 +767,27 @@ const scoreB =
     ))}
   </div>
 </div>
+{/* รอบรองชนะเลิศ */}
+<div className="flex flex-col">
+  <h3 className="mb-6 text-center font-black text-emerald-400">
+    รอบรองชนะเลิศ
+  </h3>
+
+  <div className="relative w-36 h-[1280px]">
+    {semifinalRound.map((match, i) => (
+      <div
+        key={i}
+        className="absolute left-0 z-10"
+        style={{
+          top: `${280 + i * 640}px`,
+        }}
+      >
+        <BracketBox match={match} />
+      </div>
+    ))}
+  </div>
+</div>
+{/* รอบชิงชนะเลิศ */}
 <div className="flex flex-col">
   <h3 className="mb-6 text-center font-black text-emerald-400">
     รอบชิงชนะเลิศ 🏆
@@ -760,7 +799,7 @@ const scoreB =
         key={i}
         className="absolute left-0 z-10"
         style={{
-          top: `${280 + i * 640}px`,
+          top: `${600}px`,
         }}
       >
         <BracketBox match={match} />
