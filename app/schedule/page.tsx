@@ -785,9 +785,9 @@ const scoreB =
 
 <path
   d="
-    M 864 448
+    M 864 344
     H 912
-    V 768
+    V 664
     H 960
   "
     fill="none"
@@ -799,9 +799,9 @@ const scoreB =
 
 <path
   d="
-    M 864 1088
+    M 864 984
     H 912
-    V 768
+    V 664
     H 960
   "
     fill="none"
