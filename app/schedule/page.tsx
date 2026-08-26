@@ -526,9 +526,9 @@ const scoreB =
               {/* สาย / ลำดับ */}
 <td className="border-r border-white/10 px-3 py-5 text-center">
   {isKnockoutRound ? (
-    <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 text-base font-black text-emerald-400">
-      {matchOrder}
-    </span>
+    <span className="inline-flex h-8 min-w-10 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-xs font-bold text-white">
+  {matchOrder !== '-' ? `คู่ที่ ${matchOrder}` : '-'}
+</span>
   ) : (
     <span
       className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
