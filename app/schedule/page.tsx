@@ -487,8 +487,8 @@ const scoreB =
     <tbody className="divide-y divide-white/10 font-semibold">
       {tableMatches.length > 0 ? (
         tableMatches.map((m, i) => {
-          const group = String(m[5] || '').trim();
-const matchOrder = m[16] || '-';
+const group = String(m[5] || '').trim();
+const matchOrder = m[0] || '-';
 const scoreA =
   m[22] !== '' && m[22] != null
     ? m[22]
