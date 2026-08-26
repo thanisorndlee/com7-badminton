@@ -339,10 +339,10 @@ export default function ReplayPage() {
                           />
 
                           {selectedDate !== '26 ส.ค. 2569' && (
-                            <p className="text-sm text-slate-300">
-                              {group}
-                            </p>
-                          )}
+  <p className="text-sm text-slate-300">
+    สาย {group}
+  </p>
+)}
 
                           <div className="mt-2 flex items-center justify-center gap-8">
                           <div className="text-center">
