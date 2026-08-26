@@ -281,7 +281,7 @@ const getTeamGroup = (team: string) => {
   {tableMatches.length > 0 ? (
     tableMatches.map((m, i) => {
       const group = String(m[5] || '').trim();
-        const matchOrder = i + 1;
+        const matchOrder = m[16] || '-';
 
 const scoreA =
   m[22] !== '' && m[22] != null
@@ -484,7 +484,7 @@ const scoreB =
       {tableMatches.length > 0 ? (
         tableMatches.map((m, i) => {
           const group = String(m[5] || '').trim();
-const matchOrder = i + 1;
+const matchOrder = m[16] || '-';
 const scoreA =
   m[22] !== '' && m[22] != null
     ? m[22]
