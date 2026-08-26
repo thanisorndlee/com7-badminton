@@ -53,8 +53,9 @@ function getScoreSets(match: any[]) {
 }
 
 function getTimeOrder(value: unknown) {
-  const text = String(value || '');
-  const match = text.match(/(\d{1,2})\s*:\s*(\d{2})/);
+  const text = String(value || '').trim();
+
+  const match = text.match(/(\d{1,2})\s*[.:]\s*(\d{2})/);
 
   if (!match) {
     return Number.MAX_SAFE_INTEGER;
@@ -100,10 +101,6 @@ export default function ReplayPage() {
       .filter((match) => {
         const stage = String(match[1] || '').trim();
         const date = String(match[2] || '').trim();
-
-        if (stage !== 'รอบแบ่งกลุ่ม') {
-          return false;
-        }
 
         if (date !== selectedDate) {
           return false;
