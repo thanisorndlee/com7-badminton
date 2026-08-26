@@ -136,9 +136,6 @@ const round8 = useMemo(() => {
   return matches.filter((m) => String(m[1]) === "รอบ 8 คู่");
 }, [matches]);
 
-const round4 = useMemo(() => {
-  return matches.filter((m) => String(m[1]) === "รอบ 4 คู่");
-}, [matches]);
 
 const semifinalRound = useMemo(() => {
   return matches.filter(
@@ -151,10 +148,15 @@ const finalRound = useMemo(() => {
     (m) => String(m[1]).trim() === "รอบชิงชนะเลิศ"
   );
 }, [matches]);
+const isKnockoutRound = [
+  'รอบ 16 คู่',
+  'รอบ 8 คู่',
+  'รอบรองชนะเลิศ',
+  'รอบชิงชนะเลิศ',
+].includes(selectedRound);
 
 console.log("Round 16:", round16);
 console.log("Round 8:", round8);
-console.log("Round 4:", round4);
 console.log("Semifinal:", semifinalRound);
 console.log("Final:", finalRound);
 
@@ -272,6 +274,7 @@ const getGroupClass = (group: string) => {
   {tableMatches.length > 0 ? (
     tableMatches.map((m, i) => {
       const group = String(m[5] || '').trim();
+        const matchOrder = i + 1;
 
 const scoreA =
   m[22] !== '' && m[22] != null
@@ -296,12 +299,16 @@ const scoreB =
     </span>
 
     <span
-      className={`inline-flex min-w-[64px] items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-black ${getGroupClass(
-        group
-      )}`}
-    >
-      สาย {group || '-'}
-    </span>
+  className={`inline-flex min-w-[64px] items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-black ${
+    isKnockoutRound
+      ? 'border-emerald-400/40 bg-emerald-500/10 text-emerald-400'
+      : getGroupClass(group)
+  }`}
+>
+  {isKnockoutRound
+    ? `ลำดับ ${matchOrder}`
+    : `สาย ${group || '-'}`}
+</span>
   </div>
 
   <div className="mt-3 flex items-center justify-between text-xs font-bold text-slate-400">
@@ -444,9 +451,9 @@ const scoreB =
   เวลา
 </th>
 
-        <th className="border-r border-white/10 px-3 py-5 text-center">
-          สาย
-        </th>
+<th className="border-r border-white/10 px-3 py-5 text-center">
+  {isKnockoutRound ? 'ลำดับ' : 'สาย'}
+</th>
 
         <th className="px-4 py-5 text-center">
           TEAM
@@ -470,7 +477,7 @@ const scoreB =
       {tableMatches.length > 0 ? (
         tableMatches.map((m, i) => {
           const group = String(m[5] || '').trim();
-
+const matchOrder = i + 1;
 const scoreA =
   m[22] !== '' && m[22] != null
     ? m[22]
@@ -501,16 +508,22 @@ const scoreB =
                 {m[3] || '-'}
               </td>
 
-              {/* สาย */}
-              <td className="border-r border-white/10 px-3 py-5 text-center">
-                <span
-                  className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
-                    group
-                  )}`}
-                >
-                  {group || '-'}
-                </span>
-              </td>
+              {/* สาย / ลำดับ */}
+<td className="border-r border-white/10 px-3 py-5 text-center">
+  {isKnockoutRound ? (
+    <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 text-base font-black text-emerald-400">
+      {matchOrder}
+    </span>
+  ) : (
+    <span
+      className={`inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-base font-black ${getGroupClass(
+        group
+      )}`}
+    >
+      {group || '-'}
+    </span>
+  )}
+</td>
 
               {/* TEAM ฝั่งซ้าย */}
               <td className="px-3 py-5 align-middle">
@@ -750,26 +763,6 @@ const scoreB =
         className="absolute left-0 z-10"
         style={{
           top: `${40 + i * 160}px`,
-        }}
-      >
-        <BracketBox match={match} />
-      </div>
-    ))}
-  </div>
-</div>
-            {/* รอบ 4 */}
-<div className="flex flex-col">
-  <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบ 4 คู่
-  </h3>
-
-  <div className="relative w-36 h-[1280px]">
-    {round4.map((match, i) => (
-      <div
-        key={i}
-        className="absolute left-0 z-10"
-        style={{
-          top: `${120 + i * 320}px`,
         }}
       >
         <BracketBox match={match} />
