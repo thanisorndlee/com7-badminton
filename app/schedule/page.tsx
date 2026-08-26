@@ -836,7 +836,7 @@ const scoreB =
 
       <div className="absolute left-0 top-0 z-10 w-36">
 
-<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
+        <h3 className="text-sm font-black text-emerald-400">
           รอบ 16 คู่
         </h3>
 
