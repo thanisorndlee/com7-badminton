@@ -664,176 +664,175 @@ const scoreB =
       {/* ===================================================
           SVG เส้น
       =================================================== */}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  className="
+    pointer-events-none
+    absolute
+    left-0
+    top-0
+    z-0
+    h-[1500px]
+    w-full
+  "
+>
+  {/* =====================================
+      รอบ 16 คู่ → รอบ 8 คู่
 
-      <svg
-        className="pointer-events-none absolute left-0 top-0 z-0 h-full w-full"
-        viewBox="0 0 1200 1320"
-        preserveAspectRatio="none"
-      >
+      16 ช่อง → 8 ช่อง
+      คู่ 1 + 2 → รอบ 8 ช่อง 1
+      คู่ 3 + 4 → รอบ 8 ช่อง 2
+      ...
+      คู่ 15 + 16 → รอบ 8 ช่อง 8
+  ===================================== */}
 
-        {/* =================================================
-            รอบ 16 → รอบ 8
+  {Array.from({ length: 8 }).map((_, i) => {
 
-            16 กล่อง
-            จับทีละ 2
-            = 8 กล่อง
-        ================================================= */}
+    // จุดกลางของคู่รอบ 16
+    const yTop = 24 + i * 80;
+    const yBottom = 104 + i * 80;
 
-        {Array.from({ length: 8 }).map((_, i) => {
+    // จุดกลางของช่องรอบ 8
+    const yTarget = 64 + i * 160;
 
-          const y1 = 24 + i * 80;
-          const y2 = 104 + i * 80;
+    return (
+      <path
+        key={`r16-r8-${i}`}
+        d={`
+          M 144 ${yTop}
+          H 192
 
-          const targetY = 64 + i * 160;
+          V ${yBottom}
+          H 192
 
-          return (
-            <g key={`line-r16-r8-${i}`}>
-
-              {/* จากคู่บน */}
-              <path
-                d={`
-                  M 144 ${y1}
-                  H 190
-                  V ${targetY}
-                  H 240
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
-
-              {/* จากคู่ล่าง */}
-              <path
-                d={`
-                  M 144 ${y2}
-                  H 190
-                  V ${targetY}
-                  H 240
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
-
-            </g>
-          );
-        })}
+          M 192 ${yTarget}
+          H 240
+        `}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    );
+  })}
 
 
-        {/* =================================================
-            รอบ 8 → รอบรอง
+  {/* =====================================
+      รอบ 8 คู่ → รอบรองชนะเลิศ
 
-            8 กล่อง
-            จับทีละ 2
-            = 4 กล่อง
-        ================================================= */}
+      8 ช่อง → 4 ช่อง
 
-        {Array.from({ length: 4 }).map((_, i) => {
+      รอบ 8 ช่อง 1 + 2 → รองฯ ช่อง 1
+      รอบ 8 ช่อง 3 + 4 → รองฯ ช่อง 2
+      รอบ 8 ช่อง 5 + 6 → รองฯ ช่อง 3
+      รอบ 8 ช่อง 7 + 8 → รองฯ ช่อง 4
+  ===================================== */}
 
-          const y1 = 64 + i * 160;
-          const y2 = 224 + i * 160;
+  {Array.from({ length: 4 }).map((_, i) => {
 
-          const targetY = 144 + i * 320;
+    const yTop = 64 + i * 160;
+    const yBottom = 224 + i * 160;
 
-          return (
-            <g key={`line-r8-semi-${i}`}>
+    const yTarget = 144 + i * 320;
 
-              {/* จากคู่บน */}
-              <path
-                d={`
-                  M 384 ${y1}
-                  H 430
-                  V ${targetY}
-                  H 480
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
+    return (
+      <path
+        key={`r8-semi-${i}`}
+        d={`
+          M 384 ${yTop}
+          H 432
 
-              {/* จากคู่ล่าง */}
-              <path
-                d={`
-                  M 384 ${y2}
-                  H 430
-                  V ${targetY}
-                  H 480
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
+          V ${yBottom}
+          H 432
 
-            </g>
-          );
-        })}
+          M 432 ${yTarget}
+          H 480
+        `}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    );
+  })}
 
 
-        {/* =================================================
-            รอบรอง → รอบชิง
+  {/* =====================================
+      รอบรองชนะเลิศ → รอบชิง
 
-            4 กล่อง
-            จับทีละ 2
-            = 2 กล่อง
-        ================================================= */}
+      4 ช่อง → 2 ช่อง
 
-        {Array.from({ length: 2 }).map((_, i) => {
+      รองฯ 1 + 2 → ชิงช่อง 1
+      รองฯ 3 + 4 → ชิงช่อง 2
+  ===================================== */}
 
-          const y1 = 144 + i * 320;
-          const y2 = 464 + i * 320;
+  {Array.from({ length: 2 }).map((_, i) => {
 
-          const targetY = 304 + i * 640;
+    const yTop = 144 + i * 320;
+    const yBottom = 464 + i * 320;
 
-          return (
-            <g key={`line-semi-final-${i}`}>
+    const yTarget = 304 + i * 640;
 
-              {/* จากรอบรองด้านบน */}
-              <path
-                d={`
-                  M 624 ${y1}
-                  H 670
-                  V ${targetY}
-                  H 720
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
+    return (
+      <path
+        key={`semi-final-${i}`}
+        d={`
+          M 624 ${yTop}
+          H 672
 
-              {/* จากรอบรองด้านล่าง */}
-              <path
-                d={`
-                  M 624 ${y2}
-                  H 670
-                  V ${targetY}
-                  H 720
-                `}
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-              />
+          V ${yBottom}
+          H 672
 
-            </g>
-          );
-        })}
+          M 672 ${yTarget}
+          H 720
+        `}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    );
+  })}
 
 
-        {/* =================================================
-            รอบชิง → ถ้วย
-        ================================================= */}
+  {/* =====================================
+      รอบชิง → ถ้วยแชมป์
 
-        <path
-          d="
-            M 864 304
-            H 1000
-          "
-          fill="none"
-          stroke="#facc15"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
+      2 ช่อง → 1 แชมป์
+  ===================================== */}
 
-      </svg>
+  <path
+    d="
+      M 864 304
+      H 912
+      V 624
+      H 960
+    "
+    fill="none"
+    stroke="#10b981"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+
+  <path
+    d="
+      M 864 944
+      H 912
+      V 624
+      H 960
+    "
+    fill="none"
+    stroke="#10b981"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+
+</svg>
 
 
       {/* ===================================================
