@@ -698,7 +698,14 @@ const scoreB =
   stroke="#10b981"
   strokeWidth="3"
 />
+{/* รอบชิงชนะเลิศ -> ถ้วย */}
 
+<path
+  d="M1080 600 H1250"
+  fill="none"
+  stroke="#10b981"
+  strokeWidth="3"
+/>
 </svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
