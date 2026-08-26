@@ -836,7 +836,7 @@ const scoreB =
 
       <div className="absolute left-0 top-0 z-10 w-36">
 
-        <h3 className="mb-6 text-center font-black text-emerald-400">
+<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
           รอบ 16 คู่
         </h3>
 
@@ -868,7 +868,7 @@ const scoreB =
 
       <div className="absolute left-[240px] top-0 z-10 w-36">
 
-        <h3 className="mb-6 text-center font-black text-emerald-400">
+<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
           รอบ 8 คู่
         </h3>
 
@@ -900,7 +900,7 @@ const scoreB =
 
       <div className="absolute left-[480px] top-0 z-10 w-36">
 
-        <h3 className="mb-6 text-center font-black text-emerald-400">
+<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
           รอบรองชนะเลิศ
         </h3>
 
@@ -932,7 +932,7 @@ const scoreB =
 
       <div className="absolute left-[720px] top-0 z-10 w-36">
 
-        <h3 className="mb-6 text-center font-black text-emerald-400">
+<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
           รอบชิงชนะเลิศ 🏆
         </h3>
 
