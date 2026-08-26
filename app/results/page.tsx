@@ -192,7 +192,7 @@ export default function ResultsPage() {
     });
   }, [matches, normalizedSearch]);
 const allStageMatches = useMemo(() => {
-  return matches.filter((row) => {
+  const filtered = matches.filter((row) => {
     const stage = String(row[1] || '').trim();
 
     const allowedStages = [
@@ -211,7 +211,10 @@ const allStageMatches = useMemo(() => {
       return false;
     }
 
-    if (selectedGroup !== 'ทั้งหมด' && stage === 'รอบแบ่งกลุ่ม') {
+    if (
+      selectedGroup !== 'ทั้งหมด' &&
+      stage === 'รอบแบ่งกลุ่ม'
+    ) {
       const group = String(row[5] || '').trim();
 
       if (group !== selectedGroup) {
@@ -247,6 +250,24 @@ const allStageMatches = useMemo(() => {
         .includes(normalizedSearch)
     );
   });
+
+  // จำกัดจำนวนคู่ของแต่ละรอบ
+  const limitByStage: Record<string, number> = {
+    'รอบ 16 คู่': 8,
+    'รอบ 8 คู่': 4,
+    'รอบรองชนะเลิศ': 2,
+    'รอบชิงชนะเลิศ': 1,
+  };
+
+  if (selectedRound !== 'ทั้งหมด') {
+    const limit = limitByStage[selectedRound];
+
+    if (limit) {
+      return filtered.slice(0, limit);
+    }
+  }
+
+  return filtered;
 }, [
   matches,
   selectedRound,
