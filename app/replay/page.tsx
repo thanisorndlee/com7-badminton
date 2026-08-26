@@ -165,8 +165,6 @@ export default function ReplayPage() {
           alt="Badminton background"
           className="h-full w-full object-cover opacity-75"
         />
-
-      <div className="absolute left-4 top-4 h-4 w-4 rounded-full bg-red-500 shadow-[0_0_16px_rgba(239,68,68,.8)]" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1500px]">
@@ -341,7 +339,7 @@ export default function ReplayPage() {
                           />
 
                           <p className="text-sm text-slate-300">
-                            สาย {group}
+                            {group}
                           </p>
 
                           <div className="mt-2 flex items-center justify-center gap-8">
