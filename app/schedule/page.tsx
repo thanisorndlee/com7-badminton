@@ -111,6 +111,9 @@ const tableMatches = useMemo(() => {
   if (selectedRound === 'รอบ 16 คู่') {
     return filtered.slice(0, 8);
   }
+   if (selectedRound === 'รอบ 8 คู่') {
+    return filtered.slice(0, 4);
+  }
 
   return filtered;
 }, [
