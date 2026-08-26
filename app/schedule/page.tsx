@@ -679,7 +679,7 @@ const scoreB =
   ===================================================== */}
 
   {Array.from({ length: 8 }).map((_, i) => {
-    const offset = 24;
+    const offset = 48;
 
     const yTop = 24 + i * 160 + offset;
     const yBottom = yTop + 80;
@@ -714,7 +714,7 @@ const scoreB =
   ===================================================== */}
 
   {Array.from({ length: 4 }).map((_, i) => {
-    const offset = 24;
+    const offset = 48;
 
     const yTop = 64 + i * 320 + offset;
     const yBottom = yTop + 160;
@@ -749,7 +749,7 @@ const scoreB =
   ===================================================== */}
 
   {Array.from({ length: 2 }).map((_, i) => {
-    const offset = 24;
+    const offset = 48;
 
     const yTop = 144 + i * 640 + offset;
     const yBottom = yTop + 320;
