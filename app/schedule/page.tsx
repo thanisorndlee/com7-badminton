@@ -783,13 +783,13 @@ const scoreB =
       ขยับเส้นลง 24px
   ===================================================== */}
 
-  <path
-    d="
-      M 864 328
-      H 912
-      V 648
-      H 960
-    "
+<path
+  d="
+    M 864 448
+    H 912
+    V 768
+    H 960
+  "
     fill="none"
     stroke="#facc15"
     strokeWidth="3"
@@ -797,13 +797,13 @@ const scoreB =
     strokeLinejoin="round"
   />
 
-  <path
-    d="
-      M 864 968
-      H 912
-      V 648
-      H 960
-    "
+<path
+  d="
+    M 864 1088
+    H 912
+    V 768
+    H 960
+  "
     fill="none"
     stroke="#facc15"
     strokeWidth="3"
@@ -928,7 +928,7 @@ const scoreB =
               key={`final-${i}`}
               className="absolute left-0"
               style={{
-                top: `${264 + i * 640}px`,
+                top: `${384 + i * 640}px`,
               }}
             >
               <BracketBox match={match} />
@@ -954,7 +954,7 @@ const scoreB =
         <div
           className="absolute left-0 flex w-36 flex-col items-center"
           style={{
-            top: `240px`,
+            top: `360px`,
           }}
         >
 
