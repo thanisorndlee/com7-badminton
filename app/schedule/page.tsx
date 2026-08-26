@@ -488,11 +488,7 @@ const scoreB =
       {tableMatches.length > 0 ? (
         tableMatches.map((m, i) => {
           const group = String(m[5] || '').trim();
-
-const matchOrder =
-  isKnockoutRound && group
-    ? group
-    : '-';
+const matchOrder = m[16] || '-';
 const scoreA =
   m[22] !== '' && m[22] != null
     ? m[22]
@@ -526,7 +522,7 @@ const scoreB =
               {/* สาย / ลำดับ */}
 <td className="border-r border-white/10 px-3 py-5 text-center">
   {isKnockoutRound ? (
-    <span className="inline-flex h-8 min-w-10 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-2 text-xs font-bold text-white">
+    <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 text-base font-black text-emerald-400">
       {matchOrder}
     </span>
   ) : (
@@ -836,7 +832,7 @@ const scoreB =
 
       <div className="absolute left-0 top-0 z-10 w-36">
 
-        <h3 className="text-sm font-black text-emerald-400">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
           รอบ 16 คู่
         </h3>
 
@@ -868,7 +864,7 @@ const scoreB =
 
       <div className="absolute left-[240px] top-0 z-10 w-36">
 
-<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
           รอบ 8 คู่
         </h3>
 
@@ -900,7 +896,7 @@ const scoreB =
 
       <div className="absolute left-[480px] top-0 z-10 w-36">
 
-<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
           รอบรองชนะเลิศ
         </h3>
 
@@ -932,7 +928,7 @@ const scoreB =
 
       <div className="absolute left-[720px] top-0 z-10 w-36">
 
-<h3 className="mb-6 text-center text-sm font-black text-emerald-400">
+        <h3 className="mb-6 text-center font-black text-emerald-400">
           รอบชิงชนะเลิศ 🏆
         </h3>
 
