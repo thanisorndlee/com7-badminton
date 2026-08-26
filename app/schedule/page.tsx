@@ -160,13 +160,12 @@ console.log("Round 8:", round8);
 console.log("Semifinal:", semifinalRound);
 console.log("Final:", finalRound);
 
-  const BracketBox = ({ match }: { match: any }) => {
+const BracketBox = ({ match }: { match: any }) => {
   return (
-    <div className="w-36 h-12 rounded-xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] hover:scale-105 transition-all flex items-center justify-center">
-      <span className="text-white font-bold text-sm">
-        {match[0]}
+    <div className="flex h-12 w-36 items-center justify-center rounded-xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all hover:scale-105">
+      <span className="text-center text-sm font-bold text-white">
+        {match[0] || '-'}
       </span>
-
     </div>
   );
 };
@@ -638,216 +637,426 @@ const scoreB =
     </tbody>
   </table>
 </div>
-        {/* แผนผังการแข่งขัน */}
-        <h2 className="text-3xl font-black text-emerald-400 text-center mb-12">แผนผังการแข่งขัน</h2>
-        
-<div className="overflow-x-auto pb-10">
-<div className="relative w-max mx-auto flex gap-24 px-6"> 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  className="absolute left-0 top-0 w-full h-[1360px] pointer-events-none z-0"
->
+{/* =========================================
+    แผนผังการแข่งขัน
+========================================= */}
 
-  {/* =========================
-      รอบ 16 คู่ → รอบ 8 คู่
-      8 คู่ → 4 คู่
-  ========================= */}
+<h2 className="mb-12 text-center text-3xl font-black text-emerald-400">
+  แผนผังการแข่งขัน
+</h2>
 
-  {Array.from({ length: 4 }).map((_, i) => {
-    const x1 = 168;
-    const x2 = 408;
-    const midX = 288;
+<div className="w-full overflow-x-auto pb-10">
+  <div
+    className="
+      relative
+      mx-auto
+      flex
+      w-max
+      gap-24
+      px-6
+    "
+  >
 
-    const yA = 72 + i * 160;
-    const yB = 152 + i * 160;
-    const yTarget = 112 + i * 160;
+    {/* =====================================
+        เส้นเชื่อมทั้งหมด
+        ===================================== */}
 
-    return (
-      <path
-        key={`16-8-${i}`}
-        d={`
-          M${x1} ${yA}
-          H${midX}
-          V${yB}
-          H${x1}
-          M${midX} ${yTarget}
-          H${x2}
-        `}
-        fill="none"
-        stroke="#10b981"
-        strokeWidth="3"
-      />
-    );
-  })}
-
-
-  {/* =========================
-      รอบ 8 คู่ → รอบรองชนะเลิศ
-      4 คู่ → 2 คู่
-  ========================= */}
-
-  {Array.from({ length: 2 }).map((_, i) => {
-    const x1 = 408;
-    const x2 = 648;
-    const midX = 528;
-
-    const yA = 192 + i * 320;
-    const yB = 352 + i * 320;
-    const yTarget = 272 + i * 320;
-
-    return (
-      <path
-        key={`8-semifinal-${i}`}
-        d={`
-          M${x1} ${yA}
-          H${midX}
-          V${yB}
-          H${x1}
-          M${midX} ${yTarget}
-          H${x2}
-        `}
-        fill="none"
-        stroke="#10b981"
-        strokeWidth="3"
-      />
-    );
-  })}
-
-
-  {/* =========================
-      รอบรองชนะเลิศ → รอบชิงชนะเลิศ
-      2 คู่ → 1 คู่
-  ========================= */}
-
-  <path
-    d="M648 352 H888"
-    fill="none"
-    stroke="#10b981"
-    strokeWidth="3"
-  />
-
-  <path
-    d="M648 992 H768 V600 H888"
-    fill="none"
-    stroke="#10b981"
-    strokeWidth="3"
-  />
-
-  {/* =========================
-      รอบชิงชนะเลิศ → แชมป์
-  ========================= */}
-
-  <path
-    d="M1080 600 H1250"
-    fill="none"
-    stroke="#10b981"
-    strokeWidth="3"
-  />
-
-</svg>
-   {/* รอบ 16 */}
-<div className="flex flex-col">
-  <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบ 16 คู่
-  </h3>
-
-  <div className="relative w-36 h-[1280px]">
-    {round16.map((match, i) => (
-      <div
-        key={i}
-        className="absolute left-0 z-10"
-        style={{
-          top: `${i * 80}px`,
-        }}
-      >
-        <BracketBox match={match} />
-      </div>
-    ))}
-  </div>
-</div>
-{/* รอบ 8 */}
-<div className="flex flex-col">
-  <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบ 8 คู่
-  </h3>
-
-  <div className="relative w-36 h-[1280px]">
-    {round8.map((match, i) => (
-      <div
-        key={i}
-        className="absolute left-0 z-10"
-        style={{
-          top: `${40 + i * 160}px`,
-        }}
-      >
-        <BracketBox match={match} />
-      </div>
-    ))}
-  </div>
-</div>
-{/* รอบรองชนะเลิศ */}
-<div className="flex flex-col">
-  <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบรองชนะเลิศ
-  </h3>
-
-  <div className="relative w-36 h-[1280px]">
-    {semifinalRound.map((match, i) => (
-      <div
-        key={i}
-        className="absolute left-0 z-10"
-        style={{
-          top: `${280 + i * 640}px`,
-        }}
-      >
-        <BracketBox match={match} />
-      </div>
-    ))}
-  </div>
-</div>
-{/* รอบชิงชนะเลิศ */}
-<div className="flex flex-col">
-  <h3 className="mb-6 text-center font-black text-emerald-400">
-    รอบชิงชนะเลิศ 🏆
-  </h3>
-
-  <div className="relative w-36 h-[1280px]">
-    {finalRound.map((match, i) => (
-      <div
-        key={i}
-        className="absolute left-0 z-10"
-        style={{
-          top: `${530}px`,
-        }}
-      >
-        <BracketBox match={match} />
-      </div>
-    ))}
-  </div>
-</div>
-<div className="flex flex-col">
-  <h3 className="mb-6 opacity-0">ถ้วย</h3>
-
-  <div className="relative w-36 h-[1280px]">
-    <div
-      className="absolute left-0 z-10 flex flex-col items-center"
-      style={{ top: "480px" }}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="
+        pointer-events-none
+        absolute
+        left-0
+        top-0
+        z-0
+        h-[900px]
+        w-full
+      "
     >
-      <div className="absolute w-40 h-40 rounded-full bg-yellow-400/20 blur-3xl -z-10"></div>
-      <img
-        src="/trophy.png"
-        alt="Champion"
-        className="w-28 drop-shadow-[0_0_25px_rgba(255,215,0,.8)]"
+
+      {/* =====================================
+          รอบ 16 คู่ → รอบ 8 คู่
+
+          รอบ 16:
+          8 คู่
+          ↓
+          รอบ 8:
+          4 คู่
+      ===================================== */}
+
+      {Array.from({ length: 4 }).map((_, i) => {
+
+        /*
+          ตำแหน่ง X
+
+          รอบ 16 กล่องกว้าง 144px
+          รอบ 8 อยู่ห่าง 96px
+
+          ขอบขวารอบ 16 = 144
+          ขอบซ้ายรอบ 8 = 240
+
+          จุดกลาง = 192
+        */
+
+        const xStart = 144;
+        const xEnd = 240;
+        const xMiddle = 192;
+
+        /*
+          จุดกึ่งกลางกล่อง
+
+          รอบ 16 คู่:
+          72, 152
+          
+          รอบ 8:
+          112, 272, 432, 592
+        */
+
+        const yTop = 72 + i * 160;
+        const yBottom = 152 + i * 160;
+        const yTarget = 112 + i * 160;
+
+        return (
+          <path
+            key={`round16-round8-${i}`}
+            d={`
+              M ${xStart} ${yTop}
+              H ${xMiddle}
+
+              V ${yBottom}
+              H ${xStart}
+
+              M ${xMiddle} ${yTarget}
+              H ${xEnd}
+            `}
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      })}
+
+
+      {/* =====================================
+          รอบ 8 คู่ → รอบรองชนะเลิศ
+
+          รอบ 8:
+          4 คู่
+
+          รอบรองฯ:
+          2 คู่
+      ===================================== */}
+
+      {Array.from({ length: 2 }).map((_, i) => {
+
+        /*
+          รอบ 8 อยู่คอลัมน์ที่ 2
+
+          ขอบขวา = 384
+
+          รอบรองฯ อยู่คอลัมน์ที่ 3
+
+          ขอบซ้าย = 480
+
+          จุดกลาง = 432
+        */
+
+        const xStart = 384;
+        const xEnd = 480;
+        const xMiddle = 432;
+
+        /*
+          รอบ 8 center:
+          112
+          272
+          432
+          592
+
+          รอบรองฯ center:
+          192
+          512
+        */
+
+        const yTop = 112 + i * 320;
+        const yBottom = 272 + i * 320;
+        const yTarget = 192 + i * 320;
+
+        return (
+          <path
+            key={`round8-semifinal-${i}`}
+            d={`
+              M ${xStart} ${yTop}
+              H ${xMiddle}
+
+              V ${yBottom}
+              H ${xStart}
+
+              M ${xMiddle} ${yTarget}
+              H ${xEnd}
+            `}
+            fill="none"
+            stroke="#10b981"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        );
+      })}
+
+
+      {/* =====================================
+          รอบรองชนะเลิศ → รอบชิงชนะเลิศ
+
+          รอบรองฯ 2 คู่
+          ↓
+          รอบชิง 1 คู่
+      ===================================== */}
+
+      <path
+        d="
+          M 624 192
+          H 672
+          V 352
+          H 720
+        "
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
-      <p className="mt-3 text-center text-yellow-400 font-black text-xl">
-        CHAMPION
-      </p>
+      <path
+        d="
+          M 624 512
+          H 672
+          V 352
+          H 720
+        "
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+
+      {/* =====================================
+          รอบชิงชนะเลิศ → ถ้วย
+      ===================================== */}
+
+      <path
+        d="
+          M 864 352
+          H 960
+        "
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+
+    </svg>
+
+
+    {/* =====================================
+        COLUMN 1
+        รอบ 16 คู่
+    ===================================== */}
+
+    <div className="relative z-10 flex w-36 flex-col">
+
+      <h3 className="mb-6 text-center font-black text-emerald-400">
+        รอบ 16 คู่
+      </h3>
+
+      <div className="relative h-[800px] w-36">
+
+        {round16.slice(0, 8).map((match, i) => (
+          <div
+            key={`round16-${i}`}
+            className="absolute left-0"
+            style={{
+              top: `${i * 80}px`,
+            }}
+          >
+            <BracketBox match={match} />
+          </div>
+        ))}
+
+      </div>
     </div>
+
+
+    {/* =====================================
+        COLUMN 2
+        รอบ 8 คู่
+    ===================================== */}
+
+    <div className="relative z-10 flex w-36 flex-col">
+
+      <h3 className="mb-6 text-center font-black text-emerald-400">
+        รอบ 8 คู่
+      </h3>
+
+      <div className="relative h-[800px] w-36">
+
+        {round8.slice(0, 4).map((match, i) => (
+          <div
+            key={`round8-${i}`}
+            className="absolute left-0"
+            style={{
+              top: `${40 + i * 160}px`,
+            }}
+          >
+            <BracketBox match={match} />
+          </div>
+        ))}
+
+      </div>
+    </div>
+
+
+    {/* =====================================
+        COLUMN 3
+        รอบรองชนะเลิศ
+    ===================================== */}
+
+    <div className="relative z-10 flex w-36 flex-col">
+
+      <h3 className="mb-6 text-center font-black text-emerald-400">
+        รอบรองชนะเลิศ
+      </h3>
+
+      <div className="relative h-[800px] w-36">
+
+        {semifinalRound.slice(0, 2).map((match, i) => (
+          <div
+            key={`semifinal-${i}`}
+            className="absolute left-0"
+            style={{
+              /*
+                ต้องเป็น 120 และ 440
+
+                เพราะเมื่อรวมกับ
+                h3 + margin ด้านบนแล้ว
+
+                จุดกึ่งกลางกล่องจะอยู่ที่
+                192 และ 512
+              */
+              top: `${120 + i * 320}px`,
+            }}
+          >
+            <BracketBox match={match} />
+          </div>
+        ))}
+
+      </div>
+    </div>
+
+
+    {/* =====================================
+        COLUMN 4
+        รอบชิงชนะเลิศ
+    ===================================== */}
+
+    <div className="relative z-10 flex w-36 flex-col">
+
+      <h3 className="mb-6 text-center font-black text-emerald-400">
+        รอบชิงชนะเลิศ 🏆
+      </h3>
+
+      <div className="relative h-[800px] w-36">
+
+        {finalRound.slice(0, 1).map((match, i) => (
+          <div
+            key={`final-${i}`}
+            className="absolute left-0"
+            style={{
+              /*
+                จุดกึ่งกลางของกล่อง
+                ต้องตรงกับ 352px
+              */
+              top: `280px`,
+            }}
+          >
+            <BracketBox match={match} />
+          </div>
+        ))}
+
+      </div>
+    </div>
+
+
+    {/* =====================================
+        COLUMN 5
+        TROPHY
+    ===================================== */}
+
+    <div className="relative z-10 flex w-36 flex-col">
+
+      {/* ทำให้หัวข้ออยู่ระดับเดียวกับคอลัมน์อื่น */}
+      <h3 className="mb-6 text-center font-black opacity-0">
+        ถ้วย
+      </h3>
+
+      <div className="relative h-[800px] w-36">
+
+        <div
+          className="
+            absolute
+            left-0
+            flex
+            w-36
+            flex-col
+            items-center
+          "
+          style={{
+            /*
+              ปรับให้ถ้วยอยู่กึ่งกลาง
+              กับรอบชิง
+            */
+            top: `248px`,
+          }}
+        >
+
+          {/* Glow */}
+          <div
+            className="
+              absolute
+              -z-10
+              h-40
+              w-40
+              rounded-full
+              bg-yellow-400/20
+              blur-3xl
+            "
+          />
+
+          {/* Trophy */}
+          <img
+            src="/trophy.png"
+            alt="Champion"
+            className="
+              w-28
+              drop-shadow-[0_0_25px_rgba(255,215,0,.8)]
+            "
+          />
+
+          {/* Champion */}
+          <p className="mt-3 text-center text-xl font-black text-yellow-400">
+            CHAMPION
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
-        </div>
-      </div>
       </div>
     </div>
 </div>
