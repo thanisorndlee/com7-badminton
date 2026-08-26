@@ -84,10 +84,21 @@ export default function ResultsPage() {
   const [matches, setMatches] = useState<any[][]>([]);
   const [standings, setStandings] = useState<any[][]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedGroup, setSelectedGroup] = useState('ทั้งหมด');
-  const [activeTab, setActiveTab] = useState<
-    'ตารางคะแนน' | 'ผลการแข่งขันทั้งหมด'
-  >('ตารางคะแนน');
+const [selectedGroup, setSelectedGroup] = useState('ทั้งหมด');
+
+const [selectedRound, setSelectedRound] = useState('รอบแบ่งกลุ่ม');
+
+const [activeTab, setActiveTab] = useState<
+  'ตารางคะแนน' | 'ผลการแข่งขันทั้งหมด'
+>('ตารางคะแนน');
+
+const rounds = [
+  'รอบแบ่งกลุ่ม',
+  'รอบ 16 คู่',
+  'รอบ 8 คู่',
+  'รอบรองชนะเลิศ',
+  'รอบชิงชนะเลิศ',
+];
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
@@ -146,47 +157,78 @@ export default function ResultsPage() {
     });
   }, [standings, normalizedSearch]);
 
-  const groupMatches = useMemo(() => {
-    return matches.filter((row) => {
-      const stage = String(row[1] || '').trim();
-      const group = String(row[5] || '').trim();
+const filteredMatches = useMemo(() => {
+  return matches.filter((row) => {
+    const stage = String(row[1] || '').trim();
 
-      if (stage !== 'รอบแบ่งกลุ่ม') {
-        return false;
-      }
+    // ต้องเป็นรอบที่เลือก
+    if (stage !== selectedRound) {
+      return false;
+    }
 
-      if (!GROUPS.includes(group)) {
-        return false;
-      }
+    // รอบแบ่งกลุ่มเท่านั้นที่ต้องมีสาย A-G
+    if (
+      selectedRound === 'รอบแบ่งกลุ่ม' &&
+      !GROUPS.includes(String(row[5] || '').trim())
+    ) {
+      return false;
+    }
 
-      if (!normalizedSearch) {
-        return true;
-      }
+    if (!normalizedSearch) {
+      return true;
+    }
 
-      return [
-        row[0],  // MatchID
-        row[2],  // MatchDate
-        row[3],  // MatchTime
-        row[4],  // Court
-        row[5],  // Group
-        row[6],  // TeamA
-        row[7],  // TeamAPlayer1
-        row[8],  // TeamADept1
-        row[9],  // TeamAPlayer2
-        row[10], // TeamADept2
-        row[11], // TeamB
-        row[12], // TeamBPlayer1
-        row[13], // TeamBDept1
-        row[14], // TeamBPlayer2
-        row[15], // TeamBDept2
-      ].some((value) =>
-        String(value || '')
-          .trim()
-          .toLowerCase()
-          .includes(normalizedSearch)
-      );
-    });
-  }, [matches, normalizedSearch]);
+    return [
+      row[0],
+      row[1],
+      row[2],
+      row[3],
+      row[4],
+      row[5],
+      row[6],
+      row[7],
+      row[8],
+      row[9],
+      row[10],
+      row[11],
+      row[12],
+      row[13],
+      row[14],
+      row[15],
+    ].some((value) =>
+      String(value || '')
+        .trim()
+        .toLowerCase()
+        .includes(normalizedSearch)
+    );
+  });
+}, [
+  matches,
+  normalizedSearch,
+  selectedRound,
+]);
+const displayMatches = useMemo(() => {
+  return filteredMatches.filter((match) => {
+    // รอบอื่นที่ไม่ใช่รอบแบ่งกลุ่ม
+    // ไม่ต้องกรองด้วยสาย
+    if (selectedRound !== 'รอบแบ่งกลุ่ม') {
+      return true;
+    }
+
+    // รอบแบ่งกลุ่มจึงค่อยกรองสาย
+    if (selectedGroup === 'ทั้งหมด') {
+      return true;
+    }
+
+    return (
+      String(match[5] || '').trim() === selectedGroup
+    );
+  });
+}, [
+  filteredMatches,
+  selectedRound,
+  selectedGroup,
+]);
 
 const getStandingsByGroup = (group: string) => {
   return filteredStandings
@@ -229,12 +271,12 @@ const getStandingsByGroup = (group: string) => {
     });
 };
 
-  const getMatchesByGroup = (group: string) => {
-    return groupMatches.filter(
-      (row) =>
-        String(row[5] || '').trim() === group
-    );
-  };
+const getMatchesByGroup = (group: string) => {
+  return filteredMatches.filter(
+    (row) =>
+      String(row[5] || '').trim() === group
+  );
+};
 
   return (
 <div className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden bg-[#070b14] p-4 pt-20 text-slate-100 md:p-8 md:pt-20">
@@ -336,41 +378,71 @@ const getStandingsByGroup = (group: string) => {
   </div>
 
   {/* ปุ่มสาย แสดงเฉพาะตอนกดผลการแข่งขันทั้งหมด */}
-  {activeTab === 'ผลการแข่งขันทั้งหมด' && (
-    <div className="flex flex-wrap gap-2 lg:justify-end">
-      <button
-        type="button"
-        onClick={() => setSelectedGroup('ทั้งหมด')}
-        className={`min-w-[82px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
-          selectedGroup === 'ทั้งหมด'
-            ? 'border-emerald-400 bg-[#081221] text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,.35)]'
-            : 'border-white/20 bg-[#081221] text-slate-300 hover:bg-[#0d1b2d]'
-        }`}
-      >
-        ทั้งหมด
-      </button>
+{activeTab === 'ผลการแข่งขันทั้งหมด' && (
+  <div className="flex flex-col gap-3 lg:items-end">
 
-      {GROUPS.map((group) => (
+    {/* ปุ่มเลือกรอบ */}
+    <div className="flex flex-wrap gap-2 lg:justify-end">
+      {rounds.map((round) => (
         <button
-          key={group}
+          key={round}
           type="button"
-          onClick={() => setSelectedGroup(group)}
-          className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all duration-200 ${
-            GROUP_BUTTONS[group]
-          } ${
-            selectedGroup === group
-              ? 'scale-105 ring-2 ring-white/60'
-              : 'opacity-90 hover:opacity-100'
+          onClick={() => {
+            setSelectedRound(round);
+            setSelectedGroup('ทั้งหมด');
+          }}
+          className={`rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
+            selectedRound === round
+              ? 'border-emerald-400 bg-emerald-600 text-white shadow-[0_0_18px_rgba(16,185,129,.35)]'
+              : 'border-white/20 bg-[#081221] text-slate-300 hover:border-emerald-400/50 hover:text-white'
           }`}
         >
-          {group}
+          {round}
         </button>
       ))}
     </div>
-  )}
+
+    {/* ปุ่มสาย A-G เฉพาะรอบแบ่งกลุ่ม */}
+    {selectedRound === 'รอบแบ่งกลุ่ม' && (
+      <div className="flex flex-wrap gap-2 lg:justify-end">
+
+        <button
+          type="button"
+          onClick={() => setSelectedGroup('ทั้งหมด')}
+          className={`min-w-[82px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
+            selectedGroup === 'ทั้งหมด'
+              ? 'border-emerald-400 bg-[#081221] text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,.35)]'
+              : 'border-white/20 bg-[#081221] text-slate-300 hover:bg-[#0d1b2d]'
+          }`}
+        >
+          ทั้งหมด
+        </button>
+
+        {GROUPS.map((group) => (
+          <button
+            key={group}
+            type="button"
+            onClick={() => setSelectedGroup(group)}
+            className={`min-w-[62px] rounded-xl border-2 px-4 py-3 text-sm font-black transition-all ${
+              GROUP_BUTTONS[group]
+            } ${
+              selectedGroup === group
+                ? 'scale-105 ring-2 ring-white/60'
+                : 'opacity-90 hover:opacity-100'
+            }`}
+          >
+            {group}
+          </button>
+        ))}
+
+      </div>
+    )}
+
+  </div>
+)}
 </div>
 
-        {!isFetched ? (
+                {!isFetched ? (
           <div className="py-24 text-center text-slate-400">
             กำลังโหลดข้อมูลการแข่งขัน...
           </div>
@@ -620,14 +692,8 @@ const getStandingsByGroup = (group: string) => {
  /* ผลการแข่งขันทั้งหมด */
 <div>
   <div className="space-y-4">
-    {groupMatches
-      .filter(
-        (match) =>
-          selectedGroup === 'ทั้งหมด' ||
-          String(match[5] || '').trim() === selectedGroup
-      )
-      .map((match, index) => {
-        const group = String(match[5] || '-');
+    {displayMatches.map((match, index) => {
+        const group = String(match[5] || '');
         const teamA = String(match[6] || 'TBD');
         const teamB = String(match[11] || 'TBD');
 
@@ -694,14 +760,17 @@ const winnerColor =
             {/* Mobile */}
             <article className="overflow-hidden rounded-2xl border border-white/20 bg-slate-950/80 md:hidden">
               <div className="flex items-center justify-between border-b border-white/15 px-4 py-3">
-                <span
-                  className={`inline-flex min-w-[72px] items-center justify-center rounded-lg border px-3 py-2 text-sm font-black ${
-                    GROUP_BUTTONS[group] ||
-                    'border-slate-500 bg-slate-600 text-white'
-                  }`}
-                >
-                  สาย {group}
-                </span>
+               <span
+  className={`inline-flex min-w-[72px] items-center justify-center rounded-lg border px-3 py-2 text-sm font-black ${
+    selectedRound === 'รอบแบ่งกลุ่ม' && GROUP_BUTTONS[group]
+      ? GROUP_BUTTONS[group]
+      : 'border-emerald-500/50 bg-emerald-600/20 text-emerald-400'
+  }`}
+>
+  {selectedRound === 'รอบแบ่งกลุ่ม'
+    ? `สาย ${group || '-'}`
+    : selectedRound}
+</span>
 
                 <span className="text-sm font-black text-slate-300">
                   ทีม {teamA} vs {teamB} 🏸
@@ -836,14 +905,17 @@ const winnerColor =
             <article className="hidden w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/75 shadow-[0_12px_30px_rgba(0,0,0,.3)] md:block">
               <div className="grid grid-cols-[130px_1fr_230px_1fr_180px]">
                 <div className="flex items-center justify-center border-r border-white/20 p-5">
-                  <span
-                    className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
-                      GROUP_BUTTONS[group] ||
-                      'border-slate-500 bg-slate-600 text-white'
-                    }`}
-                  >
-                    สาย {group}
-                  </span>
+                 <span
+  className={`inline-flex min-w-[88px] items-center justify-center rounded-xl border px-4 py-3 text-base font-black ${
+    selectedRound === 'รอบแบ่งกลุ่ม' && GROUP_BUTTONS[group]
+      ? GROUP_BUTTONS[group]
+      : 'border-emerald-500/50 bg-emerald-600/20 text-emerald-400'
+  }`}
+>
+  {selectedRound === 'รอบแบ่งกลุ่ม'
+    ? `สาย ${group || '-'}`
+    : selectedRound}
+</span>
                 </div>
 
                 <div className="border-r border-white/20 p-5">
@@ -953,15 +1025,11 @@ const winnerColor =
         );
       })}
 
-    {groupMatches.filter(
-      (match) =>
-        selectedGroup === 'ทั้งหมด' ||
-        String(match[5] || '').trim() === selectedGroup
-    ).length === 0 && (
-      <div className="rounded-xl border border-white/20 bg-slate-950/60 px-4 py-16 text-center text-slate-500">
-        ยังไม่มีผลการแข่งขันในสายที่เลือก
-      </div>
-    )}
+{displayMatches.length === 0 && (
+  <div className="rounded-xl border border-white/20 bg-slate-950/60 px-4 py-16 text-center text-slate-500">
+    ยังไม่มีผลการแข่งขันในสายที่เลือก
+  </div>
+)}
   </div>
 </div>
         )}
@@ -971,7 +1039,7 @@ const winnerColor =
           <span className="mr-2 text-blue-400">
             ℹ
           </span>
-          การจัดอันดับอ้างอิงจากคะแนนรวม ตามด้วยจำนวนชนะ
+          การจัดอันดับอ้างอิงจากคะแนนรวม ตามด้วยแต้มได้เสีย
           และชื่อทีมตามลำดับ
         </div>
       </div>
