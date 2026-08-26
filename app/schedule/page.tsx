@@ -684,21 +684,20 @@ const scoreB =
     );
   })}
 {/* รอบรองชนะเลิศ -> รอบชิงชนะเลิศ */}
-
 <path
-  d="M888 352 H940 V600 H1010"
+  d="M888 600 H1010"
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
 />
 
+{/* รอบชิงชนะเลิศ -> Champion */}
 <path
-  d="M888 992 H940 V600 H1010"
+  d="M1128 600 H1224"
   fill="none"
   stroke="#10b981"
   strokeWidth="3"
 />
-
 </svg>
    {/* รอบ 16 */}
 <div className="flex flex-col">
