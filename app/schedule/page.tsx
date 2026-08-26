@@ -189,6 +189,14 @@ const getGroupClass = (group: string) => {
     'bg-slate-600 border-slate-400/40 text-white'
   );
 };
+const getTeamGroup = (team: string) => {
+  const value = String(team || '').trim().toUpperCase();
+
+  // A1, A2, B1, B2, C1 ...
+  const match = value.match(/^([A-G])/);
+
+  return match ? match[1] : '';
+};
 
   return (
     <div className="w-full min-h-screen bg-[#070b14] text-slate-100 p-4 md:p-10 pt-28 select-none relative flex flex-col items-center font-sans">
@@ -558,7 +566,7 @@ const scoreB =
                   {/* รหัสทีมติดใกล้ VS */}
                   <div
                     className={`ml-6 flex h-11 w-[58px] items-center justify-center rounded-lg border-2 text-sm font-black transition-all ${getGroupClass(
-                      group
+                      getTeamGroup(m[6])
                     )}`}
                   >
                     {m[6] || '-'}
@@ -579,9 +587,9 @@ const scoreB =
 
                   {/* รหัสทีมติดใกล้ VS */}
                   <div
-                    className={`mr-6 flex h-11 w-[58px] items-center justify-center rounded-lg border-2 text-sm font-black transition-all ${getGroupClass(
-                      group
-                    )}`}
+                   className={`mr-6 flex h-11 w-[58px] items-center justify-center rounded-lg border-2 text-sm font-black transition-all ${getGroupClass(
+              getTeamGroup(m[11])
+            )}`}
                   >
                     {m[11] || '-'}
                   </div>
