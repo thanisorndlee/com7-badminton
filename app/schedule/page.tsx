@@ -952,7 +952,7 @@ const scoreB =
         </h3>
 
         <div
-          className="absolute -left-5 flex w-36 flex-col items-center"
+          className="absolute -left-7 flex w-36 flex-col items-center"
           style={{
             top: `560px`,
           }}
