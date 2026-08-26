@@ -276,47 +276,98 @@ const allStageMatches = useMemo(() => {
 ]);
 
 const getStandingsByGroup = (group: string) => {
-  return filteredStandings
-    .filter(
-      (row) =>
-        String(row[1] || '').trim() === group
-    )
-    .sort((a, b) => {
-      // คะแนน
-      const pointA = Number(a[6] || 0);
-      const pointB = Number(b[6] || 0);
+  const groupRows = filteredStandings.filter(
+    (row) =>
+      String(row[1] || '').trim() === group
+  );
 
-      if (pointA !== pointB) {
-        return pointB - pointA;
+  // คำนวณแต้มได้เสียจากผลการแข่งขันจริง
+  const pointDiffMap: Record<string, number> = {};
+
+  matches.forEach((match) => {
+    const stage = String(match[1] || '').trim();
+    const matchGroup = String(match[5] || '').trim();
+
+    if (
+      stage !== 'รอบแบ่งกลุ่ม' ||
+      matchGroup !== group
+    ) {
+      return;
+    }
+
+    const teamA = String(match[6] || '').trim();
+    const teamB = String(match[11] || '').trim();
+
+    if (!teamA || !teamB) return;
+
+    if (!(teamA in pointDiffMap)) {
+      pointDiffMap[teamA] = 0;
+    }
+
+    if (!(teamB in pointDiffMap)) {
+      pointDiffMap[teamB] = 0;
+    }
+
+    // Set 1
+    const sets = [
+      [match[16], match[17]],
+      [match[18], match[19]],
+      [match[20], match[21]],
+    ];
+
+    sets.forEach(([scoreA, scoreB]) => {
+      if (
+        scoreA === '' ||
+        scoreA == null ||
+        scoreB === '' ||
+        scoreB == null
+      ) {
+        return;
       }
 
-      // ชนะ
-      const winA = Number(a[3] || 0);
-      const winB = Number(b[3] || 0);
+      const a = Number(scoreA);
+      const b = Number(scoreB);
 
-      if (winA !== winB) {
-        return winB - winA;
+      if (Number.isNaN(a) || Number.isNaN(b)) {
+        return;
       }
 
-      // แต้มได้เสีย
-      const diffA = Number(
-        String(a[9] || 0).replace(/,/g, '')
-      );
-
-      const diffB = Number(
-        String(b[9] || 0).replace(/,/g, '')
-      );
-
-      if (diffA !== diffB) {
-        return diffB - diffA;
-      }
-
-      // ถ้ายังเท่ากัน ให้เรียงชื่อทีม
-      return String(a[0] || '').localeCompare(
-        String(b[0] || ''),
-        'th'
-      );
+      pointDiffMap[teamA] += a - b;
+      pointDiffMap[teamB] += b - a;
     });
+  });
+
+  return [...groupRows].sort((a, b) => {
+    // 1. คะแนน
+    const pointA = Number(a[6] || 0);
+    const pointB = Number(b[6] || 0);
+
+    if (pointA !== pointB) {
+      return pointB - pointA;
+    }
+
+    // 2. จำนวนชนะ
+    const winA = Number(a[3] || 0);
+    const winB = Number(b[3] || 0);
+
+    if (winA !== winB) {
+      return winB - winA;
+    }
+
+    // 3. แต้มได้เสียจากผลการแข่งขันจริง
+    const teamA = String(a[0] || '').trim();
+    const teamB = String(b[0] || '').trim();
+
+    const diffA = pointDiffMap[teamA] || 0;
+    const diffB = pointDiffMap[teamB] || 0;
+
+    if (diffA !== diffB) {
+      return diffB - diffA;
+    }
+
+    // 4. ถ้ายังเท่ากัน
+    return teamA.localeCompare(teamB, 'th');
+  });
 };
 
   const getMatchesByGroup = (group: string) => {
