@@ -114,6 +114,9 @@ const tableMatches = useMemo(() => {
    if (selectedRound === 'รอบ 8 คู่') {
     return filtered.slice(0, 4);
   }
+  if (selectedRound === 'รอบรองชนะเลิศ') {
+  return filtered.slice(0, 2);
+}
 
   return filtered;
 }, [
