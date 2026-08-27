@@ -164,7 +164,7 @@ const BracketBox = ({ match }: { match: any }) => {
   return (
     <div className="flex h-12 w-36 items-center justify-center rounded-xl border border-emerald-500/30 bg-gradient-to-br from-black/90 to-slate-900/90 backdrop-blur-md shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all hover:scale-105">
       <span className="text-center text-sm font-bold text-white">
-        {match[5] || '-'}
+        {match[0] || '-'}
       </span>
     </div>
   );
