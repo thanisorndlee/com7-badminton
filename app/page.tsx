@@ -32,86 +32,94 @@ export default function HomePage() {
   }, [sponsors.length]);
 
   return (
-    <div className="w-full h-[calc(100vh-68px)] relative overflow-hidden bg-black select-none">
+    <div className="w-full min-h-[calc(100vh-68px)] relative bg-black select-none overflow-x-hidden">
+
       <style jsx global>{`
         @keyframes sponsorSlide {
+          0% {
+            opacity: 0;
+            transform: translateY(80px) scale(.92);
+          }
 
-  0%{
-    opacity:0;
-    transform:translateY(80px) scale(.92);
-  }
+          12% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
 
-  12%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+          88% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
 
-  88%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+          100% {
+            opacity: 0;
+            transform: translateY(-80px) scale(.96);
+          }
+        }
 
-  100%{
-    opacity:0;
-    transform:translateY(-80px) scale(.96);
-  }
-
-}
-
-.animate-slide-up{
-    animation:sponsorSlide 4.2s cubic-bezier(.19,1,.22,1);
-}
+        .animate-slide-up {
+          animation: sponsorSlide 4.2s cubic-bezier(.19,1,.22,1);
+        }
       `}</style>
 
-      {/* Background */}
-      <div className="absolute inset-0 z-0 bg-black">
+      {/* ==================== BACKGROUND ==================== */}
+      <div className="relative w-full bg-black">
+
+        {/* Desktop */}
         <img
           src="/badminton-main.jpg"
-          className="hidden md:block w-full h-full object-cover object-top"
+          className="hidden md:block w-full h-auto"
           alt="Badminton Background"
         />
+
+        {/* Mobile */}
         <img
           src="/badminton-main-mobile-v3.PNG"
-          className="block md:hidden w-full h-full object-cover object-[75%_center]"
+          className="block md:hidden w-full h-auto"
           alt="Badminton Background Mobile"
         />
 
-        {/* ลดดำด้านล่าง ไม่ให้เหมือนมีกล่องใหญ่ */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-10" />
-      </div>
+        {/* Gradient ด้านล่าง */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
 
-      {/* Sponsor Floating Slider */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-        <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-[10px] md:text-[11px] mb-4 drop-shadow-[0_0_12px_rgba(57,255,20,.8)]">          
-          SPONSORED BY
-        </h3>
+        {/* ==================== SPONSOR ==================== */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
 
-        <div className="relative w-[300px] h-[75px] overflow-hidden flex items-center justify-center">
+          <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-[10px] md:text-[11px] mb-4 drop-shadow-[0_0_12px_rgba(57,255,20,.8)]">
+            SPONSORED BY
+          </h3>
+
+          <div className="relative w-[300px] h-[75px] overflow-hidden flex items-center justify-center">
+
             <img
-            key={current}
-            src={sponsors[current].logo}
-            alt={sponsors[current].name}
-            className="animate-slide-up max-h-[56px] md:max-h-[62px] max-w-[260px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
-          />
-        </div>
-
-        <h2 className="mt-2 text-center text-base md:text-lg font-black tracking-[0.18em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,.4)]">
-            {sponsors[current].name}
-        </h2>
-
-        <div className="flex justify-center gap-2 mt-2">
-          {sponsors.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-              current === index
-                ? 'bg-[#39ff14] scale-150 shadow-[0_0_10px_#39ff14]'
-                : 'bg-white/35'
-            }`}
+              key={current}
+              src={sponsors[current].logo}
+              alt={sponsors[current].name}
+              className="animate-slide-up max-h-[56px] md:max-h-[62px] max-w-[260px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
             />
-          ))}
+
+          </div>
+
+          <h2 className="mt-2 text-center text-base md:text-lg font-black tracking-[0.18em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,.4)]">
+            {sponsors[current].name}
+          </h2>
+
+          <div className="flex justify-center gap-2 mt-2">
+            {sponsors.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  current === index
+                    ? 'bg-[#39ff14] scale-150 shadow-[0_0_10px_#39ff14]'
+                    : 'bg-white/35'
+                }`}
+              />
+            ))}
+          </div>
+
         </div>
+
       </div>
     </div>
   );
