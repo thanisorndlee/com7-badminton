@@ -66,12 +66,12 @@ export default function HomePage() {
       {/* Background */}
       <div className="absolute inset-0 z-0 bg-black">
         <img
-          src="/badminton-main.png"
+          src="/badminton-main.jpg"
           className="hidden md:block w-full h-full object-cover object-top"
           alt="Badminton Background"
         />
         <img
-          src="/badminton-main-mobile-v3.PNG"
+          src="/badminton-main-mobile-v3.jpg"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
           alt="Badminton Background Mobile"
         />
