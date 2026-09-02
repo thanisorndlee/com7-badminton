@@ -71,7 +71,7 @@ export default function HomePage() {
           alt="Badminton Background"
         />
         <img
-          src="/badminton-main-mobile-v3.jpg"
+          src="/badminton-main-mobile-v3.PNG"
           className="block md:hidden w-full h-full object-cover object-[75%_center]"
           alt="Badminton Background Mobile"
         />
