@@ -67,14 +67,14 @@ export default function HomePage() {
 
         {/* Desktop */}
         <img
-          src="/badminton-main.jpg"
+          src="/badminton-main.png"
           className="hidden md:block w-full h-auto"
           alt="Badminton Background"
         />
 
         {/* Mobile */}
         <img
-          src="/badminton-main-mobile-v3.jpg"
+          src="/badminton-main-mobile-v3.png"
           className="block md:hidden w-full h-auto"
           alt="Badminton Background Mobile"
         />
