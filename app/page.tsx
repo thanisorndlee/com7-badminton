@@ -81,46 +81,41 @@ export default function HomePage() {
 
       </div>
 
-      {/*
-      =====================================================
-      SPONSOR — ซ่อนไว้ชั่วคราว
-      =====================================================
+      {/* ==================== SPONSOR ==================== */}
+<div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+  <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-[10px] md:text-[11px] mb-4 drop-shadow-[0_0_12px_rgba(57,255,20,.8)]">
+    SPONSORED BY
+  </h3>
 
-        <h3 className="text-[#39ff14] font-black tracking-[0.35em] uppercase text-[10px] md:text-[11px] mb-4 drop-shadow-[0_0_12px_rgba(57,255,20,.8)]">
-          SPONSORED BY
-        </h3>
+  <div className="relative w-[300px] h-[75px] overflow-hidden flex items-center justify-center">
+    <img
+      key={current}
+      src={sponsors[current].logo}
+      alt={sponsors[current].name}
+      className="animate-slide-up max-h-[56px] md:max-h-[62px] max-w-[260px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
+    />
+  </div>
 
-        <div className="relative w-[300px] h-[75px] overflow-hidden flex items-center justify-center">
-          <img
-            key={current}
-            src={sponsors[current].logo}
-            alt={sponsors[current].name}
-            className="animate-slide-up max-h-[56px] md:max-h-[62px] max-w-[260px] object-contain drop-shadow-[0_0_18px_rgba(0,0,0,.85)]"
-          />
-        </div>
+  <h2 className="mt-2 text-center text-base md:text-lg font-black tracking-[0.18em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,.4)]">
+    {sponsors[current].name}
+  </h2>
 
-        <h2 className="mt-2 text-center text-base md:text-lg font-black tracking-[0.18em] text-white">
-          {sponsors[current].name}
-        </h2>
+  <div className="flex justify-center gap-2 mt-2">
+    {sponsors.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrent(index)}
+        className={`w-2 h-2 rounded-full transition-all ${
+          current === index
+            ? 'bg-[#39ff14] scale-150 shadow-[0_0_10px_#39ff14]'
+            : 'bg-white/35'
+        }`}
+      />
+    ))}
+  </div>
 
-        <div className="flex justify-center gap-2 mt-2">
-          {sponsors.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`w-2 h-2 rounded-full ${
-                current === index
-                  ? 'bg-[#39ff14] scale-150'
-                  : 'bg-white/35'
-              }`}
-            />
-          ))}
-        </div>
-
-      </div>
-      */}
+</div>
 
     </div>
   );
